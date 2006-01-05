@@ -3,7 +3,7 @@
 Plugin Name: WP-Polls
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Adds A Poll Feature To WordPress
-Version: 2.03
+Version: 2.04
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
 */
@@ -146,8 +146,16 @@ function display_pollvote($poll_id) {
 			// Print Out Voting Form Body Template
 			echo $template_answer;
 		}
+		// Determine Poll Result URL
+		$poll_result_url = $_SERVER['REQUEST_URI'];
+		if(strpos($poll_result_url, '?') !== false) {
+			$poll_result_url = $poll_result_url.'&pollresult=1';
+		} else {
+			$poll_result_url = $poll_result_url.'?pollresult=1';
+		}
 		// Voting Form Footer Variables
 		$template_footer = stripslashes(get_settings('poll_template_votefooter'));
+		$template_footer = str_replace("%POLL_RESULT_URL%", $poll_result_url, $template_footer);
 		// Print Out Voting Form Footer Template
 		echo $template_footer;
 		echo "</form>\n";

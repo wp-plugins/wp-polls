@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.03										|
+|	WordPress 2.0 Plugin: WP-Polls 2.04										|
 |	Copyright (c) 2005 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -28,18 +28,6 @@ $id = intval($_GET['id']);
 
 ### Require Admin Header
 require("./admin-header.php");
-
-### Magic Quotes GPC
-if (get_magic_quotes_gpc()) {
-   function traverse(&$arr) {
-       if(!is_array($arr))
-           return;
-       foreach($arr as $key => $val)
-           is_array($arr[$key]) ? traverse($arr[$key]) : ($arr[$key] = stripslashes($arr[$key]));
-   }
-   $gpc = array(&$_GET, &$_POST, &$_COOKIE);
-   traverse($gpc);
-}
 
 ### If Form Is Submitted
 if($_POST['Submit']) {
@@ -117,7 +105,7 @@ function poll_default_templates(template) {
 			default_template = "<tr>\n<td align=\"left\"><input type=\"radio\" name=\"poll-%POLL_ID%\" value=\"%POLL_ANSWER_ID%\" />&nbsp;%POLL_ANSWER%</td>\n</tr>";
 			break;
 		case "votefooter":
-			default_template = "<tr>\n<td align=\"center\"><input type=\"submit\" name=\"vote\" value=\"   Vote   \" class=\"Buttons\" /><br /><a href=\"index.php?pollresult=1\">View Results</a></td>\n</tr>\n</table>";
+			default_template = "<tr>\n<td align=\"center\"><input type=\"submit\" name=\"vote\" value=\"   Vote   \" class=\"Buttons\" /><br /><a href=\"%POLL_RESULT_URL%\">View Results</a></td>\n</tr>\n</table>";
 			break;
 		case "resultheader":
 			default_template = "<table width=\"100%\" border=\"0\" cellspacing=\"3\" cellpadding=\"3\">\n<tr>\n<td colspan=\"2\" align=\"center\"><b>%POLL_QUESTION%</b></td>\n</tr>";
@@ -247,7 +235,7 @@ function poll_default_templates(template) {
 					<td><b>%POLL_ANSWER_VOTES%</b> - <?php _e('Display the poll\'s answer votes'); ?></td>
 				</tr>
 				<tr>
-					<td>&nbsp;</td>
+					<td><b>%POLL_RESULT_URL%</b> - <?php _e('Displays URL to poll\'s result'); ?></td>
 					<td><b>%POLL_ANSWER_PERCENTAGE%</b> - <?php _e('Display the poll\'s answer percentage'); ?></td>
 				</tr>
 				<tr>
@@ -286,7 +274,7 @@ function poll_default_templates(template) {
 					<td width="30%" align="left">
 						<b><?php _e('Voting Form Footer:'); ?></b><br /><br /><br />
 							<?php _e('Allowed Variables:'); ?><br />
-							- N/A<br /><br />
+							- %POLL_RESULT_URL%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('votefooter');" class="button" />
 					</td>
 					<td width="70%" align="right"><textarea cols="60" rows="10" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo stripslashes(get_settings('poll_template_votefooter')); ?></textarea></td> 

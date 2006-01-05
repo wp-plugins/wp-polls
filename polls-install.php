@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.03										|
+|	WordPress 2.0 Plugin: WP-Polls 2.04										|
 |	Copyright (c) 2005 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -10,7 +10,7 @@
 |	- http://www.lesterchan.net													|
 |																							|
 |	File Information:																	|
-|	- Install WP-Polls 2.03															|
+|	- Install WP-Polls 2.04															|
 |	- wp-admin/polls-install.php													|
 |																							|
 +----------------------------------------------------------------+
@@ -64,7 +64,7 @@ $insert_polla[] = "INSERT INTO $wpdb->pollsa VALUES (5, 1, 'No Comments', 0);";
 ### Insert Options  (16 Rows)
 $insert_options[] ="INSERT INTO $wpdb->options VALUES (0, 0, 'poll_template_voteheader', 'Y', 1, '<table width=\\\"100%\\\" border=\\\"0\\\" cellspacing=\\\"3\\\" cellpadding=\\\"3\\\">\r\n<tr>\r\n<td align=\\\"center\\\"><b>%POLL_QUESTION%</b></td>\r\n</tr>', 20, 8, 'Template For Poll''s Question', 1, 'yes');";
 $insert_options[] ="INSERT INTO $wpdb->options VALUES (0, 0, 'poll_template_votebody', 'Y', 1, '<tr>\r\n<td align=\\\"left\\\"><input type=\\\"radio\\\" name=\\\"poll-%POLL_ID%\\\" value=\\\"%POLL_ANSWER_ID%\\\" /> %POLL_ANSWER%</td>\r\n</tr>', 20, 8, 'Template For Poll''s Answers', 1, 'yes');";
-$insert_options[] ="INSERT INTO $wpdb->options VALUES (0, 0, 'poll_template_votefooter', 'Y', 1, '<tr>\r\n<td align=\\\"center\\\"><input type=\\\"submit\\\" name=\\\"vote\\\" value=\\\"   Vote   \\\" class=\\\"Buttons\\\" /><br /><a href=\\\"index.php?pollresult=1\\\">View Results</a></td>\r\n</tr>\r\n</table>', 20, 8, 'Template For Poll''s Voting Footer', 1, 'yes');";
+$insert_options[] ="INSERT INTO $wpdb->options VALUES (0, 0, 'poll_template_votefooter', 'Y', 1, '<tr>\r\n<td align=\\\"center\\\"><input type=\\\"submit\\\" name=\\\"vote\\\" value=\\\"   Vote   \\\" class=\\\"Buttons\\\" /><br /><a href=\\\"%POLL_RESULT_URL%\\\">View Results</a></td>\r\n</tr>\r\n</table>', 20, 8, 'Template For Poll''s Voting Footer', 1, 'yes');";
 $insert_options[] ="INSERT INTO $wpdb->options VALUES (0, 0, 'poll_template_resultheader', 'Y', 1, '<table width=\\\"100%\\\" border=\\\"0\\\" cellspacing=\\\"3\\\" cellpadding=\\\"3\\\">\r\n<tr>\r\n<td colspan=\\\"2\\\" align=\\\"center\\\"><b>%POLL_QUESTION%</b></td>\r\n</tr>', 20, 8, '', 1, 'yes');";
 $insert_options[] ="INSERT INTO $wpdb->options VALUES (0, 0, 'poll_template_resultbody', 'Y', 1, '<tr>\r\n<td align=\\\"left\\\" width=\\\"70%\\\">%POLL_ANSWER%<br /><img src=\\\"".get_settings('home')."/wp-includes/images/pollbar.gif\\\" height=\\\"5\\\" width=\\\"%POLL_ANSWER_IMAGEWIDTH%\\\" alt=\\\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\\\" /></td>\r\n<td align=\\\"right\\\" width=\\\"30%\\\"><b>%POLL_ANSWER_PERCENTAGE%%</b></td>\r\n</tr>', 20, 8, '', 1, 'yes');";
 $insert_options[] ="INSERT INTO $wpdb->options VALUES (0, 0, 'poll_template_resultbody2', 'Y', 1, '<tr>\r\n<td align=\\\"left\\\" width=\\\"70%\\\"><i>%POLL_ANSWER%</i><br /><img src=\\\"".get_settings('home')."/wp-includes/images/pollbar.gif\\\" height=\\\"5\\\" width=\\\"%POLL_ANSWER_IMAGEWIDTH%\\\" alt=\\\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\\\" /></td>\r\n<td align=\\\"right\\\" width=\\\"30%\\\"><i><b>%POLL_ANSWER_PERCENTAGE%%</b></i></td>\r\n</tr>', 20, 8, '', 1, 'yes');";
@@ -86,14 +86,14 @@ if($check_install) {
 	$error = __('You Had Already Installed WP-Polls.');
 }
 if(empty($wpdb->pollsq) || empty($wpdb->pollsa) || empty($wpdb->pollsip)) {
-	$error = __('Please Define The pollsq, pollsa and pollsip in wp-settings.php.');
+	$error = __('Please Define The pollsq, pollsa and pollsip tables in wp-settings.php.');
 }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>WordPress &rsaquo; <?php _e('Installing'); ?> &rsaquo; <?php _e('WP-Polls 2.03'); ?></title>
+	<title>WordPress &rsaquo; <?php _e('Installing'); ?> &rsaquo; <?php _e('WP-Polls 2.04'); ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<style type="text/css" media="screen">
 		@import url( wp-admin.css );
@@ -101,8 +101,8 @@ if(empty($wpdb->pollsq) || empty($wpdb->pollsa) || empty($wpdb->pollsip)) {
 </head>
 <body>
 	<div class="wrap"> 
-		<h2><?php _e('Install WP-Polls 2.03'); ?></h2>
-		<p><?php _e('This install script will install WP-Polls 2.03 for your Wordpress'); ?>.</p>
+		<h2><?php _e('Install WP-Polls 2.04'); ?></h2>
+		<p><?php _e('This install script will install WP-Polls 2.04 for your Wordpress'); ?>.</p>
 		<p>
 			<?php _e('This install script will be doing the following:'); ?><br />
 			<b>&raquo;</b> <b>3</b> <?php _e('tables will be created namely <b>pollsq</b>, <b>pollsa</b> and <b>pollsip</b>.'); ?><br />
@@ -203,12 +203,12 @@ if(empty($wpdb->pollsq) || empty($wpdb->pollsa) || empty($wpdb->pollsip)) {
 					echo "<br /><b>&raquo;</b> <b>$optimize_table_count / 4</b> Tables Optimized.</p>";
 					// Check Whether Install Is Successful
 					if($create_table_count == 3 && $insert_pollq_count == 1 && $insert_polla_count == 5 && $insert_options_count == 16) {
-						echo '<p align="center"><b>'.__('WP-Polls 2.03 Installed Successfully.').'</b><br />'.__('Please remember to delete this file before proceeding on.').'</p>';
+						echo '<p align="center"><b>'.__('WP-Polls 2.04 Installed Successfully.').'</b><br />'.__('Please remember to delete this file before proceeding on.').'</p>';
 					}
 				} else {
 		?>
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-					<div align="center"><input type="submit" name="install" value="<?php _e('Click Here To Install WP-Polls 2.03'); ?>" class="button"></div>
+					<div align="center"><input type="submit" name="install" value="<?php _e('Click Here To Install WP-Polls 2.04'); ?>" class="button"></div>
 				</form>
 		<?php
 				}
