@@ -294,4 +294,24 @@ function get_ipaddress() {
 	}
 	return $ip_address;
 }
+
+
+### Function: Place Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
+add_filter('the_content', 'place_poll', '12');
+function place_poll($content){
+     $content = preg_replace( "/\[poll=(\d+)\]/ise", "display_poll('\\1')", $content); 
+    return $content;
+}
+
+
+### Function: Display The Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
+function display_poll($poll_id, $display_pollarchive = true){
+	if (function_exists('vote_poll')){
+		if($display_pollarchive) {
+			return get_poll($poll_id)."\n".'<p><a href="'.get_settings('home').'/wp-polls.php">Polls Archive</a></p>';
+		} else {
+			return get_poll($poll_id);
+		}
+	}
+}
 ?>

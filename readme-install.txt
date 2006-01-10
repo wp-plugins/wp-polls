@@ -61,6 +61,6 @@ Add:
 
 Note:
 ------------------------------------------------------------------
-To show specific poll, use <?php get_poll(<ID>);?> where <ID> is your
-poll id.
+To show specific poll, use <?php get_poll(<ID>);?> where <ID> is your poll id.
+To embed a specific poll in your post, use [poll=<ID>] where <ID> is your poll id.
 ------------------------------------------------------------------

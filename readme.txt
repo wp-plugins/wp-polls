@@ -9,13 +9,14 @@ Updated	-> 1st February 2006
 
 
 // Version 2.04 (01-02-2006)
+- NEW: [poll=POLL_ID] Tag To Insert Poll Into A Post
 - NEW: Ability To Edit Poll's Timestamp
 - NEW: Ability To Edit Individual Poll's Answer Votes
 - NEW: %POLL_RESULT_URL% To Display Poll's Result URL
 - FIXED: Cannot Sent Header Error
 
 // Version 2.03 (01-01-2006)
-- NEW: Compatible With WordPress 2.0
+- NEW: Compatible With WordPress 2.0 Only
 - NEW: Poll Administration Menu Added Automatically Upon Activating The Plugin
 - NEW: Removed Add Poll Link From The Administration Menu
 - NEW: GPL License Added
