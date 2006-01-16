@@ -33,15 +33,25 @@ $wpdb->pollsa					= $table_prefix . 'pollsa';
 $wpdb->pollsip					= $table_prefix . 'pollsip';
 
 
-### Function: Poll Menu
+### Function: Poll Administration Menu
 add_action('admin_menu', 'poll_menu');
 function poll_menu() {
 	if (function_exists('add_menu_page')) {
-		add_menu_page('Polls', 'Polls', 1, 'polls-manager.php');
+		add_menu_page(__('Polls'), __('Polls'), 'manage_polls', 'polls-manager.php');
 	}
 	if (function_exists('add_submenu_page')) {
-		add_submenu_page('polls-manager.php', __('Manage Polls'), __('Manage Polls'), 1, 'polls-manager.php');
-		add_submenu_page('polls-manager.php', __('Poll Option'), __('Poll Option'), 1, 'polls-options.php');
+		add_submenu_page('polls-manager.php', __('Manage Polls'), __('Manage Polls'), 'manage_polls', 'polls-manager.php');
+		add_submenu_page('polls-manager.php', __('Poll Option'), __('Poll Option'), 'manage_polls', 'polls-options.php');
+	}
+}
+
+
+### Function: Poll Administration Role
+add_action('admin_head', 'poll_role');
+function poll_role() {
+	if(function_exists('get_role')) {
+		$role = get_role('administrator');
+		$role->add_cap('manage_polls');
 	}
 }
 
@@ -129,7 +139,7 @@ function display_pollvote($poll_id) {
 	// If There Is Poll Question With Answers
 	if($poll_question && $poll_answers) {
 		// Display Poll Voting Form
-		echo '<form action="'.$_SERVER['REQUEST_URI'].'" name="polls" method="post">'."\n";
+		echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post">'."\n";
 		echo "<input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" />\n";
 		// Print Out Voting Form Header Template
 		echo $template_question;

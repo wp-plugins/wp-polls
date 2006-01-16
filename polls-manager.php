@@ -20,6 +20,13 @@
 ### Require Admin
 require_once('admin.php');
 
+
+### Check Whether User Can Manage Polls
+if(!current_user_can('manage_polls')) {
+	die('Access Denied');
+}
+
+
 ### Variables Variables Variables
 $title = __('Manage Polls');
 $this_file = 'polls-manager.php';
@@ -28,11 +35,13 @@ $mode = trim($_GET['mode']);
 $poll_id = intval($_GET['id']);
 $poll_aid = intval($_GET['aid']);
 
+
 ### Cancel
 if(isset($_POST['cancel'])) {
 	Header('Location: polls-manager.php');
 	exit();
 }
+
 
 ### Form Processing 
 if(!empty($_POST['do'])) {

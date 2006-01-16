@@ -20,14 +20,23 @@
 ### Require Admin
 require_once('admin.php');
 
+
+### Check Whether User Can Manage Polls
+if(!current_user_can('manage_polls')) {
+	die('Access Denied');
+}
+
+
 ### Variables Variables Variables
 $title = __('Poll Options');
 $this_file = 'polls-options.php';
 $parent_file = 'polls-manager.php';
 $id = intval($_GET['id']);
 
+
 ### Require Admin Header
 require("./admin-header.php");
+
 
 ### If Form Is Submitted
 if($_POST['Submit']) {
@@ -114,7 +123,7 @@ function poll_default_templates(template) {
 			default_template = "<tr>\n<td align=\"left\" width=\"70%\">%POLL_ANSWER%<br /><img src=\"<?php echo get_settings('home'); ?>/wp-includes/images/pollbar.gif\" height=\"5\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" /></td>\n<td align=\"right\" width=\"30%\"><b>%POLL_ANSWER_PERCENTAGE%%</b></td>\n</tr>";
 			break;
 		case "resultbody2":
-			default_template = "<tr>\n<td align=\"left\" width=\"70%\"><i>%POLL_ANSWER%</i><br /><img src=\"<?php echo get_settings('home'); ?>/wp-includes/pollbar.gif\" height=\"5\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" /></td>\n<td align=\"right\" width=\"30%\"><i><b>%POLL_ANSWER_PERCENTAGE%%</b></i></td>\n</tr>";
+			default_template = "<tr>\n<td align=\"left\" width=\"70%\"><i>%POLL_ANSWER%</i><br /><img src=\"<?php echo get_settings('home'); ?>/wp-includes/images/pollbar.gif\" height=\"5\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" /></td>\n<td align=\"right\" width=\"30%\"><i><b>%POLL_ANSWER_PERCENTAGE%%</b></i></td>\n</tr>";
 			break;
 		case "resultfooter":
 			default_template = "<tr>\n<td colspan=\"2\" align=\"center\">Total Votes: <b>%POLL_TOTALVOTES%</b><td>\n</tr>\n</table>";

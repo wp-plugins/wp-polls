@@ -9,6 +9,7 @@ Updated	-> 1st February 2006
 
 
 // Version 2.04 (01-02-2006)
+- NEW: Added 'manage_polls' Capabilities To Administrator Role
 - NEW: [poll=POLL_ID] Tag To Insert Poll Into A Post
 - NEW: Ability To Edit Poll's Timestamp
 - NEW: Ability To Edit Individual Poll's Answer Votes
