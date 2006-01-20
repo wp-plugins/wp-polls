@@ -9,6 +9,24 @@ Author URI: http://www.lesterchan.net
 */
 
 
+### Polls Table Name
+$wpdb->pollsq					= $table_prefix . 'pollsq';
+$wpdb->pollsa					= $table_prefix . 'pollsa';
+$wpdb->pollsip					= $table_prefix . 'pollsip';
+
+
+### Function: Poll Administration Menu
+add_action('admin_menu', 'poll_menu');
+function poll_menu() {
+	if (function_exists('add_menu_page')) {
+		add_menu_page(__('Polls'), __('Polls'), 'manage_polls', 'polls-manager.php');
+	}
+	if (function_exists('add_submenu_page')) {
+		add_submenu_page('polls-manager.php', __('Manage Polls'), __('Manage Polls'), 'manage_polls', 'polls-manager.php');
+		add_submenu_page('polls-manager.php', __('Poll Option'), __('Poll Option'), 'manage_polls', 'polls-options.php');
+	}
+}
+
 ### Function: Get Poll
 function get_poll($temp_poll_id = 0) {
 	global $wpdb;
@@ -200,6 +218,7 @@ function display_pollresult($poll_id, $user_voted = 0) {
 
 
 ### Function: Vote Poll
+add_action('init', 'vote_poll');
 function vote_poll() {
 	global $wpdb, $user_identity;
 	if(!empty($_POST['vote'])) {
