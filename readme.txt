@@ -1,10 +1,12 @@
 -> Polls Plugin For WordPress 2.0
 --------------------------------------------------
-Author	-> Lester 'GaMerZ' Chan
-Email	-> lesterch@singnet.com.sg
-Website	-> http://www.lesterchan.net/
-Demo	-> http://www.lesterchan.net/blogs
-Updated	-> 1st February 2006
+Author		-> Lester 'GaMerZ' Chan
+Email		-> gamerz84@hotmail.com
+Website		-> http://www.lesterchan.net/
+Demo		-> http://www.lesterchan.net/blogs
+Documentation	-> http://dev.wp-plugins.org/wiki/wp-polls
+Development	-> http://dev.wp-plugins.org/browser/wp-polls/
+Updated		-> 1st February 2006
 --------------------------------------------------
 
 
