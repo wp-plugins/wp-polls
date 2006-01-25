@@ -1,11 +1,29 @@
 <?php
 /*
-Plugin Name: WP-Polls
+Plugin Name: WP-Polls Debug
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Adds A Poll Feature To WordPress
-Version: 2.02
+Version: 2.04
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
+*/
+
+
+/*  Copyright 2005  Lester Chan  (email : gamerz84@hotmail.com)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
 
@@ -26,6 +44,17 @@ function poll_menu() {
 		add_submenu_page('polls-manager.php', __('Poll Option'), __('Poll Option'), 'manage_polls', 'polls-options.php');
 	}
 }
+
+
+### Function: Poll Administration Role
+add_action('admin_head', 'poll_role');
+function poll_role() {
+	if(function_exists('get_role')) {
+		$role = get_role('administrator');
+		$role->add_cap('manage_polls');
+	}
+}
+
 
 ### Function: Get Poll
 function get_poll($temp_poll_id = 0) {
@@ -110,7 +139,7 @@ function display_pollvote($poll_id) {
 	// If There Is Poll Question With Answers
 	if($poll_question && $poll_answers) {
 		// Display Poll Voting Form
-		echo '<form action="'.$_SERVER['REQUEST_URI'].'" name="polls" method="post">'."\n";
+		echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post">'."\n";
 		echo "<input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" />\n";
 		// Print Out Voting Form Header Template
 		echo $template_question;
@@ -127,8 +156,16 @@ function display_pollvote($poll_id) {
 			// Print Out Voting Form Body Template
 			echo $template_answer;
 		}
+		// Determine Poll Result URL
+		$poll_result_url = $_SERVER['REQUEST_URI'];
+		if(strpos($poll_result_url, '?') !== false) {
+			$poll_result_url = $poll_result_url.'&pollresult=1';
+		} else {
+			$poll_result_url = $poll_result_url.'?pollresult=1';
+		}
 		// Voting Form Footer Variables
 		$template_footer = stripslashes(get_settings('poll_template_votefooter'));
+		$template_footer = str_replace("%POLL_RESULT_URL%", $poll_result_url, $template_footer);
 		// Print Out Voting Form Footer Template
 		echo $template_footer;
 		echo "</form>\n";
@@ -246,25 +283,25 @@ function vote_poll() {
 						if($vote_a) {
 							$vote_q = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+1) WHERE pollq_id = $poll_id");
 							if(!$vote_q) {
-								echo "Error Updating Poll Question:- UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+1) WHERE pollq_id = $poll_id";
+								echo "Error Updating Poll Total Votes:- UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+1) WHERE pollq_id = $poll_id";
 							}
 						} else {
-							echo "Error Updating Poll Answer:- UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $poll_aid";
+							echo "Error Updating Poll Answer Vote:- UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $poll_aid";
 						}
 					} else {
 						echo "Error Inserting Poll IP:- INSERT INTO $wpdb->pollsip VALUES(0, $poll_id, $poll_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user')";
 					}
-				}  else {
+				} else {
 					echo "Error Setting Poll Cookie:- (voted_$poll_id, $poll_aid, ".(time() + 30000000).", ".COOKIEPATH.")";
 				}
 			} else {
 				echo "You Have Already Voted:- voted_ip: $voted_ip | voted_cookie: $voted_cookie";
 			}
 		} else {
-			echo "Empty Poll Vote Button:- $_POST[vote]";
+			echo "Invalid Poll ID And Poll Answer ID:- poll_id: $poll_id | poll_aid: $poll_aid";
 		}
 	} else {
-		echo "Invalid Poll ID And Poll Answer ID:- poll_id: $poll_id | poll_aid: $poll_aid";
+		echo "Empty Poll Vote Button:- $_POST[vote]";		
 	}
 }
 
@@ -281,5 +318,25 @@ function get_ipaddress() {
 		$ip_address = $ip_address[0];
 	}
 	return $ip_address;
+}
+
+
+### Function: Place Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
+add_filter('the_content', 'place_poll', '12');
+function place_poll($content){
+     $content = preg_replace( "/\[poll=(\d+)\]/ise", "display_poll('\\1')", $content); 
+    return $content;
+}
+
+
+### Function: Display The Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
+function display_poll($poll_id, $display_pollarchive = true){
+	if (function_exists('vote_poll')){
+		if($display_pollarchive) {
+			return get_poll($poll_id)."\n".'<p><a href="'.get_settings('home').'/wp-polls.php">Polls Archive</a></p>';
+		} else {
+			return get_poll($poll_id);
+		}
+	}
 }
 ?>
