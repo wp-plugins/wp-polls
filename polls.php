@@ -3,7 +3,7 @@
 Plugin Name: WP-Polls
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Adds A Poll Feature To WordPress
-Version: 2.04
+Version: 2.05
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
 */
@@ -33,16 +33,6 @@ $wpdb->pollsa					= $table_prefix . 'pollsa';
 $wpdb->pollsip					= $table_prefix . 'pollsip';
 
 
-### Function: Poll Administration Role
-add_action('admin_head', 'poll_role');
-function poll_role() {
-	if(function_exists('get_role')) {
-		$role = get_role('administrator');
-		$role->add_cap('manage_polls');
-	}
-}
-
-
 ### Function: Poll Administration Menu
 add_action('admin_menu', 'poll_menu');
 function poll_menu() {
@@ -52,6 +42,18 @@ function poll_menu() {
 	if (function_exists('add_submenu_page')) {
 		add_submenu_page('polls-manager.php', __('Manage Polls'), __('Manage Polls'), 'manage_polls', 'polls-manager.php');
 		add_submenu_page('polls-manager.php', __('Poll Option'), __('Poll Option'), 'manage_polls', 'polls-options.php');
+	}
+}
+
+
+### Function: Poll Administration Role
+add_action('activate_polls.php', 'poll_role');
+function poll_role() {
+	if($_GET['action'] == 'activate' && $_GET['plugin'] == 'polls.php') {
+		$role = get_role('administrator');
+		if(!$role->has_cap('manage_polls')) {
+			$role->add_cap('manage_polls');
+		}
 	}
 }
 

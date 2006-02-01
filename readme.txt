@@ -6,9 +6,12 @@ Website		-> http://www.lesterchan.net/
 Demo		-> http://www.lesterchan.net/blogs
 Documentation	-> http://dev.wp-plugins.org/wiki/wp-polls
 Development	-> http://dev.wp-plugins.org/browser/wp-polls/
-Updated		-> 1st February 2006
+Updated		-> 1st March 2006
 --------------------------------------------------
 
+
+// Version 2.05 (01-03-2006)
+- NEW: Improved On 'manage_polls' Capabilities
 
 // Version 2.04 (01-02-2006)
 - NEW: Added 'manage_polls' Capabilities To Administrator Role
