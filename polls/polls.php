@@ -37,23 +37,11 @@ $wpdb->pollsip					= $table_prefix . 'pollsip';
 add_action('admin_menu', 'poll_menu');
 function poll_menu() {
 	if (function_exists('add_menu_page')) {
-		add_menu_page(__('Polls'), __('Polls'), 'manage_polls', 'polls-manager.php');
+		add_menu_page(__('Polls'), __('Polls'), 'manage_polls', 'polls/polls-manager.php');
 	}
 	if (function_exists('add_submenu_page')) {
-		add_submenu_page('polls-manager.php', __('Manage Polls'), __('Manage Polls'), 'manage_polls', 'polls-manager.php');
-		add_submenu_page('polls-manager.php', __('Poll Option'), __('Poll Option'), 'manage_polls', 'polls-options.php');
-	}
-}
-
-
-### Function: Poll Administration Role
-add_action('activate_polls.php', 'poll_role');
-function poll_role() {
-	if($_GET['action'] == 'activate' && $_GET['plugin'] == 'polls.php') {
-		$role = get_role('administrator');
-		if(!$role->has_cap('manage_polls')) {
-			$role->add_cap('manage_polls');
-		}
+		add_submenu_page('polls/polls-manager.php', __('Manage Polls'), __('Manage Polls'), 'manage_polls', 'polls/polls-manager.php');
+		add_submenu_page('polls/polls-manager.php', __('Poll Option'), __('Poll Option'), 'manage_polls', 'polls/polls-options.php');
 	}
 }
 
@@ -294,19 +282,20 @@ function vote_poll() {
 
 
 ### Function: Get IP Address
-function get_ipaddress() {
-	if (empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
-		$ip_address = $_SERVER["REMOTE_ADDR"];
-	} else {
-		$ip_address = $_SERVER["HTTP_X_FORWARDED_FOR"];
+if(!function_exists('get_ipaddress')) {
+	function get_ipaddress() {
+		if (empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+			$ip_address = $_SERVER["REMOTE_ADDR"];
+		} else {
+			$ip_address = $_SERVER["HTTP_X_FORWARDED_FOR"];
+		}
+		if(strpos($ip_address, ',') !== false) {
+			$ip_address = explode(',', $ip_address);
+			$ip_address = $ip_address[0];
+		}
+		return $ip_address;
 	}
-	if(strpos($ip_address, ',') !== false) {
-		$ip_address = explode(',', $ip_address);
-		$ip_address = $ip_address[0];
-	}
-	return $ip_address;
 }
-
 
 ### Function: Place Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
 add_filter('the_content', 'place_poll', '12');
@@ -324,6 +313,127 @@ function display_poll($poll_id, $display_pollarchive = true){
 		} else {
 			return get_poll($poll_id);
 		}
+	}
+}
+
+
+### Function: Get Poll Total Questions
+function get_pollquestions() {
+	global $wpdb;
+	if(function_exists('get_poll')) {
+		$totalpollq = $wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq");
+		echo $totalpollq;
+	}
+}
+
+
+### Function: Get Poll Total Answers
+function get_pollanswers() {
+	global $wpdb;
+	if(function_exists('get_poll')) {
+		$totalpolla = $wpdb->get_var("SELECT COUNT(polla_aid) FROM $wpdb->pollsa");
+		echo $totalpolla;
+	}
+}
+
+
+### Function: Get Poll Total Votes
+function get_pollvotes() {
+	global $wpdb;
+	if(function_exists('get_poll')) {
+		$totalpollip = $wpdb->get_var("SELECT COUNT(pollip_id) FROM $wpdb->pollsip");
+		echo $totalpollip;
+	}
+}
+
+
+### Function: Create Poll Tables
+add_action('activate_polls/polls.php', 'create_poll_table');
+function create_poll_table() {
+	global $wpdb;
+	include(ABSPATH.'/wp-admin/upgrade-functions.php');
+	// Create Poll Tables (3 Tables)
+	$create_table = array();
+	$create_table['pollsq'] = "CREATE TABLE $wpdb->pollsq (".
+									"pollq_id int(10) NOT NULL auto_increment,".
+									"pollq_question varchar(200) NOT NULL default '',".
+									"pollq_timestamp varchar(20) NOT NULL default '',".
+									"pollq_totalvotes int(10) NOT NULL default '0',".
+									"PRIMARY KEY (pollq_id))";
+	$create_table['pollsa'] = "CREATE TABLE $wpdb->pollsa (".
+									"polla_aid int(10) NOT NULL auto_increment,".
+									"polla_qid int(10) NOT NULL default '0',".
+									"polla_answers varchar(200) NOT NULL default '',".
+									"polla_votes int(10) NOT NULL default '0',".
+									"PRIMARY KEY (polla_aid))";
+	$create_table['pollsip'] = "CREATE TABLE $wpdb->pollsip (".
+									"pollip_id int(10) NOT NULL auto_increment,".
+									"pollip_qid varchar(10) NOT NULL default '',".
+									"pollip_aid varchar(10) NOT NULL default '',".
+									"pollip_ip varchar(100) NOT NULL default '',".
+									"pollip_host VARCHAR(200) NOT NULL default '',".
+									"pollip_timestamp varchar(20) NOT NULL default '0000-00-00 00:00:00',".
+									"pollip_user tinytext NOT NULL,".
+									"PRIMARY KEY (pollip_id))";
+	maybe_create_table($wpdb->pollsq, $create_table['pollsq']);
+	maybe_create_table($wpdb->pollsa, $create_table['pollsa']);
+	maybe_create_table($wpdb->pollsip, $create_table['pollsip']);
+	// Check Whether It is Install Or Upgrade
+	$first_poll = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq LIMIT 1");
+	// If Install, Insert 1st Poll Question With 5 Poll Answers
+	if(empty($first_poll)) {
+		// Insert Poll Question (1 Record)
+		$insert_pollq = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (1, 'How Is My Site?', '".current_time('timestamp')."', 0);");
+		if($insert_pollq) {
+			// Insert Poll Answers  (5 Records)
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (1, 1, 'Good', 0);");
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (2, 1, 'Excellent', 0);");
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (3, 1, 'Bad', 0);");
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (4, 1, 'Can Be Improved', 0);");
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (5, 1, 'No Comments', 0);");
+		}
+	}
+	// Add In Options (16 Records)
+	add_option('poll_template_voteheader', '<table width="100%" border="0" cellspacing="3" cellpadding="3">'.
+	'<tr>'.
+	'<td align="center"><b>%POLL_QUESTION%</b></td>'.
+	'</tr>', 'Template For Poll\'s Question');
+	add_option('poll_template_votebody',  '<tr>'.
+	'<td align="left"><input type="radio" name="poll-%POLL_ID%" value="%POLL_ANSWER_ID%" /> %POLL_ANSWER%</td>'.
+	'</tr>', 'Template For Poll\'s Answers');
+	add_option('poll_template_votefooter', '<tr>'.
+	'<td align="center"><input type="submit" name="vote" value="   Vote   " class="Buttons" /><br /><a href="%POLL_RESULT_URL%">View Results</a></td>'.
+	'</tr>'.
+	'</table>', 'Template For Poll\'s Voting Footer');
+	add_option('poll_template_resultheader', '<table width="100%" border="0" cellspacing="3" cellpadding="3">'.
+	'<tr>'.
+	'<td colspan="2" align="center"><b>%POLL_QUESTION%</b></td>'.
+	'</tr>', 'Template For Poll Header');
+	add_option('poll_template_resultbody', '<tr>'.
+	'<td align="left" width="70%">%POLL_ANSWER%<br /><img src="'.get_settings('home').'/wp-content/plugins/polls/images/pollbar.gif" height="5" width="%POLL_ANSWER_IMAGEWIDTH%" alt="%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)" /></td>'.
+	'<td align="right" width="30%"><b>%POLL_ANSWER_PERCENTAGE%%</b></td>'.
+	'</tr>', 'Template For Poll Results');
+	add_option('poll_template_resultbody2', '<tr>'.
+	'<td align="left" width="70%"><i>%POLL_ANSWER%</i><br /><img src="'.get_settings('home').'/wp-content/plugins/polls/images/pollbar.gif" height="5" width="%POLL_ANSWER_IMAGEWIDTH%" alt="You Have Voted For This Choice  - %POLL_ANSWER% -> 	%POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)" /></td>'.
+	'<td align="right" width="30%"><i><b>%POLL_ANSWER_PERCENTAGE%%</b></i></td>'.
+	'</tr>', 'Template For Poll Results (User Voted)');
+	add_option('poll_template_resultfooter', '<tr>'.
+	'<td colspan="2" align="center">Total Votes: <b>%POLL_TOTALVOTES%</b><td>'.
+	'</tr>'.
+	'</table>', 'Template For Poll Result Footer');
+	add_option('poll_template_disable', 'Sorry, there are no polls available at the moment.', 'Template For Poll When It Is Disabled');
+	add_option('poll_template_error', 'An error has occurred when processing your poll.', 'Template For Poll When An Error Has Occured');
+	add_option('poll_currentpoll', 0, 'Current Displayed Poll');
+	add_option('poll_latestpoll', 1, 'The Lastest Poll');
+	add_option('poll_archive_perpage', 5, 'Number Of Polls To Display Per Page On The Poll\'s Archive', 'no');
+	add_option('poll_ans_sortby', 'polla_aid', 'Sorting Of Poll\'s Answers');
+	add_option('poll_ans_sortorder', 'asc', 'Sort Order Of Poll\'s Answers');
+	add_option('poll_ans_result_sortby', 'polla_votes', 'Sorting Of Poll\'s Answers Result');
+	add_option('poll_ans_result_sortorder', 'desc', 'Sorting Order Of Poll\'s Answers Result');
+	// Set 'manage_polls' Capabilities To Administrator	
+	$role = get_role('administrator');
+	if(!$role->has_cap('manage_polls')) {
+		$role->add_cap('manage_polls');
 	}
 }
 ?>

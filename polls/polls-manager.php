@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.04										|
+|	WordPress 2.0 Plugin: WP-Polls 2.05										|
 |	Copyright (c) 2005 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -11,14 +11,10 @@
 |																							|
 |	File Information:																	|
 |	- Manage Your Polls																|
-|	- wp-admin/polls-manager.php												|
+|	- wp-content/plugins/polls/polls-manager.php							|
 |																							|
 +----------------------------------------------------------------+
 */
-
-
-### Require Admin
-require_once('admin.php');
 
 
 ### Check Whether User Can Manage Polls
@@ -28,9 +24,8 @@ if(!current_user_can('manage_polls')) {
 
 
 ### Variables Variables Variables
-$title = __('Manage Polls');
-$this_file = 'polls-manager.php';
-$parent_file = 'polls-manager.php';
+$base_name = plugin_basename('polls/polls-manager.php');
+$base_page = 'admin.php?page='.$base_name;
 $mode = trim($_GET['mode']);
 $poll_id = intval($_GET['id']);
 $poll_aid = intval($_GET['aid']);
@@ -38,7 +33,7 @@ $poll_aid = intval($_GET['aid']);
 
 ### Cancel
 if(isset($_POST['cancel'])) {
-	Header('Location: polls-manager.php');
+	Header("Location: $base_page");
 	exit();
 }
 
@@ -67,13 +62,12 @@ if(!empty($_POST['do'])) {
 				}
 			}
 			// Update Lastest Poll ID To Poll Options
-			$update_latestpoll = $wpdb->query("UPDATE $wpdb->options SET option_value = $polla_qid WHERE option_name = 'poll_latestpoll'");
+			$update_latestpoll = update_option('poll_latestpoll', $polla_qid);
 			if(!$update_latestpoll) {
 				$text .= "<font color=\"red\">There Is An Error Updating The Lastest Poll ID ($polla_qid) To The Poll Option</font>";
 			}
 			if(empty($text)) {
 				$text = '<font color="green">Poll \''.stripslashes($pollq_question).'\' Added Successfully</font>';
-				wp_cache_flush();
 			}
 			break;
 		// Edit Poll
@@ -142,7 +136,7 @@ if(!empty($_POST['do'])) {
 					$poll_lastestpoll = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq ORDER BY pollq_id DESC LIMIT 1");
 					if($poll_lastestpoll) {
 						$poll_lastestpoll = intval($poll_lastestpoll);
-						$update_latestpoll = $wpdb->query("UPDATE $wpdb->options SET option_value = $poll_lastestpoll WHERE option_name = 'poll_latestpoll'");
+						update_option('poll_latestpoll', $poll_lastestpoll);
 					}
 				}
 				$text = '<font color="green">Poll \''.stripslashes($pollq_question).'\' Deleted Successfully</font>';
@@ -167,8 +161,6 @@ if(!empty($_POST['do'])) {
 switch($mode) {
 	// Add A Poll
 	case 'add':
-		$title = __('Add Poll');
-		require("./admin-header.php");
 ?>
 		<div class="wrap">
 				<h2>Add Poll</h2>
@@ -177,7 +169,7 @@ switch($mode) {
 					$poll_noquestion = intval($_POST['poll_noquestion']);
 					$pollq_question = stripslashes(trim($_POST['pollq_question']));	
 				?>
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+				<form action="<?php echo $base_page; ?>" method="post">
 					<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 						<tr>
 							<th align="left" scope="row"><?php _e('Question') ?></th>
@@ -197,7 +189,7 @@ switch($mode) {
 					</table>
 				</form>
 				<?php } else {?>
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>?mode=add" method="post">
+				<form action="<?php echo $_SERVER['REQUEST_URI']; ?>&amp;mode=add" method="post">
 					<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 						<tr>
 							<th align="left" scope="row"><?php _e('Question') ?></th>
@@ -225,8 +217,6 @@ switch($mode) {
 		break;
 	// Edit A Poll
 	case 'edit':
-		$title = __('Edit Poll');
-		require("./admin-header.php");
 		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_timestamp, pollq_totalvotes FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
 		$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_id ORDER BY polla_aid ASC");
 		$poll_question_text = stripslashes($poll_question->pollq_question);
@@ -325,7 +315,7 @@ switch($mode) {
 		<!-- Edit Poll -->
 		<div class="wrap">
 			<h2><?php _e('Edit Poll'); ?></h2>
-			<form name="edit_poll" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+			<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 				<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>">
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
@@ -351,7 +341,7 @@ switch($mode) {
 								$pollip_answers[$polla_aid] = $polla_answers;
 								echo "<tr>\n";
 								echo "<td align=\"left\">".__('Answer')." $i:&nbsp;&nbsp;&nbsp;<input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_aid-$polla_aid\" value=\"$polla_answers\" />&nbsp;&nbsp;&nbsp;";
-								echo "<a href=\"polls-manager.php?mode=deleteans&id=$poll_id&aid=$polla_aid\" onclick=\"return confirm('You Are About To Delete This Poll Answer \'$polla_answers\'\\n  \'Cancel\' to stop, \'OK\' to delete.')\">Delete</a></td>\n";
+								echo "<a href=\"$base_page&amp;mode=deleteans&id=$poll_id&aid=$polla_aid\" onclick=\"return confirm('You Are About To Delete This Poll Answer \'$polla_answers\'\\n  \'Cancel\' to stop, \'OK\' to delete.')\">Delete</a></td>\n";
 								echo "<td align=\"right\">$polla_votes&nbsp;&nbsp;&nbsp;<input type=\"text\" size=\"4\" maxlength=\"6\" id=\"polla_votes-$polla_aid\" name=\"polla_votes-$polla_aid\" value=\"$polla_votes\" onblur=\"check_totalvotes();\" /></td>\n</tr>\n";
 								$poll_actual_totalvotes += $polla_votes;
 								$i++;
@@ -377,7 +367,7 @@ switch($mode) {
 		<!-- Add Poll's Answer -->
 		<div class="wrap">
 			<h2><?php _e('Add Answer') ?></h2>
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?mode=edit&id=<?php echo $poll_id; ?>" method="post">
+			<form action="<?php echo $_SERVER['REQUEST_URI']; ?>&amp;mode=edit&amp;id=<?php echo $poll_id; ?>" method="post">
 				<input type="hidden" name="polla_qid" value="<?php echo $poll_id; ?>">
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
@@ -446,8 +436,6 @@ switch($mode) {
 		break;
 	// Delete A Poll
 	case 'delete':
-		$title = __('Delete Poll');
-		require("./admin-header.php");
 		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_totalvotes FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
 		$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_id ORDER BY polla_answers");
 		$poll_question_text = stripslashes($poll_question->pollq_question);
@@ -456,7 +444,7 @@ switch($mode) {
 		<!-- Delete Poll -->
 		<div class="wrap">
 			<h2><?php _e('Delete Poll') ?></h2>
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> 
+			<form action="<?php echo $base_page; ?>" method="post"> 
 				<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>">
 				<input type="hidden" name="pollq_question" value="<?php echo $poll_question_text; ?>">
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
@@ -497,8 +485,6 @@ switch($mode) {
 		break;
 	// Delete A Poll Answer
 	case 'deleteans':
-		$title = __('Delete Poll\'s Answer');
-		require("./admin-header.php");
 		$poll_answers = $wpdb->get_row("SELECT polla_votes, polla_answers FROM $wpdb->pollsa WHERE polla_aid = $poll_aid AND polla_qid = $poll_id");
 		$polla_votes = intval($poll_answers->polla_votes);
 		$polla_answers = stripslashes(trim($poll_answers->polla_answers));
@@ -521,14 +507,12 @@ switch($mode) {
 				}
 				_e($text);
 			?>
-			<p><b><a href="polls-manager.php?mode=edit&id=<?php echo $poll_id; ?>"><?php _e('Click here To Go Back To The Poll Edit Page'); ?></a>.</b></p>
+			<p><b><a href="<?php echo $base_page; ?>&amp;mode=edit&amp;id=<?php echo $poll_id; ?>"><?php _e('Click here To Go Back To The Poll Edit Page'); ?></a>.</b></p>
 		</div>
 <?php
 		break;
 	// Main Page
 	default:
-		$title = __('Manage Polls');
-		require("./admin-header.php");
 		$polls = $wpdb->get_results("SELECT * FROM $wpdb->pollsq  ORDER BY pollq_id DESC");
 		$total_ans =  $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->pollsa");
 		$total_votes = 0;
@@ -583,8 +567,8 @@ switch($mode) {
 						echo "$poll_question</td>\n";
 						echo "<td>$poll_totalvotes</td>\n";
 						echo "<td>$poll_date</td>\n";
-						echo "<td><a href=\"polls-manager.php?mode=edit&id=$poll_id\" class=\"edit\">".__('Edit')."</a></td>\n";
-						echo "<td><a href=\"polls-manager.php?mode=delete&id=$poll_id\" class=\"delete\">".__('Delete')."</a></td>\n";
+						echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit')."</a></td>\n";
+						echo "<td><a href=\"$base_page&amp;mode=delete&amp;id=$poll_id\" class=\"delete\">".__('Delete')."</a></td>\n";
 						echo '</tr>';
 						$i++;
 						$total_votes+= $poll_totalvotes;
@@ -599,7 +583,7 @@ switch($mode) {
 		<!-- Add A Poll -->
 		<div class="wrap">
 			<h2><?php _e('Add A Poll'); ?></h2>
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?mode=add" method="post">
+			<form action="<?php echo $_SERVER['REQUEST_URI']; ?>&amp;mode=add" method="post">
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
 						<th align="left" scope="row"><?php _e('Question') ?></th>
@@ -609,8 +593,8 @@ switch($mode) {
 						<td>
 								<select size="1" name="poll_noquestion">
 										<?php
-										for($i=2; $i <= 20; $i++) {
-											echo "<option value=\"$i\">$i</option>";
+										for($k=2; $k <= 20; $k++) {
+											echo "<option value=\"$k\">$k</option>";
 										}
 										?>
 								</select>
@@ -642,7 +626,4 @@ switch($mode) {
 		</div>
 <?php
 } // End switch($mode)
-
-### Require Admin Footer
-require_once 'admin-footer.php';
 ?>

@@ -1,19 +1,24 @@
--> Upgrade Instructions For Version 2.03 To Version 2.04
+-> Upgrade Instructions For Version 1.0x To Version 2.05
 ------------------------------------------------------------------
-// Open wp-admin folder
+// Deactivate WP-Polls plugin
 
-Overwrite:
+
+// Delete these file if exists
+
+Delete:
 ------------------------------------------------------------------
-polls-manager.php
-polls-options.php
+wp-content/plugins/polls.php
+wp-admin/polls-options.php
+wp-admin/polls-manager.php
+wp-includes/images/pollbar.gif
 ------------------------------------------------------------------
 
 
 // Open wp-content/plugins folder
 
-Overwrite:
+Put:
 ------------------------------------------------------------------
-polls.php
+Folder: polls
 ------------------------------------------------------------------
 
 
@@ -25,121 +30,7 @@ wp-polls.php
 ------------------------------------------------------------------
 
 
+// Deavtivate and activate WP-Polls plugin back
 
 
-
-
-
-
-
-
--> Upgrade Instructions For Version 2.02 To Version 2.03
-------------------------------------------------------------------
-// Open wp-admin folder
-
-Overwrite:
-------------------------------------------------------------------
-polls-manager.php
-polls-options.php
-------------------------------------------------------------------
-
-
-// Open wp-content/plugins folder
-
-Overwrite:
-------------------------------------------------------------------
-polls.php
-------------------------------------------------------------------
-
-
-// Open Wordpress root folder
-
-Overwrite:
-------------------------------------------------------------------
-wp-polls.php
-------------------------------------------------------------------
-
-
-// Open wp-includes/images folder
-
-Put:
-------------------------------------------------------------------
-pollbar.gif
-------------------------------------------------------------------
-
-
-// Remove Previous Traces Of Poll Code In Your Theme
-
-
-
-
-
-
-
--> Upgrade Instructions FOr Version 2.01 To Version 2.02
-------------------------------------------------------------------
-// Open wp-admin folder
-
-Put:
-------------------------------------------------------------------
-polls-upgrade-202.php
-------------------------------------------------------------------
-
-// Run wp-admin/polls-upgrade-202.php
-
-Note:
-------------------------------------------------------------------
-Please remember to remove polls-upgrade-202.php after installation.
-------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
--> Upgrade Instructions For Version 1.0x To Version 2.01
-------------------------------------------------------------------
-// Open wp-admin folder
-
-Put/Overwrite:
-------------------------------------------------------------------
-polls-upgrade.php
-polls-manager.php
-polls-options.php
-------------------------------------------------------------------
-
-
-// Open wp-content/plugins folder
-
-Put/Overwrite:
-------------------------------------------------------------------
-polls.php
-------------------------------------------------------------------
-
-
-// Open Wordpress root folder
-
-Put/Overwrite:
-------------------------------------------------------------------
-wp-polls.php
-------------------------------------------------------------------
-
-
-// Open wp-includes/images folder
-
-Put:
-------------------------------------------------------------------
-pollbar.gif
-------------------------------------------------------------------
-
-
-// Run wp-admin/polls-upgrade.php
-
-Note:
-------------------------------------------------------------------
-Please remember to remove polls-upgrade.php after installation.
-------------------------------------------------------------------
+// Refer to readme-install.txt for further usage instructions

@@ -8,10 +8,15 @@ Documentation	-> http://dev.wp-plugins.org/wiki/wp-polls
 Development	-> http://dev.wp-plugins.org/browser/wp-polls/
 Updated		-> 1st March 2006
 --------------------------------------------------
-
+Note: I have changed almost the whole structure of WP-Polls, So if there is any bug,
+please contact me immediately.
+--------------------------------------------------
 
 // Version 2.05 (01-03-2006)
 - NEW: Improved On 'manage_polls' Capabilities
+- NEW: Neater Structure
+- NEW: No More Install/Upgrade File, It Will Install/Upgrade When You Activate The Plugin
+- NEW: Added Poll Stats Function
 
 // Version 2.04 (01-02-2006)
 - NEW: Added 'manage_polls' Capabilities To Administrator Role
