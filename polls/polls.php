@@ -318,9 +318,9 @@ function display_poll($poll_id, $display_pollarchive = true){
 
 
 ### Function: Get Poll Total Questions
-function get_pollquestions() {
-	global $wpdb;
-	if(function_exists('get_poll')) {
+if(!function_exists('get_pollquestions')) {
+	function get_pollquestions() {
+		global $wpdb;
 		$totalpollq = $wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq");
 		echo $totalpollq;
 	}
@@ -328,9 +328,9 @@ function get_pollquestions() {
 
 
 ### Function: Get Poll Total Answers
-function get_pollanswers() {
-	global $wpdb;
-	if(function_exists('get_poll')) {
+if(!function_exists('get_pollanswers')) {
+	function get_pollanswers() {
+		global $wpdb;
 		$totalpolla = $wpdb->get_var("SELECT COUNT(polla_aid) FROM $wpdb->pollsa");
 		echo $totalpolla;
 	}
@@ -338,9 +338,9 @@ function get_pollanswers() {
 
 
 ### Function: Get Poll Total Votes
-function get_pollvotes() {
-	global $wpdb;
-	if(function_exists('get_poll')) {
+if(!function_exists('get_pollvotes')) {
+	function get_pollvotes() {
+		global $wpdb;
 		$totalpollip = $wpdb->get_var("SELECT COUNT(pollip_id) FROM $wpdb->pollsip");
 		echo $totalpollip;
 	}

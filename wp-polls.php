@@ -228,7 +228,7 @@ function check_voted($poll_id) {
 
 		<!-- <Paging> -->
 		<?php
-			if($total_polls > 0) {
+			if($total_pages > 1) {
 		?>
 		<br />
 		<table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -254,7 +254,7 @@ function check_voted($poll_id) {
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<?php _e('Pages'); ?> (<?echo $total_pages; ?>) :
+					<?php _e('Pages'); ?> (<?php echo $total_pages; ?>) :
 					<?php
 						if ($page >= 4) {
 							echo '<b><a href="wp-polls.php?page=1" title="'.__('Go to First Page').'">&laquo; '.__('First').'</a></b> ... ';
