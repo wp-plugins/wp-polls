@@ -41,7 +41,7 @@ function poll_menu() {
 	}
 	if (function_exists('add_submenu_page')) {
 		add_submenu_page('polls/polls-manager.php', __('Manage Polls'), __('Manage Polls'), 'manage_polls', 'polls/polls-manager.php');
-		add_submenu_page('polls/polls-manager.php', __('Poll Option'), __('Poll Option'), 'manage_polls', 'polls/polls-options.php');
+		add_submenu_page('polls/polls-manager.php', __('Poll Options'), __('Poll Options'), 'manage_polls', 'polls/polls-options.php');
 	}
 }
 

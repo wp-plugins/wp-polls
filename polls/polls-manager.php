@@ -163,7 +163,7 @@ switch($mode) {
 	case 'add':
 ?>
 		<div class="wrap">
-				<h2>Add Poll</h2>
+				<h2><?php _e('Add Poll'); ?></h2>
 				<?php
 				if(isset($_POST['addpollquestion'])) {
 					$poll_noquestion = intval($_POST['poll_noquestion']);
@@ -172,7 +172,7 @@ switch($mode) {
 				<form action="<?php echo $base_page; ?>" method="post">
 					<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 						<tr>
-							<th align="left" scope="row"><?php _e('Question') ?></th>
+							<th align="left"><?php _e('Question') ?></th>
 							<td><input type="text" size="50" maxlength="200" name="pollq_question" value="<?php echo $pollq_question; ?>"></td>
 								<?php
 									for($i=1; $i<=$poll_noquestion; $i++) {
@@ -192,10 +192,10 @@ switch($mode) {
 				<form action="<?php echo $_SERVER['REQUEST_URI']; ?>&amp;mode=add" method="post">
 					<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 						<tr>
-							<th align="left" scope="row"><?php _e('Question') ?></th>
+							<th align="left"><?php _e('Question') ?></th>
 							<td><input type="text" size="50" maxlength="200" name="pollq_question"></td>
 						</tr>
-							<th align="left" scope="row"><?php _e('No. Of Answers:') ?></th>
+							<th align="left"><?php _e('No. Of Answers:') ?></th>
 							<td>
 									<select size="1" name="poll_noquestion">
 											<?php
@@ -319,14 +319,14 @@ switch($mode) {
 				<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>">
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
-						<th scope="row" colspan="2"><?php _e('Question') ?></th>
+						<th colspan="2"><?php _e('Question') ?></th>
 					</tr>
 					<tr>
 						<td align="center" colspan="2"><input type="text" size="70" maxlength="200" name="pollq_question" value="<?php echo $poll_question_text; ?>" /></td>
 					</tr>
 					<tr>
-						<th align="left" scope="row"><?php _e('Answers:') ?></th>
-						<th align="right" scope="row"><?php _e('No. Of Votes') ?></th>
+						<th align="left"><?php _e('Answers:') ?></th>
+						<th align="right"><?php _e('No. Of Votes') ?></th>
 					</tr>
 					<?php
 						$i=1;
@@ -449,14 +449,14 @@ switch($mode) {
 				<input type="hidden" name="pollq_question" value="<?php echo $poll_question_text; ?>">
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
-						<th colspan="2" scope="row"><?php _e('Question') ?></th>
+						<th colspan="2"><?php _e('Question') ?></th>
 					</tr>
 					<tr>
 						<td colspan="2" align="center"><?php echo $poll_question_text; ?></td>
 					</tr>
 					<tr>
-						<th align="left" scope="row"><?php _e('Answers') ?></th>
-						<th scope="row"><?php _e('No. Of Votes') ?></th>
+						<th align="left"><?php _e('Answers') ?></th>
+						<th><?php _e('No. Of Votes') ?></th>
 					</tr>
 					<?php
 						$i=1;
@@ -473,7 +473,7 @@ switch($mode) {
 					?>
 					</tr>
 					<tr>
-						<th colspan="2" scope="row"><?php _e('Total Votes'); ?>: <?php echo $poll_totalvotes; ?></th>
+						<th colspan="2"><?php _e('Total Votes'); ?>: <?php echo $poll_totalvotes; ?></th>
 					</tr>
 					<tr>
 						<td align="center" colspan="2"><br /><p><b><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</b></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')">&nbsp;&nbsp;<input type="submit" name="cancel" Value="<?php _e('Cancel'); ?>" class="button"></td>
@@ -586,10 +586,10 @@ switch($mode) {
 			<form action="<?php echo $_SERVER['REQUEST_URI']; ?>&amp;mode=add" method="post">
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
-						<th align="left" scope="row"><?php _e('Question') ?></th>
+						<th align="left"><?php _e('Question') ?></th>
 						<td><input type="text" size="50" maxlength="200" name="pollq_question"></td>
 					</tr>
-						<th align="left" scope="row"><?php _e('No. Of Answers:') ?></th>
+						<th align="left"><?php _e('No. Of Answers:') ?></th>
 						<td>
 								<select size="1" name="poll_noquestion">
 										<?php
@@ -611,15 +611,15 @@ switch($mode) {
 		<h2><?php _e('Polls Stats'); ?></h2>
 			<table border="0" cellspacing="3" cellpadding="3">
 			<tr>
-				<th align="left" scope="row"><?php _e('Total Polls:'); ?></th>
+				<th align="left"><?php _e('Total Polls:'); ?></th>
 				<td align="left"><?php echo $i; ?></td>
 			</tr>
 			<tr>
-				<th align="left" scope="row"><?php _e('Total Polls\' Answers:'); ?></th>
+				<th align="left"><?php _e('Total Polls\' Answers:'); ?></th>
 				<td align="left"><?php echo number_format($total_ans); ?></td>
 			</tr>
 			<tr>
-				<th align="left" scope="row"><?php _e('Total Votes Casted:'); ?></th>
+				<th align="left"><?php _e('Total Votes Casted:'); ?></th>
 				<td align="left"><?php echo number_format($total_votes); ?></td>
 			</tr>
 			</table>

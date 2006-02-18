@@ -30,7 +30,7 @@ wp-polls.php
 ------------------------------------------------------------------
 
 
-// Deavtivate and activate WP-Polls plugin back
+// Activate WP-Polls plugin back
 
 
 // Refer to readme-install.txt for further usage instructions
