@@ -15,7 +15,7 @@ wp-polls.php
 ------------------------------------------------------------------
 
 
-// Activate the WP-Polls plugin
+// Activate WP-Polls plugin
 
 
 
