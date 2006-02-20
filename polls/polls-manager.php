@@ -31,13 +31,6 @@ $poll_id = intval($_GET['id']);
 $poll_aid = intval($_GET['aid']);
 
 
-### Cancel
-if(isset($_POST['cancel'])) {
-	Header("Location: $base_page");
-	exit();
-}
-
-
 ### Form Processing 
 if(!empty($_POST['do'])) {
 	// Decide What To Do
@@ -184,7 +177,7 @@ switch($mode) {
 								?>
 						</tr>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll'); ?>"  class="button">&nbsp;&nbsp;<input type="submit" name="cancel" Value="<?php _e('Cancel'); ?>" class="button"></td>
+							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll'); ?>"  class="button">&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -207,7 +200,7 @@ switch($mode) {
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question'); ?>" class="button">&nbsp;&nbsp;<input type="submit" name="cancel" Value="<?php _e('Cancel'); ?>" class="button"></td>
+							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question'); ?>" class="button">&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -359,7 +352,7 @@ switch($mode) {
 						<td colspan="2"><input type="checkbox" name="edit_polltimestamp" value="1" />Edit Timestamp<br /><?php poll_timestamp($poll_timestamp); ?><br />Existing Timestamp: <?php echo gmdate('jS F Y @ H:i:s', $poll_timestamp); ?></td>
 					</tr>
 					<tr>
-						<td align="center" colspan="2"><input type="submit" name="do" value="<?php _e('Edit Poll'); ?>" class="button">&nbsp;&nbsp;<input type="submit" name="cancel" Value="<?php _e('Cancel'); ?>" class="button"></td>
+						<td align="center" colspan="2"><input type="submit" name="do" value="<?php _e('Edit Poll'); ?>" class="button">&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -476,7 +469,7 @@ switch($mode) {
 						<th colspan="2"><?php _e('Total Votes'); ?>: <?php echo $poll_totalvotes; ?></th>
 					</tr>
 					<tr>
-						<td align="center" colspan="2"><br /><p><b><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</b></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')">&nbsp;&nbsp;<input type="submit" name="cancel" Value="<?php _e('Cancel'); ?>" class="button"></td>
+						<td align="center" colspan="2"><br /><p><b><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</b></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')">&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -601,7 +594,7 @@ switch($mode) {
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question'); ?>" class="button">&nbsp;&nbsp;<input type="submit" name="cancel" Value="<?php _e('Cancel'); ?>" class="button"></td>
+						<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question'); ?>" class="button" /></td>
 					</tr>
 				</table>
 			</form>
