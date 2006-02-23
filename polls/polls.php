@@ -142,7 +142,7 @@ function display_pollvote($poll_id) {
 			$template_answer = str_replace("%POLL_ID%", $poll_question_id, $template_answer);
 			$template_answer = str_replace("%POLL_ANSWER_ID%", $poll_answer_id, $template_answer);
 			$template_answer = str_replace("%POLL_ANSWER%", $poll_answer_text, $template_answer);
-			$template_answer = str_replace("%POLL_ANSWER_VOTES%", $poll_answer_votes, $template_answer);
+			$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format($poll_answer_votes), $template_answer);
 			// Print Out Voting Form Body Template
 			echo $template_answer;
 		}
@@ -216,7 +216,7 @@ function display_pollresult($poll_id, $user_voted = 0) {
 				$template_answer = stripslashes(get_settings('poll_template_resultbody2'));
 				$template_answer = str_replace("%POLL_ANSWER_ID%", $poll_answer_id, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER%", $poll_answer_text, $template_answer);
-				$template_answer = str_replace("%POLL_ANSWER_VOTES%", $poll_answer_votes, $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format($poll_answer_votes), $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
 				// Print Out Results Body Template
@@ -226,7 +226,7 @@ function display_pollresult($poll_id, $user_voted = 0) {
 				$template_answer = stripslashes(get_settings('poll_template_resultbody'));
 				$template_answer = str_replace("%POLL_ANSWER_ID%", $poll_answer_id, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER%", $poll_answer_text, $template_answer);
-				$template_answer = str_replace("%POLL_ANSWER_VOTES%", $poll_answer_votes, $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format($poll_answer_votes), $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
 				// Print Out Results Body Template
@@ -235,7 +235,7 @@ function display_pollresult($poll_id, $user_voted = 0) {
 		}
 		// Results Footer Variables
 		$template_footer = stripslashes(get_settings('poll_template_resultfooter'));
-		$template_footer = str_replace("%POLL_TOTALVOTES%", $poll_question_totalvotes, $template_footer);
+		$template_footer = str_replace("%POLL_TOTALVOTES%", number_format($poll_question_totalvotes), $template_footer);
 		// Print Out Results Footer Template
 		echo $template_footer;
 	} else {
