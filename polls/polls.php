@@ -351,7 +351,7 @@ if(!function_exists('get_pollvotes')) {
 add_action('activate_polls/polls.php', 'create_poll_table');
 function create_poll_table() {
 	global $wpdb;
-	include(ABSPATH.'/wp-admin/upgrade-functions.php');
+	include_once(ABSPATH.'/wp-admin/upgrade-functions.php');
 	// Create Poll Tables (3 Tables)
 	$create_table = array();
 	$create_table['pollsq'] = "CREATE TABLE $wpdb->pollsq (".
