@@ -6,11 +6,16 @@ Website		-> http://www.lesterchan.net/
 Demo		-> http://www.lesterchan.net/blogs
 Documentation	-> http://dev.wp-plugins.org/wiki/wp-polls
 Development	-> http://dev.wp-plugins.org/browser/wp-polls/
-Updated		-> 1st March 2006
+Updated		-> 1st April 2006
 --------------------------------------------------
 Note: I have changed almost the whole structure of WP-Polls, So if there is any bug,
 please contact me immediately.
 --------------------------------------------------
+
+
+// Version 2.06 (01-04-2006)
+- NEW: Poll Bar Is Slightly Nicer
+- NEW: Got Rid Of Tables, Now Using List <li>
 
 // Version 2.05 (01-03-2006)
 - NEW: Improved On 'manage_polls' Capabilities

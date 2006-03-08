@@ -1,3 +1,16 @@
+-> Upgrade Instructions For Version 2.05 To Version 2.06
+------------------------------------------------------------------
+// Open wp-content/plugins folder
+
+Overwrite/Put:
+------------------------------------------------------------------
+Folder: polls
+------------------------------------------------------------------
+
+
+
+
+
 -> Upgrade Instructions For Version 1.0x To Version 2.05
 ------------------------------------------------------------------
 // Deactivate WP-Polls plugin
