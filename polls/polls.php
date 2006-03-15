@@ -122,15 +122,15 @@ function get_poll($temp_poll_id = 0, $display = true) {
 ### Function: Displays Polls CSS
 add_action('wp_head', 'poll_css');
 function poll_css() {
-	echo '<style type="text/css" media="screen">'."\n";
-	echo "\t".'.wp-polls ul li {'."\n";
-	echo "\t\t".'text-align: left;'."\n";
-	echo "\t\t".'list-style: none;'."\n";
-	echo "\t".'}'."\n";
-	echo "\t".'.wp-polls ul li:before, #sidebar ul ul ul li:before {'."\n";
-	echo "\t\t".'content: \'\';'."\n";
-	echo "\t".'}'."\n";
-	echo '</style>'."\n";
+	echo '<style type="text/css" media="screen">'."\n";
+	echo "\t".'.wp-polls ul li {'."\n";
+	echo "\t\t".'text-align: left;'."\n";
+	echo "\t\t".'list-style: none;'."\n";
+	echo "\t".'}'."\n";
+	echo "\t".'.wp-polls ul li:before, #sidebar ul ul ul li:before {'."\n";
+	echo "\t\t".'content: \'\';'."\n";
+	echo "\t".'}'."\n";
+	echo '</style>'."\n";
 }
 
 
@@ -219,6 +219,13 @@ function display_pollresult($poll_id, $user_voted = 0) {
 	global $wpdb;
 	// Temp Poll Result
 	$temp_pollresult = '';	
+	// Most/Least Variables
+	$poll_most_answer = '';
+	$poll_most_votes = 0;
+	$poll_most_percentage = 0;
+	$poll_least_answer = '';
+	$poll_least_votes = 0;
+	$poll_least_percentage = 0;
 	// Get Poll Question Data
 	$poll_question = $wpdb->get_row("SELECT pollq_id, pollq_question, pollq_totalvotes FROM $wpdb->pollsq WHERE pollq_id = $poll_id LIMIT 1");
 	// Poll Question Variables
@@ -284,10 +291,31 @@ function display_pollresult($poll_id, $user_voted = 0) {
 				// Print Out Results Body Template
 				$temp_pollresult .= $template_answer;
 			}
+			// Get Most Voted Data
+			if($poll_answer_votes > $poll_most_votes) {
+				$poll_most_answer = $poll_answer_text;
+				$poll_most_votes = $poll_answer_votes;
+				$poll_most_percentage = $poll_answer_percentage;
+			}
+			// Get Least Voted Data
+			if($poll_least_votes == 0) {
+				$poll_least_votes = $poll_answer_votes;
+			}
+			if($poll_answer_votes <= $poll_least_votes) {
+				$poll_least_answer = $poll_answer_text;
+				$poll_least_votes = $poll_answer_votes;
+				$poll_least_percentage = $poll_answer_percentage;
+			}
 		}
 		// Results Footer Variables
 		$template_footer = stripslashes(get_settings('poll_template_resultfooter'));
 		$template_footer = str_replace("%POLL_TOTALVOTES%", number_format($poll_question_totalvotes), $template_footer);
+		$template_footer = str_replace("%POLL_MOST_ANSWER%", $poll_most_answer, $template_footer);
+		$template_footer = str_replace("%POLL_MOST_VOTES%", number_format($poll_most_votes), $template_footer);
+		$template_footer = str_replace("%POLL_MOST_PERCENTAGE%", $poll_most_percentage, $template_footer);
+		$template_footer = str_replace("%POLL_LEAST_ANSWER%", $poll_least_answer, $template_footer);
+		$template_footer = str_replace("%POLL_LEAST_VOTES%", number_format($poll_least_votes), $template_footer);
+		$template_footer = str_replace("%POLL_LEAST_PERCENTAGE%", $poll_least_percentage, $template_footer);
 		// Print Out Results Footer Template
 		$temp_pollresult .= $template_footer;
 		$temp_pollresult .= "</div>\n";
@@ -351,8 +379,8 @@ if(!function_exists('get_ipaddress')) {
 		return $ip_address;
 	}
 }
-
-
+
+
 ### Function: Place Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
 add_filter('the_content', 'place_poll', '12');
 function place_poll($content){

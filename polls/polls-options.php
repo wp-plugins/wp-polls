@@ -237,8 +237,20 @@ function poll_default_templates(template) {
 					<td><b>%POLL_ANSWER_PERCENTAGE%</b> - <?php _e('Display the poll\'s answer percentage'); ?></td>
 				</tr>
 				<tr>
+					<td><b>%POLL_MOST_ANSWER%</b> - <?php _e('Display the poll\'s most voted answer'); ?></td>
+					<td><b>%POLL_ANSWER_IMAGEWIDTH%</b> - <?php _e('Display the poll\'s answer image width'); ?></td>
+				</tr>
+				<tr>
+					<td><b>%POLL_MOST_VOTES%</b> - <?php _e('Display the poll\'s answer votes for the most voted answer'); ?></td>
+					<td><b>%POLL_LEAST_ANSWER%</b> - <?php _e('Display the poll\'s least voted answer'); ?></td>
+				</tr>
+				<tr>
+					<td><b>%POLL_MOST_PERCENTAGE%</b> - <?php _e('Display the poll\'s answer percentage for the most voted answer'); ?></td>
+					<td><b>%POLL_LEAST_VOTES%</b> - <?php _e('Display the poll\'s answer votes for the least voted answer'); ?></td>
+				</tr>
+				<tr>
 					<td>&nbsp;</td>
-					<td><b>"%POLL_ANSWER_IMAGEWIDTH%</b> - <?php _e('Display the poll\'s answer image width'); ?></td>
+					<td><b>%POLL_LEAST_PERCENTAGE%</b> - <?php _e('Display the poll\'s answer percentage for the least voted answer'); ?></td>
 				</tr>
 			</table>
 		</fieldset>
@@ -323,7 +335,13 @@ function poll_default_templates(template) {
 					<td width="30%" align="left">
 						<b><?php _e('Result Footer:'); ?></b><br /><br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
-						- %POLL_TOTALVOTES%<br /><br />
+						- %POLL_TOTALVOTES%<br />
+						- %POLL_MOST_ANSWER%<br />
+						- %POLL_MOST_VOTES%<br />
+						- %POLL_MOST_PERCENTAGE%<br />
+						- %POLL_LEAST_ANSWER%<br />
+						- %POLL_LEAST_VOTES%<br />
+						- %POLL_LEAST_PERCENTAGE%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('resultfooter');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultfooter" name="poll_template_resultfooter"><?php echo stripslashes(get_settings('poll_template_resultfooter')); ?></textarea></td> 

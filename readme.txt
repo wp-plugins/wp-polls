@@ -16,6 +16,8 @@ please contact me immediately.
 // Version 2.06 (01-04-2006)
 - NEW: Poll Bar Is Slightly Nicer
 - NEW: Got Rid Of Tables, Now Using List <li>
+- NEW: Added In Most Voted And Least Voted Answer/Votes/Percentage For Individual Poll As Template Variables
+- FIXED: Totally Removed Tables In wp-polls.php
 
 // Version 2.05 (01-03-2006)
 - NEW: Improved On 'manage_polls' Capabilities
