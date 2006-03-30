@@ -16,6 +16,9 @@ wp-polls.php
 ------------------------------------------------------------------
 
 
+// Go to 'WP-Admin -> Polls -> Polls Options' and restore all the template variables to Default
+
+
 
 
 
@@ -52,6 +55,9 @@ wp-polls.php
 
 
 // Activate WP-Polls plugin
+
+
+// Go to 'WP-Admin -> EMail -> EMail Options' and restore all the template variables to Default
 
 
 // Refer to readme-install.txt for further usage instructions
