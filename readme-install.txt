@@ -18,6 +18,14 @@ wp-polls.php
 // Activate WP-Polls plugin
 
 
+// Tutorial On How To Integrate wp-polls.php With Your Theme
+
+Go To:
+------------------------------------------------------------------
+http://www.lesterchan.net/wordpress/tutorials/integrating/
+------------------------------------------------------------------
+
+
 
 
 

@@ -60,9 +60,13 @@ function get_poll($temp_poll_id = 0, $display = true) {
 	// Poll Is Enabled
 	} else {
 		// Hardcoded Poll ID Is Not Specified
-		if(intval($temp_poll_id) == 0) {
-			// Current Poll ID Is Not Specified
-			if(intval(get_settings('poll_currentpoll')) == 0) {
+		if(intval($temp_poll_id) == 0) {
+			// Random Poll
+			if(intval(get_settings('poll_currentpoll')) == -2) {
+				$random_poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq ORDER BY RAND() LIMIT 1");
+				$poll_id = intval($random_poll_id);
+			// Current Poll ID Is Not Specified
+			} elseif(intval(get_settings('poll_currentpoll')) == 0) {
 				// Get Lastest Poll ID
 				$poll_id = intval(get_settings('poll_latestpoll'));
 			} else {

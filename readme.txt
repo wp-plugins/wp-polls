@@ -17,6 +17,7 @@ please contact me immediately.
 - NEW: Poll Bar Is Slightly Nicer
 - NEW: Got Rid Of Tables, Now Using List <li>
 - NEW: Added In Most Voted And Least Voted Answer/Votes/Percentage For Individual Poll As Template Variables
+- NEW: Display Random Poll Option Under Poll -> Poll Options -> Current Poll
 - FIXED: Totally Removed Tables In wp-polls.php
 
 // Version 2.05 (01-03-2006)

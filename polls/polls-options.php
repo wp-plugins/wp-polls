@@ -195,7 +195,8 @@ function poll_default_templates(template) {
 					<th align="left" width="30%"><?php _e('Current Active Poll:'); ?></th>
 					<td align="left">
 						<select name="poll_currentpoll" size="1">
-							<option value="-1"<?php selected(-1, get_settings('poll_currentpoll')); ?>><?php _e('Do NOT Display Poll (Disable)'); ?></option>
+							<option value="-1"<?php selected(-1, get_settings('poll_currentpoll')); ?>><?php _e('Do NOT Display Poll (Disable)'); ?></option>
+							<option value="-2"<?php selected(-2, get_settings('poll_currentpoll')); ?>><?php _e('Display Random Poll'); ?></option>
 							<option value="0"<?php selected(0, get_settings('poll_currentpoll')); ?>><?php _e('Display Latest Poll'); ?></option>
 							<option value="0"></option>
 							<?php

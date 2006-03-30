@@ -2,7 +2,7 @@
 ------------------------------------------------------------------
 // Open wp-content/plugins folder
 
-Overwrite/Put:
+Overwrite:
 ------------------------------------------------------------------
 Folder: polls
 ------------------------------------------------------------------
@@ -19,7 +19,7 @@ wp-polls.php
 
 
 
--> Upgrade Instructions For Version 1.0x To Version 2.05
+-> Upgrade Instructions For Version 1.0x To Version 2.06
 ------------------------------------------------------------------
 // Deactivate WP-Polls plugin
 
