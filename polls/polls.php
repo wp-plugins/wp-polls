@@ -49,6 +49,8 @@ function poll_menu() {
 ### Function: Get Poll
 function get_poll($temp_poll_id = 0, $display = true) {
 	global $wpdb;
+	// Poll Result Link
+	$pollresult_id = intval($_GET['pollresult']);
 	// Check Whether Poll Is Disabled
 	if(intval(get_settings('poll_currentpoll')) == -1) {
 		if($display) {
@@ -65,6 +67,11 @@ function get_poll($temp_poll_id = 0, $display = true) {
 			if(intval(get_settings('poll_currentpoll')) == -2) {
 				$random_poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq ORDER BY RAND() LIMIT 1");
 				$poll_id = intval($random_poll_id);
+				if($pollresult_id > 0) {
+					$poll_id = $pollresult_id;
+				} elseif(intval($_POST['poll_id']) > 0) {
+					$poll_id = intval($_POST['poll_id']);
+				}
 			// Current Poll ID Is Not Specified
 			} elseif(intval(get_settings('poll_currentpoll')) == 0) {
 				// Get Lastest Poll ID
@@ -79,8 +86,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 		}
 	}
 
-	// User Click on View Results Link
-	$pollresult_id = intval($_GET['pollresult']);
+	// User Click on View Results Link
 	if($pollresult_id == $poll_id) {
 		if($display) {
 			echo display_pollresult($poll_id);

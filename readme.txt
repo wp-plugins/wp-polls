@@ -13,6 +13,9 @@ please contact me immediately.
 --------------------------------------------------
 
 
+// Version 2.06a (02-04-2006)
+- FIXED: Random Poll Not Working Correctly
+
 // Version 2.06 (01-04-2006)
 - NEW: Poll Bar Is Slightly Nicer
 - NEW: Got Rid Of Tables, Now Using List <li>
