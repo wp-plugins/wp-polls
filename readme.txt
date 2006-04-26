@@ -13,6 +13,9 @@ please contact me immediately.
 --------------------------------------------------
 
 
+// Version 2.06b (26-04-2006)
+- FIXED: Bug In vote_poll();
+
 // Version 2.06a (02-04-2006)
 - FIXED: Random Poll Not Working Correctly
 
