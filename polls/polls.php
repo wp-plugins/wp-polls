@@ -346,7 +346,7 @@ function vote_poll() {
 		$poll_aid = intval($_POST["poll-$poll_id"]);
 		if($poll_id > 0 && $poll_aid > 0) {
 			$voted_ip = check_voted_ip($poll_id);
-			$voted_cookie = check_voted_cookie($poll_ip);
+			$voted_cookie = check_voted_cookie($poll_id);
 			if($voted_ip == 0 && $voted_cookie == 0) {
 				if(!empty($user_identity)) {
 					$pollip_user = addslashes($user_identity);
