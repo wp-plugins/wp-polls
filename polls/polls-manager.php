@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.06										|
+|	WordPress 2.0 Plugin: WP-Polls 2.1											|
 |	Copyright (c) 2005 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -40,7 +40,7 @@ if(!empty($_POST['do'])) {
 			// Add Poll Question
 			$pollq_question = addslashes(trim($_POST['pollq_question']));
 			$pollq_timestamp = current_time('timestamp');
-			$add_poll_question = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (0, '$pollq_question', '$pollq_timestamp', 0)");
+			$add_poll_question = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (0, '$pollq_question', '$pollq_timestamp', 0, 1)");
 			if(!$add_poll_question) {
 				$text .= '<font color="red">Error In Adding Poll \''.stripslashes($pollq_question).'\'</font>';
 			}
@@ -83,7 +83,7 @@ if(!empty($_POST['do'])) {
 
 			$edit_poll_question = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_question = '$pollq_question', pollq_totalvotes = $pollq_totalvotes $timestamp_sql WHERE pollq_id = $pollq_id");
 			if(!$edit_poll_question) {
-				$text = '<font color="blue">No Changes Had Been Made To \''.stripslashes($pollq_question).'\'</font>';
+				$text = '<font color="blue">No Changes Had Been Made To Poll\'s Title \''.stripslashes($pollq_question).'\'</font>';
 			}
 			// Update Polls' Answers
 			$polla_aids = array();
@@ -105,6 +105,28 @@ if(!empty($_POST['do'])) {
 			}
 			if(empty($text)) {
 				$text = '<font color="green">Poll \''.stripslashes($pollq_question).'\' Edited Successfully</font>';
+			}
+			break;
+		// Open Poll
+		case 'Open Poll':
+			$pollq_id  = intval($_POST['pollq_id']);
+			$pollq_question = addslashes(trim($_POST['pollq_question']));
+			$close_poll = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 1 WHERE pollq_id = $pollq_id;");
+			if($close_poll) {
+				$text = '<font color="green">Poll \''.stripslashes($pollq_question).'\' Is Now Opened</font>';
+			} else {
+				$text = '<font color="red">Error Opening Poll \''.stripslashes($pollq_question).'\'</font>';
+			}
+			break;
+		// Close Poll
+		case 'Close Poll':
+			$pollq_id  = intval($_POST['pollq_id']);
+			$pollq_question = addslashes(trim($_POST['pollq_question']));
+			$close_poll = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 0 WHERE pollq_id = $pollq_id;");
+			if($close_poll) {
+				$text = '<font color="green">Poll \''.stripslashes($pollq_question).'\' Is Now Closed</font>';
+			} else {
+				$text = '<font color="red">Error Closing Poll \''.stripslashes($pollq_question).'\'</font>';
 			}
 			break;
 		// Delete Poll
@@ -177,7 +199,7 @@ switch($mode) {
 								?>
 						</tr>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll'); ?>"  class="button">&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll'); ?>"  class="button" />&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -186,7 +208,7 @@ switch($mode) {
 					<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 						<tr>
 							<th align="left"><?php _e('Question') ?></th>
-							<td><input type="text" size="50" maxlength="200" name="pollq_question"></td>
+							<td><input type="text" size="50" maxlength="200" name="pollq_question" /></td>
 						</tr>
 							<th align="left"><?php _e('No. Of Answers:') ?></th>
 							<td>
@@ -200,7 +222,7 @@ switch($mode) {
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question'); ?>" class="button">&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question'); ?>" class="button" />&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -210,17 +232,18 @@ switch($mode) {
 		break;
 	// Edit A Poll
 	case 'edit':
-		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_timestamp, pollq_totalvotes FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
+		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_timestamp, pollq_totalvotes, pollq_active FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
 		$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_id ORDER BY polla_aid ASC");
 		$poll_question_text = stripslashes($poll_question->pollq_question);
 		$poll_totalvotes = intval($poll_question->pollq_totalvote);
 		$poll_timestamp = $poll_question->pollq_timestamp;
+		$poll_active = intval($poll_question->pollq_active);
 
 		// Edit Timestamp Options
 		function poll_timestamp($poll_timestamp) {
 			global $month;
 			$day = gmdate('j', $poll_timestamp);
-			echo '<select name="pollq_timestamp_day" size="1">"'."\n";
+			echo '<select name="pollq_timestamp_day" size="1">'."\n";
 			for($i = 1; $i <=31; $i++) {
 				if($day == $i) {
 					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
@@ -230,7 +253,7 @@ switch($mode) {
 			}
 			echo '</select>&nbsp;&nbsp;'."\n";
 			$month2 = gmdate('n', $poll_timestamp);
-			echo '<select name="pollq_timestamp_month" size="1">"'."\n";
+			echo '<select name="pollq_timestamp_month" size="1">'."\n";
 			for($i = 1; $i <= 12; $i++) {
 				if ($i < 10) {
 					$ii = '0'.$i;
@@ -245,7 +268,7 @@ switch($mode) {
 			}
 			echo '</select>&nbsp;&nbsp;'."\n";
 			$year = gmdate('Y', $poll_timestamp);
-			echo '<select name="pollq_timestamp_year" size="1">"'."\n";
+			echo '<select name="pollq_timestamp_year" size="1">'."\n";
 			for($i = 2000; $i <= gmdate('Y'); $i++) {
 				if($year == $i) {
 					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
@@ -255,7 +278,7 @@ switch($mode) {
 			}
 			echo '</select>&nbsp;@'."\n";
 			$hour = gmdate('H', $poll_timestamp);
-			echo '<select name="pollq_timestamp_hour" size="1">"'."\n";
+			echo '<select name="pollq_timestamp_hour" size="1">'."\n";
 			for($i = 0; $i < 24; $i++) {
 				if($hour == $i) {
 					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
@@ -265,7 +288,7 @@ switch($mode) {
 			}
 			echo '</select>&nbsp;:'."\n";
 			$minute = gmdate('i', $poll_timestamp);
-			echo '<select name="pollq_timestamp_minute" size="1">"'."\n";
+			echo '<select name="pollq_timestamp_minute" size="1">'."\n";
 			for($i = 0; $i < 60; $i++) {
 				if($minute == $i) {
 					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
@@ -276,7 +299,7 @@ switch($mode) {
 			
 			echo '</select>&nbsp;:'."\n";
 			$second = gmdate('s', $poll_timestamp);
-			echo '<select name="pollq_timestamp_second" size="1">"'."\n";
+			echo '<select name="pollq_timestamp_second" size="1">'."\n";
 			for($i = 0; $i <= 60; $i++) {
 				if($second == $i) {
 					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
@@ -287,7 +310,7 @@ switch($mode) {
 			echo '</select>'."\n";
 		}
 ?>
-		<script language="Javascript" type="text/javascript">
+		<script type="text/javascript">
 			function check_totalvotes() {	
 				var total_votes = 0;
 				var temp_vote = 0;
@@ -305,11 +328,12 @@ switch($mode) {
 				document.getElementById('pollq_totalvotes').value = parseInt(total_votes);
 			}
 		</script>
+		<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
 		<!-- Edit Poll -->
 		<div class="wrap">
 			<h2><?php _e('Edit Poll'); ?></h2>
-			<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-				<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>">
+			<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
+				<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
 						<th colspan="2"><?php _e('Question') ?></th>
@@ -334,14 +358,13 @@ switch($mode) {
 								$pollip_answers[$polla_aid] = $polla_answers;
 								echo "<tr>\n";
 								echo "<td align=\"left\">".__('Answer')." $i:&nbsp;&nbsp;&nbsp;<input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_aid-$polla_aid\" value=\"$polla_answers\" />&nbsp;&nbsp;&nbsp;";
-								echo "<a href=\"$base_page&amp;mode=deleteans&id=$poll_id&aid=$polla_aid\" onclick=\"return confirm('You Are About To Delete This Poll Answer \'$polla_answers\'\\n  \'Cancel\' to stop, \'OK\' to delete.')\">Delete</a></td>\n";
+								echo "<a href=\"$base_page&amp;mode=deleteans&amp;id=$poll_id&amp;aid=$polla_aid\" onclick=\"return confirm('You Are About To Delete This Poll Answer \'$polla_answers\'\\n  \'Cancel\' to stop, \'OK\' to delete.')\">Delete</a></td>\n";
 								echo "<td align=\"right\">$polla_votes&nbsp;&nbsp;&nbsp;<input type=\"text\" size=\"4\" maxlength=\"6\" id=\"polla_votes-$polla_aid\" name=\"polla_votes-$polla_aid\" value=\"$polla_votes\" onblur=\"check_totalvotes();\" /></td>\n</tr>\n";
 								$poll_actual_totalvotes += $polla_votes;
 								$i++;
 							}
 						}
 					?>
-					</tr>
 					<tr>
 						<td align="right" colspan="2"><b><?php _e('Total Votes'); ?>: <?php echo $poll_actual_totalvotes; ?></b>&nbsp;&nbsp;&nbsp;<input type="text" size="4" maxlength="4" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
 					</tr>
@@ -352,7 +375,13 @@ switch($mode) {
 						<td colspan="2"><input type="checkbox" name="edit_polltimestamp" value="1" />Edit Timestamp<br /><?php poll_timestamp($poll_timestamp); ?><br />Existing Timestamp: <?php echo gmdate('jS F Y @ H:i:s', $poll_timestamp); ?></td>
 					</tr>
 					<tr>
-						<td align="center" colspan="2"><input type="submit" name="do" value="<?php _e('Edit Poll'); ?>" class="button">&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+						<td align="center" colspan="2"><input type="submit" name="do" value="<?php _e('Edit Poll'); ?>" class="button" />&nbsp;&nbsp;
+						<?php if($poll_active == 1) { ?>
+						<input type="submit" class="button" name="do" value="<?php _e('Close Poll'); ?>" onclick="return confirm('You Are About To Close This Poll \'<?php echo $poll_question_text; ?>\'.')" />
+						<?php } else { ?>
+						<input type="submit" class="button" name="do" value="<?php _e('Open Poll'); ?>" onclick="return confirm('You Are About To Open This Poll \'<?php echo $poll_question_text; ?>\'.')" />
+						<?php } ?>
+						&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -360,15 +389,15 @@ switch($mode) {
 		<!-- Add Poll's Answer -->
 		<div class="wrap">
 			<h2><?php _e('Add Answer') ?></h2>
-			<form action="<?php echo $_SERVER['REQUEST_URI']; ?>&amp;mode=edit&amp;id=<?php echo $poll_id; ?>" method="post">
-				<input type="hidden" name="polla_qid" value="<?php echo $poll_id; ?>">
+			<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>&amp;mode=edit&amp;id=<?php echo $poll_id; ?>" method="post">
+				<input type="hidden" name="polla_qid" value="<?php echo $poll_id; ?>" />
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
 						<td><b><?php _e('Add Answer') ?></b></td>
-						<td><input type="text" size="50" maxlength="200" name="polla_answers"></td>
+						<td><input type="text" size="50" maxlength="200" name="polla_answers" /></td>
 					</tr>
 					<tr>
-						<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Answer'); ?>" class="button"></td>
+						<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Answer'); ?>" class="button" /></td>
 					</tr>
 				</table>
 			</form>
@@ -429,17 +458,18 @@ switch($mode) {
 		break;
 	// Delete A Poll
 	case 'delete':
-		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_totalvotes FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
+		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_totalvotes, pollq_active FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
 		$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_id ORDER BY polla_answers");
 		$poll_question_text = stripslashes($poll_question->pollq_question);
 		$poll_totalvotes = intval($poll_question->pollq_totalvotes);
+		$poll_active = intval($poll_question->pollq_active);
 ?>
 		<!-- Delete Poll -->
 		<div class="wrap">
 			<h2><?php _e('Delete Poll') ?></h2>
 			<form action="<?php echo $base_page; ?>" method="post"> 
-				<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>">
-				<input type="hidden" name="pollq_question" value="<?php echo $poll_question_text; ?>">
+				<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
+				<input type="hidden" name="pollq_question" value="<?php echo $poll_question_text; ?>" />
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
 						<th colspan="2"><?php _e('Question') ?></th>
@@ -464,12 +494,14 @@ switch($mode) {
 							}
 						}
 					?>
-					</tr>
 					<tr>
 						<th colspan="2"><?php _e('Total Votes'); ?>: <?php echo $poll_totalvotes; ?></th>
 					</tr>
 					<tr>
-						<td align="center" colspan="2"><br /><p><b><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</b></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')">&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+						<th colspan="2"><?php _e('Status'); ?>: <?php if($poll_active == 1) { _e('Open'); } else { _e('Closed'); } ?></th>
+					</tr>
+					<tr>
+						<td align="center" colspan="2"><br /><p><b><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</b></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -516,10 +548,11 @@ switch($mode) {
 		<h2><?php _e('Manage Polls'); ?></h2>
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 			<tr>
-				<th scope="col"><?php _e('ID'); ?></b></th>
-				<th scope="col"><?php _e('Question'); ?></b></th>
-				<th scope="col"><?php _e('Total Votes'); ?></b></th>
-				<th scope="col"><?php _e('Date Added'); ?></b></th>
+				<th scope="col"><?php _e('ID'); ?></th>
+				<th scope="col"><?php _e('Question'); ?></th>				
+				<th scope="col"><?php _e('Total Votes'); ?></th>
+				<th scope="col"><?php _e('Date Added'); ?></th>
+				<th scope="col"><?php _e('Status'); ?></th>
 				<th scope="col" colspan="2"><?php _e('Action'); ?></th>
 			</tr>
 			<?php
@@ -531,6 +564,7 @@ switch($mode) {
 						$poll_question = stripslashes($poll->pollq_question);
 						$poll_date = gmdate("jS F Y @ H:i", $poll->pollq_timestamp);
 						$poll_totalvotes = intval($poll->pollq_totalvotes);
+						$poll_active = intval($poll->pollq_active);
 						if($i%2 == 0) {
 							$style = 'style=\'background-color: #eee\'';
 						}  else {
@@ -557,9 +591,16 @@ switch($mode) {
 								echo '<b>'.__('Displayed:').'</b> ';
 							}
 						}
-						echo "$poll_question</td>\n";
+						echo "$poll_question</td>\n";						
 						echo "<td>$poll_totalvotes</td>\n";
 						echo "<td>$poll_date</td>\n";
+						echo '<td>';
+						if($poll_active == 1) {
+							_e('Open');
+						} else {
+							_e('Closed');
+						}
+						echo "</td>\n";
 						echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit')."</a></td>\n";
 						echo "<td><a href=\"$base_page&amp;mode=delete&amp;id=$poll_id\" class=\"delete\">".__('Delete')."</a></td>\n";
 						echo '</tr>';
@@ -568,7 +609,7 @@ switch($mode) {
 						
 					}
 				} else {
-					echo '<tr><td colspan="6" align="center"><b>'.__('No Polls Found').'</b></td></tr>';
+					echo '<tr><td colspan="7" align="center"><b>'.__('No Polls Found').'</b></td></tr>';
 				}
 			?>
 			</table>
@@ -576,12 +617,13 @@ switch($mode) {
 		<!-- Add A Poll -->
 		<div class="wrap">
 			<h2><?php _e('Add A Poll'); ?></h2>
-			<form action="<?php echo $_SERVER['REQUEST_URI']; ?>&amp;mode=add" method="post">
+			<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>&amp;mode=add" method="post">
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
 						<th align="left"><?php _e('Question') ?></th>
-						<td><input type="text" size="50" maxlength="200" name="pollq_question"></td>
+						<td><input type="text" size="50" maxlength="200" name="pollq_question" /></td>
 					</tr>
+					<tr>
 						<th align="left"><?php _e('No. Of Answers:') ?></th>
 						<td>
 								<select size="1" name="poll_noquestion">
