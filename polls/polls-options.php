@@ -48,6 +48,7 @@ if($_POST['Submit']) {
 	$poll_archive_perpage = intval($_POST['poll_archive_perpage']);
 	$poll_currentpoll = intval($_POST['poll_currentpoll']);
 	$poll_logging_method = intval($_POST['poll_logging_method']);
+	$poll_allowtovote = intval($_POST['poll_allowtovote']);
 	$update_poll_queries = array();
 	$update_poll_text = array();
 	$update_poll_queries[] = update_option('poll_ans_sortby', $poll_ans_sortby);
@@ -67,6 +68,7 @@ if($_POST['Submit']) {
 	$update_poll_queries[] = update_option('poll_archive_perpage', $poll_archive_perpage);
 	$update_poll_queries[] = update_option('poll_currentpoll', $poll_currentpoll);
 	$update_poll_queries[] = update_option('poll_logging_method', $poll_logging_method);
+	$update_poll_queries[] = update_option('poll_allowtovote', $poll_allowtovote);
 	$update_poll_text[] = __('Sort Poll Answers By Option');
 	$update_poll_text[] = __('Sort Order Of Poll Answers Option');
 	$update_poll_text[] = __('Sort Poll Results By Option');
@@ -84,6 +86,7 @@ if($_POST['Submit']) {
 	$update_poll_text[] = __('Archive Polls Per Page Option');
 	$update_poll_text[] = __('Current Active Poll Option');
 	$update_poll_text[] = __('Logging Method');
+	$update_poll_text[] = __('Allow To Vote Option');
 	$i=0;
 	$text = '';
 	foreach($update_poll_queries as $update_poll_query) {
@@ -100,42 +103,42 @@ if($_POST['Submit']) {
 ?>
 <script type="text/javascript">
 /* <![CDATA[*/
-function poll_default_templates(template) {
-	var default_template;
-	switch(template) {
-		case "voteheader":
-			default_template = "<p align=\"center\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul>";
-			break;
-		case "votebody":
-			default_template = "<li><label for=\"poll-answer-%POLL_ANSWER_ID%\"><input type=\"radio\" id=\"poll-answer-%POLL_ANSWER_ID%\" name=\"poll_%POLL_ID%\" value=\"%POLL_ANSWER_ID%\" /> %POLL_ANSWER%</label></li>";
-			break;
-		case "votefooter":
-			default_template = "</ul>\n<p align=\"center\"><input type=\"button\" name=\"vote\" value=\"   Vote   \" class=\"Buttons\" onclick=\"poll_vote(%POLL_ID%);\" /><br /><a href=\"#ViewPollResults\" onclick=\"poll_result(%POLL_ID%); return false;\" title=\"View Results Of This Poll\">View Results</a></p>\n</div>";
-			break;
-		case "resultheader":
-			default_template = "<p align=\"center\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul>";
-			break;
-		case "resultbody":
-			default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" /></li>";
-			break;
-		case "resultbody2":
-			default_template = "<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" /></li>";
-			break;
-		case "resultfooter":
-			default_template = "</ul>\n<p align=\"center\">Total Votes: <b>%POLL_TOTALVOTES%</b></p>\n</div>";
-			break;
-		case "resultfooter2":
-			default_template = "</ul>\n<p align=\"center\">Total Votes: <b>%POLL_TOTALVOTES%</b><br /><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%); return false;\" title=\"Vote For This Poll\">Vote</a></p>\n</div>";
-			break;
-		case "disable":
-			default_template = 'Sorry, there are no polls available at the moment.';
-			break;
-		case "error":
-			default_template = 'An error has occurred when processing your poll.';
-			break;
+	function poll_default_templates(template) {
+		var default_template;
+		switch(template) {
+			case "voteheader":
+				default_template = "<p align=\"center\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
+				break;
+			case "votebody":
+				default_template = "<li><label for=\"poll-answer-%POLL_ANSWER_ID%\"><input type=\"radio\" id=\"poll-answer-%POLL_ANSWER_ID%\" name=\"poll_%POLL_ID%\" value=\"%POLL_ANSWER_ID%\" /> %POLL_ANSWER%</label></li>";
+				break;
+			case "votefooter":
+				default_template = "</ul>\n<p align=\"center\"><input type=\"button\" name=\"vote\" value=\"   Vote   \" class=\"Buttons\" onclick=\"poll_vote(%POLL_ID%);\" /><br /><a href=\"#ViewPollResults\" onclick=\"poll_result(%POLL_ID%); return false;\" title=\"View Results Of This Poll\">View Results</a></p>\n</div>";
+				break;
+			case "resultheader":
+				default_template = "<p align=\"center\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
+				break;
+			case "resultbody":
+				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" /></li>";
+				break;
+			case "resultbody2":
+				default_template = "<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" /></li>";
+				break;
+			case "resultfooter":
+				default_template = "</ul>\n<p align=\"center\">Total Votes: <b>%POLL_TOTALVOTES%</b></p>\n</div>";
+				break;
+			case "resultfooter2":
+				default_template = "</ul>\n<p align=\"center\">Total Votes: <b>%POLL_TOTALVOTES%</b><br /><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%); return false;\" title=\"Vote For This Poll\">Vote</a></p>\n</div>";
+				break;
+			case "disable":
+				default_template = 'Sorry, there are no polls available at the moment.';
+				break;
+			case "error":
+				default_template = 'An error has occurred when processing your poll.';
+				break;
+		}
+		document.getElementById("poll_template_" + template).value = default_template;
 	}
-	document.getElementById("poll_template_" + template).value = default_template;
-}
 /* ]]> */
 </script>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
@@ -186,6 +189,21 @@ function poll_default_templates(template) {
 							<option value="desc"<?php selected('desc', get_settings('poll_ans_result_sortorder')); ?>><?php _e('Descending'); ?></option>
 						</select>
 					</td> 
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset class="options">
+			<legend><?php _e('Allow To Vote'); ?></legend>
+			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
+				 <tr valign="top">
+					<th align="left" width="30%"><?php _e('Who Is Allowed To Vote?'); ?></th>
+					<td align="left">
+						<select name="poll_allowtovote" size="1">
+							<option value="0"<?php selected('0', get_settings('poll_allowtovote')); ?>><?php _e('Guests Only'); ?></option>
+							<option value="1"<?php selected('1', get_settings('poll_allowtovote')); ?>><?php _e('Registered Users Only'); ?></option>
+							<option value="2"<?php selected('2', get_settings('poll_allowtovote')); ?>><?php _e('Registered Users And Guests'); ?></option>
+						</select>
+					</td>
 				</tr>
 			</table>
 		</fieldset>
@@ -293,7 +311,7 @@ function poll_default_templates(template) {
 						- %POLL_TOTALVOTES%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('voteheader');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_voteheader" name="poll_template_voteheader"><?php echo stripslashes(get_settings('poll_template_voteheader')); ?></textarea></td>
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_voteheader" name="poll_template_voteheader"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_voteheader'))); ?></textarea></td>
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -305,7 +323,7 @@ function poll_default_templates(template) {
 						- %POLL_ANSWER_VOTES%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('votebody');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_votebody" name="poll_template_votebody"><?php echo stripslashes(get_settings('poll_template_votebody')); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_votebody" name="poll_template_votebody"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_votebody'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -315,7 +333,7 @@ function poll_default_templates(template) {
 							- %POLL_RESULT_URL%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('votefooter');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo stripslashes(get_settings('poll_template_votefooter')); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_votefooter'))); ?></textarea></td> 
 				</tr>
 			</table>
 		</fieldset>
@@ -331,7 +349,7 @@ function poll_default_templates(template) {
 						- %POLL_TOTALVOTES%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('resultheader');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultheader" name="poll_template_resultheader"><?php echo stripslashes(get_settings('poll_template_resultheader')); ?></textarea></td>
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultheader" name="poll_template_resultheader"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultheader'))); ?></textarea></td>
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -344,7 +362,7 @@ function poll_default_templates(template) {
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('resultbody');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo stripslashes(get_settings('poll_template_resultbody')); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -357,7 +375,7 @@ function poll_default_templates(template) {
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('resultbody2');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo stripslashes(get_settings('poll_template_resultbody2')); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody2'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -372,7 +390,7 @@ function poll_default_templates(template) {
 						- %POLL_LEAST_PERCENTAGE%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('resultfooter');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultfooter" name="poll_template_resultfooter"><?php echo stripslashes(get_settings('poll_template_resultfooter')); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultfooter" name="poll_template_resultfooter"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultfooter'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -388,7 +406,7 @@ function poll_default_templates(template) {
 						- %POLL_LEAST_PERCENTAGE%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('resultfooter2');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultfooter2" name="poll_template_resultfooter2"><?php echo stripslashes(get_settings('poll_template_resultfooter2')); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultfooter2" name="poll_template_resultfooter2"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultfooter2'))); ?></textarea></td> 
 				</tr>
 			</table>
 		</fieldset>
@@ -402,7 +420,7 @@ function poll_default_templates(template) {
 						- N/A<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('disable');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_disable" name="poll_template_disable"><?php echo stripslashes(get_settings('poll_template_disable')); ?></textarea></td>
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_disable" name="poll_template_disable"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_disable'))); ?></textarea></td>
 				</tr>
 				<tr valign="top">
 					<td width="30%" align="left">
@@ -411,12 +429,12 @@ function poll_default_templates(template) {
 						- N/A<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('error');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_error" name="poll_template_error"><?php echo stripslashes(get_settings('poll_template_error')); ?></textarea></td>
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_error" name="poll_template_error"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_error'))); ?></textarea></td>
 				</tr>
 			</table>
 		</fieldset>
 		<div align="center">
-			<input type="submit" name="Submit" class="button" value="<?php _e('Update Options'); ?>" />&nbsp;&nbsp;<input type="button" name="cancel" Value="Cancel" class="button" onclick="javascript:history.go(-1)" /> 
+			<input type="submit" name="Submit" class="button" value="<?php _e('Update Options'); ?>" />&nbsp;&nbsp;<input type="button" name="cancel" value="Cancel" class="button" onclick="javascript:history.go(-1)" /> 
 		</div>
 	</form> 
 </div> 

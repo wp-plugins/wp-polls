@@ -24,40 +24,56 @@ var poll_fadein_opacity = 0;
 var poll_fadeout_opacity = 100;
 var is_ie = (document.all && document.getElementById);
 var is_moz = (!document.all && document.getElementById);
-
+var is_being_voted = false;
 
 // When User Vote For Poll
 function poll_vote(current_poll_id) {
-	poll_id = current_poll_id;
-	poll_form = document.getElementById('polls_form_' + poll_id);
-	poll_answer = eval("poll_form.poll_" + poll_id);
-	for(i = 0; i < poll_answer.length; i++) {
-		if (poll_answer[i].checked) {
-			poll_answer_id = poll_answer[i].value;
+	if(!is_being_voted) {
+		is_being_voted = true;
+		poll_id = current_poll_id;
+		poll_form = document.getElementById('polls_form_' + poll_id);
+		poll_answer = eval("poll_form.poll_" + poll_id);
+		poll_answer_id = 0;
+		for(i = 0; i < poll_answer.length; i++) {
+			if (poll_answer[i].checked) {
+				poll_answer_id = poll_answer[i].value;
+			}
 		}
-	}
-	if(poll_answer_id > 0) {
-		poll_loading_text();
-		poll_process();
+		if(poll_answer_id > 0) {
+			poll_loading_text();
+			poll_process();
+		} else {
+			alert("Please choose a valid poll answer.");
+		}
 	} else {
-		alert("Please choose a valid choice.");
+		alert("Your last request is still being processed. Please wait a while ...");
 	}
 }
 
 
 // When User View Poll's Result
 function poll_result(current_poll_id) {
-	poll_id = current_poll_id;
-	poll_loading_text();
-	poll_process_result();
+	if(!is_being_voted) {
+		is_being_voted = true;
+		poll_id = current_poll_id;
+		poll_loading_text();
+		poll_process_result();
+	} else {
+		alert("Your last request is still being processed. Please wait a while ...");
+	}
 }
 
 
 // When User View Poll's Voting Booth
 function poll_booth(current_poll_id) {
-	poll_id = current_poll_id;
-	poll_loading_text();
-	poll_process_booth();
+	if(!is_being_voted) {
+		is_being_voted = true;
+		poll_id = current_poll_id;
+		poll_loading_text();
+		poll_process_booth();
+	} else {
+		alert("Your last request is still being processed. Please wait a while ...");
+	}
 }
 
 
@@ -72,7 +88,8 @@ function poll_fadein_text() {
 		if(is_moz) document.getElementById('polls-' + poll_id + '-ans').style.MozOpacity = (poll_fadein_opacity/100);
 		setTimeout("poll_fadein_text()", 100); 
 	} else {
-		poll_fadein_opacity = 100;		
+		poll_fadein_opacity = 100;
+		is_being_voted = false;
 	}
 }
 

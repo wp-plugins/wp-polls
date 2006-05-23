@@ -16,11 +16,11 @@
 */
 
 
-.wp-polls ul li, .wp-polls-ans ul li, .post ul li, .post li {
+.wp-polls ul li, wp-polls-ul li, .wp-polls-ans ul li, .post ul li, .post li {
 	text-align: left;
 	list-style: none;
 }
-.wp-polls ul li:before, .wp-polls-ans ul li:before, #sidebar ul ul li:before {
+.wp-polls ul li:before, wp-polls-ul li, .wp-polls-ans ul li:before, #sidebar ul ul li:before {
 	content: '';
 }
 .wp-polls-ans {
@@ -28,6 +28,7 @@
 	filter: alpha(opacity=100);
 	-moz-opacity: 1;
 	opacity: 1;
+	/* background-color: #ffffff; */
 }
 .wp-polls-loading {
 	display: none;

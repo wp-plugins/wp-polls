@@ -168,6 +168,29 @@ if(!empty($_POST['do'])) {
 				$text = '<font color="green">Poll Answer \''.stripslashes($polla_answers).'\' Added Successfully</font>';
 			}
 			break;
+		// Delete Polls Logs
+		case 'Delete All Logs':
+			if(trim($_POST['delete_logs_yes']) == 'yes') {
+				$delete_logs = $wpdb->query("DELETE FROM $wpdb->pollsip");
+				if($delete_logs) {
+					$text = '<font color="green">All Polls Logs Have Been Deleted.</font>';
+				} else {
+					$text = '<font color="red">An Error Has Occured While Deleting All Polls Logs.</font>';
+				}
+			}
+			break;
+		// Delete Poll Logs For Individual Poll
+		case 'Delete Logs For This Poll Only':
+			$pollq_id  = intval($_POST['pollq_id']);
+			if(trim($_POST['delete_logs_yes']) == 'yes') {
+				$delete_logs = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $pollq_id");
+				if($delete_logs) {
+					$text = '<font color="green">All Logs For This Poll Has Been Deleted.</font>';
+				} else {
+					$text = '<font color="red">An Error Has Occured While Deleting All Logs For This Poll.</font>';
+				}
+			}
+			break;
 	}
 }
 
@@ -188,18 +211,18 @@ switch($mode) {
 					<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 						<tr>
 							<th align="left"><?php _e('Question') ?></th>
-							<td><input type="text" size="50" maxlength="200" name="pollq_question" value="<?php echo $pollq_question; ?>"></td>
-								<?php
-									for($i=1; $i<=$poll_noquestion; $i++) {
-										echo "<tr>\n";
-										echo "<th align=\"left\" scope=\"row\">Answers $i:</th>\n";
-										echo "<td><input type=\"text\" size=\"30\" maxlength=\"200\" name=\"polla_answers[]\"></td>\n";
-										echo "</tr>\n";
-									}
-								?>
+							<td><input type="text" size="50" maxlength="200" name="pollq_question" value="<?php echo $pollq_question; ?>" /></td>
 						</tr>
+						<?php
+							for($i=1; $i<=$poll_noquestion; $i++) {
+								echo "<tr>\n";
+								echo "<th align=\"left\" scope=\"row\">Answers $i:</th>\n";
+								echo "<td><input type=\"text\" size=\"30\" maxlength=\"200\" name=\"polla_answers[]\" /></td>\n";
+								echo "</tr>\n";
+							}
+						?>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll'); ?>"  class="button" />&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll'); ?>"  class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -222,7 +245,7 @@ switch($mode) {
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question'); ?>" class="button" />&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question'); ?>" class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -246,7 +269,7 @@ switch($mode) {
 			echo '<select name="pollq_timestamp_day" size="1">'."\n";
 			for($i = 1; $i <=31; $i++) {
 				if($day == $i) {
-					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
+					echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
 				} else {
 					echo "<option value=\"$i\">$i</option>\n";	
 				}
@@ -261,7 +284,7 @@ switch($mode) {
 					$ii = $i;
 				}
 				if($month2 == $i) {
-					echo "<option value=\"$i\" selected=\"true\">$month[$ii]</option>\n";	
+					echo "<option value=\"$i\" selected=\"selected\">$month[$ii]</option>\n";	
 				} else {
 					echo "<option value=\"$i\">$month[$ii]</option>\n";	
 				}
@@ -271,7 +294,7 @@ switch($mode) {
 			echo '<select name="pollq_timestamp_year" size="1">'."\n";
 			for($i = 2000; $i <= gmdate('Y'); $i++) {
 				if($year == $i) {
-					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
+					echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
 				} else {
 					echo "<option value=\"$i\">$i</option>\n";	
 				}
@@ -281,7 +304,7 @@ switch($mode) {
 			echo '<select name="pollq_timestamp_hour" size="1">'."\n";
 			for($i = 0; $i < 24; $i++) {
 				if($hour == $i) {
-					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
+					echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
 				} else {
 					echo "<option value=\"$i\">$i</option>\n";	
 				}
@@ -291,7 +314,7 @@ switch($mode) {
 			echo '<select name="pollq_timestamp_minute" size="1">'."\n";
 			for($i = 0; $i < 60; $i++) {
 				if($minute == $i) {
-					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
+					echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
 				} else {
 					echo "<option value=\"$i\">$i</option>\n";	
 				}
@@ -302,7 +325,7 @@ switch($mode) {
 			echo '<select name="pollq_timestamp_second" size="1">'."\n";
 			for($i = 0; $i <= 60; $i++) {
 				if($second == $i) {
-					echo "<option value=\"$i\" selected=\"true\">$i</option>\n";	
+					echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
 				} else {
 					echo "<option value=\"$i\">$i</option>\n";	
 				}
@@ -381,7 +404,7 @@ switch($mode) {
 						<?php } else { ?>
 						<input type="submit" class="button" name="do" value="<?php _e('Open Poll'); ?>" onclick="return confirm('You Are About To Open This Poll \'<?php echo $poll_question_text; ?>\'.')" />
 						<?php } ?>
-						&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+						&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -454,6 +477,19 @@ switch($mode) {
 					?>
 				</table>
 		</div>
+		<!-- Delete Poll Logs -->
+		<div class="wrap">
+			<h2><?php _e('Poll Logs'); ?></h2>
+			<div align="center">
+				<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
+					<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
+					<b>Are You Sure You Want To Delete Logs For This Poll Only?</b><br /><br />
+					<input type="checkbox" name="delete_logs_yes" value="yes" />&nbsp;Yes<br /><br />
+					<input type="submit" name="do" value="Delete Logs For This Poll Only" class="button" onclick="return confirm('You Are About To Delete Logs For This Poll Only.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />
+				</form>
+			</div>
+			<p>Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer.</p>
+		</div>
 <?php
 		break;
 	// Delete A Poll
@@ -501,7 +537,7 @@ switch($mode) {
 						<th colspan="2"><?php _e('Status'); ?>: <?php if($poll_active == 1) { _e('Open'); } else { _e('Closed'); } ?></th>
 					</tr>
 					<tr>
-						<td align="center" colspan="2"><br /><p><b><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</b></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />&nbsp;&nbsp;<input type="button" name="cancel" Value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+						<td align="center" colspan="2"><br /><p><b><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</b></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -658,6 +694,19 @@ switch($mode) {
 				<td align="left"><?php echo number_format($total_votes); ?></td>
 			</tr>
 			</table>
+		</div>
+
+		<!-- Delete Polls Logs -->
+		<div class="wrap">
+			<h2><?php _e('Polls Logs'); ?></h2>
+			<div align="center">
+				<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
+					<b>Are You Sure You Want To Delete All Polls Logs?</b><br /><br />
+					<input type="checkbox" name="delete_logs_yes" value="yes" />&nbsp;Yes<br /><br />
+					<input type="submit" name="do" value="Delete All Logs" class="button" onclick="return confirm('You Are About To Delete All Poll Logs.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />
+				</form>
+			</div>
+			<p>Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer.</p>
 		</div>
 <?php
 } // End switch($mode)

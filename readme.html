@@ -197,12 +197,20 @@
 			<div class="SubTitle">&raquo; Index</div>
 			<div class="SubSubTitle">Plugin Information</div>
 			<p><b>Author</b><br /><b>&raquo;</b> Lester 'GaMerZ' Chan</p>
-			<p><b>EMail:</b><br /><b>&raquo;</b> <a href="mailto:gamerz84@hotmail.com?Subject=WP-Polls%202.06" title="EMail To gamerz84@hotmail.com">gamerz84@hotmail.com</a></p>
-			<p><b>Website:</b><br /><b>&raquo;</b> <a href="http://www.lesterchan.net/" target="_blank" title="http://www.lesterchan.net/">http://www.lesterchan.net/</a></p>
-			<p><b>Demo:</b><br /><b>&raquo;</b> <a href="http://www.lesterchan.net/blogs" target="_blank" title="http://www.lesterchan.net/blogs">http://www.lesterchan.net/blogs</a></p>
-			<p><b>Documentation:</b><br /><b>&raquo;</b> <a href="http://dev.wp-plugins.org/wiki/wp-polls" target="_blank" title="http://dev.wp-plugins.org/wiki/wp-polls">http://dev.wp-plugins.org/wiki/wp-polls</a></p>
-			<p><b>Development:</b><br /><b>&raquo;</b> <a href="http://dev.wp-plugins.org/browser/wp-polls/" target="_blank" title="http://dev.wp-plugins.org/browser/wp-polls/">http://dev.wp-plugins.org/browser/wp-polls/</a></p>
-			<p><b>Updated:</b><br /><b>&raquo;</b> 2nd April 2006</p>
+			<p>
+				<b>EMail:</b><br /><b>&raquo;</b>
+				<script type="text/javascript">
+					/* <![CDATA[*/
+					document.write(' <a href="mailto:gamerz84@hotmail.com?Subject=WP-Polls%202.1%20Support" title="EMail To gamerz84@hotmail.com">gamerz84@hotmail.com</a>');
+					/* ]]> */
+				</script>
+			</p>
+			<p><b>Website:</b><br /><b>&raquo;</b> <a href="http://www.lesterchan.net/" title="http://www.lesterchan.net/">http://www.lesterchan.net/</a></p>
+			<p><b>Demo:</b><br /><b>&raquo;</b> <a href="http://www.lesterchan.net/blogs" title="http://www.lesterchan.net/blogs">http://www.lesterchan.net/blogs</a></p>
+			<p><b>Documentation:</b><br /><b>&raquo;</b> <a href="http://dev.wp-plugins.org/wiki/wp-polls" title="http://dev.wp-plugins.org/wiki/wp-polls">http://dev.wp-plugins.org/wiki/wp-polls</a></p>
+			<p><b>Development:</b><br /><b>&raquo;</b> <a href="http://dev.wp-plugins.org/browser/wp-polls/" title="http://dev.wp-plugins.org/browser/wp-polls/">http://dev.wp-plugins.org/browser/wp-polls/</a></p>
+			<p><b>Support Forums:</b><br /><b>&raquo;</b> <a href="http://forums.lesterchan.net/viewforum.php?f=7" title="http://forums.lesterchan.net/viewforum.php?f=7">http://forums.lesterchan.net/viewforum.php?f=7</a></p>
+			<p><b>Updated:</b><br /><b>&raquo;</b> 1st June 2006</p>
 			<p><b>Note:</b><br /><b>&raquo;</b> I have changed some of WP-Polls's structure to accommodate AJAX, So if there is any bug, please contact me immediately.</p>
 			<div class="SubSubTitle">Changelog</div>
 			<ul>
@@ -210,9 +218,11 @@
 					<b>Version 2.1 (01-06-2006)</b>
 					<ul>
 						<li>NEW: Poll Is Now Using AJAX</li>
-						<li>NEW: Ability To Close Poll</li>
+						<li>NEW: Ability To Close/Open Poll</li>
 						<li>NEW: Added Poll Option For Logging Method</li>
 						<li>NEW: Added Poll Results Footer Template Variable (Used When User Click "View Results")</li>
+						<li>NEW: Added The Ability To Delete All Poll Logs Or Logs From A Specific Poll</li>
+						<li>NEW: Poll Administration Panel And The Code That WP-Polls Generated Is XHTML 1.0 Transitional</li>
 					</ul>
 				</li>
 				<li>
@@ -221,7 +231,6 @@
 						<li>FIXED: Bug In vote_poll();</li>
 					</ul>
 				</li>
-
 				<li>
 					<b>Version 2.06a (02-04-2006)</b>
 					<ul>
@@ -244,7 +253,7 @@
 						<li>NEW: Improved On 'manage_polls' Capabilities</li>
 						<li>NEW: Neater Structure</li>
 						<li>NEW: No More Install/Upgrade File, It Will Install/Upgrade When You Activate The Plugin</li>
-						<li>NEW: Added Poll Stats Function
+						<li>NEW: Added Poll Stats Function</li>
 					</ul>
 				</li>
 				<li>
@@ -255,7 +264,7 @@
 						<li>NEW: Ability To Edit Poll's Timestamp</li>
 						<li>NEW: Ability To Edit Individual Poll's Answer Votes</li>
 						<li>NEW: %POLL_RESULT_URL% To Display Poll's Result URL</li>
-						<li>FIXED: Cannot Sent Header Error
+						<li>FIXED: Cannot Sent Header Error</li>
 					</ul>
 				</li>
 				<li>
@@ -265,7 +274,7 @@
 						<li>NEW: Poll Administration Menu Added Automatically Upon Activating The Plugin</li>
 						<li>NEW: Removed Add Poll Link From The Administration Menu</li>
 						<li>NEW: GPL License Added</li>
-						<li>NEW: Page Title Added To wp-polls.php
+						<li>NEW: Page Title Added To wp-polls.php</li>
 					</ul>
 				</li>
 				<li>
@@ -281,7 +290,7 @@
 						<li>FIXED: Null Vote Being Counted As A Vote</li>
 						<li>FIXED: Auto Loading Of Poll Option: Polls Per Page In Poll Archive Page Is Now "No"</li>
 						<li>NEW: Host Column In Poll IP Table To Prevent Network Lagging When Resolving IP</li>
-						<li>NEW: New Poll Error Template
+						<li>NEW: New Poll Error Template</li>
 					</ul>
 				</li>
 				<li>
@@ -290,7 +299,7 @@
 						<li>FIXED: Upgrade Script To Insert Lastest Poll ID Of User's Current Polls, Instead Of Poll ID 1</li>
 						<li>FIXED: Replace All &lt;?= With &lt;?php</li>
 						<li>FIXED: Added addalshes() To $pollip_user</li>
-						<li>FIXED: Better Localization Support (80% Done, Will Leave It In The Mean Time)
+						<li>FIXED: Better Localization Support (80% Done, Will Leave It In The Mean Time)</li>
 					</ul>
 				</li>
 				<li>
@@ -304,7 +313,7 @@
 						<li>NEW: Poll Options: Able To Disable Poll With Custom Message</li>
 						<li>NEW: Poll Options: Poll Templates</li>
 						<li>NEW: Display User's Voted Choice</li>
-						<li>FIXED: Better Install/Upgrade Script
+						<li>FIXED: Better Install/Upgrade Script</li>
 					</ul>
 				</li>
 			</ul>
@@ -417,7 +426,7 @@
 				<li>
 					Add:
 					<blockquote>
-						&lt;?php if (function_exists('vote_poll') && basename($_SERVER['PHP_SELF']) != 'wp-polls.php')): ?&gt;<br />
+						&lt;?php if (function_exists('vote_poll') &amp;&amp; basename($_SERVER['PHP_SELF']) != 'wp-polls.php')): ?&gt;<br />
 						&lt;li&gt;<br />
 						&nbsp;&nbsp;&nbsp;&lt;h2&gt;Polls&lt;/h2&gt;<br />
 						&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br />
@@ -432,7 +441,30 @@
 				</li>
 				<li>
 					Tutorial On How To Integrate wp-polls.php With Your Theme:
-					<blockquote><a href="http://www.lesterchan.net/wordpress/tutorials/integrating/" target="_blank">http://www.lesterchan.net/wordpress/tutorials/integrating/</a></blockquote>
+					<blockquote>
+						<a href="http://www.lesterchan.net/wordpress/tutorials/integrating/">http://www.lesterchan.net/wordpress/tutorials/integrating/</a>
+					</blockquote>
+				</li>
+				<li>
+					Note: In IE, some of the poll's text may appear jagged (this is normal in IE). To solve this issue,
+					<ol>
+						<li>
+							Open <b>poll-css.css</b>
+						</li>
+						<li>
+							Find:
+							<blockquote>
+									/* background-color: #ffffff; */
+							</blockquote>
+						</li>
+						<li>
+							Replace:
+							<blockquote>
+									background-color: #ffffff;
+							</blockquote>
+							<p>Where <b>#ffffff</b> should be your background color for the poll.</p>
+						</li>
+					</ol>
 				</li>
 			</ol>
 			<div class="SubSubTitle">Polls Stats (Outside WP Loop)</div>
