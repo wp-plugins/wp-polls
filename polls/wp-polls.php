@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.1											|
+|	WordPress 2.0 Plugin: WP-Polls 2.11										|
 |	Copyright (c) 2005 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -18,7 +18,7 @@
 
 
 ### Wordpress Header
-require(dirname(__FILE__).'/wp-blog-header.php');
+require('../../../wp-blog-header.php');
 
 ### Function: Poll Page Title
 add_filter('wp_title', 'poll_pagetitle');
@@ -261,7 +261,7 @@ function check_voted_multiple($poll_id) {
 			<span style="float: left;">
 				<?php
 					if($page > 1 && ((($page*$polls_perpage)-($polls_perpage-1)) <= $total_polls)) {
-						echo '<b>&laquo;</b> <a href="wp-polls.php?page='.($page-1).'" title="&laquo; '.__('Previous Page').'">'.__('Previous Page').'</a>';
+						echo '<b>&laquo;</b> <a href="'.get_settings('siteurl').'/wp-content/plugins/polls/wp-polls.php?page='.($page-1).'" title="&laquo; '.__('Previous Page').'">'.__('Previous Page').'</a>';
 					} else {
 						echo '&nbsp;';
 					}
@@ -270,7 +270,7 @@ function check_voted_multiple($poll_id) {
 			<span style="float: right;">
 				<?php
 					if($page >= 1 && ((($page*$polls_perpage)+1) <=  $total_polls)) {
-						echo '<a href="wp-polls.php?page='.($page+1).'" title="'.__('Next Page').' &raquo;">'.__('Next Page').'</a> <b>&raquo;</b>';
+						echo '<a href="'.get_settings('siteurl').'/wp-content/plugins/polls/wp-polls.php?page='.($page+1).'" title="'.__('Next Page').' &raquo;">'.__('Next Page').'</a> <b>&raquo;</b>';
 					} else {
 						echo '&nbsp;';
 					}
@@ -282,25 +282,25 @@ function check_voted_multiple($poll_id) {
 			<?php _e('Pages'); ?> (<?php echo $total_pages; ?>) :
 			<?php
 				if ($page >= 4) {
-					echo '<b><a href="wp-polls.php?page=1" title="'.__('Go to First Page').'">&laquo; '.__('First').'</a></b> ... ';
+					echo '<b><a href="'.get_settings('siteurl').'/wp-content/plugins/polls/wp-polls.php?page=1" title="'.__('Go to First Page').'">&laquo; '.__('First').'</a></b> ... ';
 				}
 				if($page > 1) {
-					echo ' <b><a href="wp-polls.php?page='.($page-1).'" title="&laquo; '.__('Go to Page').' '.($page-1).'">&laquo;</a></b> ';
+					echo ' <b><a href="'.get_settings('siteurl').'/wp-content/plugins/polls/wp-polls.php?page='.($page-1).'" title="&laquo; '.__('Go to Page').' '.($page-1).'">&laquo;</a></b> ';
 				}
 				for($i = $page - 2 ; $i  <= $page +2; $i++) {
 					if ($i >= 1 && $i <= $total_pages) {
 						if($i == $page) {
 							echo "<b>[$i]</b> ";
 						} else {
-							echo '<a href="wp-polls.php?page='.($i).'" title="'.__('Page').' '.$i.'">'.$i.'</a> ';
+							echo '<a href="'.get_settings('siteurl').'/wp-content/plugins/polls/wp-polls.php?page='.($i).'" title="'.__('Page').' '.$i.'">'.$i.'</a> ';
 						}
 					}
 				}
 				if($page < $total_pages) {
-					echo ' <b><a href="wp-polls.php?page='.($page+1).'" title="'.__('Go to Page').' '.($page+1).' &raquo;">&raquo;</a></b> ';
+					echo ' <b><a href="'.get_settings('siteurl').'/wp-content/plugins/polls/wp-polls.php?page='.($page+1).'" title="'.__('Go to Page').' '.($page+1).' &raquo;">&raquo;</a></b> ';
 				}
 				if (($page+2) < $total_pages) {
-					echo ' ... <b><a href="wp-polls.php?page='.($total_pages).'" title="'.__('Go to Last Page').'">'.__('Last').' &raquo;</a></b>';
+					echo ' ... <b><a href="'.get_settings('siteurl').'/wp-content/plugins/polls/wp-polls.php?page='.($total_pages).'" title="'.__('Go to Last Page').'">'.__('Last').' &raquo;</a></b>';
 				}
 			?>
 		</p>
