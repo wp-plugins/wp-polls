@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.11										|
+|	WordPress 2.0 Plugin: WP-Polls 2.12										|
 |	Copyright (c) 2005 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -119,10 +119,10 @@ if($_POST['Submit']) {
 				default_template = "<p align=\"center\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
 				break;
 			case "resultbody":
-				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" /></li>";
+				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" class=\"wp-polls-image\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" class=\"wp-polls-image\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" class=\"wp-polls-image\" /></li>";
 				break;
 			case "resultbody2":
-				default_template = "<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" /></li>";
+				default_template = "<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" class=\"wp-polls-image\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" class=\"wp-polls-image\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" class=\"wp-polls-image\" /></li>";
 				break;
 			case "resultfooter":
 				default_template = "</ul>\n<p align=\"center\">Total Votes: <b>%POLL_TOTALVOTES%</b></p>\n</div>";
@@ -218,6 +218,7 @@ if($_POST['Submit']) {
 							<option value="1"<?php selected('1', get_settings('poll_logging_method')); ?>><?php _e('Logged By Cookie'); ?></option>
 							<option value="2"<?php selected('2', get_settings('poll_logging_method')); ?>><?php _e('Logged By IP'); ?></option>
 							<option value="3"<?php selected('3', get_settings('poll_logging_method')); ?>><?php _e('Logged By Cookie And IP'); ?></option>
+							<option value="4"<?php selected('4', get_settings('poll_logging_method')); ?>><?php _e('Logged By Username'); ?></option>
 						</select>
 					</td>
 				</tr>

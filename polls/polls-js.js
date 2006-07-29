@@ -1,7 +1,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.11										|
+|	WordPress 2.0 Plugin: WP-Polls 2.12										|
 |	Copyright (c) 2006 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -17,7 +17,7 @@
 
 
 // Variables
-var polls = new sack(site_url + '/index.php');
+var polls = new sack(ajax_url);
 var poll_id = 0;
 var poll_answer_id = 0;
 var poll_fadein_opacity = 0;
