@@ -48,7 +48,7 @@ function poll_menu() {
 
 ### Function: Get Poll
 function get_poll($temp_poll_id = 0, $display = true) {
-	global $wpdb;
+	global $wpdb, $polls_loaded;
 	// Poll Result Link
 	$pollresult_id = intval($_GET['pollresult']);
 	// Check Whether Poll Is Disabled
@@ -84,6 +84,14 @@ function get_poll($temp_poll_id = 0, $display = true) {
 		} else {
 			$poll_id = intval($temp_poll_id);
 		}
+	}
+	
+	// Assign All Loaded Poll To $polls_loaded
+	if(empty($polls_loaded)) {
+		$polls_loaded = array();
+	}
+	if(!in_array($poll_id, $polls_loaded)) {
+		$polls_loaded[] = $poll_id;
 	}
 
 	// User Click on View Results Link
@@ -336,7 +344,6 @@ function display_pollresult($poll_id, $user_voted = 0, $without_poll_title = fal
 			$poll_answer_id = intval($poll_answer->polla_aid); 
 			$poll_answer_text = stripslashes($poll_answer->polla_answers);
 			$poll_answer_votes = intval($poll_answer->polla_votes);
-			$poll_answer_text = stripslashes($poll_answer->polla_answers);
 			$poll_answer_percentage = 0;
 			$poll_answer_imagewidth = 0;
 			// Calculate Percentage And Image Bar Width
@@ -358,6 +365,7 @@ function display_pollresult($poll_id, $user_voted = 0, $without_poll_title = fal
 				$template_answer = stripslashes(get_settings('poll_template_resultbody2'));
 				$template_answer = str_replace("%POLL_ANSWER_ID%", $poll_answer_id, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER%", $poll_answer_text, $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($poll_answer_text)), $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format($poll_answer_votes), $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
@@ -368,6 +376,7 @@ function display_pollresult($poll_id, $user_voted = 0, $without_poll_title = fal
 				$template_answer = stripslashes(get_settings('poll_template_resultbody'));
 				$template_answer = str_replace("%POLL_ANSWER_ID%", $poll_answer_id, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER%", $poll_answer_text, $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($poll_answer_text)), $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format($poll_answer_votes), $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
@@ -547,6 +556,16 @@ if(!function_exists('get_pollvotes')) {
 }
 
 
+### Un HTML Entities
+function unhtmlentities($string) { 
+   $string = preg_replace('~&#x([0-9a-f]+);~ei', 'chr(hexdec("\\1"))', $string);
+   $string = preg_replace('~&#([0-9]+);~e', 'chr(\\1)', $string);
+   $trans_tbl = get_html_translation_table(HTML_ENTITIES);
+   $trans_tbl = array_flip($trans_tbl);
+   return strtr($string, $trans_tbl);
+}
+
+
 ### Function: Create Poll Tables
 add_action('activate_polls/polls.php', 'create_poll_table');
 function create_poll_table() {
@@ -575,7 +594,7 @@ function create_poll_table() {
 									"pollip_host VARCHAR(200) NOT NULL default '',".
 									"pollip_timestamp varchar(20) NOT NULL default '0000-00-00 00:00:00',".
 									"pollip_user tinytext NOT NULL,".
-									"pollip_userid int(10) NOT NULL default '0'".
+									"pollip_userid int(10) NOT NULL default '0',".
 									"PRIMARY KEY (pollip_id))";
 	maybe_create_table($wpdb->pollsq, $create_table['pollsq']);
 	maybe_create_table($wpdb->pollsa, $create_table['pollsa']);
@@ -606,8 +625,8 @@ function create_poll_table() {
 	add_option('poll_template_resultheader', '<p align="center"><b>%POLL_QUESTION%</b></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="wp-polls-ans">'.
 	'<ul class="wp-polls-ul">', 'Template For Poll Header');
-	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><br /><img src="'.get_settings('siteurl').'/wp-content/plugins/polls/images/pollstart.gif" height="10" width="2" alt="" class="wp-polls-image" /><img src="'.get_settings('siteurl').'/wp-content/plugins/polls/images/pollbar.gif" height="10" width="%POLL_ANSWER_IMAGEWIDTH%" alt="%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)" title="%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)" class="wp-polls-image" /><img src="'.get_settings('siteurl').'/wp-content/plugins/polls/images/pollend.gif" height="10" width="2" alt="" class="wp-polls-image" /></li>', 'Template For Poll Results');
-	add_option('poll_template_resultbody2', '<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><br /><img src="'.get_settings('siteurl').'/wp-content/plugins/polls/images/pollstart.gif" height="10" width="2" alt="" class="wp-polls-image" /><img src="'.get_settings('siteurl').'/wp-content/plugins/polls/images/pollbar.gif" height="10" width="%POLL_ANSWER_IMAGEWIDTH%" alt="You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)" title="You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)" class="wp-polls-image" /><img src="'.get_settings('siteurl').'/wp-content/plugins/polls/images/pollend.gif" height="10" width="2" alt="" class="wp-polls-image" /></li>', 'Template For Poll Results (User Voted)');
+	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class="pollbar-image" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="%POLL_ANSWER_TEXT% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)"></div></li>', 'Template For Poll Results');
+	add_option('poll_template_resultbody2', '<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><div class="pollbar-image" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="You Have Voted For This Choice - %POLL_ANSWER_TEXT% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)"></div></li>', 'Template For Poll Results (User Voted)');
 	add_option('poll_template_resultfooter', '</ul>'.
 	'<p align="center">Total Votes: <b>%POLL_TOTALVOTES%</b></p>'.
 	'</div>', 'Template For Poll Result Footer');

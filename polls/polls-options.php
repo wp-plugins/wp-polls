@@ -119,10 +119,10 @@ if($_POST['Submit']) {
 				default_template = "<p align=\"center\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
 				break;
 			case "resultbody":
-				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" class=\"wp-polls-image\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"%POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" class=\"wp-polls-image\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" class=\"wp-polls-image\" /></li>";
+				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"%POLL_ANSWER_TEXT% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\"></div></li>";
 				break;
 			case "resultbody2":
-				default_template = "<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><br /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollstart.gif\" height=\"10\" width=\"2\" alt=\"\" class=\"wp-polls-image\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollbar.gif\" height=\"10\" width=\"%POLL_ANSWER_IMAGEWIDTH%\" alt=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" title=\"You Have Voted For This Choice  - %POLL_ANSWER% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\" class=\"wp-polls-image\" /><img src=\"<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/pollend.gif\" height=\"10\" width=\"2\" alt=\"\" class=\"wp-polls-image\" /></li>";
+				default_template = "<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"You Have Voted For This Choice - %POLL_ANSWER_TEXT% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\"></div></li>";
 				break;
 			case "resultfooter":
 				default_template = "</ul>\n<p align=\"center\">Total Votes: <b>%POLL_TOTALVOTES%</b></p>\n</div>";
@@ -265,38 +265,89 @@ if($_POST['Submit']) {
 		</fieldset>
 		<fieldset class="options">
 			<legend><?php _e('Template Variables'); ?></legend>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
+			<table width="100%"  border="0" cellspacing="0" cellpadding="5">
 				<tr>
-					<td><b>%POLL_ID%</b> - <?php _e('Display the poll\'s ID'); ?></td>
-					<td><b>%POLL_ANSWER_ID%</b> - <?php _e('Display the poll\'s answer ID'); ?></td>
+					<td>
+						<b>%POLL_ID%</b><br />
+						<?php _e('Display the poll\'s ID'); ?>
+					</td>
+					<td>
+						<b>%POLL_ANSWER_ID%</b><br />
+						<?php _e('Display the poll\'s answer ID'); ?>
+					</td>
 				</tr>
 				<tr>
-					<td><b>%POLL_QUESTION%</b> - <?php _e('Display the poll\'s question'); ?></td>
-					<td><b>%POLL_ANSWER%</b> - <?php _e('Display the poll\'s answer'); ?></td>
+					<td>
+						<b>%POLL_QUESTION%</b><br />
+						<?php _e('Display the poll\'s question'); ?>
+					</td>
+					<td>
+						<b>%POLL_ANSWER%</b><br />
+						<?php _e('Display the poll\'s answer'); ?>
+					</td>
 				</tr>
 				<tr>
-					<td><b>%POLL_TOTALVOTES%</b> - <?php _e('Display the poll\'s total votes'); ?></td>
-					<td><b>%POLL_ANSWER_VOTES%</b> - <?php _e('Display the poll\'s answer votes'); ?></td>
+					<td>
+						<b>%POLL_TOTALVOTES%</b><br />
+						<?php _e('Display the poll\'s total votes'); ?>
+					</td>
+					<td>
+						<b>%POLL_ANSWER_TEXT%</b><br />
+						<?php _e('Display the poll\'s answer without HTML formatting.'); ?>
+					</td>
 				</tr>
 				<tr>
-					<td><b>%POLL_RESULT_URL%</b> - <?php _e('Displays URL to poll\'s result'); ?></td>
-					<td><b>%POLL_ANSWER_PERCENTAGE%</b> - <?php _e('Display the poll\'s answer percentage'); ?></td>
+					<td>
+						<b>%POLL_RESULT_URL%</b><br />
+						<?php _e('Displays URL to poll\'s result'); ?>
+					</td>
+					<td>
+						<b>%POLL_ANSWER_VOTES%</b><br />
+						<?php _e('Display the poll\'s answer votes'); ?>
+					</td>
 				</tr>
 				<tr>
-					<td><b>%POLL_MOST_ANSWER%</b> - <?php _e('Display the poll\'s most voted answer'); ?></td>
-					<td><b>%POLL_ANSWER_IMAGEWIDTH%</b> - <?php _e('Display the poll\'s answer image width'); ?></td>
+					<td>
+						<b>%POLL_MOST_ANSWER%</b><br />
+						<?php _e('Display the poll\'s most voted answer'); ?>
+					</td>
+					<td>
+						<b>%POLL_ANSWER_PERCENTAGE%</b><br />
+						<?php _e('Display the poll\'s answer percentage'); ?>
+					</td>
 				</tr>
 				<tr>
-					<td><b>%POLL_MOST_VOTES%</b> - <?php _e('Display the poll\'s answer votes for the most voted answer'); ?></td>
-					<td><b>%POLL_LEAST_ANSWER%</b> - <?php _e('Display the poll\'s least voted answer'); ?></td>
+					<td>
+						<b>%POLL_MOST_VOTES%</b><br />
+						<?php _e('Display the poll\'s answer votes for the most voted answer'); ?>
+					</td>
+					<td>
+						<b>%POLL_ANSWER_IMAGEWIDTH%</b><br />
+						<?php _e('Display the poll\'s answer image width'); ?>
+					</td>
 				</tr>
 				<tr>
-					<td><b>%POLL_MOST_PERCENTAGE%</b> - <?php _e('Display the poll\'s answer percentage for the most voted answer'); ?></td>
-					<td><b>%POLL_LEAST_VOTES%</b> - <?php _e('Display the poll\'s answer votes for the least voted answer'); ?></td>
+					<td>
+						<b>%POLL_MOST_PERCENTAGE%</b><br />
+						<?php _e('Display the poll\'s answer percentage for the most voted answer'); ?>
+					</td>
+					<td>
+						<b>%POLL_LEAST_ANSWER%</b><br />
+						<?php _e('Display the poll\'s least voted answer'); ?>
+					</td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><b>%POLL_LEAST_PERCENTAGE%</b> - <?php _e('Display the poll\'s answer percentage for the least voted answer'); ?></td>
+					<td><b>%POLL_LEAST_VOTES%</b><br />
+					<?php _e('Display the poll\'s answer votes for the least voted answer'); ?>
+				</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						<b>%POLL_LEAST_PERCENTAGE%</b><br />
+						<?php _e('Display the poll\'s answer percentage for the least voted answer'); ?>
+					</td>
 				</tr>
 			</table>
 		</fieldset>
@@ -358,12 +409,13 @@ if($_POST['Submit']) {
 						<?php _e('Allowed Variables:'); ?><br />
 						- %POLL_ANSWER_ID%<br />
 						- %POLL_ANSWER%<br />
+						- %POLL_ANSWER_TEXT%<br />
 						- %POLL_ANSWER_VOTES%<br />
 						- %POLL_ANSWER_PERCENTAGE%<br />
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('resultbody');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody'))); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody'))); ?></textarea><br />If you want to use CSS instead of image, just change class="pollbar-image" to class="pollbar-css". You can configure the CSS in polls-css.css</td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -371,12 +423,13 @@ if($_POST['Submit']) {
 						<?php _e('Allowed Variables:'); ?><br />
 						- %POLL_ANSWER_ID%<br />
 						- %POLL_ANSWER%<br />
+						- %POLL_ANSWER_TEXT%<br />
 						- %POLL_ANSWER_VOTES%<br />
 						-  %POLL_ANSWER_PERCENTAGE%<br />
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('resultbody2');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody2'))); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody2'))); ?></textarea><br />If you want to use CSS instead of image, just change class="pollbar-image" to class="pollbar-css". You can configure the CSS in polls-css.css</td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">

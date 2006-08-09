@@ -16,7 +16,7 @@
 */
 
 
-.wp-polls ul li, wp-polls-ul li, .wp-polls-ans ul li, .post ul li, .post li {
+.wp-polls ul li, wp-polls-ul li, .wp-polls-ans ul li {
 	text-align: left;
 	list-style: none;
 }
@@ -37,4 +37,20 @@
 }
 .wp-polls-image {
 	border: 0px;
+}
+.wp-polls .pollbar-css {
+	margin:1px; 
+	font-size:6px; 
+	line-height:8px; 
+	height:8px; 
+	background: #d8e1eb; 
+	border:1px solid #c8c8c8;
+}
+.wp-polls .pollbar-image {
+	margin:1px; 
+	font-size:6px; 
+	line-height:8px; 
+	height:8px; 
+	background-image: url('images/pollbg.gif'); 
+	border:1px solid #c8c8c8;
 }
