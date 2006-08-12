@@ -159,6 +159,7 @@ function check_voted_multiple($poll_id) {
 		?>
 		<!-- <Poll Archives> -->
 		<h2 class="pagetitle"><?php _e('Polls Archive'); ?></h2>
+		<div class="wp-polls">
 			<?php
 				foreach($polls_questions as $polls_question) {
 					// Most/Least Variables
@@ -201,6 +202,7 @@ function check_voted_multiple($poll_id) {
 								$template_answer = stripslashes(get_settings('poll_template_resultbody2'));
 								$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
 								$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
+								$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
 								$template_answer = str_replace("%POLL_ANSWER_VOTES%", $polls_answer['votes'], $template_answer);
 								$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 								$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
@@ -211,6 +213,7 @@ function check_voted_multiple($poll_id) {
 								$template_answer = stripslashes(get_settings('poll_template_resultbody'));
 								$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
 								$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
+								$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
 								$template_answer = str_replace("%POLL_ANSWER_VOTES%", $polls_answer['votes'], $template_answer);
 								$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 								$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
@@ -250,6 +253,7 @@ function check_voted_multiple($poll_id) {
 					echo "<br />\n";
 				}
 			?>
+		</div>
 		<!-- </Poll Archives> -->
 
 		<!-- <Paging> -->
@@ -278,7 +282,7 @@ function check_voted_multiple($poll_id) {
 			</span>
 		</p>
 		<br style="clear: both;" />
-		<p>
+		<p style="text-align: center;">
 			<?php _e('Pages'); ?> (<?php echo $total_pages; ?>) :
 			<?php
 				if ($page >= 4) {

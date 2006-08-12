@@ -35,15 +35,13 @@ function widget_polls_init() {
 
 	### Function: WP-Polls Widget
 	function widget_polls($args) {
+		global $in_pollsarchive;
 		extract($args);
 		$options = get_option('widget_polls');
 		$title = htmlspecialchars($options['title']);		
-		if (function_exists('vote_poll') && basename($_SERVER['PHP_SELF']) != 'wp-polls.php') {
+		if (function_exists('vote_poll') && !$in_pollsarchive) {
 			echo $before_widget.$before_title.$title.$after_title;
 			get_poll();
-			if(intval($options['display_archive']) == 1) {
-				echo "<ul>\n<li><a href=\"".get_settings('siteurl')."/wp-content/plugins/polls/wp-polls.php\">Polls Archive</a></li></ul>\n";
-			}
 			echo $after_widget;
 		}		
 	}
@@ -54,22 +52,15 @@ function widget_polls_init() {
 		$options = get_option('widget_polls');
 		$current_poll = get_settings('poll_currentpoll');
 		if (!is_array($options)) {
-			$options = array('display_archive' => '1', 'title' => 'Polls');
+			$options = array('title' => 'Polls');
 		}
 		if ($_POST['polls-submit']) {
 			$poll_currentpoll = intval($_POST['poll_currentpoll']);			
-			$options['display_archive'] = intval($_POST['polls-displayarchive']);
 			$options['title'] = strip_tags(stripslashes($_POST['polls-title']));
 			update_option('widget_polls', $options);
 			update_option('poll_currentpoll', $poll_currentpoll);
 		}
 		echo '<p style="text-align: left;"><label for="polls-title">Widget Title:</label>&nbsp;&nbsp;&nbsp;<input type="text" id="polls-title" name="polls-title" value="'.htmlspecialchars($options['title']).'" />';
-		echo '<p style="text-align: left;"><label for="polls-displayarchive">Display Polls Archive Link?</label>&nbsp;&nbsp;&nbsp;'."\n";
-		echo '<input type="radio" id="polls-displayarchive" name="polls-displayarchive" value="1"';
-		checked(1, intval($options['display_archive']));
-		echo ' />&nbsp;Yes&nbsp;&nbsp;&nbsp;<input type="radio" id="polls-displayarchive" name="polls-displayarchive" value="0"';
-		checked(0, intval($options['display_archive']));
-		echo ' />&nbsp;No</p>'."\n";
 		echo '<p style="text-align: left;"><label for="poll_currentpoll">Current Active Poll:</label>&nbsp;&nbsp;&nbsp;'."\n";
 		echo '<select id="poll_currentpoll" name="poll_currentpoll" size="1">'."\n";
 		echo '<option value="-1"';

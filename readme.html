@@ -217,6 +217,8 @@
 				<li>
 					<b>Version 2.12 (01-10-2006)</b>
 					<ul>
+					
+						<li>NEW: Polls Archive Is Now Embedded Into A Page, And Hence No More Integrating Of Polls Archive</li>
 						<li>NEW: WP-Polls Is Now Using DIV To Display The Poll's Results Instead Of The Image Bar</li>
 						<li>NEW: Added Widget Title Option To WP-Polls Widget</li>
 						<li>NEW: Ability To Logged By UserName</li>
@@ -362,6 +364,47 @@
 		<!-- Upgrade Instructions -->	
 		<div id="Upgrade" style="display: none;">
 			<div class="SubTitle">&raquo; Upgrade Instructions</div>
+			<div class="SubSubTitle">From v2.1x To v2.12</div>
+			<ol>
+				<li>
+					<b>Deactivate</b> WP-Polls Plugin
+				</li>
+				<li>
+					Open <b>wp-content/plugins</b> Folder
+				</li>
+				<li>
+					Overwrite:
+					<blockquote>Folder: polls</blockquote>
+				</li>
+				<li>
+					Open <b>wp-content/plugins/polls</b> Folder
+				</li>
+				<li>
+					Delete file if exists:
+					<blockquote>
+						File: wp-polls.php<br />
+						File: images/pollbar.gif<br />
+						File: images/pollend.gif<br />
+						File: images/pollstart.gif
+					</blockquote>
+				</li>
+				<li>
+					Open <b>Root WordPress</b> Folder
+				</li>
+				<li>
+					Delete file if exists:
+					<blockquote>File: wp-polls.php</blockquote>
+				</li>
+				<li>
+					<b>Activate</b> WP-Polls Plugin
+				</li>
+				<li>
+					Go to 'WP-Admin -> Polls -> Polls Options' and restore all the template variables to <b>Default</b>
+				</li>
+				<li>
+					Refer To <b>Usage</b> For Further Instructions
+				</li>
+			</ol>
 			<div class="SubSubTitle">From v2.06 To v2.12</div>
 			<ol>
 				<li>
@@ -387,35 +430,6 @@
 				<li>
 					Go to 'WP-Admin -> Polls -> Polls Options' and restore all the template variables to <b>Default</b>
 				</li>
-			</ol>
-			<div class="SubSubTitle">From v1.0x To v2.12</div>
-			<ol>
-				<li>
-					<b>Deactivate</b> WP-Polls Plugin
-				</li>
-				<li>
-					Delete these file if exists:
-					<blockquote>
-						wp-content/plugins/polls.php<br />
-						wp-admin/polls-options.php<br />
-						wp-admin/polls-manager.php<br />
-						wp-includes/images/pollbar.gif<br />
-						wp-polls.php
-					</blockquote>
-				</li>
-				<li>
-					Open <b>wp-content/plugins</b> Folder
-				</li>
-				<li>
-					Put:
-					<blockquote>Folder: polls</blockquote>
-				</li>
-				<li>
-					<b>Activate</b> WP-Polls Plugin
-				</li>
-				<li>
-					Go to 'WP-Admin -> Polls -> Polls Options' and restore all the template variables to <b>Default</b>
-				</li>
 				<li>
 					Refer To <b>Usage</b> For Further Instructions
 				</li>
@@ -425,7 +439,7 @@
 		<!-- Usage Instructions -->	
 		<div id="Usage" style="display: none;">
 			<div class="SubTitle">&raquo; Usage Instructions</div>
-			<div class="SubSubTitle">General Usage</div>
+			<div class="SubSubTitle">General Usage (Without Widget)</div>
 			<ol>
 				<li>
 					Open <b>wp-content/themes/&lt;YOUR THEME NAME&gt;/sidebar.php</b>
@@ -433,27 +447,62 @@
 				<li>
 					Add:
 					<blockquote>
-						&lt;?php if (function_exists('vote_poll') &amp;&amp; basename($_SERVER['PHP_SELF']) != 'wp-polls.php'): ?&gt;<br />
+						&lt;?php if (function_exists('vote_poll') &amp;&amp; !$in_pollsarchive): ?&gt;<br />
 						&lt;li&gt;<br />
 						&nbsp;&nbsp;&nbsp;&lt;h2&gt;Polls&lt;/h2&gt;<br />
 						&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br />
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;?php get_poll();?&gt;&lt;/li&gt;<br />						
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href="&lt;?php echo get_settings('siteurl'); ?&gt;/wp-content/plugins/polls/wp-polls.php"&gt;Polls Archive&lt;/a&gt;&lt;/li&gt;<br />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;?php get_poll();?&gt;&lt;/li&gt;<br />
 						&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br />
 						&lt;/li&gt;<br />
 						&lt;?php endif; ?&gt;
 					</blockquote>
-					<p>To show specific poll, use &lt;?php get_poll(&lt;ID>);?&gt; where &lt;ID&gt; is your poll id.</p>
-					<p>To embed a specific poll in your post, use [poll=&lt;ID>] where &lt;ID&gt; is your poll id.</p>
+					<p>To show specific poll, use &lt;?php get_poll(<b>2</b>);?&gt; where <b>2</b> is your poll id.</p>
+					<p>To embed a specific poll in your post, use [poll=<b>2</b>] where <b>2</b> is your poll id.</p>
 				</li>
 				<li>
-					Tutorial On How To Integrate wp-polls.php With Your Theme:
-					<blockquote>
-						<a href="http://www.lesterchan.net/wordpress/tutorials/integrating/">http://www.lesterchan.net/wordpress/tutorials/integrating/</a>
-					</blockquote>
+					Scroll down for instructions on how to create a <b>Polls Archive</b>.
+				</li>
+			</ol>
+			<div class="SubSubTitle">General Usage (With Widget)</div>
+			<ol>
+				<li>
+					<b>Activate</b> WP-Polls Widget Plugin
 				</li>
 				<li>
-					Note: In IE, some of the poll's text may appear jagged (this is normal in IE). To solve this issue,
+					Go to 'WP-Admin -> Presentation -> Sidebar Widgets'
+				</li>
+				<li>
+					<b>Drag</b> the Polls Widget to your sidebar
+				</li>
+				<li>
+					You can <b>configure</b> the Polls Widget by clicking on the configure icon
+				</li>
+				<li>
+					Click 'Save changes'
+				</li>
+				<li>
+					Scroll down for instructions on how to create a <b>Polls Archive</b>.
+				</li>
+			</ol>
+			<div class="SubSubTitle">Polls Archive</div>
+			<ol>
+				<li>
+					Go to 'WP-Admin -> Write -> Write Page'
+				</li>
+				<li>
+					Type any title you like in the post's title area
+				</li>
+				<li>
+					Type '<b>&lt;polls_archive&gt</b>' in the post's content area (without the quotes)
+				</li>
+				<li>
+					Click 'Publish'
+				</li>
+			</ol>
+			<div class="SubSubTitle">Note</div>
+			<ul>
+				<li>
+					In IE, some of the poll's text may appear jagged (this is normal in IE). To solve this issue,
 					<ol>
 						<li>
 							Open <b>poll-css.css</b>
@@ -473,7 +522,7 @@
 						</li>
 					</ol>
 				</li>
-			</ol>
+			</ul>
 			<div class="SubSubTitle">Polls Stats (Outside WP Loop)</div>
 			<ul>
 				<li>
