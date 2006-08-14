@@ -524,38 +524,48 @@ function place_poll($content){
 
 ### Function: Display The Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
 function display_poll($poll_id){
-	if (function_exists('vote_poll')){
-		return get_poll($poll_id, false);
-	}
+	return get_poll($poll_id, false);
 }
 
 
 ### Function: Get Poll Total Questions
 if(!function_exists('get_pollquestions')) {
-	function get_pollquestions() {
+	function get_pollquestions($display = true) {
 		global $wpdb;
 		$totalpollq = $wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq");
-		echo $totalpollq;
+		if($display) {
+			echo number_format($totalpollq);
+		} else {
+			return number_format($totalpollq);
+		}
 	}
 }
 
 
 ### Function: Get Poll Total Answers
 if(!function_exists('get_pollanswers')) {
-	function get_pollanswers() {
+	function get_pollanswers($display = true) {
 		global $wpdb;
 		$totalpolla = $wpdb->get_var("SELECT COUNT(polla_aid) FROM $wpdb->pollsa");
-		echo $totalpolla;
+		if($display) {
+			echo number_format($totalpolla);
+		} else {
+			return number_format($totalpolla);
+		}
 	}
 }
 
 
 ### Function: Get Poll Total Votes
 if(!function_exists('get_pollvotes')) {
-	function get_pollvotes() {
+	function get_pollvotes($display = true) {
 		global $wpdb;
 		$totalpollip = $wpdb->get_var("SELECT COUNT(pollip_id) FROM $wpdb->pollsip");
-		echo $totalpollip;
+		if($display) {
+			echo number_format($totalpollip);
+		} else {
+			return number_format($totalpollip);
+		}
 	}
 }
 
