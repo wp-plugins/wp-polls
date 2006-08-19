@@ -113,22 +113,22 @@ if($_POST['Submit']) {
 				default_template = "<li><label for=\"poll-answer-%POLL_ANSWER_ID%\"><input type=\"radio\" id=\"poll-answer-%POLL_ANSWER_ID%\" name=\"poll_%POLL_ID%\" value=\"%POLL_ANSWER_ID%\" /> %POLL_ANSWER%</label></li>";
 				break;
 			case "votefooter":
-				default_template = "</ul>\n<p align=\"center\"><input type=\"button\" name=\"vote\" value=\"   Vote   \" class=\"Buttons\" onclick=\"poll_vote(%POLL_ID%);\" /><br /><a href=\"#ViewPollResults\" onclick=\"poll_result(%POLL_ID%); return false;\" title=\"View Results Of This Poll\">View Results</a></p>\n</div>";
+				default_template = "</ul>\n<p style=\"text-align: center;\"><input type=\"button\" name=\"vote\" value=\"   Vote   \" class=\"Buttons\" onclick=\"poll_vote(%POLL_ID%);\" /></p>\n<p style=\"text-align: center;\"><a href=\"#ViewPollResults\" onclick=\"poll_result(%POLL_ID%); return false;\" title=\"View Results Of This Poll\">View Results</a></p>\n</div>";
 				break;
 			case "resultheader":
-				default_template = "<p align=\"center\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
+				default_template = "<p style=\"text-align: center;\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
 				break;
 			case "resultbody":
-				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"%POLL_ANSWER_TEXT% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\"></div></li>";
+				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% Votes)\"></div></li>";
 				break;
 			case "resultbody2":
-				default_template = "<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"You Have Voted For This Choice - %POLL_ANSWER_TEXT% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)\"></div></li>";
+				default_template = "<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"You Have Voted For This Choice - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% Votes)\"></div></li>";
 				break;
 			case "resultfooter":
-				default_template = "</ul>\n<p align=\"center\">Total Votes: <b>%POLL_TOTALVOTES%</b></p>\n</div>";
+				default_template = "</ul>\n<p style=\"text-align: center;\">Total Votes: <b>%POLL_TOTALVOTES%</b></p>\n</div>";
 				break;
 			case "resultfooter2":
-				default_template = "</ul>\n<p align=\"center\">Total Votes: <b>%POLL_TOTALVOTES%</b><br /><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%); return false;\" title=\"Vote For This Poll\">Vote</a></p>\n</div>";
+				default_template = "</ul>\n<p style=\"text-align: center;\">Total Votes: <b>%POLL_TOTALVOTES%</b></p>\n<p style=\"text-align: center;\"><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%); return false;\" title=\"Vote For This Poll\">Vote</a></p>\n</div>";
 				break;
 			case "disable":
 				default_template = 'Sorry, there are no polls available at the moment.';

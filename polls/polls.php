@@ -512,15 +512,15 @@ if(!function_exists('get_ipaddress')) {
 
 
 ### Function: Place Polls Archive In Content
-add_filter('the_content', 'place_pollsarchive', '12');
+add_filter('the_content', 'place_pollsarchive', '7');
 function place_pollsarchive($content){
-     $content = preg_replace( "/\<polls_archive\>/ise", "polls_archive()", $content); 
+     $content = preg_replace( "/\[page_polls\]/ise", "polls_archive()", $content); 
     return $content;
 }
 
 
 ### Function: Place Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
-add_filter('the_content', 'place_poll', '12');
+add_filter('the_content', 'place_poll', '7');
 function place_poll($content){
      $content = preg_replace( "/\[poll=(\d+)\]/ise", "display_poll('\\1')", $content); 
     return $content;
@@ -713,7 +713,6 @@ function polls_archive() {
 
 	// Current Poll
 	if($page < 2) {
-		$pollsarchive_output .= "<!-- <Currrent Poll> -->\n";
 		$pollsarchive_output .= '<h2 class="pagetitle">'.__('Current Poll').'</h2>'."\n";
 		// Current Poll
 		if(intval(get_settings('poll_currentpoll')) == -1) {
@@ -734,11 +733,8 @@ function polls_archive() {
 				}
 			}
 		}
-		$pollsarchive_output .= "<!-- </Currrent Poll> -->\n";
 	}
-
 	// Poll Archives
-	$pollsarchive_output .= "<!-- <Poll Archives> -->\n";
 	$pollsarchive_output .= "<h2 class=\"pagetitle\">".__('Polls Archive')."</h2>\n";
 	$pollsarchive_output .= "<div class=\"wp-polls\">\n";
 	foreach($polls_questions as $polls_question) {
@@ -830,16 +826,14 @@ function polls_archive() {
 		$template_footer = str_replace("%POLL_LEAST_PERCENTAGE%", $poll_least_percentage, $template_footer);
 		// Print Out Results Footer Template
 		$pollsarchive_output .= $template_footer;
-		$pollsarchive_output .= "<br />\n";
+		$pollsarchive_output .= "&nbsp;\n";
 	}
 	$pollsarchive_output .= "</div>\n";
-	$pollsarchive_output .= "<!-- </Poll Archives> -->\n";
 
 	// Polls Archive Paging
-	$pollsarchive_output .= "<!-- <Paging> -->\n";
 	if($total_pages > 1) {
 		// Output Previous Page
-		$pollsarchive_output .= "<br />\n<p>\n";
+		$pollsarchive_output .= "<p>\n";
 		$pollsarchive_output .= "<span style=\"float: left;\">\n";
 		if($page > 1 && ((($page*$polls_perpage)-($polls_perpage-1)) <= $total_polls)) {
 			$pollsarchive_output .= '<b>&laquo;</b> <a href="'.polls_archive_link($page-1).'" title="&laquo; '.__('Previous Page').'">'.__('Previous Page').'</a>';
@@ -859,7 +853,7 @@ function polls_archive() {
 		$pollsarchive_output .= "</p>\n";
 		$pollsarchive_output .= "<br style=\"clear: both;\" />\n";
 		$pollsarchive_output .= "<p style=\"text-align: center;\">\n";
-		$pollsarchive_output .= __('Pages')." ($total_pages) :\n";
+		$pollsarchive_output .= __('Pages')." ($total_pages) : ";
 		if ($page >= 4) {
 			$pollsarchive_output .= '<b><a href="'.polls_archive_link(1).'" title="'.__('Go to First Page').'">&laquo; '.__('First').'</a></b> ... ';
 		}
@@ -882,7 +876,6 @@ function polls_archive() {
 			$pollsarchive_output .= ' ... <b><a href="'.polls_archive_link($total_pages).'" title="'.__('Go to Last Page').'">'.__('Last').' &raquo;</a></b>';
 		}
 		$pollsarchive_output .= "</p>\n";
-		$pollsarchive_output .= "<!-- </Paging> -->\n";
 	}
 
 	// Output Polls Archive Page
@@ -939,23 +932,25 @@ function create_poll_table() {
 		}
 	}
 	// Add In Options (16 Records)
-	add_option('poll_template_voteheader', '<p align="center"><b>%POLL_QUESTION%</b></p>'.
+	add_option('poll_template_voteheader', '<p style="text-align: center;"><b>%POLL_QUESTION%</b></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="wp-polls-ans">'.
 	'<ul class="wp-polls-ul">', 'Template For Poll\'s Question');
 	add_option('poll_template_votebody',  '<li><label for="poll-answer-%POLL_ANSWER_ID%"><input type="radio" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" /> %POLL_ANSWER%</label></li>', 'Template For Poll\'s Answers');
 	add_option('poll_template_votefooter', '</ul>'.
-	'<p align="center"><input type="button" name="vote" value="   Vote   " class="Buttons" onclick="poll_vote(%POLL_ID%);" /><br /><a href="#ViewPollResults" onclick="poll_result(%POLL_ID%); return false;" title="View Results Of This Poll">View Results</a></p>'.
+	'<p style="text-align: center;"><input type="button" name="vote" value="   Vote   " class="Buttons" onclick="poll_vote(%POLL_ID%);" /></p>'.
+	'<p style="text-align: center;"><a href="#ViewPollResults" onclick="poll_result(%POLL_ID%); return false;" title="View Results Of This Poll">View Results</a></p>'.
 	'</div>', 'Template For Poll\'s Voting Footer');
-	add_option('poll_template_resultheader', '<p align="center"><b>%POLL_QUESTION%</b></p>'.
+	add_option('poll_template_resultheader', '<p style="text-align: center;"><b>%POLL_QUESTION%</b></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="wp-polls-ans">'.
 	'<ul class="wp-polls-ul">', 'Template For Poll Header');
-	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class="pollbar-image" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="%POLL_ANSWER_TEXT% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)"></div></li>', 'Template For Poll Results');
-	add_option('poll_template_resultbody2', '<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><div class="pollbar-image" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="You Have Voted For This Choice - %POLL_ANSWER_TEXT% -> %POLL_ANSWER_PERCENTAGE%% (%POLL_ANSWER_VOTES% Votes)"></div></li>', 'Template For Poll Results (User Voted)');
+	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class="pollbar-image" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% Votes)"></div></li>', 'Template For Poll Results');
+	add_option('poll_template_resultbody2', '<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><div class="pollbar-image" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="You Have Voted For This Choice - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% Votes)"></div></li>', 'Template For Poll Results (User Voted)');
 	add_option('poll_template_resultfooter', '</ul>'.
-	'<p align="center">Total Votes: <b>%POLL_TOTALVOTES%</b></p>'.
+	'<p style="text-align: center;">Total Votes: <b>%POLL_TOTALVOTES%</b></p>'.
 	'</div>', 'Template For Poll Result Footer');
 	add_option('poll_template_resultfooter2', '</ul>'.
-	'<p align="center">Total Votes: <b>%POLL_TOTALVOTES%</b><br /><a href="#VotePoll" onclick="poll_booth(%POLL_ID%); return false;" title="Vote For This Poll">Vote</a></p>'.
+	'<p style="text-align: center;">Total Votes: <b>%POLL_TOTALVOTES%</b></p>'.
+	'<p style="text-align: center;"><a href="#VotePoll" onclick="poll_booth(%POLL_ID%); return false;" title="Vote For This Poll">Vote</a></p>'.
 	'</div>', 'Template For Poll Result Footer');
 	add_option('poll_template_disable', 'Sorry, there are no polls available at the moment.', 'Template For Poll When It Is Disabled');
 	add_option('poll_template_error', 'An error has occurred when processing your poll.', 'Template For Poll When An Error Has Occured');
