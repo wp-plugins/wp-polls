@@ -713,7 +713,7 @@ function polls_archive() {
 
 	// Current Poll
 	if($page < 2) {
-		$pollsarchive_output .= '<h2 class="pagetitle">'.__('Current Poll').'</h2>'."\n";
+		$pollsarchive_output .= '<h2>'.__('Current Poll').'</h2>'."\n";
 		// Current Poll
 		if(intval(get_settings('poll_currentpoll')) == -1) {
 			$pollsarchive_output .= get_settings('poll_template_disable');
@@ -735,7 +735,7 @@ function polls_archive() {
 		}
 	}
 	// Poll Archives
-	$pollsarchive_output .= "<h2 class=\"pagetitle\">".__('Polls Archive')."</h2>\n";
+	$pollsarchive_output .= "<h2>".__('Polls Archive')."</h2>\n";
 	$pollsarchive_output .= "<div class=\"wp-polls\">\n";
 	foreach($polls_questions as $polls_question) {
 		// Most/Least Variables
@@ -826,7 +826,6 @@ function polls_archive() {
 		$template_footer = str_replace("%POLL_LEAST_PERCENTAGE%", $poll_least_percentage, $template_footer);
 		// Print Out Results Footer Template
 		$pollsarchive_output .= $template_footer;
-		$pollsarchive_output .= "&nbsp;\n";
 	}
 	$pollsarchive_output .= "</div>\n";
 
