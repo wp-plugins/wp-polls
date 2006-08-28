@@ -107,7 +107,7 @@ if($_POST['Submit']) {
 		var default_template;
 		switch(template) {
 			case "voteheader":
-				default_template = "<p align=\"center\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
+				default_template = "<p style=\"text-align: center;\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
 				break;
 			case "votebody":
 				default_template = "<li><label for=\"poll-answer-%POLL_ANSWER_ID%\"><input type=\"radio\" id=\"poll-answer-%POLL_ANSWER_ID%\" name=\"poll_%POLL_ID%\" value=\"%POLL_ANSWER_ID%\" /> %POLL_ANSWER%</label></li>";
