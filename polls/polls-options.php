@@ -107,7 +107,7 @@ if($_POST['Submit']) {
 		var default_template;
 		switch(template) {
 			case "voteheader":
-				default_template = "<p style=\"text-align: center;\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
+				default_template = "<p style=\"text-align: center;\"><strong>%POLL_QUESTION%</strong></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
 				break;
 			case "votebody":
 				default_template = "<li><label for=\"poll-answer-%POLL_ANSWER_ID%\"><input type=\"radio\" id=\"poll-answer-%POLL_ANSWER_ID%\" name=\"poll_%POLL_ID%\" value=\"%POLL_ANSWER_ID%\" /> %POLL_ANSWER%</label></li>";
@@ -116,19 +116,19 @@ if($_POST['Submit']) {
 				default_template = "</ul>\n<p style=\"text-align: center;\"><input type=\"button\" name=\"vote\" value=\"   Vote   \" class=\"Buttons\" onclick=\"poll_vote(%POLL_ID%);\" /></p>\n<p style=\"text-align: center;\"><a href=\"#ViewPollResults\" onclick=\"poll_result(%POLL_ID%); return false;\" title=\"View Results Of This Poll\">View Results</a></p>\n</div>";
 				break;
 			case "resultheader":
-				default_template = "<p style=\"text-align: center;\"><b>%POLL_QUESTION%</b></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
+				default_template = "<p style=\"text-align: center;\"><strong>%POLL_QUESTION%</strong></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
 				break;
 			case "resultbody":
 				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% Votes)\"></div></li>";
 				break;
 			case "resultbody2":
-				default_template = "<li><b><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></b><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"You Have Voted For This Choice - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% Votes)\"></div></li>";
+				default_template = "<li><strong><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></strong><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"You Have Voted For This Choice - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% Votes)\"></div></li>";
 				break;
 			case "resultfooter":
-				default_template = "</ul>\n<p style=\"text-align: center;\">Total Votes: <b>%POLL_TOTALVOTES%</b></p>\n</div>";
+				default_template = "</ul>\n<p style=\"text-align: center;\">Total Votes: <strong>%POLL_TOTALVOTES%</strong></p>\n</div>";
 				break;
 			case "resultfooter2":
-				default_template = "</ul>\n<p style=\"text-align: center;\">Total Votes: <b>%POLL_TOTALVOTES%</b></p>\n<p style=\"text-align: center;\"><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%); return false;\" title=\"Vote For This Poll\">Vote</a></p>\n</div>";
+				default_template = "</ul>\n<p style=\"text-align: center;\">Total Votes: <strong>%POLL_TOTALVOTES%</strong></p>\n<p style=\"text-align: center;\"><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%); return false;\" title=\"Vote For This Poll\">Vote</a></p>\n</div>";
 				break;
 			case "disable":
 				default_template = 'Sorry, there are no polls available at the moment.';
@@ -268,84 +268,84 @@ if($_POST['Submit']) {
 			<table width="100%"  border="0" cellspacing="0" cellpadding="5">
 				<tr>
 					<td>
-						<b>%POLL_ID%</b><br />
+						<strong>%POLL_ID%</strong><br />
 						<?php _e('Display the poll\'s ID'); ?>
 					</td>
 					<td>
-						<b>%POLL_ANSWER_ID%</b><br />
+						<strong>%POLL_ANSWER_ID%</strong><br />
 						<?php _e('Display the poll\'s answer ID'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b>%POLL_QUESTION%</b><br />
+						<strong>%POLL_QUESTION%</strong><br />
 						<?php _e('Display the poll\'s question'); ?>
 					</td>
 					<td>
-						<b>%POLL_ANSWER%</b><br />
+						<strong>%POLL_ANSWER%</strong><br />
 						<?php _e('Display the poll\'s answer'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b>%POLL_TOTALVOTES%</b><br />
+						<strong>%POLL_TOTALVOTES%</strong><br />
 						<?php _e('Display the poll\'s total votes'); ?>
 					</td>
 					<td>
-						<b>%POLL_ANSWER_TEXT%</b><br />
+						<strong>%POLL_ANSWER_TEXT%</strong><br />
 						<?php _e('Display the poll\'s answer without HTML formatting.'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b>%POLL_RESULT_URL%</b><br />
+						<strong>%POLL_RESULT_URL%</strong><br />
 						<?php _e('Displays URL to poll\'s result'); ?>
 					</td>
 					<td>
-						<b>%POLL_ANSWER_VOTES%</b><br />
+						<strong>%POLL_ANSWER_VOTES%</strong><br />
 						<?php _e('Display the poll\'s answer votes'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b>%POLL_MOST_ANSWER%</b><br />
+						<strong>%POLL_MOST_ANSWER%</strong><br />
 						<?php _e('Display the poll\'s most voted answer'); ?>
 					</td>
 					<td>
-						<b>%POLL_ANSWER_PERCENTAGE%</b><br />
+						<strong>%POLL_ANSWER_PERCENTAGE%</strong><br />
 						<?php _e('Display the poll\'s answer percentage'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b>%POLL_MOST_VOTES%</b><br />
+						<strong>%POLL_MOST_VOTES%</strong><br />
 						<?php _e('Display the poll\'s answer votes for the most voted answer'); ?>
 					</td>
 					<td>
-						<b>%POLL_ANSWER_IMAGEWIDTH%</b><br />
+						<strong>%POLL_ANSWER_IMAGEWIDTH%</strong><br />
 						<?php _e('Display the poll\'s answer image width'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b>%POLL_MOST_PERCENTAGE%</b><br />
+						<strong>%POLL_MOST_PERCENTAGE%</strong><br />
 						<?php _e('Display the poll\'s answer percentage for the most voted answer'); ?>
 					</td>
 					<td>
-						<b>%POLL_LEAST_ANSWER%</b><br />
+						<strong>%POLL_LEAST_ANSWER%</strong><br />
 						<?php _e('Display the poll\'s least voted answer'); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><b>%POLL_LEAST_VOTES%</b><br />
+					<td><strong>%POLL_LEAST_VOTES%</strong><br />
 					<?php _e('Display the poll\'s answer votes for the least voted answer'); ?>
 				</td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
 					<td>
-						<b>%POLL_LEAST_PERCENTAGE%</b><br />
+						<strong>%POLL_LEAST_PERCENTAGE%</strong><br />
 						<?php _e('Display the poll\'s answer percentage for the least voted answer'); ?>
 					</td>
 				</tr>
@@ -356,7 +356,7 @@ if($_POST['Submit']) {
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 				 <tr valign="top">
 					<td width="30%" align="left">
-						<b><?php _e('Voting Form Header:'); ?></b><br /><br /><br />
+						<strong><?php _e('Voting Form Header:'); ?></strong><br /><br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
 						- %POLL_ID%<br />
 						- %POLL_QUESTION%<br />
@@ -367,7 +367,7 @@ if($_POST['Submit']) {
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
-						<b><?php _e('Voting Form Body:'); ?></b><br /><br /><br />
+						<strong><?php _e('Voting Form Body:'); ?></strong><br /><br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
 						- %POLL_ID%<br />
 						- %POLL_ANSWER_ID%<br />
@@ -379,7 +379,7 @@ if($_POST['Submit']) {
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
-						<b><?php _e('Voting Form Footer:'); ?></b><br /><br /><br />
+						<strong><?php _e('Voting Form Footer:'); ?></strong><br /><br /><br />
 							<?php _e('Allowed Variables:'); ?><br />
 							- %POLL_ID%<br />
 							- %POLL_RESULT_URL%<br /><br />
@@ -394,7 +394,7 @@ if($_POST['Submit']) {
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3"> 
 				 <tr valign="top">
 					<td width="30%" align="left">
-						<b><?php _e('Result Header:'); ?></b><br /><br /><br />
+						<strong><?php _e('Result Header:'); ?></strong><br /><br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
 						- %POLL_ID%<br />
 						- %POLL_QUESTION%<br />
@@ -405,7 +405,7 @@ if($_POST['Submit']) {
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
-						<b><?php _e('Result Body:'); ?></b><br /><?php _e('Normal'); ?><br /><br />
+						<strong><?php _e('Result Body:'); ?></strong><br /><?php _e('Normal'); ?><br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
 						- %POLL_ANSWER_ID%<br />
 						- %POLL_ANSWER%<br />
@@ -419,7 +419,7 @@ if($_POST['Submit']) {
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
-						<b><?php _e('Result Body:'); ?></b><br /><?php _e('Displaying Of User\'s Voted Answer'); ?><br /><br />
+						<strong><?php _e('Result Body:'); ?></strong><br /><?php _e('Displaying Of User\'s Voted Answer'); ?><br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
 						- %POLL_ANSWER_ID%<br />
 						- %POLL_ANSWER%<br />
@@ -433,7 +433,7 @@ if($_POST['Submit']) {
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
-						<b><?php _e('Result Footer:'); ?></b><br />Normal<br /><br />
+						<strong><?php _e('Result Footer:'); ?></strong><br />Normal<br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
 						- %POLL_TOTALVOTES%<br />
 						- %POLL_MOST_ANSWER%<br />
@@ -448,7 +448,7 @@ if($_POST['Submit']) {
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
-						<b><?php _e('Result Footer:'); ?></b><br /><?php _e('Displaying Of Vote Poll Link If User Has Not Voted'); ?><br /><br />
+						<strong><?php _e('Result Footer:'); ?></strong><br /><?php _e('Displaying Of Vote Poll Link If User Has Not Voted'); ?><br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
 						- %POLL_ID%<br />
 						- %POLL_TOTALVOTES%<br />
@@ -469,7 +469,7 @@ if($_POST['Submit']) {
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3"> 
 				 <tr valign="top">
 					<td width="30%" align="left">
-						<b><?php _e('Poll Disabled'); ?></b><br /><br /><br />
+						<strong><?php _e('Poll Disabled'); ?></strong><br /><br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
 						- N/A<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('disable');" class="button" />
@@ -478,7 +478,7 @@ if($_POST['Submit']) {
 				</tr>
 				<tr valign="top">
 					<td width="30%" align="left">
-						<b><?php _e('Poll Error'); ?></b><br /><br /><br />
+						<strong><?php _e('Poll Error'); ?></strong><br /><br /><br />
 						<?php _e('Allowed Variables:'); ?><br />
 						- N/A<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template'); ?>" onclick="javascript: poll_default_templates('error');" class="button" />

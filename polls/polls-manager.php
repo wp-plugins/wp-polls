@@ -389,10 +389,10 @@ switch($mode) {
 						}
 					?>
 					<tr>
-						<td align="right" colspan="2"><b><?php _e('Total Votes'); ?>: <?php echo $poll_actual_totalvotes; ?></b>&nbsp;&nbsp;&nbsp;<input type="text" size="4" maxlength="4" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
+						<td align="right" colspan="2"><strong><?php _e('Total Votes'); ?>: <?php echo $poll_actual_totalvotes; ?></strong>&nbsp;&nbsp;&nbsp;<input type="text" size="4" maxlength="4" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
 					</tr>
 					<tr>
-						<td colspan="2"><b><?php _e('Timestamp'); ?></b>:</td>
+						<td colspan="2"><strong><?php _e('Timestamp'); ?></strong>:</td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="checkbox" name="edit_polltimestamp" value="1" />Edit Timestamp<br /><?php //poll_timestamp($poll_timestamp); ?><br />Existing Timestamp: <?php echo gmdate('jS F Y @ H:i:s', $poll_timestamp); ?></td>
@@ -416,7 +416,7 @@ switch($mode) {
 				<input type="hidden" name="polla_qid" value="<?php echo $poll_id; ?>" />
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
-						<td><b><?php _e('Add Answer') ?></b></td>
+						<td><strong><?php _e('Add Answer') ?></strong></td>
 						<td><input type="text" size="50" maxlength="200" name="polla_answers" /></td>
 					</tr>
 					<tr>
@@ -444,9 +444,9 @@ switch($mode) {
 								$pollip_date = gmdate("jS F Y @ H:i", $poll_ip->pollip_timestamp);
 								if($pollip_aid != $poll_last_aid) {
 									if($pollip_aid == 0) {
-										echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><b>$pollip_answers[$pollip_aid]</b></td>\n</tr>\n";
+										echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><strong>$pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
 									} else {
-										echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><b>".__('Answer')." $k: $pollip_answers[$pollip_aid]</b></td>\n</tr>\n";
+										echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><strong>".__('Answer')." $k: $pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
 										$k++;
 									}
 									echo "<tr>\n";
@@ -483,7 +483,7 @@ switch($mode) {
 			<div align="center">
 				<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
 					<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
-					<b>Are You Sure You Want To Delete Logs For This Poll Only?</b><br /><br />
+					<strong>Are You Sure You Want To Delete Logs For This Poll Only?</strong><br /><br />
 					<input type="checkbox" name="delete_logs_yes" value="yes" />&nbsp;Yes<br /><br />
 					<input type="submit" name="do" value="Delete Logs For This Poll Only" class="button" onclick="return confirm('You Are About To Delete Logs For This Poll Only.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />
 				</form>
@@ -537,7 +537,7 @@ switch($mode) {
 						<th colspan="2"><?php _e('Status'); ?>: <?php if($poll_active == 1) { _e('Open'); } else { _e('Closed'); } ?></th>
 					</tr>
 					<tr>
-						<td align="center" colspan="2"><br /><p><b><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</b></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+						<td align="center" colspan="2"><br /><p><strong><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</strong></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -568,7 +568,7 @@ switch($mode) {
 				}
 				_e($text);
 			?>
-			<p><b><a href="<?php echo $base_page; ?>&amp;mode=edit&amp;id=<?php echo $poll_id; ?>"><?php _e('Click here To Go Back To The Poll Edit Page'); ?></a>.</b></p>
+			<p><strong><a href="<?php echo $base_page; ?>&amp;mode=edit&amp;id=<?php echo $poll_id; ?>"><?php _e('Click here To Go Back To The Poll Edit Page'); ?></a>.</strong></p>
 		</div>
 <?php
 		break;
@@ -616,15 +616,15 @@ switch($mode) {
 							}
 						}
 						echo "<tr $style>\n";
-						echo "<td><b>$poll_id</b></td>\n";
+						echo "<td><strong>$poll_id</strong></td>\n";
 						echo '<td>';
 						if($current_poll > 0) {
 							if($current_poll == $poll_id) {
-								echo '<b>'.__('Displayed:').'</b> ';
+								echo '<strong>'.__('Displayed:').'</strong> ';
 							}
 						} elseif($current_poll != -1) {
 							if($i == 0) {
-								echo '<b>'.__('Displayed:').'</b> ';
+								echo '<strong>'.__('Displayed:').'</strong> ';
 							}
 						}
 						echo "$poll_question</td>\n";						
@@ -645,7 +645,7 @@ switch($mode) {
 						
 					}
 				} else {
-					echo '<tr><td colspan="7" align="center"><b>'.__('No Polls Found').'</b></td></tr>';
+					echo '<tr><td colspan="7" align="center"><strong>'.__('No Polls Found').'</strong></td></tr>';
 				}
 			?>
 			</table>
@@ -701,7 +701,7 @@ switch($mode) {
 			<h2><?php _e('Polls Logs'); ?></h2>
 			<div align="center">
 				<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
-					<b>Are You Sure You Want To Delete All Polls Logs?</b><br /><br />
+					<strong>Are You Sure You Want To Delete All Polls Logs?</strong><br /><br />
 					<input type="checkbox" name="delete_logs_yes" value="yes" />&nbsp;Yes<br /><br />
 					<input type="submit" name="do" value="Delete All Logs" class="button" onclick="return confirm('You Are About To Delete All Poll Logs.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />
 				</form>
