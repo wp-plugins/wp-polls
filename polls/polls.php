@@ -261,7 +261,7 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 		if(!$without_poll_title) {
 			$temp_pollvote .= "<div id=\"polls-$poll_question_id\" class=\"wp-polls\">\n";
 			$temp_pollvote .= "\t<form id=\"polls_form_$poll_question_id\" action=\"$_SERVER[REQUEST_URI]\" method=\"post\">\n";
-			$temp_pollvote .= "\t\t<input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" />\n";
+			$temp_pollvote .= "\t\t<p><input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" /></p>\n";
 			// Print Out Voting Form Header Template
 			$temp_pollvote .= "\t\t$template_question\n";
 		}
