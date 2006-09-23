@@ -453,6 +453,7 @@
 						&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br />
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;?php get_poll();?&gt;&lt;/li&gt;<br />
 						&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br />
+						&nbsp;&nbsp;&nbsp;&lt;?php display_polls_archive_link(); ?&gt;<br />
 						&lt;/li&gt;<br />
 						&lt;?php endif; ?&gt;
 					</blockquote>
@@ -496,7 +497,13 @@
 					Type '<b>[page_polls]</b>' in the post's content area (without the quotes)
 				</li>
 				<li>
+					Type '<b>pollsarchive</b>' in the post's slug area (without the quotes)
+				</li>
+				<li>
 					Click 'Publish'
+				</li>
+				<li>
+					If you <b>ARE NOT</b> using nice permalinks, you need to go to 'WP-Admin -> Polls -> Poll Option' and under '<b>Poll Archive -> Polls Archive URL</b>', you need to fill in the URL to the Polls Archive Page you created above.
 				</li>
 			</ol>
 			<div class="SubSubTitle">Note</div>

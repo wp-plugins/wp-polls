@@ -42,6 +42,7 @@ function widget_polls_init() {
 		if (function_exists('vote_poll') && !$in_pollsarchive) {
 			echo $before_widget.$before_title.$title.$after_title;
 			get_poll();
+			display_polls_archive_link();
 			echo $after_widget;
 		}		
 	}
@@ -55,12 +56,27 @@ function widget_polls_init() {
 			$options = array('title' => 'Polls');
 		}
 		if ($_POST['polls-submit']) {
-			$poll_currentpoll = intval($_POST['poll_currentpoll']);			
+			$poll_currentpoll = intval($_POST['poll_currentpoll']);
+			$poll_archive_show = intval($_POST['poll_archive_show']);		
 			$options['title'] = strip_tags(stripslashes($_POST['polls-title']));
 			update_option('widget_polls', $options);
 			update_option('poll_currentpoll', $poll_currentpoll);
+			update_option('poll_archive_show', $poll_archive_show);
 		}
-		echo '<p style="text-align: left;"><label for="polls-title">Widget Title:</label>&nbsp;&nbsp;&nbsp;<input type="text" id="polls-title" name="polls-title" value="'.htmlspecialchars($options['title']).'" />';
+		echo '<p style="text-align: left;"><label for="polls-title">Widget Title:</label>&nbsp;&nbsp;&nbsp;<input type="text" id="polls-title" name="polls-title" value="'.htmlspecialchars($options['title']).'" />'."\n";
+		echo '<p style="text-align: left;"><label for="polls-displayarchive">Display Polls Archive Link?</label>&nbsp;&nbsp;&nbsp;'."\n";
+		echo '<select id="polls-displayarchive" name="poll_archive_show" size="1">'."\n";
+		echo '<option value="0"';
+		selected('0', get_settings('poll_archive_show'));
+		echo '>';
+		_e('No');
+		echo '</option>'."\n";
+		echo '<option value="1"';
+		selected('1', get_settings('poll_archive_show'));
+		echo '>';
+		_e('Yes');
+		echo '</option>'."\n";
+		echo '</select></p>'."\n";
 		echo '<p style="text-align: left;"><label for="poll_currentpoll">Current Active Poll:</label>&nbsp;&nbsp;&nbsp;'."\n";
 		echo '<select id="poll_currentpoll" name="poll_currentpoll" size="1">'."\n";
 		echo '<option value="-1"';

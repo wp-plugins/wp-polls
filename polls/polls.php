@@ -620,6 +620,18 @@ function polls_archive_link($page) {
 }
 
 
+### Function: Displays Polls Archive Link
+function display_polls_archive_link($display = true) {
+	if(intval(get_settings('poll_archive_show')) == 1) {
+		if($display) {
+			echo "<ul>\n<li><a href=\"".get_settings('poll_archive_url')."\">Polls Archive</a></li></ul>\n";
+		} else{
+			return "<ul>\n<li><a href=\"".get_settings('poll_archive_url')."\">Polls Archive</a></li></ul>\n";
+		}
+	}
+}
+
+
 ### Function: Display Polls Archive
 function polls_archive() {
 	global $wpdb, $polls_ips, $in_pollsarchive;
@@ -966,6 +978,8 @@ function create_poll_table() {
 	maybe_add_column($wpdb->pollsq, 'pollq_active', "ALTER TABLE $wpdb->pollsq ADD pollq_active TINYINT( 1 ) NOT NULL DEFAULT '1';");
 	// Database Upgrade For WP-Polls 2.12
 	maybe_add_column($wpdb->pollsip, 'pollip_userid', "ALTER TABLE $wpdb->pollsip ADD pollip_userid INT( 10 ) NOT NULL DEFAULT '0';");
+	add_option('poll_archive_url', get_settings('siteurl').'/pollsarchive/', 'Polls Archive URL');
+	add_option('poll_archive_show', 1, 'Show Polls Archive?');
 	// Set 'manage_polls' Capabilities To Administrator	
 	$role = get_role('administrator');
 	if(!$role->has_cap('manage_polls')) {

@@ -46,6 +46,8 @@ if($_POST['Submit']) {
 	$poll_template_disable = trim($_POST['poll_template_disable']);
 	$poll_template_error = trim($_POST['poll_template_error']);
 	$poll_archive_perpage = intval($_POST['poll_archive_perpage']);
+	$poll_archive_url = strip_tags(trim($_POST['poll_archive_url']));
+	$poll_archive_show = intval($_POST['poll_archive_show']);
 	$poll_currentpoll = intval($_POST['poll_currentpoll']);
 	$poll_logging_method = intval($_POST['poll_logging_method']);
 	$poll_allowtovote = intval($_POST['poll_allowtovote']);
@@ -66,6 +68,8 @@ if($_POST['Submit']) {
 	$update_poll_queries[] = update_option('poll_template_disable', $poll_template_disable);
 	$update_poll_queries[] = update_option('poll_template_error', $poll_template_error);
 	$update_poll_queries[] = update_option('poll_archive_perpage', $poll_archive_perpage);
+	$update_poll_queries[] = update_option('poll_archive_url', $poll_archive_url);
+	$update_poll_queries[] = update_option('poll_archive_show', $poll_archive_show);
 	$update_poll_queries[] = update_option('poll_currentpoll', $poll_currentpoll);
 	$update_poll_queries[] = update_option('poll_logging_method', $poll_logging_method);
 	$update_poll_queries[] = update_option('poll_allowtovote', $poll_allowtovote);
@@ -84,6 +88,8 @@ if($_POST['Submit']) {
 	$update_poll_text[] = __('Poll Disabled Template');
 	$update_poll_text[] = __('Poll Error Template');
 	$update_poll_text[] = __('Archive Polls Per Page Option');
+	$update_poll_text[] = __('Polls Archive URL Option');
+	$update_poll_text[] = __('Show Polls Achive Link Option');
 	$update_poll_text[] = __('Current Active Poll Option');
 	$update_poll_text[] = __('Logging Method');
 	$update_poll_text[] = __('Allow To Vote Option');
@@ -230,6 +236,19 @@ if($_POST['Submit']) {
 				 <tr valign="top">
 					<th align="left" width="30%"><?php _e('Polls Per Page:'); ?></th>
 					<td align="left"><input type="text" name="poll_archive_perpage" value="<?php echo intval(get_settings('poll_archive_perpage')); ?>" size="2" /></td>
+				</tr>
+				<tr valign="top">
+					<th align="left" width="30%"><?php _e('Polls Archive URL:'); ?></th>
+					<td align="left"><input type="text" name="poll_archive_url" value="<?php echo get_settings('poll_archive_url'); ?>" size="50" /></td>
+				</tr>
+				<tr valign="top">
+					<th align="left" width="30%"><?php _e('Display Polls Archive Link Below Poll?'); ?></th>
+					<td align="left">
+						<select name="poll_archive_show" size="1">
+							<option value="0"<?php selected('0', get_settings('poll_archive_show')); ?>><?php _e('No'); ?></option>
+							<option value="1"<?php selected('1', get_settings('poll_archive_show')); ?>><?php _e('Yes'); ?></option>
+						</select>
+					</td>
 				</tr>
 			</table>
 		</fieldset>
