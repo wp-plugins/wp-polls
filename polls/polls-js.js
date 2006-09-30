@@ -36,10 +36,14 @@ function poll_vote(current_poll_id) {
 		poll_form = document.getElementById('polls_form_' + poll_id);
 		poll_answer = eval("poll_form.poll_" + poll_id);
 		poll_answer_id = 0;
-		for(i = 0; i < poll_answer.length; i++) {
-			if (poll_answer[i].checked) {
-				poll_answer_id = poll_answer[i].value;
+		if(poll_answer.length != null) {
+			for(i = 0; i < poll_answer.length; i++) {
+				if (poll_answer[i].checked) {
+					poll_answer_id = poll_answer[i].value;
+				}
 			}
+		} else {
+			poll_answer_id = poll_answer.value;
 		}
 		if(poll_answer_id > 0) {
 			poll_loading_text();

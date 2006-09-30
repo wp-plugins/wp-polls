@@ -376,12 +376,12 @@ switch($mode) {
 							$pollip_answers[0] = __('Null Votes'); 
 							foreach($poll_answers as $poll_answer) {
 								$polla_aid = intval($poll_answer->polla_aid);
-								$polla_answers = htmlspecialchars(stripslashes($poll_answer->polla_answers));
+								$polla_answers = stripslashes($poll_answer->polla_answers);
 								$polla_votes = intval($poll_answer->polla_votes);
 								$pollip_answers[$polla_aid] = $polla_answers;
 								echo "<tr>\n";
-								echo "<td align=\"left\">".__('Answer')." $i:&nbsp;&nbsp;&nbsp;<input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_aid-$polla_aid\" value=\"$polla_answers\" />&nbsp;&nbsp;&nbsp;";
-								echo "<a href=\"$base_page&amp;mode=deleteans&amp;id=$poll_id&amp;aid=$polla_aid\" onclick=\"return confirm('You Are About To Delete This Poll Answer \'$polla_answers\'\\n  \'Cancel\' to stop, \'OK\' to delete.')\">Delete</a></td>\n";
+								echo "<td align=\"left\">".__('Answer')." $i:&nbsp;&nbsp;&nbsp;<input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_aid-$polla_aid\" value=\"".htmlspecialchars($polla_answers)."\" />&nbsp;&nbsp;&nbsp;";
+								echo "<a href=\"$base_page&amp;mode=deleteans&amp;id=$poll_id&amp;aid=$polla_aid\" onclick=\"return confirm('You Are About To Delete This Poll Answer \'".strip_tags($polla_answers)."\'\\n  \'Cancel\' to stop, \'OK\' to delete.')\">Delete</a></td>\n";
 								echo "<td align=\"right\">$polla_votes&nbsp;&nbsp;&nbsp;<input type=\"text\" size=\"4\" maxlength=\"6\" id=\"polla_votes-$polla_aid\" name=\"polla_votes-$polla_aid\" value=\"$polla_votes\" onblur=\"check_totalvotes();\" /></td>\n</tr>\n";
 								$poll_actual_totalvotes += $polla_votes;
 								$i++;
@@ -550,6 +550,7 @@ switch($mode) {
 		$polla_votes = intval($poll_answers->polla_votes);
 		$polla_answers = stripslashes(trim($poll_answers->polla_answers));
 		$delete_polla_answers = $wpdb->query("DELETE FROM $wpdb->pollsa WHERE polla_aid = $poll_aid AND polla_qid = $poll_id");
+		$delete_pollip = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_aid = $poll_aid");
 		$update_pollq_totalvotes = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes-$polla_votes) WHERE pollq_id=$poll_id");
 ?>
 		<!-- Delete Poll's Answer -->
@@ -564,7 +565,12 @@ switch($mode) {
 				if($update_pollq_totalvotes) {
 					$text .= "<br /><font color=\"green\">Poll Question's Total Votes Updated Successfully</font>";
 				} else {
-					$text .= "<br /><font color=\"blue\">No Changes Had Been Made To The Poll's Total Votes</font>";
+					$text .= "<br /><font color=\"blue\">No Changes Have Been Made To The Poll's Total Votes</font>";
+				}
+				if($delete_pollip) {
+					$text .= "<br /><font color=\"green\">Poll IP Logs Updated Successfully</font>";
+				} else {
+					$text .= "<br /><font color=\"blue\">No Changes Have Been Made To The Poll IP Logs</font>";
 				}
 				_e($text);
 			?>
