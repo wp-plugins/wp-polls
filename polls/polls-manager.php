@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.12										|
+|	WordPress 2.0 Plugin: WP-Polls 2.13										|
 |	Copyright (c) 2005 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -38,7 +38,7 @@ if(!empty($_POST['do'])) {
 		// Add Poll
 		case 'Add Poll':
 			// Add Poll Question
-			$pollq_question = addslashes(unhtmlentities(trim($_POST['pollq_question'])));
+			$pollq_question = addslashes(trim($_POST['pollq_question']));
 			$pollq_timestamp = current_time('timestamp');
 			$add_poll_question = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (0, '$pollq_question', '$pollq_timestamp', 0, 1)");
 			if(!$add_poll_question) {
@@ -48,7 +48,7 @@ if(!empty($_POST['do'])) {
 			$polla_answers = $_POST['polla_answers'];
 			$polla_qid = intval($wpdb->insert_id);
 			foreach($polla_answers as $polla_answer) {
-				$polla_answer = addslashes(unhtmlentities(trim($polla_answer)));
+				$polla_answer = addslashes(trim($polla_answer));
 				$add_poll_answers = $wpdb->query("INSERT INTO $wpdb->pollsa VALUES (0, $polla_qid, '$polla_answer', 0)");
 				if(!$add_poll_answers) {
 					$text .= '<font color="red">Error In Adding Poll\'s Answer \''.stripslashes($polla_answer).'\'</font>';
@@ -68,7 +68,7 @@ if(!empty($_POST['do'])) {
 			// Update Poll's Question
 			$pollq_id  = intval($_POST['pollq_id']);
 			$pollq_totalvotes = intval($_POST['pollq_totalvotes']);
-			$pollq_question = addslashes(unhtmlentities(trim($_POST['pollq_question'])));
+			$pollq_question = addslashes(trim($_POST['pollq_question']));
 			$edit_polltimestamp = intval($_POST['edit_polltimestamp']);
 			$timestamp_sql = '';
 			if($edit_polltimestamp == 1) {
@@ -93,7 +93,7 @@ if(!empty($_POST['do'])) {
 						$polla_aids[] = intval($get_polla_aid->polla_aid);
 				}
 				foreach($polla_aids as $polla_aid) {
-					$polla_answers = addslashes(unhtmlentities(trim($_POST['polla_aid-'.$polla_aid])));
+					$polla_answers = addslashes(trim($_POST['polla_aid-'.$polla_aid]));
 					$polla_votes = intval($_POST['polla_votes-'.$polla_aid]);
 					$edit_poll_answer = $wpdb->query("UPDATE $wpdb->pollsa SET polla_answers = '$polla_answers', polla_votes = $polla_votes WHERE polla_qid = $pollq_id AND polla_aid = $polla_aid");
 					if(!$edit_poll_answer) {
@@ -110,7 +110,7 @@ if(!empty($_POST['do'])) {
 		// Open Poll
 		case 'Open Poll':
 			$pollq_id  = intval($_POST['pollq_id']);
-			$pollq_question = addslashes(unhtmlentities(trim($_POST['pollq_question'])));
+			$pollq_question = addslashes(trim($_POST['pollq_question']));
 			$close_poll = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 1 WHERE pollq_id = $pollq_id;");
 			if($close_poll) {
 				$text = '<font color="green">Poll \''.stripslashes($pollq_question).'\' Is Now Opened</font>';
@@ -121,7 +121,7 @@ if(!empty($_POST['do'])) {
 		// Close Poll
 		case 'Close Poll':
 			$pollq_id  = intval($_POST['pollq_id']);
-			$pollq_question = addslashes(unhtmlentities(trim($_POST['pollq_question'])));
+			$pollq_question = addslashes(trim($_POST['pollq_question']));
 			$close_poll = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 0 WHERE pollq_id = $pollq_id;");
 			if($close_poll) {
 				$text = '<font color="green">Poll \''.stripslashes($pollq_question).'\' Is Now Closed</font>';
@@ -132,7 +132,7 @@ if(!empty($_POST['do'])) {
 		// Delete Poll
 		case 'Delete Poll':
 			$pollq_id  = intval($_POST['pollq_id']);
-			$pollq_question = unhtmlentities(trim($_POST['pollq_question']));
+			$pollq_question = trim($_POST['pollq_question']);
 			$delete_poll_question = $wpdb->query("DELETE FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
 			$delete_poll_answers =  $wpdb->query("DELETE FROM $wpdb->pollsa WHERE polla_qid = $pollq_id");
 			$delete_poll_ip = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $pollq_id");
@@ -160,7 +160,7 @@ if(!empty($_POST['do'])) {
 		// Add Poll's Answer
 		case 'Add Answer':
 			$polla_qid  = intval($_POST['polla_qid']);
-			$polla_answers = addslashes(unhtmlentities(trim($_POST['polla_answers'])));
+			$polla_answers = addslashes(trim($_POST['polla_answers']));
 			$add_poll_question = $wpdb->query("INSERT INTO $wpdb->pollsa VALUES (0, $polla_qid, '$polla_answers', 0)");
 			if(!$add_poll_question) {
 				$text = '<font color="red">Error In Adding Poll Answer \''.stripslashes($polla_answers).'\'</font>';
@@ -211,7 +211,7 @@ switch($mode) {
 					<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 						<tr>
 							<th align="left"><?php _e('Question') ?></th>
-							<td><input type="text" size="50" maxlength="200" name="pollq_question" value="<?php echo htmlentities($pollq_question); ?>" /></td>
+							<td><input type="text" size="50" maxlength="200" name="pollq_question" value="<?php echo htmlspecialchars($pollq_question); ?>" /></td>
 						</tr>
 						<?php
 							for($i=1; $i<=$poll_noquestion; $i++) {
@@ -362,7 +362,7 @@ switch($mode) {
 						<th colspan="2"><?php _e('Question') ?></th>
 					</tr>
 					<tr>
-						<td align="center" colspan="2"><input type="text" size="70" maxlength="200" name="pollq_question" value="<?php echo htmlentities($poll_question_text); ?>" /></td>
+						<td align="center" colspan="2"><input type="text" size="70" maxlength="200" name="pollq_question" value="<?php echo htmlspecialchars($poll_question_text); ?>" /></td>
 					</tr>
 					<tr>
 						<th align="left"><?php _e('Answers:') ?></th>
@@ -376,7 +376,7 @@ switch($mode) {
 							$pollip_answers[0] = __('Null Votes'); 
 							foreach($poll_answers as $poll_answer) {
 								$polla_aid = intval($poll_answer->polla_aid);
-								$polla_answers = htmlentities(stripslashes($poll_answer->polla_answers));
+								$polla_answers = htmlspecialchars(stripslashes($poll_answer->polla_answers));
 								$polla_votes = intval($poll_answer->polla_votes);
 								$pollip_answers[$polla_aid] = $polla_answers;
 								echo "<tr>\n";
@@ -400,9 +400,9 @@ switch($mode) {
 					<tr>
 						<td align="center" colspan="2"><input type="submit" name="do" value="<?php _e('Edit Poll'); ?>" class="button" />&nbsp;&nbsp;
 						<?php if($poll_active == 1) { ?>
-						<input type="submit" class="button" name="do" value="<?php _e('Close Poll'); ?>" onclick="return confirm('You Are About To Close This Poll \'<?php echo $poll_question_text; ?>\'.')" />
+						<input type="submit" class="button" name="do" value="<?php _e('Close Poll'); ?>" onclick="return confirm('You Are About To Close This Poll \'<?php echo strip_tags($poll_question_text); ?>\'.')" />
 						<?php } else { ?>
-						<input type="submit" class="button" name="do" value="<?php _e('Open Poll'); ?>" onclick="return confirm('You Are About To Open This Poll \'<?php echo $poll_question_text; ?>\'.')" />
+						<input type="submit" class="button" name="do" value="<?php _e('Open Poll'); ?>" onclick="return confirm('You Are About To Open This Poll \'<?php echo strip_tags($poll_question_text); ?>\'.')" />
 						<?php } ?>
 						&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
@@ -505,7 +505,7 @@ switch($mode) {
 			<h2><?php _e('Delete Poll') ?></h2>
 			<form action="<?php echo $base_page; ?>" method="post"> 
 				<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
-				<input type="hidden" name="pollq_question" value="<?php echo htmlentities($poll_question_text); ?>" />
+				<input type="hidden" name="pollq_question" value="<?php echo htmlspecialchars($poll_question_text); ?>" />
 				<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 					<tr>
 						<th colspan="2"><?php _e('Question') ?></th>
@@ -537,7 +537,7 @@ switch($mode) {
 						<th colspan="2"><?php _e('Status'); ?>: <?php if($poll_active == 1) { _e('Open'); } else { _e('Closed'); } ?></th>
 					</tr>
 					<tr>
-						<td align="center" colspan="2"><br /><p><strong><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</strong></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo $poll_question_text; ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+						<td align="center" colspan="2"><br /><p><strong><?php _e('You Are About To Delete This Poll'); ?> '<?php echo $poll_question_text; ?>'</strong></p><input type="submit" class="button" name="do" value="<?php _e('Delete Poll'); ?>" onclick="return confirm('You Are About To The Delete This Poll \'<?php echo strip_tags($poll_question_text); ?>\'.\nThis Action Is Not Reversible.\n\n Choose \'Cancel\' to stop, \'OK\' to delete.')" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>

@@ -3,7 +3,7 @@
 Plugin Name: WP-Polls
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Adds A Poll Feature To WordPress
-Version: 2.12
+Version: 2.13
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
 */
@@ -572,16 +572,6 @@ if(!function_exists('get_pollvotes')) {
 			return number_format($totalpollip);
 		}
 	}
-}
-
-
-### Un HTML Entities
-function unhtmlentities($string) { 
-   $string = preg_replace('~&#x([0-9a-f]+);~ei', 'chr(hexdec("\\1"))', $string);
-   $string = preg_replace('~&#([0-9]+);~e', 'chr(\\1)', $string);
-   $trans_tbl = get_html_translation_table(HTML_ENTITIES);
-   $trans_tbl = array_flip($trans_tbl);
-   return strtr($string, $trans_tbl);
 }
 
 

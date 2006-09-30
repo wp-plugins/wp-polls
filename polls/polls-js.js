@@ -1,7 +1,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.12										|
+|	WordPress 2.0 Plugin: WP-Polls 2.13										|
 |	Copyright (c) 2006 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -45,6 +45,7 @@ function poll_vote(current_poll_id) {
 			poll_loading_text();
 			poll_process();
 		} else {
+			is_being_voted = false;
 			alert("Please choose a valid poll answer.");
 		}
 	} else {
