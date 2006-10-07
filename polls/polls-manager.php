@@ -141,10 +141,10 @@ if(!empty($_POST['do'])) {
 				$text = '<font color="red">'.sprintf(__('Error In Deleting Poll \'%s\' Question', 'wp-polls'), stripslashes($pollq_question)).'</font>';
 			} 
 			if(!$delete_poll_answers) {
-				$text .= '<br /><font color="red">'.sprintf(__('Error In Deleting Poll Answers For \'%s\'', 'wp-polls'), stripslashes($pollq_question)).'</font>';
+				$text .= '<br /><font color="blue">'.sprintf(__('No Poll Answers For \'%s\'', 'wp-polls'), stripslashes($pollq_question)).'</font>';
 			}
 			if(!$delete_poll_ip) {
-				$text .= '<br /><font color="red">'.sprintf(__('Error In Deleting Voted IPs For \'%s\'', 'wp-polls'), stripslashes($pollq_question)).'</font>';
+				$text .= '<br /><font color="blue">'.sprintf(__('No Voted IPs For \'%s\'', 'wp-polls'), stripslashes($pollq_question)).'</font>';
 			}
 			if(empty($text)) {
 				if($poll_option_lastestpoll == $pollq_id) {
@@ -222,7 +222,7 @@ switch($mode) {
 							}
 						?>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll', 'wp-polls'); ?>"  class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll', 'wp-polls'); ?>"  class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -245,7 +245,7 @@ switch($mode) {
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question', 'wp-polls'); ?>" class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question', 'wp-polls'); ?>" class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -395,7 +395,7 @@ switch($mode) {
 						<td colspan="2"><strong><?php _e('Timestamp', 'wp-polls'); ?></strong>:</td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="checkbox" name="edit_polltimestamp" value="1" /><?php _e('Edit Timestamp', 'wp-polls'); ?><br /><?php //poll_timestamp($poll_timestamp); ?><br /><?php _e('Existing Timestamp:', 'wp-polls'); ?> <?php echo mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_timestamp)); ?></td>
+						<td colspan="2"><input type="checkbox" name="edit_polltimestamp" value="1" /><?php _e('Edit Timestamp', 'wp-polls'); ?><br /><?php poll_timestamp($poll_timestamp); ?><br /><?php _e('Existing Timestamp:', 'wp-polls'); ?> <?php echo mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_timestamp)); ?></td>
 					</tr>
 					<tr>
 						<td align="center" colspan="2"><input type="submit" name="do" value="<?php _e('Edit Poll', 'wp-polls'); ?>" class="button" />&nbsp;&nbsp;
@@ -404,7 +404,7 @@ switch($mode) {
 						<?php } else { ?>
 						<input type="submit" class="button" name="do" value="<?php _e('Open Poll', 'wp-polls'); ?>" onclick="return confirm('<?php _e('You Are About To Open This Poll', 'wp-polls'); ?>.')" />
 						<?php } ?>
-						&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+						&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -644,8 +644,8 @@ switch($mode) {
 							_e('Closed', 'wp-polls');
 						}
 						echo "</td>\n";
-						echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit', 'wp-polls')."</a></td>\n";
-						echo "<td><a href=\"$base_page&amp;mode=delete&amp;id=$poll_id\" class=\"delete\">".__('Delete', 'wp-polls')."</a></td>\n";
+						echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit')."</a></td>\n";
+						echo "<td><a href=\"$base_page&amp;mode=delete&amp;id=$poll_id\" class=\"delete\">".__('Delete')."</a></td>\n";
 						echo '</tr>';
 						$i++;
 						$total_votes+= $poll_totalvotes;

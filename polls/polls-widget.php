@@ -53,7 +53,7 @@ function widget_polls_init() {
 		$options = get_option('widget_polls');
 		$current_poll = get_settings('poll_currentpoll');
 		if (!is_array($options)) {
-			$options = array('title' => 'Polls');
+			$options = array('title' => __('Polls', 'wp-polls'));
 		}
 		if ($_POST['polls-submit']) {
 			$poll_currentpoll = intval($_POST['poll_currentpoll']);
@@ -63,8 +63,12 @@ function widget_polls_init() {
 			update_option('poll_currentpoll', $poll_currentpoll);
 			update_option('poll_archive_show', $poll_archive_show);
 		}
-		echo '<p style="text-align: left;"><label for="polls-title">Widget Title:</label>&nbsp;&nbsp;&nbsp;<input type="text" id="polls-title" name="polls-title" value="'.htmlspecialchars($options['title']).'" />'."\n";
-		echo '<p style="text-align: left;"><label for="polls-displayarchive">Display Polls Archive Link?</label>&nbsp;&nbsp;&nbsp;'."\n";
+		echo '<p style="text-align: left;"><label for="polls-title">';
+		_e('Title');
+		echo ': </label><input type="text" id="polls-title" name="polls-title" value="'.htmlspecialchars($options['title']).'" />'."\n";
+		echo '<p style="text-align: left;"><label for="polls-displayarchive">';
+		_e('Display Polls Archive Link Below Poll?', 'wp-polls');
+		echo ' </label>'."\n";
 		echo '<select id="polls-displayarchive" name="poll_archive_show" size="1">'."\n";
 		echo '<option value="0"';
 		selected('0', get_settings('poll_archive_show'));
@@ -77,22 +81,24 @@ function widget_polls_init() {
 		_e('Yes');
 		echo '</option>'."\n";
 		echo '</select></p>'."\n";
-		echo '<p style="text-align: left;"><label for="poll_currentpoll">Current Active Poll:</label>&nbsp;&nbsp;&nbsp;'."\n";
+		echo '<p style="text-align: left;"><label for="poll_currentpoll">';
+		_e('Current Active Poll', 'wp-polls');
+		echo ': </label>'."\n";
 		echo '<select id="poll_currentpoll" name="poll_currentpoll" size="1">'."\n";
 		echo '<option value="-1"';
 		selected(-1, $current_poll);
 		echo '>';
-		_e('Do NOT Display Poll (Disable)');
+		_e('Do NOT Display Poll (Disable)', 'wp-polls');
 		echo '</option>'."\n";
 		echo '<option value="-2"';
 		selected(-2, $current_poll);
 		echo '>';
-		_e('Display Random Poll');
+		_e('Display Random Poll', 'wp-polls');
 		echo '</option>'."\n";
 		echo '<option value="0"';
 		selected(0, $current_poll);
 		echo '>';
-		_e('Display Latest Poll');
+		_e('Display Latest Poll', 'wp-polls');
 		echo '</option>'."\n";
 		echo '<option value="0">&nbsp;</option>'."\n";
 		$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");
@@ -113,8 +119,8 @@ function widget_polls_init() {
 	}
 
 	// Register Widgets
-	register_sidebar_widget('Polls', 'widget_polls');
-	register_widget_control('Polls', 'widget_polls_options', 400, 150);
+	register_sidebar_widget(array('Polls', 'wp-polls'), 'widget_polls');
+	register_widget_control(array('Polls', 'wp-polls'), 'widget_polls_options', 400, 150);
 }
 
 

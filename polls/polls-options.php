@@ -134,13 +134,13 @@ if($_POST['Submit']) {
 				default_template = "</ul>\n<p style=\"text-align: center;\"><?php _e('Total Votes', 'wp-polls'); ?>: <strong>%POLL_TOTALVOTES%</strong></p>\n</div>";
 				break;
 			case "resultfooter2":
-				default_template = "</ul>\n<p style=\"text-align: center;\"><?php _e('Total Votes', 'wp-polls'); ?>: <strong>%POLL_TOTALVOTES%</strong></p>\n<p style=\"text-align: center;\"><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%); return false;\" title=\"<?php _e('Vote For This Poll', 'wp-polls'); ?>', 'wp-polls'); ?>\"><?php _e('Vote', 'wp-polls'); ?></a></p>\n</div>";
+				default_template = "</ul>\n<p style=\"text-align: center;\"><?php _e('Total Votes', 'wp-polls'); ?>: <strong>%POLL_TOTALVOTES%</strong></p>\n<p style=\"text-align: center;\"><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%); return false;\" title=\"<?php _e('Vote For This Poll', 'wp-polls'); ?>\"><?php _e('Vote', 'wp-polls'); ?></a></p>\n</div>";
 				break;
 			case "disable":
-				default_template = '<?php _e('Sorry, there are no polls available at the moment.', 'wp-polls'); ?>';
+				default_template = "<?php _e('Sorry, there are no polls available at the moment.', 'wp-polls'); ?>";
 				break;
 			case "error":
-				default_template = '<?php _e('An error has occurred when processing your poll.', 'wp-polls'); ?>';
+				default_template = "<?php _e('An error has occurred when processing your poll.', 'wp-polls'); ?>";
 				break;
 		}
 		document.getElementById("poll_template_" + template).value = default_template;
@@ -507,7 +507,7 @@ if($_POST['Submit']) {
 			</table>
 		</fieldset>
 		<div align="center">
-			<input type="submit" name="Submit" class="button" value="<?php _e('Update Options', 'wp-polls'); ?>" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /> 
+			<input type="submit" name="Submit" class="button" value="<?php _e('Update Options'); ?>" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /> 
 		</div>
 	</form> 
 </div> 

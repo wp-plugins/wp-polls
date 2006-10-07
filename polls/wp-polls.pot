@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: wp-polls\n"
+"Project-Id-Version: WP-Polls 2.13\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-10-05 21:12+0800\n"
+"PO-Revision-Date: 2006-10-07 20:11+0800\n"
 "Last-Translator: Lester Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Country: NETHERLANDS\n"
+"X-Poedit-Country: SINGAPORE\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -108,12 +108,12 @@ msgstr ""
 
 #: polls-manager.php:144
 #, php-format
-msgid "Error In Deleting Poll Answers For '%s'"
+msgid "No Poll Answers For '%s'"
 msgstr ""
 
 #: polls-manager.php:147
 #, php-format
-msgid "Error In Deleting Voted IPs For '%s'"
+msgid "No Voted IPs For '%s'"
 msgstr ""
 
 #: polls-manager.php:157
@@ -231,6 +231,8 @@ msgstr ""
 #: polls-manager.php:596
 #: polls-options.php:134
 #: polls-options.php:137
+#: polls.php:959
+#: polls.php:962
 msgid "Total Votes"
 msgstr ""
 
@@ -289,7 +291,7 @@ msgstr ""
 #: polls-manager.php:487
 #: polls-manager.php:712
 #: polls-options.php:249
-#: polls-widget.php:77
+#: polls-widget.php:81
 msgid "Yes"
 msgstr ""
 
@@ -507,36 +509,46 @@ msgstr ""
 
 #: polls-options.php:122
 #: polls-options.php:137
+#: polls.php:950
+#: polls.php:963
 msgid "Vote"
 msgstr ""
 
 #: polls-options.php:122
+#: polls.php:951
 msgid "View Results Of This Poll"
 msgstr ""
 
 #: polls-options.php:122
+#: polls.php:951
 msgid "View Results"
 msgstr ""
 
 #: polls-options.php:128
 #: polls-options.php:131
 #: polls-options.php:184
+#: polls.php:956
+#: polls.php:957
 msgid "Votes"
 msgstr ""
 
 #: polls-options.php:131
+#: polls.php:957
 msgid "You Have Voted For This Choice"
 msgstr ""
 
 #: polls-options.php:137
+#: polls.php:963
 msgid "Vote For This Poll"
 msgstr ""
 
 #: polls-options.php:140
+#: polls.php:965
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
 #: polls-options.php:143
+#: polls.php:966
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
@@ -646,31 +658,33 @@ msgid "Polls Archive URL:"
 msgstr ""
 
 #: polls-options.php:245
+#: polls-widget.php:70
 msgid "Display Polls Archive Link Below Poll?"
 msgstr ""
 
 #: polls-options.php:248
-#: polls-widget.php:72
+#: polls-widget.php:76
 msgid "No"
 msgstr ""
 
 #: polls-options.php:256
 #: polls-options.php:259
+#: polls-widget.php:85
 msgid "Current Active Poll"
 msgstr ""
 
 #: polls-options.php:262
-#: polls-widget.php:85
+#: polls-widget.php:91
 msgid "Do NOT Display Poll (Disable)"
 msgstr ""
 
 #: polls-options.php:263
-#: polls-widget.php:90
+#: polls-widget.php:96
 msgid "Display Random Poll"
 msgstr ""
 
 #: polls-options.php:264
-#: polls-widget.php:95
+#: polls-widget.php:101
 msgid "Display Latest Poll"
 msgstr ""
 
@@ -841,8 +855,13 @@ msgstr ""
 msgid "Update Options"
 msgstr ""
 
+#: polls-widget.php:56
 #: polls.php:44
 msgid "Polls"
+msgstr ""
+
+#: polls-widget.php:67
+msgid "Title"
 msgstr ""
 
 #: polls.php:309
