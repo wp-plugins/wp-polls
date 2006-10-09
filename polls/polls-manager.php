@@ -185,7 +185,7 @@ if(!empty($_POST['do'])) {
 			if(trim($_POST['delete_logs_yes']) == 'yes') {
 				$delete_logs = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $pollq_id");
 				if($delete_logs) {
-					$text = '<font color="green">'.__('All Logs For This Poll Has Been Deleted.', 'wp-polls').'</font>';
+					$text = '<font color="green">'.__('All Logs For This Poll Have Been Deleted.', 'wp-polls').'</font>';
 				} else {
 					$text = '<font color="red">'.__('An Error Has Occured While Deleting All Logs For This Poll.', 'wp-polls').'</font>';
 				}

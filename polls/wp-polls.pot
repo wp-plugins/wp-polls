@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.13\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-10-07 20:11+0800\n"
+"PO-Revision-Date: 2006-10-09 19:50+0800\n"
 "Last-Translator: Lester Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -157,7 +157,7 @@ msgid "Delete Logs For This Poll Only"
 msgstr ""
 
 #: polls-manager.php:188
-msgid "All Logs For This Poll Has Been Deleted."
+msgid "All Logs For This Poll Have Been Deleted."
 msgstr ""
 
 #: polls-manager.php:190
