@@ -245,8 +245,8 @@ if($_POST['Submit']) {
 					<th align="left" width="30%"><?php _e('Display Polls Archive Link Below Poll?', 'wp-polls'); ?></th>
 					<td align="left">
 						<select name="poll_archive_show" size="1">
-							<option value="0"<?php selected('0', get_settings('poll_archive_show')); ?>><?php _e('No'); ?></option>
-							<option value="1"<?php selected('1', get_settings('poll_archive_show')); ?>><?php _e('Yes'); ?></option>
+							<option value="0"<?php selected('0', get_settings('poll_archive_show')); ?>><?php _e('No', 'wp-polls'); ?></option>
+							<option value="1"<?php selected('1', get_settings('poll_archive_show')); ?>><?php _e('Yes', 'wp-polls'); ?></option>
 						</select>
 					</td>
 				</tr>
