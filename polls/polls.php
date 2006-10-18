@@ -46,6 +46,7 @@ function poll_menu() {
 	if (function_exists('add_submenu_page')) {
 		add_submenu_page('polls/polls-manager.php', __('Manage Polls', 'wp-polls'), __('Manage Polls', 'wp-polls'), 'manage_polls', 'polls/polls-manager.php');
 		add_submenu_page('polls/polls-manager.php', __('Poll Options', 'wp-polls'), __('Poll Options', 'wp-polls'), 'manage_polls', 'polls/polls-options.php');
+		add_submenu_page('polls/polls-manager.php', __('Poll Usage', 'wp-polls'), __('Poll Usage', 'wp-polls'), 'manage_polls', 'polls/polls-usage.php');
 	}
 }
 

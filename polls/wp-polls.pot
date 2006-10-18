@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.13\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-10-14 12:13+0800\n"
+"PO-Revision-Date: 2006-10-18 20:36+0800\n"
 "Last-Translator: Lester Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: polls-manager.php:39
-#: polls-manager.php:204
-#: polls-manager.php:225
+#: polls-manager.php:236
+#: polls-manager.php:257
 msgid "Add Poll"
 msgstr ""
 
@@ -48,8 +48,8 @@ msgid "Added Successfully"
 msgstr ""
 
 #: polls-manager.php:67
-#: polls-manager.php:357
-#: polls-manager.php:401
+#: polls-manager.php:389
+#: polls-manager.php:433
 msgid "Edit Poll"
 msgstr ""
 
@@ -70,7 +70,7 @@ msgid "Edited Successfully"
 msgstr ""
 
 #: polls-manager.php:111
-#: polls-manager.php:405
+#: polls-manager.php:437
 msgid "Open Poll"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgid "Error Opening Poll"
 msgstr ""
 
 #: polls-manager.php:122
-#: polls-manager.php:403
+#: polls-manager.php:435
 msgid "Close Poll"
 msgstr ""
 
@@ -96,8 +96,8 @@ msgid "Error Closing Poll"
 msgstr ""
 
 #: polls-manager.php:133
-#: polls-manager.php:505
-#: polls-manager.php:541
+#: polls-manager.php:537
+#: polls-manager.php:573
 msgid "Delete Poll"
 msgstr ""
 
@@ -117,14 +117,14 @@ msgid "No Voted IPs For '%s'"
 msgstr ""
 
 #: polls-manager.php:157
-#: polls-manager.php:563
+#: polls-manager.php:595
 msgid "Deleted Successfully"
 msgstr ""
 
 #: polls-manager.php:161
-#: polls-manager.php:414
-#: polls-manager.php:419
-#: polls-manager.php:423
+#: polls-manager.php:446
+#: polls-manager.php:451
+#: polls-manager.php:455
 msgid "Add Answer"
 msgstr ""
 
@@ -134,12 +134,12 @@ msgid "Error In Adding Poll Answer '%s'"
 msgstr ""
 
 #: polls-manager.php:168
-#: polls-manager.php:563
+#: polls-manager.php:595
 msgid "Poll Answer"
 msgstr ""
 
 #: polls-manager.php:172
-#: polls-manager.php:713
+#: polls-manager.php:758
 msgid "Delete All Logs"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgid "An Error Has Occured While Deleting All Polls Logs."
 msgstr ""
 
 #: polls-manager.php:183
-#: polls-manager.php:488
+#: polls-manager.php:520
 msgid "Delete Logs For This Poll Only"
 msgstr ""
 
@@ -164,258 +164,310 @@ msgstr ""
 msgid "An Error Has Occured While Deleting All Logs For This Poll."
 msgstr ""
 
-#: polls-manager.php:213
-#: polls-manager.php:233
-#: polls-manager.php:362
-#: polls-manager.php:511
-#: polls-manager.php:595
-#: polls-manager.php:666
+#: polls-manager.php:195
+#: polls-manager.php:776
+msgid "UNINSTALL Polls"
+msgstr ""
+
+#: polls-manager.php:202
+#, php-format
+msgid "Table \"%s\" Has Been Dropped."
+msgstr ""
+
+#: polls-manager.php:215
+#, php-format
+msgid "Setting Key '%s' Has been Errased."
+msgstr ""
+
+#: polls-manager.php:218
+#, php-format
+msgid "Error Deleting Setting Key '%s'."
+msgstr ""
+
+#: polls-manager.php:245
+#: polls-manager.php:265
+#: polls-manager.php:394
+#: polls-manager.php:543
+#: polls-manager.php:641
+#: polls-manager.php:712
 msgid "Question"
 msgstr ""
 
-#: polls-manager.php:225
-#: polls-manager.php:248
-#: polls-manager.php:407
-#: polls-manager.php:542
+#: polls-manager.php:257
+#: polls-manager.php:280
+#: polls-manager.php:439
+#: polls-manager.php:574
 #: polls-options.php:510
 msgid "Cancel"
 msgstr ""
 
-#: polls-manager.php:236
-#: polls-manager.php:670
+#: polls-manager.php:268
+#: polls-manager.php:716
 msgid "No. Of Answers:"
 msgstr ""
 
-#: polls-manager.php:248
-#: polls-manager.php:682
+#: polls-manager.php:280
+#: polls-manager.php:728
 msgid "Add Question"
 msgstr ""
 
-#: polls-manager.php:368
+#: polls-manager.php:400
 msgid "Answers:"
 msgstr ""
 
-#: polls-manager.php:369
-#: polls-manager.php:518
+#: polls-manager.php:401
+#: polls-manager.php:550
 msgid "No. Of Votes"
 msgstr ""
 
-#: polls-manager.php:376
+#: polls-manager.php:408
 msgid "Null Votes"
 msgstr ""
 
-#: polls-manager.php:383
-#: polls-manager.php:449
-#: polls-manager.php:527
+#: polls-manager.php:415
+#: polls-manager.php:481
+#: polls-manager.php:559
 msgid "Answer"
 msgstr ""
 
-#: polls-manager.php:384
+#: polls-manager.php:416
 msgid "You Are About To Delete This Poll Answer:"
 msgstr ""
 
-#: polls-manager.php:384
-#: polls-manager.php:488
-#: polls-manager.php:541
-#: polls-manager.php:713
+#: polls-manager.php:416
+#: polls-manager.php:520
+#: polls-manager.php:573
+#: polls-manager.php:758
 msgid "This Action Is Not Reversible. Are you sure?"
 msgstr ""
 
-#: polls-manager.php:384
-#: polls-manager.php:648
+#: polls-manager.php:416
+#: polls-manager.php:694
 msgid "Delete"
 msgstr ""
 
-#: polls-manager.php:392
-#: polls-manager.php:534
-#: polls-manager.php:596
+#: polls-manager.php:424
+#: polls-manager.php:566
+#: polls-manager.php:642
 #: polls-options.php:134
 #: polls-options.php:137
-#: polls.php:959
-#: polls.php:962
+#: polls.php:960
+#: polls.php:963
 msgid "Total Votes"
 msgstr ""
 
-#: polls-manager.php:395
+#: polls-manager.php:427
 msgid "Timestamp"
 msgstr ""
 
-#: polls-manager.php:398
+#: polls-manager.php:430
 msgid "Edit Timestamp"
 msgstr ""
 
-#: polls-manager.php:398
+#: polls-manager.php:430
 msgid "Existing Timestamp:"
 msgstr ""
 
-#: polls-manager.php:403
+#: polls-manager.php:435
 msgid "You Are About To Close This Poll"
 msgstr ""
 
-#: polls-manager.php:405
+#: polls-manager.php:437
 msgid "You Are About To Open This Poll"
 msgstr ""
 
-#: polls-manager.php:433
+#: polls-manager.php:465
 msgid "Users Voted For This Poll"
 msgstr ""
 
-#: polls-manager.php:453
+#: polls-manager.php:485
 msgid "No."
 msgstr ""
 
-#: polls-manager.php:454
+#: polls-manager.php:486
 msgid "User"
 msgstr ""
 
-#: polls-manager.php:455
+#: polls-manager.php:487
 msgid "IP/Host"
 msgstr ""
 
-#: polls-manager.php:456
+#: polls-manager.php:488
 msgid "Date"
 msgstr ""
 
-#: polls-manager.php:475
+#: polls-manager.php:507
 msgid "No IP Has Been Logged Yet."
 msgstr ""
 
-#: polls-manager.php:482
+#: polls-manager.php:514
 msgid "Poll Logs"
 msgstr ""
 
-#: polls-manager.php:486
+#: polls-manager.php:518
 msgid "Are You Sure You Want To Delete Logs For This Poll Only?"
 msgstr ""
 
-#: polls-manager.php:487
-#: polls-manager.php:712
+#: polls-manager.php:519
+#: polls-manager.php:757
+#: polls-manager.php:775
 #: polls-options.php:249
 #: polls-widget.php:81
 msgid "Yes"
 msgstr ""
 
-#: polls-manager.php:488
+#: polls-manager.php:520
 msgid "You Are About To Delete Logs For This Poll Only."
 msgstr ""
 
-#: polls-manager.php:491
-#: polls-manager.php:716
+#: polls-manager.php:523
 msgid "Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer."
 msgstr ""
 
-#: polls-manager.php:517
+#: polls-manager.php:549
 msgid "Answers"
 msgstr ""
 
-#: polls-manager.php:537
-#: polls-manager.php:598
+#: polls-manager.php:569
+#: polls-manager.php:644
 msgid "Status"
 msgstr ""
 
-#: polls-manager.php:537
-#: polls-manager.php:642
+#: polls-manager.php:569
+#: polls-manager.php:688
 msgid "Open"
 msgstr ""
 
-#: polls-manager.php:537
-#: polls-manager.php:644
+#: polls-manager.php:569
+#: polls-manager.php:690
 msgid "Closed"
 msgstr ""
 
-#: polls-manager.php:540
-#: polls-manager.php:541
+#: polls-manager.php:572
+#: polls-manager.php:573
 msgid "You Are About To Delete This Poll"
 msgstr ""
 
-#: polls-manager.php:560
+#: polls-manager.php:592
 msgid "Delete Poll's Answer"
 msgstr ""
 
-#: polls-manager.php:565
+#: polls-manager.php:597
 msgid "Error In Deleting Poll Answer"
 msgstr ""
 
-#: polls-manager.php:568
+#: polls-manager.php:600
 msgid "Poll Question's Total Votes Updated Successfully"
 msgstr ""
 
-#: polls-manager.php:570
+#: polls-manager.php:602
 msgid "No Changes Have Been Made To The Poll's Total Votes"
 msgstr ""
 
-#: polls-manager.php:573
+#: polls-manager.php:605
 msgid "Poll IP Logs Updated Successfully"
 msgstr ""
 
-#: polls-manager.php:575
+#: polls-manager.php:607
 msgid "No Changes Have Been Made To The Poll IP Logs"
 msgstr ""
 
-#: polls-manager.php:578
+#: polls-manager.php:610
 msgid "Click here To Go Back To The Poll Edit Page"
 msgstr ""
 
-#: polls-manager.php:591
+#: polls-manager.php:617
+#: polls-manager.php:765
+msgid "Uninstall Polls"
+msgstr ""
+
+#: polls-manager.php:623
+#, php-format
+msgid "<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-Polls Will Be Deactivated Automatically."
+msgstr ""
+
+#: polls-manager.php:637
 #: polls.php:47
 msgid "Manage Polls"
 msgstr ""
 
-#: polls-manager.php:594
+#: polls-manager.php:640
 msgid "ID"
 msgstr ""
 
-#: polls-manager.php:597
+#: polls-manager.php:643
 msgid "Date Added"
 msgstr ""
 
-#: polls-manager.php:599
+#: polls-manager.php:645
 msgid "Action"
 msgstr ""
 
-#: polls-manager.php:630
-#: polls-manager.php:634
+#: polls-manager.php:676
+#: polls-manager.php:680
 msgid "Displayed:"
 msgstr ""
 
-#: polls-manager.php:647
+#: polls-manager.php:693
 msgid "Edit"
 msgstr ""
 
-#: polls-manager.php:655
+#: polls-manager.php:701
 msgid "No Polls Found"
 msgstr ""
 
-#: polls-manager.php:662
+#: polls-manager.php:708
 msgid "Add A Poll"
 msgstr ""
 
-#: polls-manager.php:689
+#: polls-manager.php:735
+#: polls-usage.php:131
 msgid "Polls Stats"
 msgstr ""
 
-#: polls-manager.php:692
+#: polls-manager.php:738
 msgid "Total Polls:"
 msgstr ""
 
-#: polls-manager.php:696
+#: polls-manager.php:742
 msgid "Total Polls' Answers:"
 msgstr ""
 
-#: polls-manager.php:700
+#: polls-manager.php:746
 msgid "Total Votes Casted:"
 msgstr ""
 
-#: polls-manager.php:708
+#: polls-manager.php:753
 msgid "Polls Logs"
 msgstr ""
 
-#: polls-manager.php:711
+#: polls-manager.php:756
 msgid "Are You Sure You Want To Delete All Polls Logs?"
 msgstr ""
 
-#: polls-manager.php:713
+#: polls-manager.php:758
 msgid "You Are About To Delete All Poll Logs."
+msgstr ""
+
+#: polls-manager.php:761
+msgid "Note:<br />If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer."
+msgstr ""
+
+#: polls-manager.php:769
+msgid "Deactivating WP-Polls plugin does not remove any data that may have been created, such as the poll data and the poll's voting logs. To completely remove this plugin, you can uninstall it here."
+msgstr ""
+
+#: polls-manager.php:773
+#, php-format
+msgid "<strong>WARNING:</strong><br />Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.  Your data is stored in the %1$s, %2$s, %3$s and %4$s tables."
+msgstr ""
+
+#: polls-manager.php:776
+msgid ""
+"You Are About To Uninstall WP-Polls From WordPress.\\n"
+"This Action Is Not Reversible.\\n"
+"\\n"
+" Choose [Cancel] To Stop, [OK] To Uninstall."
 msgstr ""
 
 #: polls-options.php:76
@@ -509,46 +561,46 @@ msgstr ""
 
 #: polls-options.php:122
 #: polls-options.php:137
-#: polls.php:950
-#: polls.php:963
+#: polls.php:951
+#: polls.php:964
 msgid "Vote"
 msgstr ""
 
 #: polls-options.php:122
-#: polls.php:951
+#: polls.php:952
 msgid "View Results Of This Poll"
 msgstr ""
 
 #: polls-options.php:122
-#: polls.php:951
+#: polls.php:952
 msgid "View Results"
 msgstr ""
 
 #: polls-options.php:128
 #: polls-options.php:131
 #: polls-options.php:184
-#: polls.php:956
 #: polls.php:957
+#: polls.php:958
 msgid "Votes"
 msgstr ""
 
 #: polls-options.php:131
-#: polls.php:957
+#: polls.php:958
 msgid "You Have Voted For This Choice"
 msgstr ""
 
 #: polls-options.php:137
-#: polls.php:963
+#: polls.php:964
 msgid "Vote For This Poll"
 msgstr ""
 
 #: polls-options.php:140
-#: polls.php:965
+#: polls.php:966
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
 #: polls-options.php:143
-#: polls.php:966
+#: polls.php:967
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
@@ -855,6 +907,10 @@ msgstr ""
 msgid "Update Options"
 msgstr ""
 
+#: polls-usage.php:26
+msgid "Usage Instructions"
+msgstr ""
+
 #: polls-widget.php:56
 #: polls.php:44
 msgid "Polls"
@@ -864,83 +920,87 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: polls.php:309
-#: polls.php:434
+#: polls.php:49
+msgid "Poll Usage"
+msgstr ""
+
+#: polls.php:310
+#: polls.php:435
 msgid "Loading"
 msgstr ""
 
-#: polls.php:479
+#: polls.php:480
 msgid "Unable To Update Poll Total Votes."
 msgstr ""
 
-#: polls.php:479
-#: polls.php:483
-#: polls.php:487
-#: polls.php:491
+#: polls.php:480
+#: polls.php:484
+#: polls.php:488
+#: polls.php:492
 msgid "Poll ID"
 msgstr ""
 
-#: polls.php:483
+#: polls.php:484
 msgid "Unable To Update Poll Answer Votes."
 msgstr ""
 
-#: polls.php:483
-#: polls.php:491
+#: polls.php:484
+#: polls.php:492
 msgid "Poll Answer ID"
 msgstr ""
 
-#: polls.php:487
+#: polls.php:488
 msgid "You Had Already Voted For This Poll."
 msgstr ""
 
-#: polls.php:491
+#: polls.php:492
 msgid "Invalid Poll ID Or Poll Answer ID."
 msgstr ""
 
-#: polls.php:626
-#: polls.php:628
-#: polls.php:749
+#: polls.php:627
+#: polls.php:629
+#: polls.php:750
 msgid "Polls Archive"
 msgstr ""
 
-#: polls.php:727
+#: polls.php:728
 msgid "Current Poll"
 msgstr ""
 
-#: polls.php:849
+#: polls.php:850
 msgid "Previous Page"
 msgstr ""
 
-#: polls.php:857
+#: polls.php:858
 msgid "Next Page"
 msgstr ""
 
-#: polls.php:866
+#: polls.php:867
 msgid "Pages"
 msgstr ""
 
-#: polls.php:868
+#: polls.php:869
 msgid "Go to First Page"
 msgstr ""
 
-#: polls.php:868
+#: polls.php:869
 msgid "First"
 msgstr ""
 
-#: polls.php:871
-#: polls.php:883
+#: polls.php:872
+#: polls.php:884
 msgid "Go to Page"
 msgstr ""
 
-#: polls.php:878
+#: polls.php:879
 msgid "Page"
 msgstr ""
 
-#: polls.php:886
+#: polls.php:887
 msgid "Go to Last Page"
 msgstr ""
 
-#: polls.php:886
+#: polls.php:887
 msgid "Last"
 msgstr ""
 

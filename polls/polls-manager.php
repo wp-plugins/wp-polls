@@ -191,6 +191,38 @@ if(!empty($_POST['do'])) {
 				}
 			}
 			break;
+		//  Uninstall WP-Polls (By: Philippe Corbes)
+		case __('UNINSTALL Polls', 'wp-polls') :
+			if(trim($_POST['uninstall_poll_yes']) == 'yes') {
+				echo '<div id="message" class="updated fade"><p>';
+				$polls_tables = array($wpdb->pollsq, $wpdb->pollsa, $wpdb->pollsip);
+				foreach($polls_tables as $table) {
+					$wpdb->query("DROP TABLE {$table}");
+					echo '<font color="green">';
+					printf(__('Table "%s" Has Been Dropped.', 'wp-polls'), "<strong><em>{$table}</em></strong>");
+					echo '</font><br />';
+				}
+				$polls_settings = array('poll_template_voteheader', 'poll_template_votebody', 'poll_template_votefooter', 'poll_template_resultheader',
+				'poll_template_resultbody', 'poll_template_resultbody2', 'poll_template_resultfooter', 'poll_template_resultfooter2', 
+				'poll_template_disable', 'poll_template_error', 'poll_currentpoll', 'poll_latestpoll', 
+				'poll_archive_perpage', 'poll_ans_sortby', 'poll_ans_sortorder', 'poll_ans_result_sortby', 
+				'poll_ans_result_sortorder', 'poll_logging_method', 'poll_allowtovote', 'poll_archive_show',
+				'poll_archive_url');
+				foreach($polls_settings as $setting) {
+					$delete_setting = delete_option($setting);
+					if($delete_setting) {
+						echo '<font color="green">';
+						printf(__('Setting Key \'%s\' Has been Errased.', 'wp-polls'), "<strong><em>{$setting}</em></strong>");
+					} else {
+						echo '<font color="red">';
+						printf(__('Error Deleting Setting Key \'%s\'.', 'wp-polls'), "<strong><em>{$setting}</em></strong>");
+					}
+					echo '</font><br />';
+				}
+				echo '</p></div>'; 
+				$mode = 'end-UNINSTALL';
+			}
+			break;
 	}
 }
 
@@ -579,6 +611,20 @@ switch($mode) {
 		</div>
 <?php
 		break;
+		//  Deactivating WP-Polls (By: Philippe Corbes)
+		case 'end-UNINSTALL':
+			echo '<div class="wrap">';
+			echo '<h2>'; _e('Uninstall Polls', 'wp-polls'); echo'</h2>';
+			echo '<p><strong>';
+			$deactivate_url = "plugins.php?action=deactivate&amp;plugin=polls/polls.php";
+			if(function_exists('wp_nonce_url')) { 
+				$deactivate_url = wp_nonce_url($deactivate_url, 'deactivate-plugin_polls/polls.php');
+			}
+			printf(__('<a href="%s">Click Here</a> To Finish The Uninstallation And WP-Polls Will Be Deactivated Automatically.', 'wp-polls'), $deactivate_url);
+			echo '</a>';
+			echo '</strong></p>';
+			echo '</div>';
+			break;
 	// Main Page
 	default:
 		$polls = $wpdb->get_results("SELECT * FROM $wpdb->pollsq  ORDER BY pollq_id DESC");
@@ -702,7 +748,6 @@ switch($mode) {
 			</tr>
 			</table>
 		</div>
-
 		<!-- Delete Polls Logs -->
 		<div class="wrap">
 			<h2><?php _e('Polls Logs', 'wp-polls'); ?></h2>
@@ -713,7 +758,24 @@ switch($mode) {
 					<input type="submit" name="do" value="<?php _e('Delete All Logs', 'wp-polls'); ?>" class="button" onclick="return confirm('<?php _e('You Are About To Delete All Poll Logs.', 'wp-polls'); ?>\n\n<?php _e('This Action Is Not Reversible. Are you sure?', 'wp-polls'); ?>')" />
 				</form>
 			</div>
-			<p><?php _e('Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer.', 'wp-polls'); ?></p>
+			<p style="text-align: left;"><?php _e('Note:<br />If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer.', 'wp-polls'); ?></p>
+		</div>
+		<!-- Uninstall WP-Polls (By: Philippe Corbes) -->
+		<div class="wrap">
+			<h2><?php _e('Uninstall Polls', 'wp-polls'); ?></h2>
+			<div align="center">
+				<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
+					<p style="text-align: left;">
+						<?php _e('Deactivating WP-Polls plugin does not remove any data that may have been created, such as the poll data and the poll\'s voting logs. To completely remove this plugin, you can uninstall it here.', 'wp-polls'); ?>
+					</p>
+					<p style="text-align: left; color: red">
+						<?php 
+							vprintf(__('<strong>WARNING:</strong><br />Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.  Your data is stored in the %1$s, %2$s, %3$s and %4$s tables.', 'wp-polls'), array("<strong><em>{$wpdb->pollsq}</em></strong>", "<strong><em>{$wpdb->pollsa}</em></strong>", "<strong><em>{$wpdb->pollsip}</em></strong>", "<strong><em>{$wpdb->options}</em></strong>")); ?>
+					</p>
+					<input type="checkbox" name="uninstall_poll_yes" value="yes" />&nbsp;<?php _e('Yes'); ?><br /><br />
+					<input type="submit" name="do" value="<?php _e('UNINSTALL Polls', 'wp-polls'); ?>" class="button" onclick="return confirm('<?php _e('You Are About To Uninstall WP-Polls From WordPress.\nThis Action Is Not Reversible.\n\n Choose [Cancel] To Stop, [OK] To Uninstall.', 'wp-polls'); ?>')" />
+				</form>
+			</div>
 		</div>
 <?php
 } // End switch($mode)
