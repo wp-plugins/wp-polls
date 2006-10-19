@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.13\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-10-18 20:36+0800\n"
+"PO-Revision-Date: 2006-10-19 20:54+0800\n"
 "Last-Translator: Lester Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -421,7 +421,7 @@ msgid "Add A Poll"
 msgstr ""
 
 #: polls-manager.php:735
-#: polls-usage.php:131
+#: polls-usage.php:105
 msgid "Polls Stats"
 msgstr ""
 
@@ -908,7 +908,131 @@ msgid "Update Options"
 msgstr ""
 
 #: polls-usage.php:26
-msgid "Usage Instructions"
+msgid "General Usage (Without Widget)"
+msgstr ""
+
+#: polls-usage.php:29
+msgid "Open "
+msgstr ""
+
+#: polls-usage.php:29
+msgid "YOUR THEME NAME"
+msgstr ""
+
+#: polls-usage.php:32
+msgid "Add:"
+msgstr ""
+
+#: polls-usage.php:46
+msgid "To show specific poll, use :"
+msgstr ""
+
+#: polls-usage.php:48
+#: polls-usage.php:51
+msgid "where <b>2</b> is your poll id."
+msgstr ""
+
+#: polls-usage.php:49
+msgid "To embed a specific poll in your post, use :"
+msgstr ""
+
+#: polls-usage.php:54
+msgid "Scroll down for instructions on how to create <b>Polls Archive</b>."
+msgstr ""
+
+#: polls-usage.php:59
+msgid "General Usage (With Widget)"
+msgstr ""
+
+#: polls-usage.php:62
+msgid "<b>Activate</b> WP-Polls Widget Plugin"
+msgstr ""
+
+#: polls-usage.php:65
+msgid "Go to 'WP-Admin -> Presentation -> Sidebar Widgets'"
+msgstr ""
+
+#: polls-usage.php:68
+msgid "<b>Drag</b> the Polls Widget to your sidebar"
+msgstr ""
+
+#: polls-usage.php:71
+msgid "You can <b>configure</b> the Polls Widget by clicking on the configure icon"
+msgstr ""
+
+#: polls-usage.php:74
+msgid "Click 'Save changes'"
+msgstr ""
+
+#: polls-usage.php:77
+msgid " down for instructions on how to create a <b>Polls Archive</b>."
+msgstr ""
+
+#: polls-usage.php:82
+#: polls.php:627
+#: polls.php:629
+#: polls.php:750
+msgid "Polls Archive"
+msgstr ""
+
+#: polls-usage.php:85
+msgid "Go to 'WP-Admin -> Write -> Write Page'"
+msgstr ""
+
+#: polls-usage.php:88
+msgid "Type any title you like in the post's title area"
+msgstr ""
+
+#: polls-usage.php:91
+msgid "Type '<b>[page_polls]</b>' in the post's content area (without the quotes)"
+msgstr ""
+
+#: polls-usage.php:94
+msgid "Type '<b>pollsarchive</b>' in the post's slug area (without the quotes)"
+msgstr ""
+
+#: polls-usage.php:97
+msgid "Click 'Publish'"
+msgstr ""
+
+#: polls-usage.php:100
+msgid "If you <b>ARE NOT</b> using nice permalinks, you need to go to 'WP-Admin -> Polls -> Poll Option' and under '<b>Poll Archive -> Polls Archive URL</b>', you need to fill in the URL to the Polls Archive Page you created above."
+msgstr ""
+
+#: polls-usage.php:106
+msgid "To Display Total Polls"
+msgstr ""
+
+#: polls-usage.php:114
+msgid "To Display Total Poll Answers"
+msgstr ""
+
+#: polls-usage.php:122
+msgid "To Display Total Poll Votes"
+msgstr ""
+
+#: polls-usage.php:132
+msgid "Note"
+msgstr ""
+
+#: polls-usage.php:135
+msgid "In IE, some of the poll's text may appear jagged (this is normal in IE). To solve this issue,"
+msgstr ""
+
+#: polls-usage.php:138
+msgid "Open <b>poll-css.css</b>"
+msgstr ""
+
+#: polls-usage.php:141
+msgid "Find:"
+msgstr ""
+
+#: polls-usage.php:145
+msgid "Replace:"
+msgstr ""
+
+#: polls-usage.php:147
+msgid "Where <b>#ffffff</b> should be your background color for the poll."
 msgstr ""
 
 #: polls-widget.php:56
@@ -957,12 +1081,6 @@ msgstr ""
 msgid "Invalid Poll ID Or Poll Answer ID."
 msgstr ""
 
-#: polls.php:627
-#: polls.php:629
-#: polls.php:750
-msgid "Polls Archive"
-msgstr ""
-
 #: polls.php:728
 msgid "Current Poll"
 msgstr ""
@@ -1002,5 +1120,29 @@ msgstr ""
 
 #: polls.php:887
 msgid "Last"
+msgstr ""
+
+#: polls.php:935
+msgid "How Is My Site?"
+msgstr ""
+
+#: polls.php:938
+msgid "Good"
+msgstr ""
+
+#: polls.php:939
+msgid "Excellent"
+msgstr ""
+
+#: polls.php:940
+msgid "Bad"
+msgstr ""
+
+#: polls.php:941
+msgid "Can Be Improved"
+msgstr ""
+
+#: polls.php:942
+msgid "No Comments"
 msgstr ""
 

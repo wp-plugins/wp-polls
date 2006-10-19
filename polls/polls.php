@@ -932,14 +932,14 @@ function create_poll_table() {
 	// If Install, Insert 1st Poll Question With 5 Poll Answers
 	if(empty($first_poll)) {
 		// Insert Poll Question (1 Record)
-		$insert_pollq = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (1, 'How Is My Site?', '".current_time('timestamp')."', 0, 1);");
+		$insert_pollq = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (1, '".__('How Is My Site?', 'wp-polls')."', '".current_time('timestamp')."', 0, 1);");
 		if($insert_pollq) {
 			// Insert Poll Answers  (5 Records)
-			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (1, 1, 'Good', 0);");
-			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (2, 1, 'Excellent', 0);");
-			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (3, 1, 'Bad', 0);");
-			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (4, 1, 'Can Be Improved', 0);");
-			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (5, 1, 'No Comments', 0);");
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (1, 1, '".__('Good', 'wp-polls')."', 0);");
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (2, 1, '".__('Excellent', 'wp-polls')."', 0);");
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (3, 1, '".__('Bad', 'wp-polls')."', 0);");
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (4, 1, '".__('Can Be Improved', 'wp-polls')."', 0);");
+			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (5, 1, '".__('No Comments', 'wp-polls')."', 0);");
 		}
 	}
 	// Add In Options (16 Records)
