@@ -207,7 +207,7 @@ if(!empty($_POST['do'])) {
 				'poll_template_disable', 'poll_template_error', 'poll_currentpoll', 'poll_latestpoll', 
 				'poll_archive_perpage', 'poll_ans_sortby', 'poll_ans_sortorder', 'poll_ans_result_sortby', 
 				'poll_ans_result_sortorder', 'poll_logging_method', 'poll_allowtovote', 'poll_archive_show',
-				'poll_archive_url');
+				'poll_archive_url', 'poll_bar');
 				foreach($polls_settings as $setting) {
 					$delete_setting = delete_option($setting);
 					if($delete_setting) {

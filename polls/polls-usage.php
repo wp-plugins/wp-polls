@@ -1,18 +1,18 @@
 <?php
 /*
 +----------------------------------------------------------------+
-|																						|
+|																							|
 |	WordPress 2.0 Plugin: WP-Polls 2.13										|
-|	Copyright (c) 2005 Lester "GaMerZ" Chan								|
-|																						|
-|	File Written By:																|
-|	- Lester "GaMerZ" Chan														|
-|	- http://www.lesterchan.net												|
-|																						|
-|	File Information:																|
-|	- How To Use WP-Polls														|
-|	- wp-content/plugins/polls/polls-usage.php							|
-|																						|
+|	Copyright (c) 2005 Lester "GaMerZ" Chan									|
+|																							|
+|	File Written By:																	|
+|	- Lester "GaMerZ" Chan															|
+|	- http://www.lesterchan.net													|
+|																							|
+|	File Information:																	|
+|	- How To Use WP-Polls															|
+|	- wp-content/plugins/polls/polls-usage.php								|
+|																							|
 +----------------------------------------------------------------+
 */
 
@@ -31,8 +31,7 @@ if(!current_user_can('manage_polls')) {
 		<li>
 			<?php _e("Add:", 'wp-polls'); ?>
 			<blockquote>
-				<pre>
-&lt;?php if (function_exists('vote_poll') &amp;&amp; !$in_pollsarchive): ?&gt;
+				<pre class="wp-polls-usage-pre">&lt;?php if (function_exists('vote_poll') &amp;&amp; !$in_pollsarchive): ?&gt;
 &lt;li&gt;
 &nbsp;&nbsp;&nbsp;&lt;h2&gt;Polls&lt;/h2&gt;
 &nbsp;&nbsp;&nbsp;&lt;ul&gt;
@@ -40,14 +39,13 @@ if(!current_user_can('manage_polls')) {
 &nbsp;&nbsp;&nbsp;&lt;/ul&gt;
 &nbsp;&nbsp;&nbsp;&lt;?php display_polls_archive_link(); ?&gt;
 &lt;/li&gt;
-&lt;?php endif; ?&gt;
-				</pre>
+&lt;?php endif; ?&gt;	</pre>
 			</blockquote>
 			<?php _e("To show specific poll, use :", 'wp-polls'); ?>
-			<blockquote><pre>&lt;?php get_poll(<b>2</b>);?&gt;</pre></blockquote>
+			<blockquote><pre class="wp-polls-usage-pre">&lt;?php get_poll(<b>2</b>);?&gt;</pre></blockquote>
 			<?php _e("where <b>2</b> is your poll id.", 'wp-polls'); ?>
 			<?php _e("To embed a specific poll in your post, use :", 'wp-polls'); ?>
-			<blockquote><pre>[poll=<b>2</b>]</pre></blockquote>
+			<blockquote><pre class="wp-polls-usage-pre">[poll=<b>2</b>]</pre></blockquote>
 			<?php _e("where <b>2</b> is your poll id.", 'wp-polls'); ?>
 		</li>
 		<li>
@@ -105,27 +103,21 @@ if(!current_user_can('manage_polls')) {
 	<h2><?php _e('Polls Stats', 'wp-polls'); ?></h2> 
 	<h3><?php _e("To Display Total Polls", 'wp-polls'); ?></h3>
 	<blockquote>
-		<pre>
-&lt;?php if (function_exists('get_pollquestions')): ?&gt;
+		<pre class="wp-polls-usage-pre">&lt;?php if (function_exists('get_pollquestions')): ?&gt;
 &nbsp;&nbsp;&nbsp;&lt;?php get_pollquestions(); ?&gt;
-&lt;?php endif; ?&gt;
-		</pre>
+&lt;?php endif; ?&gt;	</pre>
 	</blockquote>
 	<h3><?php _e("To Display Total Poll Answers", 'wp-polls'); ?></h3>
 	<blockquote>
-		<pre>
-&lt;?php if (function_exists('get_pollanswers')): ?&gt;
+		<pre class="wp-polls-usage-pre">&lt;?php if (function_exists('get_pollanswers')): ?&gt;
 &nbsp;&nbsp;&nbsp;&lt;?php get_pollanswers(); ?&gt;
-&lt;?php endif; ?&gt;
-		</pre>
+&lt;?php endif; ?&gt;	</pre>
 	</blockquote>
 	<h3><?php _e("To Display Total Poll Votes", 'wp-polls'); ?></h3>
 	<blockquote>
-		<pre>
-&lt;?php if (function_exists('get_pollvotes')): ?&gt;
+		<pre class="wp-polls-usage-pre">&lt;?php if (function_exists('get_pollvotes')): ?&gt;
 &nbsp;&nbsp;&nbsp;&lt;?php get_pollvotes(); ?&gt;
-&lt;?php endif; ?&gt;
-		</pre>
+&lt;?php endif; ?&gt;	</pre>
 	</blockquote>
 </div>
 <div class="wrap"> 
@@ -139,11 +131,11 @@ if(!current_user_can('manage_polls')) {
 				</li>
 				<li>
 					<?php _e("Find:", 'wp-polls'); ?>
-					<blockquote><pre>/* background-color: #ffffff; */</pre></blockquote>
+					<blockquote><pre class="wp-polls-usage-pre">/* background-color: #ffffff; */</pre></blockquote>
 				</li>
 				<li>
 					<?php _e("Replace:", 'wp-polls'); ?>
-					<blockquote><pre>background-color: #ffffff;</pre></blockquote>
+					<blockquote><pre class="wp-polls-usage-pre">background-color: #ffffff;</pre></blockquote>
 					<?php _e("Where <b>#ffffff</b> should be your background color for the poll.", 'wp-polls'); ?>
 				</li>
 			</ol>

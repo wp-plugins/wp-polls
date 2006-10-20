@@ -152,6 +152,35 @@ function poll_header() {
 	echo '<script src="'.get_settings('siteurl').'/wp-includes/js/tw-sack.js" type="text/javascript"></script>'."\n";
 	echo '<script src="'.get_settings('siteurl').'/wp-content/plugins/polls/polls-js.js" type="text/javascript"></script>'."\n";
 	echo '<link rel="stylesheet" href="'.get_settings('siteurl').'/wp-content/plugins/polls/polls-css.css" type="text/css" media="screen" />'."\n";
+	echo '<style type="text/css">'."\n";
+	$pollbar = get_settings('poll_bar');
+	if($pollbar['style'] == 'use_css') {
+		echo '.wp-polls .pollbar {'."\n";
+		echo "\t".'margin: 1px;'."\n";
+		echo "\t".'font-size: '.($pollbar['height']-2).';'."\n";
+		echo "\t".'line-height: '.$pollbar['height'].'px;'."\n";
+		echo "\t".'height: '.$pollbar['height'].'px;'."\n";
+		echo "\t".'background: #'.$pollbar['background'].';'."\n";
+		echo "\t".'border: 1px solid #'.$pollbar['border'].';'."\n";
+		echo '}'."\n";
+	} else {
+		echo '.wp-polls .pollbar {'."\n";
+		echo "\t".'margin: 1px;'."\n";
+		echo "\t".'font-size: '.($pollbar['height']-2).';'."\n";
+		echo "\t".'line-height: '.$pollbar['height'].'px;'."\n";
+		echo "\t".'height: '.$pollbar['height'].'px;'."\n";
+		echo "\t".'background-image: url(\''.get_settings('siteurl').'/wp-content/plugins/polls/images/'.$pollbar['style'].'/pollbg.gif\');'."\n";
+		echo "\t".'border: 1px solid #'.$pollbar['border'].';'."\n";
+		echo '}'."\n";
+	}
+	echo '</style>'."\n";
+}
+
+
+### Function: Displays Polls Header In WP-Admin
+add_action('admin_head', 'poll_header_admin');
+function poll_header_admin() {
+	echo '<link rel="stylesheet" href="'.get_settings('siteurl').'/wp-content/plugins/polls/polls-css.css" type="text/css" media="screen" />'."\n";
 }
 
 
@@ -954,8 +983,8 @@ function create_poll_table() {
 	add_option('poll_template_resultheader', '<p style="text-align: center;"><strong>%POLL_QUESTION%</strong></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="wp-polls-ans">'.
 	'<ul class="wp-polls-ul">', 'Template For Poll Header');
-	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class="pollbar-image" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')"></div></li>', 'Template For Poll Results');
-	add_option('poll_template_resultbody2', '<li><strong><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></strong><div class="pollbar-image" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="'.__('You Have Voted For This Choice', 'wp-polls').' - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')"></div></li>', 'Template For Poll Results (User Voted)');
+	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class="pollbar" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')"></div></li>', 'Template For Poll Results');
+	add_option('poll_template_resultbody2', '<li><strong><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></strong><div class="pollbar" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="'.__('You Have Voted For This Choice', 'wp-polls').' - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')"></div></li>', 'Template For Poll Results (User Voted)');
 	add_option('poll_template_resultfooter', '</ul>'.
 	'<p style="text-align: center;">'.__('Total Votes', 'wp-polls').': <strong>%POLL_TOTALVOTES%</strong></p>'.
 	'</div>', 'Template For Poll Result Footer');
@@ -980,6 +1009,8 @@ function create_poll_table() {
 	maybe_add_column($wpdb->pollsip, 'pollip_userid', "ALTER TABLE $wpdb->pollsip ADD pollip_userid INT( 10 ) NOT NULL DEFAULT '0';");
 	add_option('poll_archive_url', get_settings('siteurl').'/pollsarchive/', 'Polls Archive URL');
 	add_option('poll_archive_show', 1, 'Show Polls Archive?');
+	// Database Upgrade For WP-Polls 2.13
+	add_option('poll_bar', array('style' => 'default', 'background' => 'd8e1eb', 'border' => 'c8c8c8', 'height' => 8), 'Poll Bar Style');
 	// Set 'manage_polls' Capabilities To Administrator	
 	$role = get_role('administrator');
 	if(!$role->has_cap('manage_polls')) {

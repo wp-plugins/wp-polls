@@ -47,19 +47,20 @@
 	border:1px solid #c8c8c8;
 	background-color: #f3f6f8;
 }
-.wp-polls .pollbar-css {
-	margin:1px; 
-	font-size:6px; 
-	line-height:8px; 
-	height:8px; 
-	background: #d8e1eb; 
-	border:1px solid #c8c8c8;
+/* Styles Used In WP-Admin */
+.wp-polls-usage-pre {
+	margin: 20px;
+	padding: 10px;
+	border: 1px solid #c8c8c8;
+	background-color: #f0f0f0;
 }
-.wp-polls .pollbar-image {
-	margin:1px; 
-	font-size:6px; 
-	line-height:8px; 
-	height:8px; 
-	background-image: url('images/pollbg.gif'); 
-	border:1px solid #c8c8c8;
+#wp-polls-pollbar-bg {
+	width: 25px;
+	height: 25px;
+	border: 1px solid #000000;
+}
+#wp-polls-pollbar-border {
+	width: 25px;
+	height: 25px;
+	border: 1px solid #000000;
 }

@@ -31,6 +31,11 @@ $id = intval($_GET['id']);
 
 ### If Form Is Submitted
 if($_POST['Submit']) {
+	$poll_bar_style = strip_tags(trim($_POST['poll_bar_style']));
+	$poll_bar_background = strip_tags(trim($_POST['poll_bar_bg']));
+	$poll_bar_border = strip_tags(trim($_POST['poll_bar_border']));
+	$poll_bar_height = intval($_POST['poll_bar_height']);
+	$poll_bar = array('style' => $poll_bar_style, 'background' => $poll_bar_background, 'border' => $poll_bar_border, 'height' => $poll_bar_height);
 	$poll_ans_sortby = strip_tags(trim($_POST['poll_ans_sortby']));
 	$poll_ans_sortorder = strip_tags(trim($_POST['poll_ans_sortorder']));
 	$poll_ans_result_sortby = strip_tags(trim($_POST['poll_ans_result_sortby']));
@@ -52,7 +57,8 @@ if($_POST['Submit']) {
 	$poll_logging_method = intval($_POST['poll_logging_method']);
 	$poll_allowtovote = intval($_POST['poll_allowtovote']);
 	$update_poll_queries = array();
-	$update_poll_text = array();
+	$update_poll_text = array();	
+	$update_poll_queries[] = update_option('poll_bar', $poll_bar);
 	$update_poll_queries[] = update_option('poll_ans_sortby', $poll_ans_sortby);
 	$update_poll_queries[] = update_option('poll_ans_sortorder', $poll_ans_sortorder);
 	$update_poll_queries[] = update_option('poll_ans_result_sortby', $poll_ans_result_sortby);
@@ -73,6 +79,7 @@ if($_POST['Submit']) {
 	$update_poll_queries[] = update_option('poll_currentpoll', $poll_currentpoll);
 	$update_poll_queries[] = update_option('poll_logging_method', $poll_logging_method);
 	$update_poll_queries[] = update_option('poll_allowtovote', $poll_allowtovote);
+	$update_poll_text[] = __('Poll Bar Style', 'wp-polls');
 	$update_poll_text[] = __('Sort Poll Answers By Option', 'wp-polls');
 	$update_poll_text[] = __('Sort Order Of Poll Answers Option', 'wp-polls');
 	$update_poll_text[] = __('Sort Poll Results By Option', 'wp-polls');
@@ -125,10 +132,10 @@ if($_POST['Submit']) {
 				default_template = "<p style=\"text-align: center;\"><strong>%POLL_QUESTION%</strong></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"wp-polls-ans\">\n<ul class=\"wp-polls-ul\">";
 				break;
 			case "resultbody":
-				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% <?php _e('Votes', 'wp-polls'); ?>)\"></div></li>";
+				default_template = "<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small><div class=\"pollbar\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% <?php _e('Votes', 'wp-polls'); ?>)\"></div></li>";
 				break;
 			case "resultbody2":
-				default_template = "<li><strong><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></strong><div class=\"pollbar-image\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"<?php _e('You Have Voted For This Choice', 'wp-polls'); ?> - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% <?php _e('Votes', 'wp-polls'); ?>)\"></div></li>";
+				default_template = "<li><strong><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%)</small></i></strong><div class=\"pollbar\" style=\"width: %POLL_ANSWER_IMAGEWIDTH%%;\" title=\"<?php _e('You Have Voted For This Choice', 'wp-polls'); ?> - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% <?php _e('Votes', 'wp-polls'); ?>)\"></div></li>";
 				break;
 			case "resultfooter":
 				default_template = "</ul>\n<p style=\"text-align: center;\"><?php _e('Total Votes', 'wp-polls'); ?>: <strong>%POLL_TOTALVOTES%</strong></p>\n</div>";
@@ -145,12 +152,101 @@ if($_POST['Submit']) {
 		}
 		document.getElementById("poll_template_" + template).value = default_template;
 	}
+	function set_pollbar_height(height) {
+			document.getElementById('poll_bar_height').value = height;
+	}
+	function update_pollbar(where) {
+		pollbar_background = '#' + document.getElementById('poll_bar_bg').value;
+		pollbar_border = '#' + document.getElementById('poll_bar_border').value;
+		pollbar_height = document.getElementById('poll_bar_height').value + 'px';
+		if(where  == 'background') {
+			document.getElementById('wp-polls-pollbar-bg').style.backgroundColor = pollbar_background;			
+		} else if(where == 'border') {
+			document.getElementById('wp-polls-pollbar-border').style.backgroundColor = pollbar_border;
+		} else if(where == 'style') {
+			pollbar_style_options = document.getElementById('poll_options_form').poll_bar_style;
+			for(i = 0; i < pollbar_style_options.length; i++) {
+				 if(pollbar_style_options[i].checked)  {
+					pollbar_style = pollbar_style_options[i].value;
+				 }
+			}
+			if(pollbar_style == 'use_css') {
+				document.getElementById('wp-polls-pollbar').style.backgroundImage = "";
+			} else {
+				document.getElementById('wp-polls-pollbar').style.backgroundImage = "url('<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/" + pollbar_style + "/pollbg.gif')";
+			}
+		}
+		document.getElementById('wp-polls-pollbar').style.backgroundColor = pollbar_background;
+		document.getElementById('wp-polls-pollbar').style.border = '1px solid ' + pollbar_border;
+		document.getElementById('wp-polls-pollbar').style.height = pollbar_height;
+	}	
 /* ]]> */
 </script>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
 <div class="wrap"> 
 	<h2><?php _e('Poll Options', 'wp-polls'); ?></h2> 
-	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
+	<form id="poll_options_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
+		<fieldset class="options">
+			<legend><?php _e('Poll Bar Style', 'wp-polls'); ?></legend>
+			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
+				 <tr valign="top">
+					<th align="left" width="20%"><?php _e('Poll Bar Style', 'wp-polls'); ?></th>
+					<td align="left" colspan="2">
+						<?php
+							$pollbar = get_settings('poll_bar');
+							$pollbar_url = get_settings('siteurl').'/wp-content/plugins/polls/images';
+							$pollbar_path = ABSPATH.'/wp-content/plugins/polls/images';
+							if($handle = @opendir($pollbar_path)) {     
+								while (false !== ($filename = readdir($handle))) {  
+									if ($filename != '.' && $filename != '..') {
+										if(is_dir($pollbar_path.'/'.$filename)) {
+											$pollbar_info = getimagesize($pollbar_path.'/'.$filename.'/pollbg.gif');
+											if($pollbar['style'] == $filename) {
+												echo '<input type="radio" name="poll_bar_style" value="'.$filename.'" checked="checked" onblur="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';										
+											} else {
+												echo '<input type="radio" name="poll_bar_style" value="'.$filename.'" onblur="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';
+											}
+											echo '&nbsp;&nbsp;&nbsp;';
+											echo '<img src="'.$pollbar_url.'/'.$filename.'/pollbg.gif" height="'.$pollbar_info[1].'" width="100" alt="pollbg.gif" />';
+											echo '&nbsp;&nbsp;&nbsp;('.$filename.')';
+											echo '<br /><br />'."\n";
+										}
+									} 
+								} 
+								closedir($handle);
+							}
+						?>
+						<input type="radio" name="poll_bar_style" value="use_css"<?php checked('use_css', $pollbar['style']); ?> onblur="update_pollbar('style');" /> Use CSS Style
+					</td>
+				</tr>
+				<tr valign="top">
+					<th align="left" width="20%"><?php _e('Poll Bar Background', 'wp-polls'); ?></th>
+					<td align="left" width="10%">#<input type="text" id="poll_bar_bg" name="poll_bar_bg" value="<?php echo $pollbar['background']; ?>" size="6" maxlength="6" onblur="update_pollbar('background');" /></td>
+					<td align="left"><div id="wp-polls-pollbar-bg" style="background-color: #<?php echo $pollbar['background']; ?>;"></div></td>
+				</tr>
+				<tr valign="top">
+					<th align="left" width="20%"><?php _e('Poll Bar Border', 'wp-polls'); ?></th>
+					<td align="left" width="10%">#<input type="text" id="poll_bar_border" name="poll_bar_border" value="<?php echo $pollbar['border']; ?>" size="6" maxlength="6" onblur="update_pollbar('border');" /></td>
+					<td align="left"><div id="wp-polls-pollbar-border" style="background-color: #<?php echo $pollbar['border']; ?>;"></div></td>
+				</tr>
+				<tr valign="top">
+					<th align="left" width="20%"><?php _e('Poll Bar Height', 'wp-polls'); ?></th>
+					<td align="left" colspan="2"><input type="text" id="poll_bar_height" name="poll_bar_height" value="<?php echo $pollbar['height']; ?>" size="2" maxlength="2" onblur="update_pollbar('height');" />px</td>
+				</tr>
+				<tr valign="top">
+					<th align="left" width="20%"><?php _e('Your poll bar will look like this', 'wp-polls'); ?></th>
+					<td align="left" >
+						<?php
+							if($pollbar['style'] == 'use_css') {
+								echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'"></div>'."\n";
+							} else {
+								echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'; background-image: url(\''.get_settings('siteurl').'/wp-content/plugins/polls/images/'.$pollbar['style'].'/pollbg.gif\');"></div>'."\n";
+							}
+						?>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
 		<fieldset class="options">
 			<legend><?php _e('Sorting Of Poll Answers', 'wp-polls'); ?></legend>
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
@@ -434,7 +530,7 @@ if($_POST['Submit']) {
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultbody');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody'))); ?></textarea><br /><?php _e('If you want to use CSS instead of image, just change class="pollbar-image" to class="pollbar-css". You can configure the CSS in polls-css.css', 'wp-polls'); ?></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -448,7 +544,7 @@ if($_POST['Submit']) {
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultbody2');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody2'))); ?></textarea><br /><?php _e('If you want to use CSS instead of image, just change class="pollbar-image" to class="pollbar-css". You can configure the CSS in polls-css.css', 'wp-polls'); ?></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody2'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
