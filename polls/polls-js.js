@@ -17,7 +17,7 @@
 
 
 // Variables
-var polls = new sack(ajax_url);
+var polls = new sack(polls_ajax_url);
 var poll_id = 0;
 var poll_answer_id = 0;
 var poll_fadein_opacity = 0;
@@ -50,10 +50,10 @@ function poll_vote(current_poll_id) {
 			poll_process();
 		} else {
 			is_being_voted = false;
-			alert("Please choose a valid poll answer.");
+			alert(polls_text_valid);
 		}
 	} else {
-		alert("Your last request is still being processed. Please wait a while ...");
+		alert(polls_text_wait);
 	}
 }
 
@@ -66,7 +66,7 @@ function poll_result(current_poll_id) {
 		poll_loading_text();
 		poll_process_result();
 	} else {
-		alert("Your last request is still being processed. Please wait a while ...");
+		alert(polls_text_wait);
 	}
 }
 
@@ -79,7 +79,7 @@ function poll_booth(current_poll_id) {
 		poll_loading_text();
 		poll_process_booth();
 	} else {
-		alert("Your last request is still being processed. Please wait a while ...");
+		alert(polls_text_wait);
 	}
 }
 
