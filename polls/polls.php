@@ -140,7 +140,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 ### Function: Displays Polls Header
 add_action('wp_head', 'poll_header');
 function poll_header() {	
-	if(strpos($_SERVER['SCRIPT_NAME'], 'php.cgi') === false) {
+	if(strpos($_SERVER['SCRIPT_NAME'], 'cgi') === false) {
 		$polls_ajax_url = dirname($_SERVER['SCRIPT_NAME']);
 	} else {
 		$polls_ajax_url = dirname($_SERVER['PHP_SELF']);
@@ -403,6 +403,9 @@ function display_pollresult($poll_id, $user_voted = 0, $without_poll_title = fal
 				if($poll_answer_votes > 0) {
 					$poll_answer_percentage = round((($poll_answer_votes/$poll_question_totalvotes)*100));
 					$poll_answer_imagewidth = round($poll_answer_percentage);
+					if($poll_answer_imagewidth == 100) {
+						$poll_answer_imagewidth = 99;
+					}
 				} else {
 					$poll_answer_percentage = 0;
 					$poll_answer_imagewidth = 1;
