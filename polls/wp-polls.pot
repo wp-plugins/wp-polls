@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.13\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-10-31 19:05+0800\n"
+"PO-Revision-Date: 2006-11-28 21:03+0800\n"
 "Last-Translator: Lester Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -251,8 +251,8 @@ msgstr ""
 #: polls-manager.php:642
 #: polls-options.php:141
 #: polls-options.php:144
-#: polls.php:998
 #: polls.php:1001
+#: polls.php:1004
 msgid "Total Votes"
 msgstr ""
 
@@ -567,46 +567,46 @@ msgstr ""
 
 #: polls-options.php:129
 #: polls-options.php:144
-#: polls.php:989
-#: polls.php:1002
+#: polls.php:992
+#: polls.php:1005
 msgid "Vote"
 msgstr ""
 
 #: polls-options.php:129
-#: polls.php:990
+#: polls.php:993
 msgid "View Results Of This Poll"
 msgstr ""
 
 #: polls-options.php:129
-#: polls.php:990
+#: polls.php:993
 msgid "View Results"
 msgstr ""
 
 #: polls-options.php:135
 #: polls-options.php:138
 #: polls-options.php:280
-#: polls.php:995
-#: polls.php:996
+#: polls.php:998
+#: polls.php:999
 msgid "Votes"
 msgstr ""
 
 #: polls-options.php:138
-#: polls.php:996
+#: polls.php:999
 msgid "You Have Voted For This Choice"
 msgstr ""
 
 #: polls-options.php:144
-#: polls.php:1002
+#: polls.php:1005
 msgid "Vote For This Poll"
 msgstr ""
 
 #: polls-options.php:147
-#: polls.php:1004
+#: polls.php:1007
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
 #: polls-options.php:150
-#: polls.php:1005
+#: polls.php:1008
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
@@ -986,9 +986,9 @@ msgid " down for instructions on how to create a <b>Polls Archive</b>."
 msgstr ""
 
 #: polls-usage.php:80
-#: polls.php:665
-#: polls.php:667
-#: polls.php:788
+#: polls.php:605
+#: polls.php:607
+#: polls.php:728
 msgid "Polls Archive"
 msgstr ""
 
@@ -1074,100 +1074,100 @@ msgid "Please choose a valid poll answer."
 msgstr ""
 
 #: polls.php:347
-#: polls.php:472
+#: polls.php:475
 msgid "Loading"
 msgstr ""
 
-#: polls.php:518
-msgid "Unable To Update Poll Total Votes."
-msgstr ""
-
-#: polls.php:518
-#: polls.php:522
-#: polls.php:526
-#: polls.php:530
-msgid "Poll ID"
-msgstr ""
-
-#: polls.php:522
-msgid "Unable To Update Poll Answer Votes."
-msgstr ""
-
-#: polls.php:522
-#: polls.php:530
-msgid "Poll Answer ID"
-msgstr ""
-
-#: polls.php:526
-msgid "You Had Already Voted For This Poll."
-msgstr ""
-
-#: polls.php:530
-msgid "Invalid Poll ID Or Poll Answer ID."
-msgstr ""
-
-#: polls.php:766
+#: polls.php:706
 msgid "Current Poll"
 msgstr ""
 
-#: polls.php:888
+#: polls.php:828
 msgid "Previous Page"
 msgstr ""
 
-#: polls.php:896
+#: polls.php:836
 msgid "Next Page"
 msgstr ""
 
-#: polls.php:905
+#: polls.php:845
 msgid "Pages"
 msgstr ""
 
-#: polls.php:907
+#: polls.php:847
 msgid "Go to First Page"
 msgstr ""
 
-#: polls.php:907
+#: polls.php:847
 msgid "First"
 msgstr ""
 
-#: polls.php:910
-#: polls.php:922
+#: polls.php:850
+#: polls.php:862
 msgid "Go to Page"
 msgstr ""
 
-#: polls.php:917
+#: polls.php:857
 msgid "Page"
 msgstr ""
 
-#: polls.php:925
+#: polls.php:865
 msgid "Go to Last Page"
 msgstr ""
 
-#: polls.php:925
+#: polls.php:865
 msgid "Last"
 msgstr ""
 
-#: polls.php:973
-msgid "How Is My Site?"
+#: polls.php:911
+msgid "Unable To Update Poll Total Votes."
+msgstr ""
+
+#: polls.php:911
+#: polls.php:915
+#: polls.php:919
+#: polls.php:923
+msgid "Poll ID"
+msgstr ""
+
+#: polls.php:915
+msgid "Unable To Update Poll Answer Votes."
+msgstr ""
+
+#: polls.php:915
+#: polls.php:923
+msgid "Poll Answer ID"
+msgstr ""
+
+#: polls.php:919
+msgid "You Had Already Voted For This Poll."
+msgstr ""
+
+#: polls.php:923
+msgid "Invalid Poll ID Or Poll Answer ID."
 msgstr ""
 
 #: polls.php:976
-msgid "Good"
-msgstr ""
-
-#: polls.php:977
-msgid "Excellent"
-msgstr ""
-
-#: polls.php:978
-msgid "Bad"
+msgid "How Is My Site?"
 msgstr ""
 
 #: polls.php:979
-msgid "Can Be Improved"
+msgid "Good"
 msgstr ""
 
 #: polls.php:980
+msgid "Excellent"
+msgstr ""
+
+#: polls.php:981
+msgid "Bad"
+msgstr ""
+
+#: polls.php:982
+msgid "Can Be Improved"
+msgstr ""
+
+#: polls.php:983
 msgid "No Comments"
 msgstr ""
 
