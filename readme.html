@@ -19,6 +19,7 @@
 			padding: 10px;
 			border: 1px solid #8d8d8d;
 			background-color: #f5f5f5;
+			overflow: auto;
 		}
 		LI {
 			margin-top: 20px;
@@ -214,11 +215,11 @@
 				<b>&raquo;</b> Localization By <a href="http://4visions.nl/" title="http://4visions.nl/">Ravan</a><br />
 				<b>&raquo;</b> Uninstaller By Philippe Corbes</a>
 			</p>
-			<p><b>Updated:</b><br /><b>&raquo;</b> 11th December 2006</p>
+			<p><b>Updated:</b><br /><b>&raquo;</b> 2nd January 2007</p>
 			<div class="SubSubTitle">Changelog</div>
 			<ul>
 				<li>
-					<b>Version 2.13 (11-12-2006)</b>
+					<b>Version 2.13 (02-01-2007)</b>
 					<ul>
 						<li>NEW: polls.php Now Handles The AJAX Processing Instead Of index.php</li>
 						<li>NEW: Able To Modify The Style Of Poll Results Bar in 'Polls -> Poll Option'</li>
@@ -546,6 +547,29 @@
 									background-color: #ffffff;
 							</blockquote>
 							<p>Where <b>#ffffff</b> should be your background color for the poll.</p>
+						</li>
+					</ol>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					The AJAX feature might not work if your blog homepage directory is different from the directory you installed WordPress in. To solve this issue,
+					<ol>
+						<li>
+							Open <b>polls.php</b>
+						</li>
+						<li>
+							Find:
+							<blockquote>
+								echo "\t".'var polls_ajax_url = \''.$polls_ajax_url.'/wp-content/plugins/polls/polls.php\';'."\n";
+							</blockquote>
+						</li>
+						<li>
+							Replace:
+							<blockquote>
+								echo "\t".'var polls_ajax_url = \''.$polls_ajax_url.'/WORDPRESS_DIRECTORY/wp-content/plugins/polls/polls.php\';'."\n";
+							</blockquote>
+							<p>Where <b>WORDPRESS_DIRECTORY</b> should be the directory name which you installed WordPress in. Note the backslash after your WordPress Directory, you need that.</p>
 						</li>
 					</ol>
 				</li>

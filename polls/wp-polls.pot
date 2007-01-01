@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.13\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-11-28 21:03+0800\n"
-"Last-Translator: Lester Chan <gamerz84@hotmail.com>\n"
+"PO-Revision-Date: 2007-01-02 01:09+0800\n"
+"Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -1041,15 +1041,29 @@ msgid "Open <b>poll-css.css</b>"
 msgstr ""
 
 #: polls-usage.php:133
+#: polls-usage.php:152
 msgid "Find:"
 msgstr ""
 
 #: polls-usage.php:137
+#: polls-usage.php:156
 msgid "Replace:"
 msgstr ""
 
 #: polls-usage.php:139
 msgid "Where <b>#ffffff</b> should be your background color for the poll."
+msgstr ""
+
+#: polls-usage.php:146
+msgid "The AJAX feature might not work if your blog homepage directory is different from the directory you installed WordPress in. To solve this issue,"
+msgstr ""
+
+#: polls-usage.php:149
+msgid "Open <b>polls.php</b>"
+msgstr ""
+
+#: polls-usage.php:158
+msgid "Where <b>WORDPRESS_DIRECTORY</b> should be the directory name which you installed WordPress in. Note the backslash after your WordPress Directory, you need that."
 msgstr ""
 
 #: polls-widget.php:56

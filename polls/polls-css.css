@@ -53,6 +53,7 @@
 	padding: 10px;
 	border: 1px solid #c8c8c8;
 	background-color: #f0f0f0;
+	overflow: auto;
 }
 #wp-polls-pollbar-bg {
 	width: 25px;
