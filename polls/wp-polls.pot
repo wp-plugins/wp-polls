@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP-Polls 2.13\n"
+"Project-Id-Version: WP-Polls 2.14\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-01-02 01:09+0800\n"
+"PO-Revision-Date: 2007-01-20 22:05+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -11,7 +11,16 @@ msgstr ""
 "X-Poedit-Country: SINGAPORE\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: polls-js.php:33
+msgid "Your last request is still being processed. Please wait a while ..."
+msgstr ""
+
+#: polls-js.php:34
+msgid "Please choose a valid poll answer."
+msgstr ""
 
 #: polls-manager.php:39
 #: polls-manager.php:236
@@ -251,8 +260,8 @@ msgstr ""
 #: polls-manager.php:642
 #: polls-options.php:141
 #: polls-options.php:144
-#: polls.php:1001
-#: polls.php:1004
+#: polls.php:990
+#: polls.php:993
 msgid "Total Votes"
 msgstr ""
 
@@ -312,7 +321,7 @@ msgstr ""
 #: polls-manager.php:757
 #: polls-manager.php:775
 #: polls-options.php:345
-#: polls-widget.php:81
+#: polls-widget.php:82
 msgid "Yes"
 msgstr ""
 
@@ -387,7 +396,7 @@ msgid "<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-Polls W
 msgstr ""
 
 #: polls-manager.php:637
-#: polls.php:53
+#: polls.php:54
 msgid "Manage Polls"
 msgstr ""
 
@@ -567,52 +576,56 @@ msgstr ""
 
 #: polls-options.php:129
 #: polls-options.php:144
-#: polls.php:992
-#: polls.php:1005
+#: polls.php:981
+#: polls.php:994
 msgid "Vote"
 msgstr ""
 
 #: polls-options.php:129
-#: polls.php:993
+#: polls.php:982
 msgid "View Results Of This Poll"
 msgstr ""
 
 #: polls-options.php:129
-#: polls.php:993
+#: polls.php:982
 msgid "View Results"
 msgstr ""
 
 #: polls-options.php:135
 #: polls-options.php:138
 #: polls-options.php:280
-#: polls.php:998
-#: polls.php:999
+#: polls.php:987
+#: polls.php:988
 msgid "Votes"
 msgstr ""
 
 #: polls-options.php:138
-#: polls.php:999
+#: polls.php:988
 msgid "You Have Voted For This Choice"
 msgstr ""
 
 #: polls-options.php:144
-#: polls.php:1005
+#: polls.php:994
 msgid "Vote For This Poll"
 msgstr ""
 
 #: polls-options.php:147
-#: polls.php:1007
+#: polls.php:996
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
 #: polls-options.php:150
-#: polls.php:1008
+#: polls.php:997
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
 #: polls-options.php:187
-#: polls.php:54
+#: polls.php:55
 msgid "Poll Options"
+msgstr ""
+
+#: polls-options.php:219
+msgid "Use CSS Style"
 msgstr ""
 
 #: polls-options.php:223
@@ -732,33 +745,33 @@ msgid "Polls Archive URL:"
 msgstr ""
 
 #: polls-options.php:341
-#: polls-widget.php:70
+#: polls-widget.php:71
 msgid "Display Polls Archive Link Below Poll?"
 msgstr ""
 
 #: polls-options.php:344
-#: polls-widget.php:76
+#: polls-widget.php:77
 msgid "No"
 msgstr ""
 
 #: polls-options.php:352
 #: polls-options.php:355
-#: polls-widget.php:85
+#: polls-widget.php:86
 msgid "Current Active Poll"
 msgstr ""
 
 #: polls-options.php:358
-#: polls-widget.php:91
+#: polls-widget.php:92
 msgid "Do NOT Display Poll (Disable)"
 msgstr ""
 
 #: polls-options.php:359
-#: polls-widget.php:96
+#: polls-widget.php:97
 msgid "Display Random Poll"
 msgstr ""
 
 #: polls-options.php:360
-#: polls-widget.php:101
+#: polls-widget.php:102
 msgid "Display Latest Poll"
 msgstr ""
 
@@ -986,9 +999,9 @@ msgid " down for instructions on how to create a <b>Polls Archive</b>."
 msgstr ""
 
 #: polls-usage.php:80
-#: polls.php:605
-#: polls.php:607
-#: polls.php:728
+#: polls.php:591
+#: polls.php:593
+#: polls.php:717
 msgid "Polls Archive"
 msgstr ""
 
@@ -1041,12 +1054,10 @@ msgid "Open <b>poll-css.css</b>"
 msgstr ""
 
 #: polls-usage.php:133
-#: polls-usage.php:152
 msgid "Find:"
 msgstr ""
 
 #: polls-usage.php:137
-#: polls-usage.php:156
 msgid "Replace:"
 msgstr ""
 
@@ -1054,134 +1065,114 @@ msgstr ""
 msgid "Where <b>#ffffff</b> should be your background color for the poll."
 msgstr ""
 
-#: polls-usage.php:146
-msgid "The AJAX feature might not work if your blog homepage directory is different from the directory you installed WordPress in. To solve this issue,"
-msgstr ""
-
-#: polls-usage.php:149
-msgid "Open <b>polls.php</b>"
-msgstr ""
-
-#: polls-usage.php:158
-msgid "Where <b>WORDPRESS_DIRECTORY</b> should be the directory name which you installed WordPress in. Note the backslash after your WordPress Directory, you need that."
-msgstr ""
-
-#: polls-widget.php:56
-#: polls.php:50
+#: polls-widget.php:57
+#: polls.php:51
 msgid "Polls"
 msgstr ""
 
-#: polls-widget.php:67
+#: polls-widget.php:68
 msgid "Title"
 msgstr ""
 
-#: polls.php:55
+#: polls.php:56
 msgid "Poll Usage"
 msgstr ""
 
-#: polls.php:155
-msgid "Your last request is still being processed. Please wait a while ..."
-msgstr ""
-
-#: polls.php:156
-msgid "Please choose a valid poll answer."
-msgstr ""
-
-#: polls.php:347
-#: polls.php:475
+#: polls.php:333
+#: polls.php:461
 msgid "Loading"
 msgstr ""
 
-#: polls.php:706
+#: polls.php:695
 msgid "Current Poll"
 msgstr ""
 
-#: polls.php:828
+#: polls.php:817
 msgid "Previous Page"
 msgstr ""
 
-#: polls.php:836
+#: polls.php:825
 msgid "Next Page"
 msgstr ""
 
-#: polls.php:845
+#: polls.php:834
 msgid "Pages"
 msgstr ""
 
-#: polls.php:847
+#: polls.php:836
 msgid "Go to First Page"
 msgstr ""
 
-#: polls.php:847
+#: polls.php:836
 msgid "First"
 msgstr ""
 
-#: polls.php:850
-#: polls.php:862
+#: polls.php:839
+#: polls.php:851
 msgid "Go to Page"
 msgstr ""
 
-#: polls.php:857
+#: polls.php:846
 msgid "Page"
 msgstr ""
 
-#: polls.php:865
+#: polls.php:854
 msgid "Go to Last Page"
 msgstr ""
 
-#: polls.php:865
+#: polls.php:854
 msgid "Last"
 msgstr ""
 
-#: polls.php:911
+#: polls.php:900
 msgid "Unable To Update Poll Total Votes."
 msgstr ""
 
-#: polls.php:911
-#: polls.php:915
-#: polls.php:919
-#: polls.php:923
+#: polls.php:900
+#: polls.php:904
+#: polls.php:908
+#: polls.php:912
 msgid "Poll ID"
 msgstr ""
 
-#: polls.php:915
+#: polls.php:904
 msgid "Unable To Update Poll Answer Votes."
 msgstr ""
 
-#: polls.php:915
-#: polls.php:923
+#: polls.php:904
+#: polls.php:912
 msgid "Poll Answer ID"
 msgstr ""
 
-#: polls.php:919
+#: polls.php:908
 msgid "You Had Already Voted For This Poll."
 msgstr ""
 
-#: polls.php:923
+#: polls.php:912
 msgid "Invalid Poll ID Or Poll Answer ID."
 msgstr ""
 
-#: polls.php:976
+#: polls.php:965
 msgid "How Is My Site?"
 msgstr ""
 
-#: polls.php:979
+#: polls.php:968
 msgid "Good"
 msgstr ""
 
-#: polls.php:980
+#: polls.php:969
 msgid "Excellent"
 msgstr ""
 
-#: polls.php:981
+#: polls.php:970
 msgid "Bad"
 msgstr ""
 
-#: polls.php:982
+#: polls.php:971
 msgid "Can Be Improved"
 msgstr ""
 
-#: polls.php:983
+#: polls.php:972
 msgid "No Comments"
 msgstr ""
 

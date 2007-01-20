@@ -2,8 +2,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.13										|
-|	Copyright (c) 2005 Lester "GaMerZ" Chan									|
+|	WordPress 2.1 Plugin: WP-Polls 2.14										|
+|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -216,7 +216,7 @@ if($_POST['Submit']) {
 								closedir($handle);
 							}
 						?>
-						<input type="radio" name="poll_bar_style" value="use_css"<?php checked('use_css', $pollbar['style']); ?> onblur="update_pollbar('style');" /> Use CSS Style
+						<input type="radio" name="poll_bar_style" value="use_css"<?php checked('use_css', $pollbar['style']); ?> onblur="update_pollbar('style');" /> <?php _e('Use CSS Style', 'wp-polls'); ?>
 					</td>
 				</tr>
 				<tr valign="top">
@@ -603,7 +603,7 @@ if($_POST['Submit']) {
 			</table>
 		</fieldset>
 		<div align="center">
-			<input type="submit" name="Submit" class="button" value="<?php _e('Update Options'); ?>" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /> 
+			<input type="submit" name="Submit" class="button" value="<?php _e('Update Options', 'wp-polls'); ?>" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /> 
 		</div>
 	</form> 
 </div> 

@@ -1,8 +1,9 @@
+<?php
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.13										|
-|	Copyright (c) 2006 Lester "GaMerZ" Chan									|
+|	WordPress 2.1 Plugin: WP-Polls 2.14										|
+|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -16,7 +17,21 @@
 */
 
 
+### Include wp-config.php
+@require('../../../wp-config.php');
+cache_javascript_headers();
+
+### Determine polls.php Path
+$polls_ajax_url = dirname($_SERVER['PHP_SELF']);
+if(substr($polls_ajax_url, -1) == '/') {
+	$polls_ajax_url  = substr($polls_ajax_url, 0, -1);
+}
+?>
+
 // Variables
+var polls_ajax_url = "<?php echo $polls_ajax_url; ?>/wp-content/plugins/polls/polls.php";
+var polls_text_wait = "<?php _e('Your last request is still being processed. Please wait a while ...', 'wp-polls'); ?>";
+var polls_text_valid = "<?php _e('Please choose a valid poll answer.', 'wp-polls'); ?>";
 var polls = new sack(polls_ajax_url);
 var poll_id = 0;
 var poll_answer_id = 0;
@@ -132,7 +147,8 @@ function poll_process() {
 		}
 		setTimeout("poll_process()", 100); 
 	} else {
-		poll_fadeout_opacity = 0;		
+		poll_fadeout_opacity = 0;
+		polls.reset();
 		polls.setVar("vote", true);
 		polls.setVar("poll_id", poll_id);
 		polls.setVar("poll_" + poll_id, poll_answer_id);
@@ -160,6 +176,7 @@ function poll_process_result() {
 		setTimeout("poll_process_result()", 100); 
 	} else {
 		poll_fadeout_opacity = 0;
+		polls.reset();
 		polls.setVar("pollresult", poll_id);
 		polls.method = 'GET';
 		polls.element = 'polls-' + poll_id + '-ans';
@@ -185,6 +202,7 @@ function poll_process_booth() {
 		setTimeout("poll_process_booth()", 100); 
 	} else {
 		poll_fadeout_opacity = 0;
+		polls.reset();
 		polls.setVar("pollbooth", poll_id);
 		polls.method = 'GET';
 		polls.element = 'polls-' + poll_id + '-ans';

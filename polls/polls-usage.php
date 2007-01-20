@@ -2,8 +2,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.13										|
-|	Copyright (c) 2005 Lester "GaMerZ" Chan									|
+|	WordPress 2.1 Plugin: WP-Polls 2.14										|
+|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -137,25 +137,6 @@ if(!current_user_can('manage_polls')) {
 					<?php _e("Replace:", 'wp-polls'); ?>
 					<blockquote><pre class="wp-polls-usage-pre">background-color: #ffffff;</pre></blockquote>
 					<?php _e("Where <b>#ffffff</b> should be your background color for the poll.", 'wp-polls'); ?>
-				</li>
-			</ol>
-		</li>
-	</ul>
-	<ul>
-		<li>
-			<?php _e("The AJAX feature might not work if your blog homepage directory is different from the directory you installed WordPress in. To solve this issue,"); ?>
-			<ol>
-				<li>
-					<?php _e("Open <b>polls.php</b>", 'wp-polls'); ?>
-				</li>
-				<li>
-					<?php _e("Find:", 'wp-polls'); ?>
-					<blockquote><pre class="wp-polls-usage-pre">echo "\t".'var polls_ajax_url = \''.$polls_ajax_url.'/wp-content/plugins/polls/polls.php\';'."\n";</pre></blockquote>
-				</li>
-				<li>
-					<?php _e("Replace:", 'wp-polls'); ?>
-					<blockquote><pre class="wp-polls-usage-pre">echo "\t".'var polls_ajax_url = \''.$polls_ajax_url.'/WORDPRESS_DIRECTORY/wp-content/plugins/polls/polls.php\';'."\n";</pre></blockquote>
-					<?php _e("Where <b>WORDPRESS_DIRECTORY</b> should be the directory name which you installed WordPress in. Note the backslash after your WordPress Directory, you need that.", 'wp-polls'); ?>
 				</li>
 			</ol>
 		</li>

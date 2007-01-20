@@ -2,8 +2,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.0 Plugin: WP-Polls 2.13										|
-|	Copyright (c) 2005 Lester "GaMerZ" Chan									|
+|	WordPress 2.1 Plugin: WP-Polls 2.14										|
+|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -254,7 +254,7 @@ switch($mode) {
 							}
 						?>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll', 'wp-polls'); ?>"  class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+							<td colspan="2" align="center"><input type="submit" name="do" value="<?php _e('Add Poll', 'wp-polls'); ?>"  class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -277,7 +277,7 @@ switch($mode) {
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question', 'wp-polls'); ?>" class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+							<td colspan="2" align="center"><input type="submit" name="addpollquestion" value="<?php _e('Add Question', 'wp-polls'); ?>" class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 						</tr>
 					</table>
 				</form>
@@ -436,7 +436,7 @@ switch($mode) {
 						<?php } else { ?>
 						<input type="submit" class="button" name="do" value="<?php _e('Open Poll', 'wp-polls'); ?>" onclick="return confirm('<?php _e('You Are About To Open This Poll', 'wp-polls'); ?>.')" />
 						<?php } ?>
-						&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+						&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -516,7 +516,7 @@ switch($mode) {
 				<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
 					<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
 					<strong><?php _e('Are You Sure You Want To Delete Logs For This Poll Only?', 'wp-polls'); ?></strong><br /><br />
-					<input type="checkbox" name="delete_logs_yes" value="yes" />&nbsp;<?php _e('Yes'); ?><br /><br />
+					<input type="checkbox" name="delete_logs_yes" value="yes" />&nbsp;<?php _e('Yes', 'wp-polls'); ?><br /><br />
 					<input type="submit" name="do" value="<?php _e('Delete Logs For This Poll Only', 'wp-polls'); ?>" class="button" onclick="return confirm('<?php _e('You Are About To Delete Logs For This Poll Only.', 'wp-polls'); ?>\n\n<?php _e('This Action Is Not Reversible. Are you sure?', 'wp-polls'); ?>')" />
 				</form>
 			</div>
@@ -571,7 +571,7 @@ switch($mode) {
 					<tr>
 						<td align="center" colspan="2"><br /><p><strong><?php _e('You Are About To Delete This Poll', 'wp-polls'); ?> '<?php echo $poll_question_text; ?>'</strong></p>
 						<input type="submit" class="button" name="do" value="<?php _e('Delete Poll', 'wp-polls'); ?>" onclick="return confirm('<?php _e('You Are About To Delete This Poll', 'wp-polls'); ?>.\n\n<?php _e('This Action Is Not Reversible. Are you sure?', 'wp-polls'); ?>')" />&nbsp;&nbsp;
-						<input type="button" name="cancel" value="<?php _e('Cancel'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
+						<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /></td>
 					</tr>
 				</table>
 			</form>
@@ -636,13 +636,13 @@ switch($mode) {
 		<div class="wrap">
 		<h2><?php _e('Manage Polls', 'wp-polls'); ?></h2>
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-			<tr>
-				<th scope="col"><?php _e('ID', 'wp-polls'); ?></th>
-				<th scope="col"><?php _e('Question', 'wp-polls'); ?></th>				
-				<th scope="col"><?php _e('Total Votes', 'wp-polls'); ?></th>
-				<th scope="col"><?php _e('Date Added', 'wp-polls'); ?></th>
-				<th scope="col"><?php _e('Status', 'wp-polls'); ?></th>
-				<th scope="col" colspan="2"><?php _e('Action', 'wp-polls'); ?></th>
+			<tr class="thead">
+				<th><?php _e('ID', 'wp-polls'); ?></th>
+				<th><?php _e('Question', 'wp-polls'); ?></th>				
+				<th><?php _e('Total Votes', 'wp-polls'); ?></th>
+				<th><?php _e('Date Added', 'wp-polls'); ?></th>
+				<th><?php _e('Status', 'wp-polls'); ?></th>
+				<th colspan="2"><?php _e('Action', 'wp-polls'); ?></th>
 			</tr>
 			<?php
 				if($polls) {
@@ -754,7 +754,7 @@ switch($mode) {
 			<div align="center">
 				<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
 					<strong><?php _e('Are You Sure You Want To Delete All Polls Logs?', 'wp-polls'); ?></strong><br /><br />
-					<input type="checkbox" name="delete_logs_yes" value="yes" />&nbsp;<?php _e('Yes'); ?><br /><br />
+					<input type="checkbox" name="delete_logs_yes" value="yes" />&nbsp;<?php _e('Yes', 'wp-polls'); ?><br /><br />
 					<input type="submit" name="do" value="<?php _e('Delete All Logs', 'wp-polls'); ?>" class="button" onclick="return confirm('<?php _e('You Are About To Delete All Poll Logs.', 'wp-polls'); ?>\n\n<?php _e('This Action Is Not Reversible. Are you sure?', 'wp-polls'); ?>')" />
 				</form>
 			</div>
@@ -772,7 +772,7 @@ switch($mode) {
 						<?php 
 							vprintf(__('<strong>WARNING:</strong><br />Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.  Your data is stored in the %1$s, %2$s, %3$s and %4$s tables.', 'wp-polls'), array("<strong><em>{$wpdb->pollsq}</em></strong>", "<strong><em>{$wpdb->pollsa}</em></strong>", "<strong><em>{$wpdb->pollsip}</em></strong>", "<strong><em>{$wpdb->options}</em></strong>")); ?>
 					</p>
-					<input type="checkbox" name="uninstall_poll_yes" value="yes" />&nbsp;<?php _e('Yes'); ?><br /><br />
+					<input type="checkbox" name="uninstall_poll_yes" value="yes" />&nbsp;<?php _e('Yes', 'wp-polls'); ?><br /><br />
 					<input type="submit" name="do" value="<?php _e('UNINSTALL Polls', 'wp-polls'); ?>" class="button" onclick="return confirm('<?php _e('You Are About To Uninstall WP-Polls From WordPress.\nThis Action Is Not Reversible.\n\n Choose [Cancel] To Stop, [OK] To Uninstall.', 'wp-polls'); ?>')" />
 				</form>
 			</div>
