@@ -54,6 +54,7 @@ if($_POST['Submit']) {
 	$poll_archive_url = strip_tags(trim($_POST['poll_archive_url']));
 	$poll_archive_show = intval($_POST['poll_archive_show']);
 	$poll_currentpoll = intval($_POST['poll_currentpoll']);
+	$poll_close = intval($_POST['poll_close']);
 	$poll_logging_method = intval($_POST['poll_logging_method']);
 	$poll_allowtovote = intval($_POST['poll_allowtovote']);
 	$update_poll_queries = array();
@@ -77,6 +78,7 @@ if($_POST['Submit']) {
 	$update_poll_queries[] = update_option('poll_archive_url', $poll_archive_url);
 	$update_poll_queries[] = update_option('poll_archive_show', $poll_archive_show);
 	$update_poll_queries[] = update_option('poll_currentpoll', $poll_currentpoll);
+	$update_poll_queries[] = update_option('poll_close', $poll_close);
 	$update_poll_queries[] = update_option('poll_logging_method', $poll_logging_method);
 	$update_poll_queries[] = update_option('poll_allowtovote', $poll_allowtovote);
 	$update_poll_text[] = __('Poll Bar Style', 'wp-polls');
@@ -98,6 +100,7 @@ if($_POST['Submit']) {
 	$update_poll_text[] = __('Polls Archive URL Option', 'wp-polls');
 	$update_poll_text[] = __('Show Polls Achive Link Option', 'wp-polls');
 	$update_poll_text[] = __('Current Active Poll Option', 'wp-polls');
+	$update_poll_text[] = __('Poll Close Option', 'wp-polls');
 	$update_poll_text[] = __('Logging Method', 'wp-polls');
 	$update_poll_text[] = __('Allow To Vote Option', 'wp-polls');
 	$i=0;
@@ -376,6 +379,15 @@ if($_POST['Submit']) {
 						</select>
 					</td>
 				</tr>
+				 <tr valign="top">
+					<th align="left" width="30%"><?php _e('When Poll Is Closed', 'wp-polls'); ?>:</th>
+					<td align="left">
+						<select name="poll_close" size="1">
+							<option value="1"<?php selected(1, get_settings('poll_close')); ?>><?php _e('Display Poll\'s Results', 'wp-polls'); ?></option>
+							<option value="2"<?php selected(2, get_settings('poll_close')); ?>><?php _e('Do Not Display Poll In Post/Sidebar', 'wp-polls'); ?></option>
+						</select>
+					</td>
+				</tr>
 			</table>
 		</fieldset>
 		<fieldset class="options">
@@ -452,13 +464,15 @@ if($_POST['Submit']) {
 					</td>
 				</tr>
 				<tr>
-					<td>&nbsp;</td>
+					<td><strong>%POLL_START_DATE%</strong><br />
+					<?php _e('Display the poll\'s start date/time', 'wp-polls'); ?></td>
 					<td><strong>%POLL_LEAST_VOTES%</strong><br />
 					<?php _e('Display the poll\'s answer votes for the least voted answer', 'wp-polls'); ?>
 				</td>
 				</tr>
 				<tr>
-					<td>&nbsp;</td>
+					<td><strong>%POLL_END_DATE%</strong><br />
+					<?php _e('Display the poll\'s end date/time', 'wp-polls'); ?></td>
 					<td>
 						<strong>%POLL_LEAST_PERCENTAGE%</strong><br />
 						<?php _e('Display the poll\'s answer percentage for the least voted answer', 'wp-polls'); ?>
@@ -475,6 +489,8 @@ if($_POST['Submit']) {
 						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
 						- %POLL_ID%<br />
 						- %POLL_QUESTION%<br />
+						- %POLL_START_DATE%<br />
+						- %POLL_END_DATE%<br />
 						- %POLL_TOTALVOTES%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('voteheader');" class="button" />
 					</td>
@@ -513,6 +529,8 @@ if($_POST['Submit']) {
 						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
 						- %POLL_ID%<br />
 						- %POLL_QUESTION%<br />
+						- %POLL_START_DATE%<br />
+						- %POLL_END_DATE%<br />
 						- %POLL_TOTALVOTES%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultheader');" class="button" />
 					</td>
@@ -550,6 +568,9 @@ if($_POST['Submit']) {
 					<td width="30%" align="left">
 						<strong><?php _e('Result Footer:', 'wp-polls'); ?></strong><br /><?php _e('Normal', 'wp-polls'); ?><br /><br />
 						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+						- %POLL_ID%<br />
+						- %POLL_START_DATE%<br />
+						- %POLL_END_DATE%<br />
 						- %POLL_TOTALVOTES%<br />
 						- %POLL_MOST_ANSWER%<br />
 						- %POLL_MOST_VOTES%<br />
@@ -566,6 +587,8 @@ if($_POST['Submit']) {
 						<strong><?php _e('Result Footer:', 'wp-polls'); ?></strong><br /><?php _e('Displaying Of Vote Poll Link If User Has Not Voted', 'wp-polls'); ?><br /><br />
 						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
 						- %POLL_ID%<br />
+						- %POLL_START_DATE%<br />
+						- %POLL_END_DATE%<br />
 						- %POLL_TOTALVOTES%<br />
 						- %POLL_MOST_ANSWER%<br />
 						- %POLL_MOST_VOTES%<br />

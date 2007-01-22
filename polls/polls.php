@@ -77,7 +77,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 		if(intval($temp_poll_id) == 0) {
 			// Random Poll
 			if(intval(get_settings('poll_currentpoll')) == -2) {
-				$random_poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq ORDER BY RAND() LIMIT 1");
+				$random_poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY RAND() LIMIT 1");
 				$poll_id = intval($random_poll_id);
 				if($pollresult_id > 0) {
 					$poll_id = $pollresult_id;
@@ -119,14 +119,17 @@ function get_poll($temp_poll_id = 0, $display = true) {
 		$poll_active = $wpdb->get_var("SELECT pollq_active FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
 		$poll_active = intval($poll_active);
 		$check_voted = check_voted($poll_id);
-		if($check_voted > 0 || $poll_active == 0 || !check_allowtovote()) {
+		if($poll_active == 0) {
+			$poll_close = intval(get_settings('poll_close'));
+		}
+		if($check_voted > 0 || ($poll_active == 0 && $poll_close == 1) || !check_allowtovote()) {
 			if($display) {
 				echo display_pollresult($poll_id, $check_voted);
 				return;
 			} else {
 				return display_pollresult($poll_id, $check_voted);
 			}
-		} else {
+		} elseif($poll_active == 1) {
 			if($display) {
 				echo display_pollvote($poll_id);
 				return;
@@ -277,15 +280,24 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 	// Temp Poll Result
 	$temp_pollvote = '';
 	// Get Poll Question Data
-	$poll_question = $wpdb->get_row("SELECT pollq_id, pollq_question, pollq_totalvotes FROM $wpdb->pollsq WHERE pollq_id = $poll_id LIMIT 1");
+	$poll_question = $wpdb->get_row("SELECT pollq_id, pollq_question, pollq_totalvotes, pollq_timestamp, pollq_expiry FROM $wpdb->pollsq WHERE pollq_id = $poll_id LIMIT 1");
 	// Poll Question Variables
 	$poll_question_text = stripslashes($poll_question->pollq_question);
 	$poll_question_id = intval($poll_question->pollq_id);
 	$poll_question_totalvotes = intval($poll_question->pollq_totalvotes);
+	$poll_start_date = mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_question->pollq_timestamp));
+	$poll_expiry = trim($poll_question->pollq_expiry);
+	if(empty($poll_expiry)) {
+		$poll_end_date  = __('No Expiry', 'wp-polls');
+	} else {
+		$poll_end_date  = mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
+	}
 	$template_question = stripslashes(get_settings('poll_template_voteheader'));
 	$template_question = str_replace("%POLL_QUESTION%", $poll_question_text, $template_question);
 	$template_question = str_replace("%POLL_ID%", $poll_question_id, $template_question);
 	$template_question = str_replace("%POLL_TOTALVOTES%", $poll_question_totalvotes, $template_question);
+	$template_question = str_replace("%POLL_START_DATE%", $poll_start_date, $template_question);
+	$template_question = str_replace("%POLL_END_DATE%", $poll_end_date, $template_question);
 	// Get Poll Answers Data
 	$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_question_id ORDER BY ".get_settings('poll_ans_sortby').' '.get_settings('poll_ans_sortorder'));
 	// If There Is Poll Question With Answers
@@ -325,6 +337,8 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 		$template_footer = stripslashes(get_settings('poll_template_votefooter'));
 		$template_footer = str_replace("%POLL_ID%", $poll_question_id, $template_footer);
 		$template_footer = str_replace("%POLL_RESULT_URL%", $poll_result_url, $template_footer);
+		$template_footer = str_replace("%POLL_START_DATE%", $poll_start_date, $template_footer);
+		$template_footer = str_replace("%POLL_END_DATE%", $poll_end_date, $template_footer);
 		// Print Out Voting Form Footer Template
 		$temp_pollvote .= "\t\t$template_footer\n";
 		if(!$without_poll_title) {
@@ -353,16 +367,25 @@ function display_pollresult($poll_id, $user_voted = 0, $without_poll_title = fal
 	$poll_least_votes = 0;
 	$poll_least_percentage = 0;
 	// Get Poll Question Data
-	$poll_question = $wpdb->get_row("SELECT pollq_id, pollq_question, pollq_totalvotes, pollq_active FROM $wpdb->pollsq WHERE pollq_id = $poll_id LIMIT 1");
+	$poll_question = $wpdb->get_row("SELECT pollq_id, pollq_question, pollq_totalvotes, pollq_active, pollq_timestamp, pollq_expiry FROM $wpdb->pollsq WHERE pollq_id = $poll_id LIMIT 1");
 	// Poll Question Variables
 	$poll_question_text = stripslashes($poll_question->pollq_question);
 	$poll_question_id = intval($poll_question->pollq_id);
 	$poll_question_totalvotes = intval($poll_question->pollq_totalvotes);
 	$poll_question_active = intval($poll_question->pollq_active);
+	$poll_start_date = mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_question->pollq_timestamp));
+	$poll_expiry = trim($poll_question->pollq_expiry);
+	if(empty($poll_expiry)) {
+		$poll_end_date  = __('No Expiry', 'wp-polls');
+	} else {
+		$poll_end_date  = mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
+	}
 	$template_question = stripslashes(get_settings('poll_template_resultheader'));
 	$template_question = str_replace("%POLL_QUESTION%", $poll_question_text, $template_question);
 	$template_question = str_replace("%POLL_ID%", $poll_question_id, $template_question);
 	$template_question = str_replace("%POLL_TOTALVOTES%", $poll_question_totalvotes, $template_question);
+	$template_question = str_replace("%POLL_START_DATE%", $poll_start_date, $template_question);
+	$template_question = str_replace("%POLL_END_DATE%", $poll_end_date, $template_question);
 	// Get Poll Answers Data
 	$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_question_id ORDER BY ".get_settings('poll_ans_result_sortby').' '.get_settings('poll_ans_result_sortorder'));
 	// If There Is Poll Question With Answers
@@ -446,6 +469,8 @@ function display_pollresult($poll_id, $user_voted = 0, $without_poll_title = fal
 		} else {
 			$template_footer = stripslashes(get_settings('poll_template_resultfooter2'));
 		}
+		$template_footer = str_replace("%POLL_START_DATE%", $poll_start_date, $template_footer);
+		$template_footer = str_replace("%POLL_END_DATE%", $poll_end_date, $template_footer);
 		$template_footer = str_replace("%POLL_ID%", $poll_question_id, $template_footer);
 		$template_footer = str_replace("%POLL_TOTALVOTES%", number_format($poll_question_totalvotes), $template_footer);
 		$template_footer = str_replace("%POLL_MOST_ANSWER%", $poll_most_answer, $template_footer);
@@ -616,7 +641,7 @@ function polls_archive($output = 'both') {
 	$pollsarchive_output_archive = '';
 
 	// Get Total Polls
-	$total_polls = $wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq");
+	$total_polls = $wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq WHERE pollq_timestamp <= '".current_time('timestamp')."'");
 
 	// Checking $page and $offset
 	if (empty($page) || $page == 0) { $page = 1; }
@@ -648,7 +673,7 @@ function polls_archive($output = 'both') {
 		if(intval($temp_poll_id) == 0) {
 			// Random Poll
 			if(intval(get_settings('poll_currentpoll')) == -2) {
-				$random_poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq ORDER BY RAND() LIMIT 1");
+				$random_poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY RAND() LIMIT 1");
 				$poll_id = intval($random_poll_id);
 			// Current Poll ID Is Not Specified
 			} else if(intval(get_settings('poll_currentpoll')) == 0) {
@@ -665,10 +690,10 @@ function polls_archive($output = 'both') {
 	}
 
 	// Get Poll Questions
-	$questions = $wpdb->get_results("SELECT * FROM $wpdb->pollsq WHERE pollq_id != $poll_id ORDER BY pollq_id DESC LIMIT $offset, $polls_perpage");
+	$questions = $wpdb->get_results("SELECT * FROM $wpdb->pollsq WHERE pollq_id != $poll_id AND pollq_active != -1 ORDER BY pollq_id DESC LIMIT $offset, $polls_perpage");
 	if($questions) {
 		foreach($questions as $question) {
-			$polls_questions[] = array('id' => intval($question->pollq_id), 'question' => stripslashes($question->pollq_question), 'timestamp' => $question->pollq_timestamp, 'totalvotes' => intval($question->pollq_totalvotes));
+			$polls_questions[] = array('id' => intval($question->pollq_id), 'question' => stripslashes($question->pollq_question), 'timestamp' => $question->pollq_timestamp, 'totalvotes' => intval($question->pollq_totalvotes), 'start' => $question->pollq_timestamp, 'end' => trim($question->pollq_expiry));
 			$poll_questions_ids .= intval($question->pollq_id).', ';
 		}
 		$poll_questions_ids = substr($poll_questions_ids, 0, -2);
@@ -729,11 +754,19 @@ function polls_archive($output = 'both') {
 		if($polls_question['totalvotes'] > 0) {
 			$poll_totalvotes_zero = false;
 		}
+			$poll_start_date = mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $polls_question['start']));
+			if(empty($polls_question['end'])) {
+				$poll_end_date  = __('No Expiry', 'wp-polls');
+			} else {
+				$poll_end_date  = mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $polls_question['end']));
+			}
 		// Poll Question Variables
 		$template_question = stripslashes(get_settings('poll_template_resultheader'));
 		$template_question = str_replace("%POLL_QUESTION%", $polls_question['question'], $template_question);
 		$template_question = str_replace("%POLL_ID%", $polls_question['id'], $template_question);
 		$template_question = str_replace("%POLL_TOTALVOTES%", $polls_question['totalvotes'], $template_question);
+		$template_question = str_replace("%POLL_START_DATE%", $poll_start_date, $template_question);
+		$template_question = str_replace("%POLL_END_DATE%", $poll_end_date, $template_question);
 		// Print Out Result Header Template
 		$pollsarchive_output_archive .= $template_question;
 		foreach($polls_answers as $polls_answer) {
@@ -796,6 +829,8 @@ function polls_archive($output = 'both') {
 		}
 		// Results Footer Variables
 		$template_footer = stripslashes(get_settings('poll_template_resultfooter'));
+		$template_footer = str_replace("%POLL_START_DATE%", $poll_start_date, $template_footer);
+		$template_footer = str_replace("%POLL_END_DATE%", $poll_end_date, $template_footer);
 		$template_footer = str_replace("%POLL_TOTALVOTES%", $polls_question['totalvotes'], $template_footer);
 		$template_footer = str_replace("%POLL_MOST_ANSWER%", $poll_most_answer, $template_footer);
 		$template_footer = str_replace("%POLL_MOST_VOTES%", number_format($poll_most_votes), $template_footer);
@@ -858,6 +893,104 @@ function polls_archive($output = 'both') {
 
 	// Output Polls Archive Page
 	return $pollsarchive_output_current_title.$pollsarchive_output_current.$pollsarchive_output_archive_title.$pollsarchive_output_archive;
+}
+
+
+// Edit Timestamp Options
+function poll_timestamp($poll_timestamp, $fieldname = 'pollq_timestamp', $display = 'block') {
+	global $month;
+	echo '<div id="'.$fieldname.'" style="display: '.$display.'">'."\n";
+	$day = gmdate('j', $poll_timestamp);
+	echo '<select name="'.$fieldname.'_day" size="1">'."\n";
+	for($i = 1; $i <=31; $i++) {
+		if($day == $i) {
+			echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
+		} else {
+			echo "<option value=\"$i\">$i</option>\n";	
+		}
+	}
+	echo '</select>&nbsp;&nbsp;'."\n";
+	$month2 = gmdate('n', $poll_timestamp);
+	echo '<select name="'.$fieldname.'_month" size="1">'."\n";
+	for($i = 1; $i <= 12; $i++) {
+		if ($i < 10) {
+			$ii = '0'.$i;
+		} else {
+			$ii = $i;
+		}
+		if($month2 == $i) {
+			echo "<option value=\"$i\" selected=\"selected\">$month[$ii]</option>\n";	
+		} else {
+			echo "<option value=\"$i\">$month[$ii]</option>\n";	
+		}
+	}
+	echo '</select>&nbsp;&nbsp;'."\n";
+	$year = gmdate('Y', $poll_timestamp);
+	echo '<select name="'.$fieldname.'_year" size="1">'."\n";
+	for($i = 2000; $i <= $year; $i++) {
+		if($year == $i) {
+			echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
+		} else {
+			echo "<option value=\"$i\">$i</option>\n";	
+		}
+	}
+	echo '</select>&nbsp;@'."\n";
+	$hour = gmdate('H', $poll_timestamp);
+	echo '<select name="'.$fieldname.'_hour" size="1">'."\n";
+	for($i = 0; $i < 24; $i++) {
+		if($hour == $i) {
+			echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
+		} else {
+			echo "<option value=\"$i\">$i</option>\n";	
+		}
+	}
+	echo '</select>&nbsp;:'."\n";
+	$minute = gmdate('i', $poll_timestamp);
+	echo '<select name="'.$fieldname.'_minute" size="1">'."\n";
+	for($i = 0; $i < 60; $i++) {
+		if($minute == $i) {
+			echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
+		} else {
+			echo "<option value=\"$i\">$i</option>\n";	
+		}
+	}
+	
+	echo '</select>&nbsp;:'."\n";
+	$second = gmdate('s', $poll_timestamp);
+	echo '<select name="'.$fieldname.'_second" size="1">'."\n";
+	for($i = 0; $i <= 60; $i++) {
+		if($second == $i) {
+			echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
+		} else {
+			echo "<option value=\"$i\">$i</option>\n";	
+		}
+	}
+	echo '</select>'."\n";
+	echo '</div>'."\n";
+}
+
+
+### Funcion: Check All Polls Status To Check If It Expires
+add_action('activity_box_end', 'cron_polls_status');
+function cron_polls_status() {
+	global $wpdb;
+	// Close Poll
+	$close_polls = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 0 WHERE pollq_expiry < '".current_time('timestamp')."' AND pollq_expiry != '' AND pollq_active != 0");
+	// Open Future Polls
+	$active_polls = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 1 WHERE pollq_timestamp <= '".current_time('timestamp')."' AND pollq_active = -1");
+	// Update Latest Poll If Future Poll Is Opened
+	if($active_polls) {
+		$update_latestpoll = update_option('poll_latestpoll', polls_latest_id());
+	}
+	return;
+}
+
+
+### Funcion: Get Latest Poll ID
+function polls_latest_id() {
+	global $wpdb;
+	$poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY pollq_timestamp DESC LIMIT 1");
+	return intval($poll_id);
 }
 
 
@@ -937,6 +1070,7 @@ function create_poll_table() {
 									"pollq_timestamp varchar(20) NOT NULL default '',".
 									"pollq_totalvotes int(10) NOT NULL default '0',".
 									"pollq_active tinyint(1) NOT NULL default '1',".
+									"pollq_expiry varchar(20) NOT NULL default '',".
 									"PRIMARY KEY (pollq_id))";
 	$create_table['pollsa'] = "CREATE TABLE $wpdb->pollsa (".
 									"polla_aid int(10) NOT NULL auto_increment,".
@@ -962,7 +1096,7 @@ function create_poll_table() {
 	// If Install, Insert 1st Poll Question With 5 Poll Answers
 	if(empty($first_poll)) {
 		// Insert Poll Question (1 Record)
-		$insert_pollq = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (1, '".__('How Is My Site?', 'wp-polls')."', '".current_time('timestamp')."', 0, 1);");
+		$insert_pollq = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (1, '".__('How Is My Site?', 'wp-polls')."', '".current_time('timestamp')."', 0, 1, '');");
 		if($insert_pollq) {
 			// Insert Poll Answers  (5 Records)
 			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (1, 1, '".__('Good', 'wp-polls')."', 0);");
@@ -996,7 +1130,7 @@ function create_poll_table() {
 	add_option('poll_template_disable', __('Sorry, there are no polls available at the moment.', 'wp-polls'), 'Template For Poll When It Is Disabled');
 	add_option('poll_template_error', __('An error has occurred when processing your poll.', 'wp-polls'), 'Template For Poll When An Error Has Occured');
 	add_option('poll_currentpoll', 0, 'Current Displayed Poll');
-	add_option('poll_latestpoll', 1, 'The Lastest Poll');
+	add_option('poll_latestpoll', 1, 'The Latest Poll');
 	add_option('poll_archive_perpage', 5, 'Number Of Polls To Display Per Page On The Poll\'s Archive', 'no');
 	add_option('poll_ans_sortby', 'polla_aid', 'Sorting Of Poll\'s Answers');
 	add_option('poll_ans_sortorder', 'asc', 'Sort Order Of Poll\'s Answers');
@@ -1012,6 +1146,9 @@ function create_poll_table() {
 	add_option('poll_archive_show', 1, 'Show Polls Archive?');
 	// Database Upgrade For WP-Polls 2.13
 	add_option('poll_bar', array('style' => 'default', 'background' => 'd8e1eb', 'border' => 'c8c8c8', 'height' => 8), 'Poll Bar Style');
+	// Database Upgrade For WP-Polls 2.14
+	maybe_add_column($wpdb->pollsq, 'pollq_expiry', "ALTER TABLE $wpdb->pollsq ADD pollq_expiry varchar(20) NOT NULL default '';");
+	add_option('poll_close', 1, 'Poll Close');
 	// Set 'manage_polls' Capabilities To Administrator	
 	$role = get_role('administrator');
 	if(!$role->has_cap('manage_polls')) {
