@@ -29,7 +29,7 @@ if(substr($polls_ajax_url, -1) == '/') {
 ?>
 
 // Variables
-var polls_ajax_url = "<?php echo $polls_ajax_url; ?>/wp-content/plugins/polls/polls.php";
+var polls_ajax_url = "<?php echo $polls_ajax_url; ?>/polls.php";
 var polls_text_wait = "<?php _e('Your last request is still being processed. Please wait a while ...', 'wp-polls'); ?>";
 var polls_text_valid = "<?php _e('Please choose a valid poll answer.', 'wp-polls'); ?>";
 var polls = new sack(polls_ajax_url);
