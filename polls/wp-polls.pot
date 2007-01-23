@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.14\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-01-23 01:07+0800\n"
+"PO-Revision-Date: 2007-01-23 20:39+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +23,8 @@ msgid "Please choose a valid poll answer."
 msgstr ""
 
 #: polls-manager.php:39
-#: polls-manager.php:291
-#: polls-manager.php:336
+#: polls-manager.php:296
+#: polls-manager.php:341
 msgid "Add Poll"
 msgstr ""
 
@@ -39,464 +39,464 @@ msgid "Error In Adding Poll's Answer '%s'"
 msgstr ""
 
 #: polls-manager.php:88
-#: polls-manager.php:151
-#: polls-manager.php:163
-#: polls-manager.php:174
-#: polls-manager.php:197
+#: polls-manager.php:156
+#: polls-manager.php:168
+#: polls-manager.php:179
+#: polls-manager.php:202
 msgid "Poll"
 msgstr ""
 
 #: polls-manager.php:88
-#: polls-manager.php:211
+#: polls-manager.php:216
 msgid "Added Successfully"
 msgstr ""
 
 #: polls-manager.php:92
-#: polls-manager.php:409
-#: polls-manager.php:479
+#: polls-manager.php:414
+#: polls-manager.php:484
 msgid "Edit Poll"
 msgstr ""
 
-#: polls-manager.php:130
+#: polls-manager.php:135
 msgid "No Changes Had Been Made To Poll's Title"
 msgstr ""
 
-#: polls-manager.php:144
+#: polls-manager.php:149
 msgid "No Changes Had Been Made To Poll's Answer"
 msgstr ""
 
-#: polls-manager.php:148
+#: polls-manager.php:153
 msgid "Invalid Poll"
 msgstr ""
 
-#: polls-manager.php:151
+#: polls-manager.php:156
 msgid "Edited Successfully"
 msgstr ""
 
-#: polls-manager.php:158
-#: polls-manager.php:483
+#: polls-manager.php:163
+#: polls-manager.php:488
 msgid "Open Poll"
 msgstr ""
 
-#: polls-manager.php:163
+#: polls-manager.php:168
 msgid "Is Now Opened"
 msgstr ""
 
-#: polls-manager.php:165
+#: polls-manager.php:170
 msgid "Error Opening Poll"
 msgstr ""
 
-#: polls-manager.php:169
-#: polls-manager.php:481
+#: polls-manager.php:174
+#: polls-manager.php:486
 msgid "Close Poll"
 msgstr ""
 
-#: polls-manager.php:174
+#: polls-manager.php:179
 msgid "Is Now Closed"
 msgstr ""
 
-#: polls-manager.php:176
+#: polls-manager.php:181
 msgid "Error Closing Poll"
 msgstr ""
 
-#: polls-manager.php:180
-#: polls-manager.php:585
-#: polls-manager.php:646
+#: polls-manager.php:185
+#: polls-manager.php:590
+#: polls-manager.php:651
 msgid "Delete Poll"
 msgstr ""
 
-#: polls-manager.php:188
+#: polls-manager.php:193
 #, php-format
 msgid "Error In Deleting Poll '%s' Question"
 msgstr ""
 
-#: polls-manager.php:191
+#: polls-manager.php:196
 #, php-format
 msgid "No Poll Answers For '%s'"
 msgstr ""
 
-#: polls-manager.php:194
+#: polls-manager.php:199
 #, php-format
 msgid "No Voted IPs For '%s'"
 msgstr ""
 
-#: polls-manager.php:197
-#: polls-manager.php:668
+#: polls-manager.php:202
+#: polls-manager.php:673
 msgid "Deleted Successfully"
 msgstr ""
 
-#: polls-manager.php:204
-#: polls-manager.php:492
+#: polls-manager.php:209
 #: polls-manager.php:497
-#: polls-manager.php:501
+#: polls-manager.php:502
+#: polls-manager.php:506
 msgid "Add Answer"
 msgstr ""
 
-#: polls-manager.php:209
+#: polls-manager.php:214
 #, php-format
 msgid "Error In Adding Poll Answer '%s'"
 msgstr ""
 
-#: polls-manager.php:211
-#: polls-manager.php:668
+#: polls-manager.php:216
+#: polls-manager.php:673
 msgid "Poll Answer"
 msgstr ""
 
-#: polls-manager.php:215
-#: polls-manager.php:842
+#: polls-manager.php:220
+#: polls-manager.php:847
 msgid "Delete All Logs"
 msgstr ""
 
-#: polls-manager.php:219
+#: polls-manager.php:224
 msgid "All Polls Logs Have Been Deleted."
 msgstr ""
 
-#: polls-manager.php:221
+#: polls-manager.php:226
 msgid "An Error Has Occured While Deleting All Polls Logs."
 msgstr ""
 
-#: polls-manager.php:226
-#: polls-manager.php:566
+#: polls-manager.php:231
+#: polls-manager.php:571
 msgid "Delete Logs For This Poll Only"
 msgstr ""
 
-#: polls-manager.php:231
+#: polls-manager.php:236
 msgid "All Logs For This Poll Have Been Deleted."
 msgstr ""
 
-#: polls-manager.php:233
+#: polls-manager.php:238
 msgid "An Error Has Occured While Deleting All Logs For This Poll."
 msgstr ""
 
-#: polls-manager.php:238
-#: polls-manager.php:860
+#: polls-manager.php:243
+#: polls-manager.php:865
 msgid "UNINSTALL Polls"
 msgstr ""
 
-#: polls-manager.php:245
+#: polls-manager.php:250
 #, php-format
 msgid "Table \"%s\" Has Been Dropped."
 msgstr ""
 
-#: polls-manager.php:258
+#: polls-manager.php:263
 #, php-format
 msgid "Setting Key '%s' Has been Errased."
 msgstr ""
 
-#: polls-manager.php:261
+#: polls-manager.php:266
 #, php-format
 msgid "Error Deleting Setting Key '%s'."
 msgstr ""
 
-#: polls-manager.php:300
-#: polls-manager.php:344
-#: polls-manager.php:414
-#: polls-manager.php:591
-#: polls-manager.php:714
-#: polls-manager.php:796
+#: polls-manager.php:305
+#: polls-manager.php:349
+#: polls-manager.php:419
+#: polls-manager.php:596
+#: polls-manager.php:719
+#: polls-manager.php:801
 msgid "Question"
 msgstr ""
 
-#: polls-manager.php:319
+#: polls-manager.php:324
 msgid "Start Date/Time:"
 msgstr ""
 
-#: polls-manager.php:327
+#: polls-manager.php:332
 msgid "End Date/Time:"
 msgstr ""
 
-#: polls-manager.php:329
-#: polls-manager.php:467
+#: polls-manager.php:334
+#: polls-manager.php:472
 msgid "Do NOT Expire This Poll"
 msgstr ""
 
-#: polls-manager.php:336
-#: polls-manager.php:360
-#: polls-manager.php:485
-#: polls-manager.php:647
-#: polls-options.php:629
+#: polls-manager.php:341
+#: polls-manager.php:365
+#: polls-manager.php:490
+#: polls-manager.php:652
+#: polls-options.php:632
 msgid "Cancel"
 msgstr ""
 
-#: polls-manager.php:348
-#: polls-manager.php:800
+#: polls-manager.php:353
+#: polls-manager.php:805
 msgid "No. Of Answers:"
 msgstr ""
 
-#: polls-manager.php:360
-#: polls-manager.php:812
+#: polls-manager.php:365
+#: polls-manager.php:817
 msgid "Add Question"
 msgstr ""
 
-#: polls-manager.php:420
+#: polls-manager.php:425
 msgid "Answers:"
 msgstr ""
 
-#: polls-manager.php:421
-#: polls-manager.php:598
+#: polls-manager.php:426
+#: polls-manager.php:603
 msgid "No. Of Votes"
 msgstr ""
 
-#: polls-manager.php:428
+#: polls-manager.php:433
 msgid "Null Votes"
 msgstr ""
 
-#: polls-manager.php:435
-#: polls-manager.php:527
-#: polls-manager.php:607
+#: polls-manager.php:440
+#: polls-manager.php:532
+#: polls-manager.php:612
 msgid "Answer"
 msgstr ""
 
-#: polls-manager.php:436
+#: polls-manager.php:441
 msgid "You Are About To Delete This Poll Answer:"
 msgstr ""
 
-#: polls-manager.php:436
-#: polls-manager.php:566
-#: polls-manager.php:646
-#: polls-manager.php:842
+#: polls-manager.php:441
+#: polls-manager.php:571
+#: polls-manager.php:651
+#: polls-manager.php:847
 msgid "This Action Is Not Reversible. Are you sure?"
 msgstr ""
 
-#: polls-manager.php:436
-#: polls-manager.php:778
+#: polls-manager.php:441
+#: polls-manager.php:783
 msgid "Delete"
 msgstr ""
 
-#: polls-manager.php:444
-#: polls-manager.php:614
-#: polls-manager.php:715
-#: polls-options.php:144
+#: polls-manager.php:449
+#: polls-manager.php:619
+#: polls-manager.php:720
 #: polls-options.php:147
+#: polls-options.php:150
 #: polls.php:1124
 #: polls.php:1127
 msgid "Total Votes"
 msgstr ""
 
-#: polls-manager.php:447
-#: polls-manager.php:631
-#: polls-manager.php:716
+#: polls-manager.php:452
+#: polls-manager.php:636
+#: polls-manager.php:721
 msgid "Start Date/Time"
 msgstr ""
 
-#: polls-manager.php:450
+#: polls-manager.php:455
 msgid "Edit Start Date/Time"
 msgstr ""
 
-#: polls-manager.php:454
-#: polls-manager.php:634
-#: polls-manager.php:717
+#: polls-manager.php:459
+#: polls-manager.php:639
+#: polls-manager.php:722
 msgid "End Date/Time"
 msgstr ""
 
-#: polls-manager.php:457
-#: polls-manager.php:637
+#: polls-manager.php:462
+#: polls-manager.php:642
 msgid "This Poll Will Not Expire"
 msgstr ""
 
-#: polls-manager.php:481
+#: polls-manager.php:486
 msgid "You Are About To Close This Poll"
 msgstr ""
 
-#: polls-manager.php:483
+#: polls-manager.php:488
 msgid "You Are About To Open This Poll"
 msgstr ""
 
-#: polls-manager.php:511
+#: polls-manager.php:516
 msgid "Users Voted For This Poll"
 msgstr ""
 
-#: polls-manager.php:531
+#: polls-manager.php:536
 msgid "No."
 msgstr ""
 
-#: polls-manager.php:532
+#: polls-manager.php:537
 msgid "User"
 msgstr ""
 
-#: polls-manager.php:533
+#: polls-manager.php:538
 msgid "IP/Host"
 msgstr ""
 
-#: polls-manager.php:534
+#: polls-manager.php:539
 msgid "Date"
 msgstr ""
 
-#: polls-manager.php:553
+#: polls-manager.php:558
 msgid "No IP Has Been Logged Yet."
 msgstr ""
 
-#: polls-manager.php:560
+#: polls-manager.php:565
 msgid "Poll Logs"
 msgstr ""
 
-#: polls-manager.php:564
+#: polls-manager.php:569
 msgid "Are You Sure You Want To Delete Logs For This Poll Only?"
 msgstr ""
 
-#: polls-manager.php:565
-#: polls-manager.php:841
-#: polls-manager.php:859
-#: polls-options.php:348
+#: polls-manager.php:570
+#: polls-manager.php:846
+#: polls-manager.php:864
+#: polls-options.php:351
 #: polls-widget.php:82
 msgid "Yes"
 msgstr ""
 
-#: polls-manager.php:566
+#: polls-manager.php:571
 msgid "You Are About To Delete Logs For This Poll Only."
 msgstr ""
 
-#: polls-manager.php:569
+#: polls-manager.php:574
 msgid "Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer."
 msgstr ""
 
-#: polls-manager.php:597
+#: polls-manager.php:602
 msgid "Answers"
 msgstr ""
 
-#: polls-manager.php:618
-#: polls-manager.php:718
+#: polls-manager.php:623
+#: polls-manager.php:723
 msgid "Status"
 msgstr ""
 
-#: polls-manager.php:621
-#: polls-manager.php:770
+#: polls-manager.php:626
+#: polls-manager.php:775
 msgid "Open"
 msgstr ""
 
-#: polls-manager.php:623
-#: polls-manager.php:772
+#: polls-manager.php:628
+#: polls-manager.php:777
 msgid "Future"
 msgstr ""
 
-#: polls-manager.php:625
-#: polls-manager.php:774
+#: polls-manager.php:630
+#: polls-manager.php:779
 msgid "Closed"
 msgstr ""
 
-#: polls-manager.php:645
-#: polls-manager.php:646
+#: polls-manager.php:650
+#: polls-manager.php:651
 msgid "You Are About To Delete This Poll"
 msgstr ""
 
-#: polls-manager.php:665
+#: polls-manager.php:670
 msgid "Delete Poll's Answer"
 msgstr ""
 
-#: polls-manager.php:670
+#: polls-manager.php:675
 msgid "Error In Deleting Poll Answer"
 msgstr ""
 
-#: polls-manager.php:673
+#: polls-manager.php:678
 msgid "Poll Question's Total Votes Updated Successfully"
 msgstr ""
 
-#: polls-manager.php:675
+#: polls-manager.php:680
 msgid "No Changes Have Been Made To The Poll's Total Votes"
 msgstr ""
 
-#: polls-manager.php:678
+#: polls-manager.php:683
 msgid "Poll IP Logs Updated Successfully"
 msgstr ""
 
-#: polls-manager.php:680
+#: polls-manager.php:685
 msgid "No Changes Have Been Made To The Poll IP Logs"
 msgstr ""
 
-#: polls-manager.php:683
+#: polls-manager.php:688
 msgid "Click here To Go Back To The Poll Edit Page"
 msgstr ""
 
-#: polls-manager.php:690
-#: polls-manager.php:849
+#: polls-manager.php:695
+#: polls-manager.php:854
 msgid "Uninstall Polls"
 msgstr ""
 
-#: polls-manager.php:696
+#: polls-manager.php:701
 #, php-format
 msgid "<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-Polls Will Be Deactivated Automatically."
 msgstr ""
 
-#: polls-manager.php:710
+#: polls-manager.php:715
 #: polls.php:54
 msgid "Manage Polls"
 msgstr ""
 
-#: polls-manager.php:713
+#: polls-manager.php:718
 msgid "ID"
 msgstr ""
 
-#: polls-manager.php:719
+#: polls-manager.php:724
 msgid "Action"
 msgstr ""
 
-#: polls-manager.php:734
+#: polls-manager.php:739
 #: polls.php:291
 #: polls.php:379
 #: polls.php:759
 msgid "No Expiry"
 msgstr ""
 
-#: polls-manager.php:757
-#: polls-manager.php:761
+#: polls-manager.php:762
+#: polls-manager.php:766
 msgid "Displayed:"
 msgstr ""
 
-#: polls-manager.php:777
+#: polls-manager.php:782
 msgid "Edit"
 msgstr ""
 
-#: polls-manager.php:785
+#: polls-manager.php:790
 msgid "No Polls Found"
 msgstr ""
 
-#: polls-manager.php:792
+#: polls-manager.php:797
 msgid "Add A Poll"
 msgstr ""
 
-#: polls-manager.php:819
+#: polls-manager.php:824
 #: polls-usage.php:103
 msgid "Polls Stats"
 msgstr ""
 
-#: polls-manager.php:822
+#: polls-manager.php:827
 msgid "Total Polls:"
 msgstr ""
 
-#: polls-manager.php:826
+#: polls-manager.php:831
 msgid "Total Polls' Answers:"
 msgstr ""
 
-#: polls-manager.php:830
+#: polls-manager.php:835
 msgid "Total Votes Casted:"
 msgstr ""
 
-#: polls-manager.php:837
+#: polls-manager.php:842
 msgid "Polls Logs"
 msgstr ""
 
-#: polls-manager.php:840
+#: polls-manager.php:845
 msgid "Are You Sure You Want To Delete All Polls Logs?"
 msgstr ""
 
-#: polls-manager.php:842
+#: polls-manager.php:847
 msgid "You Are About To Delete All Poll Logs."
 msgstr ""
 
-#: polls-manager.php:845
+#: polls-manager.php:850
 msgid "Note:<br />If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer."
 msgstr ""
 
-#: polls-manager.php:853
+#: polls-manager.php:858
 msgid "Deactivating WP-Polls plugin does not remove any data that may have been created, such as the poll data and the poll's voting logs. To completely remove this plugin, you can uninstall it here."
 msgstr ""
 
-#: polls-manager.php:857
+#: polls-manager.php:862
 #, php-format
 msgid "<strong>WARNING:</strong><br />Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.  Your data is stored in the %1$s, %2$s, %3$s and %4$s tables."
 msgstr ""
 
-#: polls-manager.php:860
+#: polls-manager.php:865
 msgid ""
 "You Are About To Uninstall WP-Polls From WordPress.\\n"
 "This Action Is Not Reversible.\\n"
@@ -505,8 +505,8 @@ msgid ""
 msgstr ""
 
 #: polls-options.php:84
-#: polls-options.php:193
 #: polls-options.php:196
+#: polls-options.php:199
 msgid "Poll Bar Style"
 msgstr ""
 
@@ -587,7 +587,7 @@ msgid "Poll Close Option"
 msgstr ""
 
 #: polls-options.php:104
-#: polls-options.php:316
+#: polls-options.php:319
 msgid "Logging Method"
 msgstr ""
 
@@ -603,386 +603,386 @@ msgstr ""
 msgid "No Poll Option Updated"
 msgstr ""
 
-#: polls-options.php:132
-#: polls-options.php:147
+#: polls-options.php:135
+#: polls-options.php:150
 #: polls.php:1115
 #: polls.php:1128
 msgid "Vote"
 msgstr ""
 
-#: polls-options.php:132
+#: polls-options.php:135
 #: polls.php:1116
 msgid "View Results Of This Poll"
 msgstr ""
 
-#: polls-options.php:132
+#: polls-options.php:135
 #: polls.php:1116
 msgid "View Results"
 msgstr ""
 
-#: polls-options.php:138
 #: polls-options.php:141
-#: polls-options.php:283
+#: polls-options.php:144
+#: polls-options.php:286
 #: polls.php:1121
 #: polls.php:1122
 msgid "Votes"
 msgstr ""
 
-#: polls-options.php:141
+#: polls-options.php:144
 #: polls.php:1122
 msgid "You Have Voted For This Choice"
 msgstr ""
 
-#: polls-options.php:147
+#: polls-options.php:150
 #: polls.php:1128
 msgid "Vote For This Poll"
 msgstr ""
 
-#: polls-options.php:150
+#: polls-options.php:153
 #: polls.php:1130
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
-#: polls-options.php:153
+#: polls-options.php:156
 #: polls.php:1131
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
-#: polls-options.php:190
+#: polls-options.php:193
 #: polls.php:55
 msgid "Poll Options"
 msgstr ""
 
-#: polls-options.php:222
+#: polls-options.php:225
 msgid "Use CSS Style"
 msgstr ""
 
-#: polls-options.php:226
+#: polls-options.php:229
 msgid "Poll Bar Background"
 msgstr ""
 
-#: polls-options.php:231
+#: polls-options.php:234
 msgid "Poll Bar Border"
 msgstr ""
 
-#: polls-options.php:236
+#: polls-options.php:239
 msgid "Poll Bar Height"
 msgstr ""
 
-#: polls-options.php:240
+#: polls-options.php:243
 msgid "Your poll bar will look like this"
 msgstr ""
 
-#: polls-options.php:254
+#: polls-options.php:257
 msgid "Sorting Of Poll Answers"
 msgstr ""
 
-#: polls-options.php:257
+#: polls-options.php:260
 msgid "Sort Poll Answers By:"
 msgstr ""
 
-#: polls-options.php:260
-#: polls-options.php:284
+#: polls-options.php:263
+#: polls-options.php:287
 msgid "Exact Order"
 msgstr ""
 
-#: polls-options.php:261
-#: polls-options.php:285
+#: polls-options.php:264
+#: polls-options.php:288
 msgid "Alphabetical Order"
 msgstr ""
 
-#: polls-options.php:266
+#: polls-options.php:269
 msgid "Sort Order Of Poll Answers:"
 msgstr ""
 
-#: polls-options.php:269
-#: polls-options.php:293
+#: polls-options.php:272
+#: polls-options.php:296
 msgid "Ascending"
 msgstr ""
 
-#: polls-options.php:270
-#: polls-options.php:294
+#: polls-options.php:273
+#: polls-options.php:297
 msgid "Descending"
 msgstr ""
 
-#: polls-options.php:277
+#: polls-options.php:280
 msgid "Sorting Of Poll Results"
 msgstr ""
 
-#: polls-options.php:280
+#: polls-options.php:283
 msgid "Sort Poll Results By:"
 msgstr ""
 
-#: polls-options.php:290
+#: polls-options.php:293
 msgid "Sort Order Of Poll Results:"
 msgstr ""
 
-#: polls-options.php:301
+#: polls-options.php:304
 msgid "Allow To Vote"
 msgstr ""
 
-#: polls-options.php:304
+#: polls-options.php:307
 msgid "Who Is Allowed To Vote?"
 msgstr ""
 
-#: polls-options.php:307
+#: polls-options.php:310
 msgid "Guests Only"
 msgstr ""
 
-#: polls-options.php:308
+#: polls-options.php:311
 msgid "Registered Users Only"
 msgstr ""
 
-#: polls-options.php:309
+#: polls-options.php:312
 msgid "Registered Users And Guests"
 msgstr ""
 
-#: polls-options.php:319
+#: polls-options.php:322
 msgid "Poll Logging Method:"
 msgstr ""
 
-#: polls-options.php:322
+#: polls-options.php:325
 msgid "Do Not Log"
 msgstr ""
 
-#: polls-options.php:323
+#: polls-options.php:326
 msgid "Logged By Cookie"
 msgstr ""
 
-#: polls-options.php:324
+#: polls-options.php:327
 msgid "Logged By IP"
 msgstr ""
 
-#: polls-options.php:325
+#: polls-options.php:328
 msgid "Logged By Cookie And IP"
 msgstr ""
 
-#: polls-options.php:326
+#: polls-options.php:329
 msgid "Logged By Username"
 msgstr ""
 
-#: polls-options.php:333
+#: polls-options.php:336
 msgid "Poll Archive"
 msgstr ""
 
-#: polls-options.php:336
+#: polls-options.php:339
 msgid "Polls Per Page:"
 msgstr ""
 
-#: polls-options.php:340
+#: polls-options.php:343
 msgid "Polls Archive URL:"
 msgstr ""
 
-#: polls-options.php:344
+#: polls-options.php:347
 #: polls-widget.php:71
 msgid "Display Polls Archive Link Below Poll?"
 msgstr ""
 
-#: polls-options.php:347
+#: polls-options.php:350
 #: polls-widget.php:77
 msgid "No"
 msgstr ""
 
-#: polls-options.php:355
 #: polls-options.php:358
+#: polls-options.php:361
 #: polls-widget.php:86
 msgid "Current Active Poll"
 msgstr ""
 
-#: polls-options.php:361
+#: polls-options.php:364
 #: polls-widget.php:92
 msgid "Do NOT Display Poll (Disable)"
 msgstr ""
 
-#: polls-options.php:362
+#: polls-options.php:365
 #: polls-widget.php:97
 msgid "Display Random Poll"
 msgstr ""
 
-#: polls-options.php:363
+#: polls-options.php:366
 #: polls-widget.php:102
 msgid "Display Latest Poll"
 msgstr ""
 
-#: polls-options.php:383
+#: polls-options.php:386
 msgid "When Poll Is Closed"
 msgstr ""
 
-#: polls-options.php:386
+#: polls-options.php:389
 msgid "Display Poll's Results"
 msgstr ""
 
-#: polls-options.php:387
+#: polls-options.php:390
 msgid "Do Not Display Poll In Post/Sidebar"
 msgstr ""
 
-#: polls-options.php:394
+#: polls-options.php:397
 msgid "Template Variables"
 msgstr ""
 
-#: polls-options.php:399
+#: polls-options.php:402
 msgid "Display the poll's ID"
 msgstr ""
 
-#: polls-options.php:403
+#: polls-options.php:406
 msgid "Display the poll's answer ID"
 msgstr ""
 
-#: polls-options.php:409
+#: polls-options.php:412
 msgid "Display the poll's question"
 msgstr ""
 
-#: polls-options.php:413
+#: polls-options.php:416
 msgid "Display the poll's answer"
 msgstr ""
 
-#: polls-options.php:419
+#: polls-options.php:422
 msgid "Display the poll's total votes"
 msgstr ""
 
-#: polls-options.php:423
+#: polls-options.php:426
 msgid "Display the poll's answer without HTML formatting."
 msgstr ""
 
-#: polls-options.php:429
+#: polls-options.php:432
 msgid "Displays URL to poll's result"
 msgstr ""
 
-#: polls-options.php:433
+#: polls-options.php:436
 msgid "Display the poll's answer votes"
 msgstr ""
 
-#: polls-options.php:439
+#: polls-options.php:442
 msgid "Display the poll's most voted answer"
 msgstr ""
 
-#: polls-options.php:443
+#: polls-options.php:446
 msgid "Display the poll's answer percentage"
 msgstr ""
 
-#: polls-options.php:449
+#: polls-options.php:452
 msgid "Display the poll's answer votes for the most voted answer"
 msgstr ""
 
-#: polls-options.php:453
+#: polls-options.php:456
 msgid "Display the poll's answer image width"
 msgstr ""
 
-#: polls-options.php:459
+#: polls-options.php:462
 msgid "Display the poll's answer percentage for the most voted answer"
 msgstr ""
 
-#: polls-options.php:463
+#: polls-options.php:466
 msgid "Display the poll's least voted answer"
 msgstr ""
 
-#: polls-options.php:468
+#: polls-options.php:471
 msgid "Display the poll's start date/time"
 msgstr ""
 
-#: polls-options.php:470
+#: polls-options.php:473
 msgid "Display the poll's answer votes for the least voted answer"
 msgstr ""
 
-#: polls-options.php:475
+#: polls-options.php:478
 msgid "Display the poll's end date/time"
 msgstr ""
 
-#: polls-options.php:478
+#: polls-options.php:481
 msgid "Display the poll's answer percentage for the least voted answer"
 msgstr ""
 
-#: polls-options.php:484
+#: polls-options.php:487
 msgid "Poll Voting Form Templates"
 msgstr ""
 
-#: polls-options.php:488
+#: polls-options.php:491
 msgid "Voting Form Header:"
 msgstr ""
 
-#: polls-options.php:489
-#: polls-options.php:502
-#: polls-options.php:514
-#: polls-options.php:529
-#: polls-options.php:542
-#: polls-options.php:556
-#: polls-options.php:570
-#: polls-options.php:588
-#: polls-options.php:611
-#: polls-options.php:620
+#: polls-options.php:492
+#: polls-options.php:505
+#: polls-options.php:517
+#: polls-options.php:532
+#: polls-options.php:545
+#: polls-options.php:559
+#: polls-options.php:573
+#: polls-options.php:591
+#: polls-options.php:614
+#: polls-options.php:623
 msgid "Allowed Variables:"
 msgstr ""
 
-#: polls-options.php:495
-#: polls-options.php:507
-#: polls-options.php:517
-#: polls-options.php:535
-#: polls-options.php:549
-#: polls-options.php:563
-#: polls-options.php:581
-#: polls-options.php:599
-#: polls-options.php:613
-#: polls-options.php:622
+#: polls-options.php:498
+#: polls-options.php:510
+#: polls-options.php:520
+#: polls-options.php:538
+#: polls-options.php:552
+#: polls-options.php:566
+#: polls-options.php:584
+#: polls-options.php:602
+#: polls-options.php:616
+#: polls-options.php:625
 msgid "Restore Default Template"
 msgstr ""
 
-#: polls-options.php:501
+#: polls-options.php:504
 msgid "Voting Form Body:"
 msgstr ""
 
-#: polls-options.php:513
+#: polls-options.php:516
 msgid "Voting Form Footer:"
 msgstr ""
 
-#: polls-options.php:524
+#: polls-options.php:527
 msgid "Poll Result Templates"
 msgstr ""
 
-#: polls-options.php:528
+#: polls-options.php:531
 msgid "Result Header:"
 msgstr ""
 
-#: polls-options.php:541
-#: polls-options.php:555
+#: polls-options.php:544
+#: polls-options.php:558
 msgid "Result Body:"
 msgstr ""
 
-#: polls-options.php:541
-#: polls-options.php:569
+#: polls-options.php:544
+#: polls-options.php:572
 msgid "Normal"
 msgstr ""
 
-#: polls-options.php:555
+#: polls-options.php:558
 msgid "Displaying Of User's Voted Answer"
 msgstr ""
 
-#: polls-options.php:569
-#: polls-options.php:587
+#: polls-options.php:572
+#: polls-options.php:590
 msgid "Result Footer:"
 msgstr ""
 
-#: polls-options.php:587
+#: polls-options.php:590
 msgid "Displaying Of Vote Poll Link If User Has Not Voted"
 msgstr ""
 
-#: polls-options.php:606
+#: polls-options.php:609
 msgid "Poll Misc Templates"
 msgstr ""
 
-#: polls-options.php:610
+#: polls-options.php:613
 msgid "Poll Disabled"
 msgstr ""
 
-#: polls-options.php:612
-#: polls-options.php:621
+#: polls-options.php:615
+#: polls-options.php:624
 msgid "N/A"
 msgstr ""
 
-#: polls-options.php:619
+#: polls-options.php:622
 msgid "Poll Error"
 msgstr ""
 
-#: polls-options.php:629
+#: polls-options.php:632
 msgid "Update Options"
 msgstr ""
 

@@ -114,8 +114,11 @@ if($_POST['Submit']) {
 	if(empty($text)) {
 		$text = '<font color="red">'.__('No Poll Option Updated', 'wp-polls').'</font>';
 	}
+	wp_clear_scheduled_hook('polls_cron');
+	if (!wp_next_scheduled('polls_cron')) {
+		wp_schedule_event(time(), 'daily', 'polls_cron');
+	}
 }
-
 ?>
 <script type="text/javascript">
 /* <![CDATA[*/

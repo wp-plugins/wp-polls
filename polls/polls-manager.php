@@ -124,6 +124,11 @@ if(!empty($_POST['do'])) {
 				if($pollq_expiry <= current_time('timestamp')) {
 					$pollq_active = 0;
 				}
+				if($edit_polltimestamp == 1) {
+					if($pollq_expiry < $pollq_timestamp) {
+						$pollq_active = 0;
+					}
+				}
 			}
 			$edit_poll_question = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_question = '$pollq_question', pollq_totalvotes = $pollq_totalvotes, pollq_expiry = '$pollq_expiry', pollq_active = $pollq_active $timestamp_sql WHERE pollq_id = $pollq_id");
 			if(!$edit_poll_question) {

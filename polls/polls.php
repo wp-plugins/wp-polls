@@ -971,7 +971,7 @@ function poll_timestamp($poll_timestamp, $fieldname = 'pollq_timestamp', $displa
 
 
 ### Funcion: Check All Polls Status To Check If It Expires
-add_action('activity_box_end', 'cron_polls_status');
+add_action('polls_cron', 'cron_polls_status');
 function cron_polls_status() {
 	global $wpdb;
 	// Close Poll
