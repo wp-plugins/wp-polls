@@ -28,6 +28,7 @@
 	content: '';
 }
 .wp-polls IMG, .wp-polls LABEL , .wp-polls INPUT, .wp-polls-loading IMG, .wp-polls-image IMG {
+	display: inline;
 	border: 0px;
 	padding: 0px;
 	margin: 0px;

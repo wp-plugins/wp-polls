@@ -1021,12 +1021,12 @@ function vote_poll() {
 				if($poll_logging_method == 1 || $poll_logging_method == 3) {
 					$vote_cookie = setcookie("voted_".$poll_id, $poll_aid, time() + 30000000, COOKIEPATH);						
 				}
-				// Log Ratings No Matter What
-				$vote_ip = $wpdb->query("INSERT INTO $wpdb->pollsip VALUES (0, $poll_id, $poll_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user', $pollip_userid)");
 				$vote_a = $wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $poll_aid");
 				if($vote_a) {
 					$vote_q = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+1) WHERE pollq_id = $poll_id");
 					if($vote_q) {
+						// Log Ratings When Success
+						$vote_ip = $wpdb->query("INSERT INTO $wpdb->pollsip VALUES (0, $poll_id, $poll_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user', $pollip_userid)");
 						echo "<ul class=\"wp-polls-ul\">\n".display_pollresult($poll_id,$poll_aid, 1);
 						exit();
 					} else {
@@ -1110,7 +1110,7 @@ function create_poll_table() {
 	add_option('poll_template_voteheader', '<p style="text-align: center;"><strong>%POLL_QUESTION%</strong></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="wp-polls-ans">'.
 	'<ul class="wp-polls-ul">', 'Template For Poll\'s Question');
-	add_option('poll_template_votebody',  '<li><label for="poll-answer-%POLL_ANSWER_ID%"><input type="radio" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" /> %POLL_ANSWER%</label></li>', 'Template For Poll\'s Answers');
+	add_option('poll_template_votebody',  '<li><input type="radio" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" /> <label for="poll-answer-%POLL_ANSWER_ID%">%POLL_ANSWER%</label></li>', 'Template For Poll\'s Answers');
 	add_option('poll_template_votefooter', '</ul>'.
 	'<p style="text-align: center;"><input type="button" name="vote" value="   '.__('Vote', 'wp-polls').'   " class="Buttons" onclick="poll_vote(%POLL_ID%);" onkeypress="poll_result(%POLL_ID%);" /></p>'.
 	'<p style="text-align: center;"><a href="#ViewPollResults" onclick="poll_result(%POLL_ID%); return false;" onkeypress="poll_result(%POLL_ID%); return false;" title="'.__('View Results Of This Poll', 'wp-polls').'">'.__('View Results', 'wp-polls').'</a></p>'.
