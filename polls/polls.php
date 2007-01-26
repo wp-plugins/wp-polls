@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP-Polls
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
-Description: Adds A Poll Feature To WordPress
+Description: Adds an AJAX poll system to your WordPress blog. You can also easily add a poll into your WordPress's blog post/page.
 Version: 2.14
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
