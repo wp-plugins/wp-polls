@@ -52,7 +52,7 @@ function widget_polls_init() {
 	function widget_polls_options() {
 		global $wpdb;
 		$options = get_option('widget_polls');
-		$current_poll = get_settings('poll_currentpoll');
+		$current_poll = get_option('poll_currentpoll');
 		if (!is_array($options)) {
 			$options = array('title' => __('Polls', 'wp-polls'));
 		}
@@ -72,12 +72,12 @@ function widget_polls_init() {
 		echo ' </label>'."\n";
 		echo '<select id="polls-displayarchive" name="poll_archive_show" size="1">'."\n";
 		echo '<option value="0"';
-		selected('0', get_settings('poll_archive_show'));
+		selected('0', get_option('poll_archive_show'));
 		echo '>';
 		_e('No');
 		echo '</option>'."\n";
 		echo '<option value="1"';
-		selected('1', get_settings('poll_archive_show'));
+		selected('1', get_option('poll_archive_show'));
 		echo '>';
 		_e('Yes');
 		echo '</option>'."\n";

@@ -449,7 +449,7 @@ switch($mode) {
 						<td align="right" colspan="2"><strong><?php _e('Total Votes', 'wp-polls'); ?>: <?php echo $poll_actual_totalvotes; ?></strong>&nbsp;&nbsp;&nbsp;<input type="text" size="4" maxlength="4" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
 					</tr>
 					<tr>
-						<td><strong><?php _e('Start Date/Time', 'wp-polls'); ?></strong>: <?php echo mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_timestamp)); ?></td>
+						<td><strong><?php _e('Start Date/Time', 'wp-polls'); ?></strong>: <?php echo mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_timestamp)); ?></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="checkbox" name="edit_polltimestamp" id="edit_polltimestamp" value="1" onclick="check_polltimestamp()" />&nbsp;<label for="edit_polltimestamp"><?php _e('Edit Start Date/Time', 'wp-polls'); ?></label><br /><?php poll_timestamp($poll_timestamp, 'pollq_timestamp', 'none'); ?><br /></td>
@@ -461,7 +461,7 @@ switch($mode) {
 								if(empty($poll_expiry)) {
 									_e('This Poll Will Not Expire', 'wp-polls');
 								} else {
-									echo mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
+									echo mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
 								}
 							?>
 						</td>
@@ -524,7 +524,7 @@ switch($mode) {
 								$pollip_user = stripslashes($poll_ip->pollip_user);
 								$pollip_ip = $poll_ip->pollip_ip;
 								$pollip_host = $poll_ip->pollip_host;
-								$pollip_date = mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_ip->pollip_timestamp));
+								$pollip_date = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_ip->pollip_timestamp));
 								if($pollip_aid != $poll_last_aid) {
 									if($pollip_aid == 0) {
 										echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><strong>$pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
@@ -633,7 +633,7 @@ switch($mode) {
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><strong><?php _e('Start Date/Time', 'wp-polls'); ?></strong>: <?php echo mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_timestamp)); ?></td>
+						<td colspan="2"><strong><?php _e('Start Date/Time', 'wp-polls'); ?></strong>: <?php echo mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_timestamp)); ?></td>
 					</tr>
 						<tr>
 						<td colspan="2"><strong><?php _e('End Date/Time', 'wp-polls'); ?></strong>:
@@ -641,7 +641,7 @@ switch($mode) {
 								if(empty($poll_expiry)) {
 									_e('This Poll Will Not Expire', 'wp-polls');
 								} else {
-									echo mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
+									echo mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
 								}
 							?>
 						</td>
@@ -726,19 +726,19 @@ switch($mode) {
 			<?php
 				if($polls) {
 					$i = 0;
-					$current_poll = intval(get_settings('poll_currentpoll'));
-					$latest_poll = intval(get_settings('poll_latestpoll'));
+					$current_poll = intval(get_option('poll_currentpoll'));
+					$latest_poll = intval(get_option('poll_latestpoll'));
 					foreach($polls as $poll) {
 						$poll_id = intval($poll->pollq_id);
 						$poll_question = stripslashes($poll->pollq_question);
-						$poll_date = mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll->pollq_timestamp));
+						$poll_date = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll->pollq_timestamp));
 						$poll_totalvotes = intval($poll->pollq_totalvotes);
 						$poll_active = intval($poll->pollq_active);
 						$poll_expiry = trim($poll->pollq_expiry);
 						if(empty($poll_expiry)) {
 							$poll_expiry_text  = __('No Expiry', 'wp-polls');
 						} else {
-							$poll_expiry_text = mysql2date(get_settings('date_format').' @ '.get_settings('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
+							$poll_expiry_text = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
 						}
 						if($i%2 == 0) {
 							$style = 'style=\'background-color: #eee;\'';

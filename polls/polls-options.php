@@ -179,7 +179,7 @@ if($_POST['Submit']) {
 			if(pollbar_style == 'use_css') {
 				document.getElementById('wp-polls-pollbar').style.backgroundImage = "";
 			} else {
-				document.getElementById('wp-polls-pollbar').style.backgroundImage = "url('<?php echo get_settings('siteurl'); ?>/wp-content/plugins/polls/images/" + pollbar_style + "/pollbg.gif')";
+				document.getElementById('wp-polls-pollbar').style.backgroundImage = "url('<?php echo get_option('siteurl'); ?>/wp-content/plugins/polls/images/" + pollbar_style + "/pollbg.gif')";
 			}
 		}
 		document.getElementById('wp-polls-pollbar').style.backgroundColor = pollbar_background;
@@ -199,8 +199,8 @@ if($_POST['Submit']) {
 					<th align="left" width="20%"><?php _e('Poll Bar Style', 'wp-polls'); ?></th>
 					<td align="left" colspan="2">
 						<?php
-							$pollbar = get_settings('poll_bar');
-							$pollbar_url = get_settings('siteurl').'/wp-content/plugins/polls/images';
+							$pollbar = get_option('poll_bar');
+							$pollbar_url = get_option('siteurl').'/wp-content/plugins/polls/images';
 							$pollbar_path = ABSPATH.'/wp-content/plugins/polls/images';
 							if($handle = @opendir($pollbar_path)) {     
 								while (false !== ($filename = readdir($handle))) {  
@@ -246,7 +246,7 @@ if($_POST['Submit']) {
 							if($pollbar['style'] == 'use_css') {
 								echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'"></div>'."\n";
 							} else {
-								echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'; background-image: url(\''.get_settings('siteurl').'/wp-content/plugins/polls/images/'.$pollbar['style'].'/pollbg.gif\');"></div>'."\n";
+								echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'; background-image: url(\''.get_option('siteurl').'/wp-content/plugins/polls/images/'.$pollbar['style'].'/pollbg.gif\');"></div>'."\n";
 							}
 						?>
 					</td>
@@ -260,8 +260,8 @@ if($_POST['Submit']) {
 					<th align="left" width="30%"><?php _e('Sort Poll Answers By:', 'wp-polls'); ?></th>
 					<td align="left">
 						<select name="poll_ans_sortby" size="1">
-							<option value="polla_aid"<?php selected('polla_aid', get_settings('poll_ans_sortby')); ?>><?php _e('Exact Order', 'wp-polls'); ?></option>
-							<option value="polla_answers"<?php selected('polla_answers', get_settings('poll_ans_sortby')); ?>><?php _e('Alphabetical Order', 'wp-polls'); ?></option>
+							<option value="polla_aid"<?php selected('polla_aid', get_option('poll_ans_sortby')); ?>><?php _e('Exact Order', 'wp-polls'); ?></option>
+							<option value="polla_answers"<?php selected('polla_answers', get_option('poll_ans_sortby')); ?>><?php _e('Alphabetical Order', 'wp-polls'); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -269,8 +269,8 @@ if($_POST['Submit']) {
 					<th align="left" width="30%"><?php _e('Sort Order Of Poll Answers:', 'wp-polls'); ?></th>
 					<td align="left">
 						<select name="poll_ans_sortorder" size="1">
-							<option value="asc"<?php selected('asc', get_settings('poll_ans_sortorder')); ?>><?php _e('Ascending', 'wp-polls'); ?></option>
-							<option value="desc"<?php selected('desc', get_settings('poll_ans_sortorder')); ?>><?php _e('Descending', 'wp-polls'); ?></option>
+							<option value="asc"<?php selected('asc', get_option('poll_ans_sortorder')); ?>><?php _e('Ascending', 'wp-polls'); ?></option>
+							<option value="desc"<?php selected('desc', get_option('poll_ans_sortorder')); ?>><?php _e('Descending', 'wp-polls'); ?></option>
 						</select>
 					</td> 
 				</tr>
@@ -283,9 +283,9 @@ if($_POST['Submit']) {
 					<th align="left" width="30%"><?php _e('Sort Poll Results By:', 'wp-polls'); ?></th>
 					<td align="left">
 						<select name="poll_ans_result_sortby" size="1">
-							<option value="polla_votes"<?php selected('polla_votes', get_settings('poll_ans_result_sortby')); ?>><?php _e('Votes', 'wp-polls'); ?></option>
-							<option value="polla_aid"<?php selected('polla_aid', get_settings('poll_ans_result_sortby')); ?>><?php _e('Exact Order', 'wp-polls'); ?></option>
-							<option value="polla_answers"<?php selected('polla_answers', get_settings('poll_ans_result_sortby')); ?>><?php _e('Alphabetical Order', 'wp-polls'); ?></option>
+							<option value="polla_votes"<?php selected('polla_votes', get_option('poll_ans_result_sortby')); ?>><?php _e('Votes', 'wp-polls'); ?></option>
+							<option value="polla_aid"<?php selected('polla_aid', get_option('poll_ans_result_sortby')); ?>><?php _e('Exact Order', 'wp-polls'); ?></option>
+							<option value="polla_answers"<?php selected('polla_answers', get_option('poll_ans_result_sortby')); ?>><?php _e('Alphabetical Order', 'wp-polls'); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -293,8 +293,8 @@ if($_POST['Submit']) {
 					<th align="left" width="30%"><?php _e('Sort Order Of Poll Results:', 'wp-polls'); ?></th>
 					<td align="left">
 						<select name="poll_ans_result_sortorder" size="1">
-							<option value="asc"<?php selected('asc', get_settings('poll_ans_result_sortorder')); ?>><?php _e('Ascending', 'wp-polls'); ?></option>
-							<option value="desc"<?php selected('desc', get_settings('poll_ans_result_sortorder')); ?>><?php _e('Descending', 'wp-polls'); ?></option>
+							<option value="asc"<?php selected('asc', get_option('poll_ans_result_sortorder')); ?>><?php _e('Ascending', 'wp-polls'); ?></option>
+							<option value="desc"<?php selected('desc', get_option('poll_ans_result_sortorder')); ?>><?php _e('Descending', 'wp-polls'); ?></option>
 						</select>
 					</td> 
 				</tr>
@@ -307,9 +307,9 @@ if($_POST['Submit']) {
 					<th align="left" width="30%"><?php _e('Who Is Allowed To Vote?', 'wp-polls'); ?></th>
 					<td align="left">
 						<select name="poll_allowtovote" size="1">
-							<option value="0"<?php selected('0', get_settings('poll_allowtovote')); ?>><?php _e('Guests Only', 'wp-polls'); ?></option>
-							<option value="1"<?php selected('1', get_settings('poll_allowtovote')); ?>><?php _e('Registered Users Only', 'wp-polls'); ?></option>
-							<option value="2"<?php selected('2', get_settings('poll_allowtovote')); ?>><?php _e('Registered Users And Guests', 'wp-polls'); ?></option>
+							<option value="0"<?php selected('0', get_option('poll_allowtovote')); ?>><?php _e('Guests Only', 'wp-polls'); ?></option>
+							<option value="1"<?php selected('1', get_option('poll_allowtovote')); ?>><?php _e('Registered Users Only', 'wp-polls'); ?></option>
+							<option value="2"<?php selected('2', get_option('poll_allowtovote')); ?>><?php _e('Registered Users And Guests', 'wp-polls'); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -322,11 +322,11 @@ if($_POST['Submit']) {
 					<th align="left" width="30%"><?php _e('Poll Logging Method:', 'wp-polls'); ?></th>
 					<td align="left">
 						<select name="poll_logging_method" size="1">
-							<option value="0"<?php selected('0', get_settings('poll_logging_method')); ?>><?php _e('Do Not Log', 'wp-polls'); ?></option>
-							<option value="1"<?php selected('1', get_settings('poll_logging_method')); ?>><?php _e('Logged By Cookie', 'wp-polls'); ?></option>
-							<option value="2"<?php selected('2', get_settings('poll_logging_method')); ?>><?php _e('Logged By IP', 'wp-polls'); ?></option>
-							<option value="3"<?php selected('3', get_settings('poll_logging_method')); ?>><?php _e('Logged By Cookie And IP', 'wp-polls'); ?></option>
-							<option value="4"<?php selected('4', get_settings('poll_logging_method')); ?>><?php _e('Logged By Username', 'wp-polls'); ?></option>
+							<option value="0"<?php selected('0', get_option('poll_logging_method')); ?>><?php _e('Do Not Log', 'wp-polls'); ?></option>
+							<option value="1"<?php selected('1', get_option('poll_logging_method')); ?>><?php _e('Logged By Cookie', 'wp-polls'); ?></option>
+							<option value="2"<?php selected('2', get_option('poll_logging_method')); ?>><?php _e('Logged By IP', 'wp-polls'); ?></option>
+							<option value="3"<?php selected('3', get_option('poll_logging_method')); ?>><?php _e('Logged By Cookie And IP', 'wp-polls'); ?></option>
+							<option value="4"<?php selected('4', get_option('poll_logging_method')); ?>><?php _e('Logged By Username', 'wp-polls'); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -337,18 +337,18 @@ if($_POST['Submit']) {
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 				 <tr valign="top">
 					<th align="left" width="30%"><?php _e('Polls Per Page:', 'wp-polls'); ?></th>
-					<td align="left"><input type="text" name="poll_archive_perpage" value="<?php echo intval(get_settings('poll_archive_perpage')); ?>" size="2" /></td>
+					<td align="left"><input type="text" name="poll_archive_perpage" value="<?php echo intval(get_option('poll_archive_perpage')); ?>" size="2" /></td>
 				</tr>
 				<tr valign="top">
 					<th align="left" width="30%"><?php _e('Polls Archive URL:', 'wp-polls'); ?></th>
-					<td align="left"><input type="text" name="poll_archive_url" value="<?php echo get_settings('poll_archive_url'); ?>" size="50" /></td>
+					<td align="left"><input type="text" name="poll_archive_url" value="<?php echo get_option('poll_archive_url'); ?>" size="50" /></td>
 				</tr>
 				<tr valign="top">
 					<th align="left" width="30%"><?php _e('Display Polls Archive Link Below Poll?', 'wp-polls'); ?></th>
 					<td align="left">
 						<select name="poll_archive_show" size="1">
-							<option value="0"<?php selected('0', get_settings('poll_archive_show')); ?>><?php _e('No', 'wp-polls'); ?></option>
-							<option value="1"<?php selected('1', get_settings('poll_archive_show')); ?>><?php _e('Yes', 'wp-polls'); ?></option>
+							<option value="0"<?php selected('0', get_option('poll_archive_show')); ?>><?php _e('No', 'wp-polls'); ?></option>
+							<option value="1"<?php selected('1', get_option('poll_archive_show')); ?>><?php _e('Yes', 'wp-polls'); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -361,9 +361,9 @@ if($_POST['Submit']) {
 					<th align="left" width="30%"><?php _e('Current Active Poll', 'wp-polls'); ?>:</th>
 					<td align="left">
 						<select name="poll_currentpoll" size="1">
-							<option value="-1"<?php selected(-1, get_settings('poll_currentpoll')); ?>><?php _e('Do NOT Display Poll (Disable)', 'wp-polls'); ?></option>
-							<option value="-2"<?php selected(-2, get_settings('poll_currentpoll')); ?>><?php _e('Display Random Poll', 'wp-polls'); ?></option>
-							<option value="0"<?php selected(0, get_settings('poll_currentpoll')); ?>><?php _e('Display Latest Poll', 'wp-polls'); ?></option>
+							<option value="-1"<?php selected(-1, get_option('poll_currentpoll')); ?>><?php _e('Do NOT Display Poll (Disable)', 'wp-polls'); ?></option>
+							<option value="-2"<?php selected(-2, get_option('poll_currentpoll')); ?>><?php _e('Display Random Poll', 'wp-polls'); ?></option>
+							<option value="0"<?php selected(0, get_option('poll_currentpoll')); ?>><?php _e('Display Latest Poll', 'wp-polls'); ?></option>
 							<option value="0">&nbsp;</option>
 							<?php
 								$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");
@@ -371,7 +371,7 @@ if($_POST['Submit']) {
 									foreach($polls as $poll) {
 										$poll_question = stripslashes($poll->pollq_question);
 										$poll_id = intval($poll->pollq_id);
-										if($poll_id == intval(get_settings('poll_currentpoll'))) {
+										if($poll_id == intval(get_option('poll_currentpoll'))) {
 											echo "<option value=\"$poll_id\" selected=\"selected\">$poll_question</option>\n";
 										} else {
 											echo "<option value=\"$poll_id\">$poll_question</option>\n";
@@ -386,8 +386,8 @@ if($_POST['Submit']) {
 					<th align="left" width="30%"><?php _e('When Poll Is Closed', 'wp-polls'); ?>:</th>
 					<td align="left">
 						<select name="poll_close" size="1">
-							<option value="1"<?php selected(1, get_settings('poll_close')); ?>><?php _e('Display Poll\'s Results', 'wp-polls'); ?></option>
-							<option value="2"<?php selected(2, get_settings('poll_close')); ?>><?php _e('Do Not Display Poll In Post/Sidebar', 'wp-polls'); ?></option>
+							<option value="1"<?php selected(1, get_option('poll_close')); ?>><?php _e('Display Poll\'s Results', 'wp-polls'); ?></option>
+							<option value="2"<?php selected(2, get_option('poll_close')); ?>><?php _e('Do Not Display Poll In Post/Sidebar', 'wp-polls'); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -497,7 +497,7 @@ if($_POST['Submit']) {
 						- %POLL_TOTALVOTES%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('voteheader');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_voteheader" name="poll_template_voteheader"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_voteheader'))); ?></textarea></td>
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_voteheader" name="poll_template_voteheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_voteheader'))); ?></textarea></td>
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -509,7 +509,7 @@ if($_POST['Submit']) {
 						- %POLL_ANSWER_VOTES%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('votebody');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_votebody" name="poll_template_votebody"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_votebody'))); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_votebody" name="poll_template_votebody"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votebody'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -519,7 +519,7 @@ if($_POST['Submit']) {
 							- %POLL_RESULT_URL%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('votefooter');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_votefooter'))); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votefooter'))); ?></textarea></td> 
 				</tr>
 			</table>
 		</fieldset>
@@ -537,7 +537,7 @@ if($_POST['Submit']) {
 						- %POLL_TOTALVOTES%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultheader');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultheader" name="poll_template_resultheader"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultheader'))); ?></textarea></td>
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultheader" name="poll_template_resultheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultheader'))); ?></textarea></td>
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -551,7 +551,7 @@ if($_POST['Submit']) {
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultbody');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody'))); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultbody'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -565,7 +565,7 @@ if($_POST['Submit']) {
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultbody2');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultbody2'))); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultbody2'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -583,7 +583,7 @@ if($_POST['Submit']) {
 						- %POLL_LEAST_PERCENTAGE%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultfooter');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultfooter" name="poll_template_resultfooter"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultfooter'))); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultfooter" name="poll_template_resultfooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter'))); ?></textarea></td> 
 				</tr>
 				<tr valign="top"> 
 					<td width="30%" align="left">
@@ -601,7 +601,7 @@ if($_POST['Submit']) {
 						- %POLL_LEAST_PERCENTAGE%<br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultfooter2');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultfooter2" name="poll_template_resultfooter2"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_resultfooter2'))); ?></textarea></td> 
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_resultfooter2" name="poll_template_resultfooter2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter2'))); ?></textarea></td> 
 				</tr>
 			</table>
 		</fieldset>
@@ -615,7 +615,7 @@ if($_POST['Submit']) {
 						- <?php _e('N/A', 'wp-polls'); ?><br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('disable');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_disable" name="poll_template_disable"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_disable'))); ?></textarea></td>
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_disable" name="poll_template_disable"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_disable'))); ?></textarea></td>
 				</tr>
 				<tr valign="top">
 					<td width="30%" align="left">
@@ -624,7 +624,7 @@ if($_POST['Submit']) {
 						- <?php _e('N/A', 'wp-polls'); ?><br /><br />
 						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('error');" class="button" />
 					</td>
-					<td align="left"><textarea cols="80" rows="10" id="poll_template_error" name="poll_template_error"><?php echo htmlspecialchars(stripslashes(get_settings('poll_template_error'))); ?></textarea></td>
+					<td align="left"><textarea cols="80" rows="10" id="poll_template_error" name="poll_template_error"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_error'))); ?></textarea></td>
 				</tr>
 			</table>
 		</fieldset>
