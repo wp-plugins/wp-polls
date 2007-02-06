@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.1 Plugin: WP-Polls 2.14										|
+|	WordPress 2.1 Plugin: WP-Polls 2.15										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -11,7 +11,7 @@
 |																							|
 |	File Information:																	|
 |	- Polls Javascript File															|
-|	- wp-content/plugins/polls/polls-js.js										|
+|	- wp-content/plugins/polls/polls-js.php										|
 |																							|
 +----------------------------------------------------------------+
 */
@@ -26,6 +26,9 @@ $polls_ajax_url = dirname($_SERVER['PHP_SELF']);
 if(substr($polls_ajax_url, -1) == '/') {
 	$polls_ajax_url  = substr($polls_ajax_url, 0, -1);
 }
+
+### Get Poll AJAX Style
+$poll_ajax_style = get_option('poll_ajax_style');
 ?>
 
 // Variables
@@ -37,6 +40,8 @@ var poll_id = 0;
 var poll_answer_id = 0;
 var poll_fadein_opacity = 0;
 var poll_fadeout_opacity = 100;
+var poll_show_loading = <?php echo intval($poll_ajax_style['loading']); ?>;
+var poll_show_fading = <?php echo intval($poll_ajax_style['fading']); ?>;
 var is_ie = (document.all && document.getElementById);
 var is_moz = (!document.all && document.getElementById);
 var is_opera = (navigator.userAgent.indexOf("Opera") > -1);
@@ -110,9 +115,19 @@ function poll_fadein_text() {
 			poll_fadein_opacity = 100;
 			poll_unloading_text();
 		} else if(is_ie) {
-			document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadein_opacity;
+			if(poll_show_fading) {
+				document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadein_opacity;
+			} else {
+				poll_fadein_opacity = 100;
+				poll_unloading_text();
+			}
 		} else	 if(is_moz) {
-			document.getElementById('polls-' + poll_id + '-ans').style.MozOpacity = (poll_fadein_opacity/100);
+			if(poll_show_fading) {
+				document.getElementById('polls-' + poll_id + '-ans').style.MozOpacity = (poll_fadein_opacity/100);
+			} else {
+				poll_fadein_opacity = 100;
+				poll_unloading_text();
+			}
 		}
 		setTimeout("poll_fadein_text()", 100); 
 	} else {
@@ -124,13 +139,17 @@ function poll_fadein_text() {
 
 // Poll Loading Text
 function poll_loading_text() {
-	document.getElementById('polls-' + poll_id + '-loading').style.display = 'block';
+	if(poll_show_loading) {
+		document.getElementById('polls-' + poll_id + '-loading').style.display = 'block';
+	}
 }
 
 
 // Poll Finish Loading Text
 function poll_unloading_text() {
-	document.getElementById('polls-' + poll_id + '-loading').style.display = 'none';
+	if(poll_show_loading) {
+		document.getElementById('polls-' + poll_id + '-loading').style.display = 'none';
+	}
 }
 
 
@@ -141,9 +160,17 @@ function poll_process() {
 		if(is_opera) {
 			poll_fadeout_opacity = 0;
 		} else if(is_ie) {
-			document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadeout_opacity;
+			if(poll_show_fading) {
+				document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadeout_opacity;
+			} else {
+				poll_fadeout_opacity = 0;
+			}
 		} else if(is_moz) {
-			document.getElementById('polls-' + poll_id + '-ans').style.MozOpacity = (poll_fadeout_opacity/100);
+			if(poll_show_fading) {
+				document.getElementById('polls-' + poll_id + '-ans').style.MozOpacity = (poll_fadeout_opacity/100);
+			} else {
+				poll_fadeout_opacity = 0;
+			}
 		}
 		setTimeout("poll_process()", 100); 
 	} else {
@@ -169,9 +196,17 @@ function poll_process_result() {
 		if(is_opera) {
 			poll_fadeout_opacity = 0;
 		} else if(is_ie) {
-			document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadeout_opacity;
+			if(poll_show_fading) {
+				document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadeout_opacity;
+			} else {
+				poll_fadeout_opacity = 0;
+			}
 		} else if(is_moz) {
-			document.getElementById('polls-' + poll_id + '-ans').style.MozOpacity = (poll_fadeout_opacity/100);
+			if(poll_show_fading) {
+				document.getElementById('polls-' + poll_id + '-ans').style.MozOpacity = (poll_fadeout_opacity/100);
+			} else {
+				poll_fadeout_opacity = 0;
+			}
 		}
 		setTimeout("poll_process_result()", 100); 
 	} else {
@@ -195,9 +230,17 @@ function poll_process_booth() {
 		if(is_opera) {
 			poll_fadeout_opacity = 0;
 		} else if(is_ie) {
-			document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadeout_opacity;
+			if(poll_show_fading) {
+				document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadeout_opacity;
+			} else {
+				poll_fadeout_opacity = 0;
+			}
 		} else if(is_moz) {
-			document.getElementById('polls-' + poll_id + '-ans').style.MozOpacity = (poll_fadeout_opacity/100);
+			if(poll_show_fading) {
+				document.getElementById('polls-' + poll_id + '-ans').style.MozOpacity = (poll_fadeout_opacity/100);
+			} else {
+				poll_fadeout_opacity = 0;
+			}
 		}
 		setTimeout("poll_process_booth()", 100); 
 	} else {

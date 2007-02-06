@@ -3,7 +3,7 @@
 Plugin Name: WP-Polls Widget
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Adds a Sidebar Widget To Display Poll From WP-Polls Plugin. You Need To Activate WP-Polls First.
-Version: 2.14
+Version: 2.15
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
 */
