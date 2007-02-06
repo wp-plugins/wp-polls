@@ -47,8 +47,7 @@ var is_moz = (!document.all && document.getElementById);
 var is_opera = (navigator.userAgent.indexOf("Opera") > -1);
 var is_being_voted = false;
 
-
-// When User Vote For Poll
+// Function: When User Vote For Poll
 function poll_vote(current_poll_id) {
 	if(!is_being_voted) {
 		is_being_voted = true;
@@ -77,8 +76,7 @@ function poll_vote(current_poll_id) {
 	}
 }
 
-
-// When User View Poll's Result
+// Function: When User View Poll's Result
 function poll_result(current_poll_id) {
 	if(!is_being_voted) {
 		is_being_voted = true;
@@ -90,8 +88,7 @@ function poll_result(current_poll_id) {
 	}
 }
 
-
-// When User View Poll's Voting Booth
+// Function: When User View Poll's Voting Booth
 function poll_booth(current_poll_id) {
 	if(!is_being_voted) {
 		is_being_voted = true;
@@ -103,8 +100,7 @@ function poll_booth(current_poll_id) {
 	}
 }
 
-
-// Poll Fade In Text
+// Function: Poll Fade In Text
 function poll_fadein_text() {
 	if(poll_fadein_opacity == 90) {
 		poll_unloading_text();
@@ -136,24 +132,21 @@ function poll_fadein_text() {
 	}
 }
 
-
-// Poll Loading Text
+// Function: Poll Loading Text
 function poll_loading_text() {
 	if(poll_show_loading) {
 		document.getElementById('polls-' + poll_id + '-loading').style.display = 'block';
 	}
 }
 
-
-// Poll Finish Loading Text
+// Function: Poll Finish Loading Text
 function poll_unloading_text() {
 	if(poll_show_loading) {
 		document.getElementById('polls-' + poll_id + '-loading').style.display = 'none';
 	}
 }
 
-
-// Process The Poll
+// Function: Process The Poll
 function poll_process() {
 	if(poll_fadeout_opacity > 0) {
 		poll_fadeout_opacity -= 10;
@@ -188,8 +181,7 @@ function poll_process() {
 	}
 }
 
-
-// Process Poll's Result
+// Function: Process Poll's Result
 function poll_process_result() {
 	if(poll_fadeout_opacity > 0) {
 		poll_fadeout_opacity -= 10;
@@ -222,8 +214,7 @@ function poll_process_result() {
 	}
 }
 
-
-// Process Poll's Voting Booth
+// Function: Process Poll's Voting Booth
 function poll_process_booth() {
 	if(poll_fadeout_opacity > 0) {
 		poll_fadeout_opacity -= 10;

@@ -1028,7 +1028,7 @@ function vote_poll() {
 				}
 				$pollip_userid = intval($user_ID);
 				$pollip_ip = get_ipaddress();
-				$pollip_host = gethostbyaddr($pollip_ip);
+				$pollip_host = @gethostbyaddr($pollip_ip);
 				$pollip_timestamp = current_time('timestamp');
 				// Only Create Cookie If User Choose Logging Method 1 Or 2
 				$poll_logging_method = intval(get_option('poll_logging_method'));

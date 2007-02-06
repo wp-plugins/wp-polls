@@ -55,16 +55,20 @@ if(!empty($_POST['do'])) {
 				}
 			}
 			break;
-		// Add Poll's Answer
-		case __('Add Answer', 'wp-polls'):
-			$polla_qid  = intval($_POST['polla_qid']);
-			$polla_answers = addslashes(trim($_POST['polla_answers']));
-			$pollq_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
-			$add_poll_question = $wpdb->query("INSERT INTO $wpdb->pollsa VALUES (0, $polla_qid, '$polla_answers', 0)");
-			if(!$add_poll_question) {
-				echo '<p style="color: red;">'.sprintf(__('Error In Adding Poll Answer \'%s\' To \'%s\'', 'wp-polls'), stripslashes($polla_answers), stripslashes($pollq_question)).'</p>';
+		// Delete Poll's Answer
+		case __('Delete Poll Answer', 'wp-polls'):
+			$pollq_id  = intval($_POST['pollq_id']);
+			$polla_aid = intval($_POST['polla_aid']);
+			$poll_answers = $wpdb->get_row("SELECT polla_votes, polla_answers FROM $wpdb->pollsa WHERE polla_aid = $polla_aid AND polla_qid = $pollq_id");
+			$polla_votes = intval($poll_answers->polla_votes);
+			$polla_answers = stripslashes(trim($poll_answers->polla_answers));
+			$delete_polla_answers = $wpdb->query("DELETE FROM $wpdb->pollsa WHERE polla_aid = $polla_aid AND polla_qid = $pollq_id");
+			$delete_pollip = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $pollq_id AND pollip_aid = $polla_aid");
+			$update_pollq_totalvotes = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes-$polla_votes) WHERE pollq_id = $pollq_id");
+			if($delete_polla_answers) {
+				echo '<p style="color: green;">'.sprintf(__('Poll Answer \'%s\' Deleted Successfully.', 'wp-polls'), $polla_answers).'</p>';
 			} else {
-				echo '<p style="color: green;">'.sprintf(__('Poll Answer \'%s\' Added Successfully To \'%s\'', 'wp-polls'), stripslashes($polla_answers), stripslashes($pollq_question)).'</p>';
+				echo '<p style="color: red;">'.sprintf(__('Error In Deleting Poll Answer \'%s\'.', 'wp-polls'), $polla_answers).'</p>';
 			}
 			break;
 		// Open Poll
