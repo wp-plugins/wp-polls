@@ -32,6 +32,7 @@ var polls_admin_ajax_url = "<?php echo $polls_admin_ajax_url; ?>/polls-admin-aja
 var polls_admin = new sack(polls_admin_ajax_url);
 var global_poll_id = 0;
 var global_poll_aid = 0;
+var global_poll_aid_votes  = 0;
 
 // Function: Delete Poll Message
 function delete_poll_message() {
@@ -119,6 +120,7 @@ function delete_poll_ans_message() {
 	Fat.fade_element("message", null, 3000, "#FFFF00");
 	Fat.fade_element("poll-answer-" + global_poll_aid, null, 1000, "#FF3333");
 	setTimeout("remove_poll_ans()", 1000);
+	document.getElementById('poll_total_votes').innerHTML = (parseInt(document.getElementById('poll_total_votes').innerHTML) - parseInt(global_poll_aid_votes));
 	poll_total_votes = parseInt(document.getElementById('pollq_totalvotes').value);
 	poll_answer_vote = parseInt(document.getElementById("polla_votes-" + global_poll_aid).value);
 	poll_total_votes_new = (poll_total_votes - poll_answer_vote);
@@ -134,11 +136,12 @@ function remove_poll_ans() {
 }
 
 // Function: Delete Poll Answer
-function delete_poll_ans(poll_id, poll_aid, poll_confirm) {
+function delete_poll_ans(poll_id, poll_aid, poll_aid_vote, poll_confirm) {
 	delete_poll_ans_confirm = confirm(poll_confirm);
 	if(delete_poll_ans_confirm) {
 		global_poll_id = poll_id;
 		global_poll_aid = poll_aid;
+		global_poll_aid_votes = poll_aid_vote;
 		polls_admin.reset();
 		polls_admin.setVar("do", "<?php _e('Delete Poll Answer', 'wp-polls'); ?>");
 		polls_admin.setVar("pollq_id", poll_id);

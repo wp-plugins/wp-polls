@@ -66,8 +66,16 @@ if(!empty($_POST['do'])) {
 					$pollq_active = 0;
 				}
 			}
+			// Mutilple Poll
+			$pollq_multiple_yes = intval($_POST['pollq_multiple_yes']);
+			$pollq_multiple = 0;
+			if($pollq_multiple_yes == 1) {
+				$pollq_multiple = intval($_POST['pollq_multiple']);
+			} else {
+				$pollq_multiple = 0;
+			}
 			// Insert Poll
-			$add_poll_question = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (0, '$pollq_question', '$pollq_timestamp', 0, $pollq_active, '$pollq_expiry')");
+			$add_poll_question = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (0, '$pollq_question', '$pollq_timestamp', 0, $pollq_active, '$pollq_expiry', $pollq_multiple)");
 			if(!$add_poll_question) {
 				$text .= '<p style="color: red;">'.sprintf(__('Error In Adding Poll \'%s\'.', 'wp-polls'), stripslashes($pollq_question)).'</p>';
 			}
@@ -114,11 +122,16 @@ $count = 0;
 		var poll_answer = document.createElement("input");
 		var poll_answer_count = document.createTextNode("<?php _e('Answer', 'wp-polls'); ?> " + (count_poll_answer+1) + ":");
 		var poll_answer_bold = document.createElement("strong");
+		var poll_option = document.createElement("option");
+		var poll_option_text = document.createTextNode((count_poll_answer+1));
 		count_poll_answer++;
 		// Elements - Input
 		poll_answer.setAttribute('type', "text");
 		poll_answer.setAttribute('name', "polla_answers[]");
 		poll_answer.setAttribute('size', "50");
+		// Elements - Options
+		poll_option.setAttribute('value', count_poll_answer);
+		poll_option.setAttribute('id', "pollq-multiple-" + (count_poll_answer+1));
 		// Elements - TD/TR
 		if(count_poll_answer%2 != 0) { poll_tr.style.background = "#eee"; }
 		poll_tr.setAttribute('id', "poll-answer-" + count_poll_answer);
@@ -130,14 +143,26 @@ $count = 0;
 		poll_answer_bold.appendChild(poll_answer_count);
 		poll_td1.appendChild(poll_answer_bold);
 		poll_td2.appendChild(poll_answer);
+		poll_option.appendChild(poll_option_text);
 		document.getElementById("poll_answers").appendChild(poll_tr);
+		document.getElementById("pollq_multiple").appendChild(poll_option);
 	}
 	function remove_poll_answer() {
 		if(count_poll_answer == 2) {
 			alert("<?php _e('You need at least a minimum of 2 poll answers.', 'wp-polls'); ?>");
 		} else {
 			document.getElementById("poll_answers").removeChild(document.getElementById("poll-answer-" + count_poll_answer));
+			document.getElementById("pollq_multiple").removeChild(document.getElementById("pollq-multiple-" + (count_poll_answer+1)));
+			document.getElementById("pollq_multiple").value = count_poll_answer;
 			count_poll_answer--;
+		}
+	}
+	function check_pollq_multiple() {
+		if(parseInt(document.getElementById("pollq_multiple_yes").value) == 1) {
+			document.getElementById("pollq_multiple").disabled = false;
+		} else {
+			document.getElementById("pollq_multiple").value = 1;
+			document.getElementById("pollq_multiple").disabled = true;
 		}
 	}
 	/* ]]> */
@@ -179,6 +204,30 @@ $count = 0;
 				<td width="80%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
 			</tr>
 		</tfoot>
+	</table>
+	<!-- Poll Multiple Answers -->
+	<h3><?php _e('Poll Multiple Answers', 'wp-polls') ?></h3>
+	<table width="100%"  border="0" cellspacing="3" cellpadding="3">
+		<tr style="background-color: #eee;">
+			<td width="40%" valign="top"><strong><?php _e('Allows Users To Select More Than One Answer?', 'wp-polls'); ?></strong></td>
+			<td width="60%">
+				<select name="pollq_multiple_yes" id="pollq_multiple_yes" size="1" onchange="check_pollq_multiple();">
+					<option value="0"><?php _e('No', 'wp-polls'); ?></option>
+					<option value="1"><?php _e('Yes', 'wp-polls'); ?></option>
+				</select>
+		</tr>
+		<tr>
+			<td width="40%" valign="top"><strong><?php _e('Maximum Number Of Selected Answers Allowed?', 'wp-polls') ?></strong></td>
+			<td width="60%">
+				<select name="pollq_multiple" id="pollq_multiple" size="1" disabled="true">
+					<?php
+						for($i = 1; $i <= $poll_noquestion; $i++) {
+							echo "<option value=\"$i\">$i</option>\n";
+						}
+					?>
+				</select>
+			</td>
+		</tr>
 	</table>
 	<!-- Poll Start/End Date -->
 	<h3><?php _e('Poll Start/End Date', 'wp-polls'); ?></h3>

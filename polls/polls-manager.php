@@ -235,7 +235,6 @@ switch($mode) {
 				poll_td2.setAttribute('width', "60%");
 				poll_td3.setAttribute('width', "10%");
 				poll_td3.setAttribute('align', "right");
-				//<input type=\"text\" size=\"4\" id=\"polla_votes-$polla_aid\" name=\"polla_votes-$polla_aid\" value=\"$polla_votes\" onblur=\"check_totalvotes();\"
 				// Appending To Elements
 				poll_tr.appendChild(poll_td1);
 				poll_tr.appendChild(poll_td2);
@@ -259,7 +258,7 @@ switch($mode) {
 			}
 			/* ]]> */
 		</script>
-		<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.stripslashes($text).'</p></div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
+		<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
 
 		<!-- Edit Poll -->
 		<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
@@ -305,7 +304,7 @@ switch($mode) {
 								echo "<tr id=\"poll-answer-$polla_aid\" $style>\n";
 								echo '<td width="20%"><strong>'.sprintf(__('Answer %s:', 'wp-polls'), $i).'</strong></td>'."\n";
 								echo "<td width=\"60%\"><input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_aid-$polla_aid\" value=\"".htmlspecialchars($polla_answers)."\" />&nbsp;&nbsp;&nbsp;";
-								echo "<input type=\"button\" value=\"".__('Delete', 'wp-polls')."\" onclick=\"delete_poll_ans($poll_id, $polla_aid, '".sprintf(js_escape(__('You are about to delete this poll\'s answer \'%s\'.', 'wp-polls')), htmlspecialchars($polla_answers))."');\" class=\"button\" /></td>\n";
+								echo "<input type=\"button\" value=\"".__('Delete', 'wp-polls')."\" onclick=\"delete_poll_ans($poll_id, $polla_aid, $polla_votes, '".sprintf(js_escape(__('You are about to delete this poll\'s answer \'%s\'.', 'wp-polls')), htmlspecialchars($polla_answers))."');\" class=\"button\" /></td>\n";
 								echo "<td width=\"20%\" align=\"right\">$polla_votes <input type=\"text\" size=\"4\" id=\"polla_votes-$polla_aid\" name=\"polla_votes-$polla_aid\" value=\"$polla_votes\" onblur=\"check_totalvotes();\" /></td>\n</tr>\n";
 								$poll_actual_totalvotes += $polla_votes;
 								$i++;
@@ -315,9 +314,9 @@ switch($mode) {
 				</tbody>
 				<tfoot>
 					<tr>
-						<td width="20%"></td>
+						<td width="20%">&nbsp;</td>
 						<td width="60%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
-						<td width="20%" align="right"><strong><?php printf(__('Total Votes: %s', 'wp-polls'), $poll_actual_totalvotes); ?></strong> <input type="text" size="4" readonly="true" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
+						<td width="20%" align="right"><strong><?php _e('Total Votes:', 'wp-polls'); ?></strong><strong id="poll_total_votes"><?php echo $poll_actual_totalvotes; ?></strong> <input type="text" size="4" readonly="true" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
 					</tr>
 				</tfoot>
 			</table>

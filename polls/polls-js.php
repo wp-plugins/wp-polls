@@ -35,9 +35,10 @@ $poll_ajax_style = get_option('poll_ajax_style');
 var polls_ajax_url = "<?php echo $polls_ajax_url; ?>/polls.php";
 var polls_text_wait = "<?php _e('Your last request is still being processed. Please wait a while ...', 'wp-polls'); ?>";
 var polls_text_valid = "<?php _e('Please choose a valid poll answer.', 'wp-polls'); ?>";
+var polls_text_multiple = "<?php _e('Maximum number of choices allowed:', 'wp-polls'); ?>";
 var polls = new sack(polls_ajax_url);
 var poll_id = 0;
-var poll_answer_id = 0;
+var poll_answer_id = "";
 var poll_fadein_opacity = 0;
 var poll_fadeout_opacity = 100;
 var poll_show_loading = <?php echo intval($poll_ajax_style['loading']); ?>;
@@ -54,22 +55,43 @@ function poll_vote(current_poll_id) {
 		poll_id = current_poll_id;
 		poll_form = document.getElementById('polls_form_' + poll_id);
 		poll_answer = eval("poll_form.poll_" + poll_id);
-		poll_answer_id = 0;
+		poll_answer_id = "";
+		poll_multiple_ans = parseInt(document.getElementById('poll_multiple_ans').value);
+		poll_multiple_ans_count = 0;
 		if(poll_answer.length != null) {
 			for(i = 0; i < poll_answer.length; i++) {
-				if (poll_answer[i].checked) {
-					poll_answer_id = poll_answer[i].value;
+				if (poll_answer[i].checked) {					
+					if(poll_multiple_ans > 0) {
+						poll_answer_id = poll_answer[i].value + "," + poll_answer_id;
+						poll_multiple_ans_count++;
+					} else {
+						poll_answer_id = parseInt(poll_answer[i].value);
+					}
 				}
 			}
 		} else {
 			poll_answer_id = poll_answer.value;
 		}
-		if(poll_answer_id > 0) {
-			poll_loading_text();
-			poll_process();
+		if(poll_multiple_ans > 0) {
+			if(poll_multiple_ans_count > 0 && poll_multiple_ans_count <= poll_multiple_ans) {
+				poll_answer_id = poll_answer_id.substring(0, (poll_answer_id.length-1));
+				poll_loading_text();
+				poll_process();
+			} else if(poll_multiple_ans_count == 0) {
+				is_being_voted = false;
+				alert(polls_text_valid);
+			} else {
+				is_being_voted = false;
+				alert(polls_text_multiple + " " + poll_multiple_ans + ".");
+			}
 		} else {
-			is_being_voted = false;
-			alert(polls_text_valid);
+			if(poll_answer_id > 0) {
+				poll_loading_text();
+				poll_process();
+			} else {
+				is_being_voted = false;
+				alert(polls_text_valid);
+			}
 		}
 	} else {
 		alert(polls_text_wait);
