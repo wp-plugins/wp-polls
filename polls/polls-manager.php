@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.1 Plugin: WP-Polls 2.15										|
+|	WordPress 2.1 Plugin: WP-Polls 2.20										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -82,8 +82,16 @@ if(!empty($_POST['do'])) {
 					}
 				}
 			}
+			// Mutilple Poll
+			$pollq_multiple_yes = intval($_POST['pollq_multiple_yes']);
+			$pollq_multiple = 0;
+			if($pollq_multiple_yes == 1) {
+				$pollq_multiple = intval($_POST['pollq_multiple']);
+			} else {
+				$pollq_multiple = 0;
+			}
 			// Update Poll's Question
-			$edit_poll_question = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_question = '$pollq_question', pollq_totalvotes = $pollq_totalvotes, pollq_expiry = '$pollq_expiry', pollq_active = $pollq_active $timestamp_sql WHERE pollq_id = $pollq_id");
+			$edit_poll_question = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_question = '$pollq_question', pollq_totalvotes = $pollq_totalvotes, pollq_expiry = '$pollq_expiry', pollq_active = $pollq_active, pollq_multiple = $pollq_multiple $timestamp_sql WHERE pollq_id = $pollq_id");
 			if(!$edit_poll_question) {
 				$text = '<p style="color: blue">'.sprintf(__('No Changes Had Been Made To Poll\'s Question \'%s\'.', 'wp-polls'), stripslashes($pollq_question)).'</p>';
 			}
@@ -141,7 +149,7 @@ if(!empty($_POST['do'])) {
 switch($mode) {
 	// Edit A Poll
 	case 'edit':
-		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_timestamp, pollq_totalvotes, pollq_active, pollq_expiry FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
+		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_timestamp, pollq_totalvotes, pollq_active, pollq_expiry, pollq_multiple FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
 		$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_id ORDER BY polla_aid ASC");
 		$poll_noquestion = $wpdb->get_var("SELECT COUNT(polla_aid) FROM $wpdb->pollsa WHERE polla_qid = $poll_id");
 		$poll_question_text = stripslashes($poll_question->pollq_question);
@@ -149,6 +157,7 @@ switch($mode) {
 		$poll_timestamp = $poll_question->pollq_timestamp;
 		$poll_active = intval($poll_question->pollq_active);
 		$poll_expiry = trim($poll_question->pollq_expiry);
+		$poll_multiple = intval($poll_question->pollq_multiple);
 ?>
 		<script type="text/javascript">
 			/* <![CDATA[*/
@@ -217,6 +226,8 @@ switch($mode) {
 				var poll_answer_count = document.createTextNode("<?php _e('Answer', 'wp-polls'); ?> " + (count_poll_answer+1) + ":");
 				var poll_votes_count = document.createTextNode("0 ");
 				var poll_answer_bold = document.createElement("strong");
+				var poll_option = document.createElement("option");
+				var poll_option_text = document.createTextNode((count_poll_answer+1));
 				count_poll_answer++;
 				count_poll_answer_new++;
 				// Elements - Input
@@ -228,6 +239,9 @@ switch($mode) {
 				poll_votes.setAttribute('size', "4");
 				poll_votes.setAttribute('value', "0");
 				poll_votes.setAttribute('onblur', "check_totalvotes_new();");
+				// Elements - Options
+				poll_option.setAttribute('value', count_poll_answer);
+				poll_option.setAttribute('id', "pollq-multiple-" + (count_poll_answer+1));
 				// Elements - TD/TR
 				if(count_poll_answer%2 != 0) { poll_tr.style.background = "#eee"; }
 				poll_tr.setAttribute('id', "poll-answer-new-" + count_poll_answer_new);
@@ -244,16 +258,28 @@ switch($mode) {
 				poll_td2.appendChild(poll_answer);				
 				poll_td3.appendChild(poll_votes_count);
 				poll_td3.appendChild(poll_votes);
+				poll_option.appendChild(poll_option_text);
 				document.getElementById("poll_answers").appendChild(poll_tr);
+				document.getElementById("pollq_multiple").appendChild(poll_option);
 			}
 			function remove_poll_answer() {
 				if(count_poll_answer_new == 0) {
 					alert("<?php _e('No more poll\'s answer to be removed.', 'wp-polls'); ?>");
 				} else {
 					document.getElementById("poll_answers").removeChild(document.getElementById("poll-answer-new-" + count_poll_answer_new));
+					document.getElementById("pollq_multiple").removeChild(document.getElementById("pollq-multiple-" + (count_poll_answer+1)));
+					document.getElementById("pollq_multiple").value = count_poll_answer;
 					count_poll_answer--;
 					count_poll_answer_new--;
 					check_totalvotes_new();
+				}
+			}
+			function check_pollq_multiple() {
+				if(parseInt(document.getElementById("pollq_multiple_yes").value) == 1) {
+					document.getElementById("pollq_multiple").disabled = false;
+				} else {
+					document.getElementById("pollq_multiple").value = 1;
+					document.getElementById("pollq_multiple").disabled = true;
 				}
 			}
 			/* ]]> */
@@ -319,6 +345,34 @@ switch($mode) {
 						<td width="20%" align="right"><strong><?php _e('Total Votes:', 'wp-polls'); ?></strong><strong id="poll_total_votes"><?php echo $poll_actual_totalvotes; ?></strong> <input type="text" size="4" readonly="true" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
 					</tr>
 				</tfoot>
+			</table>
+			<!-- Poll Multiple Answers -->
+			<h3><?php _e('Poll Multiple Answers', 'wp-polls') ?></h3>
+			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
+				<tr style="background-color: #eee;">
+					<td width="40%" valign="top"><strong><?php _e('Allows Users To Select More Than One Answer?', 'wp-polls'); ?></strong></td>
+					<td width="60%">
+						<select name="pollq_multiple_yes" id="pollq_multiple_yes" size="1" onchange="check_pollq_multiple();">
+							<option value="0"<?php selected('0', $poll_multiple); ?>><?php _e('No', 'wp-polls'); ?></option>
+							<option value="1"<?php if($poll_multiple > 0) { echo ' selected="selected"'; } ?>><?php _e('Yes', 'wp-polls'); ?></option>
+						</select>
+				</tr>
+				<tr>
+					<td width="40%" valign="top"><strong><?php _e('Maximum Number Of Selected Answers Allowed?', 'wp-polls') ?></strong></td>
+					<td width="60%">
+						<select name="pollq_multiple" id="pollq_multiple" size="1" <?php if($poll_multiple == 0) { echo 'disabled="true"'; } ?>>
+							<?php
+								for($i = 1; $i <= $poll_noquestion; $i++) {
+									if($poll_multiple > 0 && $poll_multiple == $i) {
+										echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";
+									} else {
+										echo "<option value=\"$i\">$i</option>\n";
+									}
+								}
+							?>
+						</select>
+					</td>
+				</tr>
 			</table>
 			<!-- Poll Start/End Date -->
 			<h3><?php _e('Poll Start/End Date', 'wp-polls'); ?></h3>

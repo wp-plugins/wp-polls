@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.1 Plugin: WP-Polls 2.15										|
+|	WordPress 2.1 Plugin: WP-Polls 2.20										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -56,7 +56,11 @@ function poll_vote(current_poll_id) {
 		poll_form = document.getElementById('polls_form_' + poll_id);
 		poll_answer = eval("poll_form.poll_" + poll_id);
 		poll_answer_id = "";
-		poll_multiple_ans = parseInt(document.getElementById('poll_multiple_ans').value);
+		if(document.getElementById('poll_multiple_ans')) {
+			poll_multiple_ans = parseInt(document.getElementById('poll_multiple_ans').value);
+		} else {
+			poll_multiple_ans = 0;
+		}
 		poll_multiple_ans_count = 0;
 		if(poll_answer.length != null) {
 			for(i = 0; i < poll_answer.length; i++) {

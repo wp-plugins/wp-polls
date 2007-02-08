@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.1 Plugin: WP-Polls 2.15										|
+|	WordPress 2.1 Plugin: WP-Polls 2.20										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -75,7 +75,7 @@ if(!empty($_POST['do'])) {
 				$pollq_multiple = 0;
 			}
 			// Insert Poll
-			$add_poll_question = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (0, '$pollq_question', '$pollq_timestamp', 0, $pollq_active, '$pollq_expiry', $pollq_multiple)");
+			$add_poll_question = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (0, '$pollq_question', '$pollq_timestamp', 0, $pollq_active, '$pollq_expiry', $pollq_multiple, 0)");
 			if(!$add_poll_question) {
 				$text .= '<p style="color: red;">'.sprintf(__('Error In Adding Poll \'%s\'.', 'wp-polls'), stripslashes($pollq_question)).'</p>';
 			}
