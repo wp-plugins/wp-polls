@@ -92,6 +92,8 @@ function delete_this_poll_logs_message() {
 	document.getElementById('message').style.display = "block";
 	Fat.fade_element("message", null, 3000, "#FFFF00");
 	document.getElementById("poll_logs").innerHTML = "<?php _e('No poll logs available for this poll.', 'wp-polls'); ?>";
+	document.getElementById("poll_logs_display").style.display = 'none';
+	document.getElementById("poll_logs_display_none").style.display = 'block';
 }
 
 // Function: Delete Individual Poll Logs

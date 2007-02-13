@@ -2,7 +2,7 @@
 <html>
 <head>	
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>WP-Polls 2.15 Readme</title>
+	<title>WP-Polls 2.20 Readme</title>
 	<style type="text/css" media="screen">
 		/* Default Style */
 		BODY {
@@ -204,7 +204,7 @@
 <body>
 <div id="Container">
 	<!-- Title -->
-	<div id="Title">WP-Polls 2.15&nbsp;&nbsp;&nbsp;<span style="color: #aaaaaa;">Readme</span></div>
+	<div id="Title">WP-Polls 2.20&nbsp;&nbsp;&nbsp;<span style="color: #aaaaaa;">Readme</span></div>
 
 	<!-- Tabs -->
 	<ul id="Tabs">
@@ -227,7 +227,7 @@
 				<strong>EMail:</strong><br /><strong>&raquo;</strong>
 				<script type="text/javascript">
 					/* <![CDATA[*/
-					document.write(' <a href="mailto:gamerz84@hotmail.com?Subject=WP-Polls%202.15%20Support" title="EMail To gamerz84@hotmail.com">gamerz84@hotmail.com</a>');
+					document.write(' <a href="mailto:gamerz84@hotmail.com?Subject=WP-Polls%202.20%20Support" title="EMail To gamerz84@hotmail.com">gamerz84@hotmail.com</a>');
 					/* ]]> */
 				</script>
 			</p>
@@ -241,7 +241,7 @@
 			</p>
 			<p>
 				<strong>Download:</strong><br />
-				<strong>&raquo;</strong> <a href="http://www.lesterchan.net/others/downloads.php?id=10" title="http://www.lesterchan.net/others/downloads.php?id=10">WP-Polls 2.15 For WordPress 2.1.x</a><br />
+				<strong>&raquo;</strong> <a href="http://www.lesterchan.net/others/downloads.php?id=10" title="http://www.lesterchan.net/others/downloads.php?id=10">WP-Polls 2.20 For WordPress 2.1.x</a><br />
 				<strong>&raquo;</strong> <a href="http://www.lesterchan.net/others/downloads/wp-polls213.zip" title="http://www.lesterchan.net/others/downloads/wp-polls213.zip">WP-Polls 2.13 For WordPress 2.0.x</a><br />
 				<strong>&raquo;</strong> <a href="http://www.lesterchan.net/others/downloads/wp-polls202a.zip" title="http://www.lesterchan.net/others/downloads/wp-polls202a.zip">WP-Polls 2.02a For WordPress 1.5.2</a>
 			</p>
@@ -274,7 +274,7 @@
 				<strong>Note:</strong><br />
 				<strong>&raquo;</strong> The <strong>Changelog</strong>, <strong>Installation</strong>, <strong>Upgrade</strong>, <strong>Usage</strong> Tab at the top of the page.<br />
 				<strong>&raquo;</strong> I have once again change some of the core code to make it work with the future/expired poll. Please post in the support forums if you encounter any bugs.<br />
-				<strong>&raquo;</strong> The administration panel of WP-Polls has undergone a major change. Please post in the support forums if you encounter any bugs.
+				<strong>&raquo;</strong> WP-Polls has undergo major changes to support multiple answers and AJAX for the backend. Please post in the support forums if you encounter any bugs.
 			</p>
 			<p>
 				<strong>Donations:</strong><br />
@@ -292,11 +292,15 @@
 			<div class="SubTitle">&raquo; Changelog</div>
 			<ul>
 				<li>
-					<strong>Version 2.15 (01-05-2007)</strong>
+					<strong>Version 2.20 (01-05-2007)</strong>
 					<ul>
+						<li>NEW: Ability To Allow User To Select More Than 1 Poll Answer</li>
 						<li>NEW: Added AJAX Style Option: "Show Loading Image With Text"</li>
 						<li>NEW: Added AJAX Style Option: "Show Fading In And Fading Out Of Polls"</li>
 						<li>NEW: Major Changes To The Administration Panel For WP-Polls</li>
+						<li>NEW: AJAX Added To The Administration Panel For WP-Polls</li>
+						<li>NEW: Default Poll's Result Template Will Now Show Number Of Votes Beside The Percentage</li>
+						<li>NEW: Term "Total Votes" Changed To "Total Voters". <a href="http://www.lesterchan.net/wordpress/2007/02/09/total-voters-and-total-votes/">Refer To There</a></li>
 						<li>FIXED: Poll Within A Post Will Not Appear In Feed</li>
 					</ul>
 				</li>
@@ -479,7 +483,7 @@
 		<!-- Upgrade Instructions -->	
 		<div id="Upgrade" style="display: none;">
 			<div class="SubTitle">&raquo; Upgrade Instructions</div>
-			<div class="SubSubTitle">From v2.xx To v2.15</div>
+			<div class="SubSubTitle">From v2.xx To v2.20</div>
 			<ol>
 				<li>
 					<strong>Deactivate</strong> WP-Polls Plugin
@@ -644,10 +648,21 @@
 						&lt;?php endif; ?&gt;
 					</blockquote>
 				</li>
+				<li>
+					To Display <strong>Total Poll Voters</strong>
+				</li>
+				<li>
+					Use:
+					<blockquote>
+						&lt;?php if (function_exists('get_pollvoters')): ?&gt;<br />
+						&nbsp;&nbsp;&nbsp;&lt;?php get_pollvoters(); ?&gt;<br />
+						&lt;?php endif; ?&gt;
+					</blockquote>
+				</li>
 			</ul>
 		</div>
 	</div>
 </div>
-<p id="Copyright">WP-Polls 2.15<br />Copyright &copy; 2007 Lester 'GaMerZ' Chan. All Rights Reserved.</p>
+<p id="Copyright">WP-Polls 2.20<br />Copyright &copy; 2007 Lester 'GaMerZ' Chan. All Rights Reserved.</p>
 </body>
 </html>

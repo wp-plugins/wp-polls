@@ -619,11 +619,25 @@ if(!function_exists('get_pollanswers')) {
 if(!function_exists('get_pollvotes')) {
 	function get_pollvotes($display = true) {
 		global $wpdb;
-		$totalpollip = $wpdb->get_var("SELECT COUNT(pollip_id) FROM $wpdb->pollsip");
+		$totalvotes = $wpdb->get_var("SELECT SUM(pollq_totalvotes) FROM $wpdb->pollsq");
 		if($display) {
-			echo number_format($totalpollip);
+			echo number_format($totalvotes);
 		} else {
-			return number_format($totalpollip);
+			return number_format($totalvotes);
+		}
+	}
+}
+
+
+### Function: Get Poll Total Voters
+if(!function_exists('get_pollvoters')) {
+	function get_pollvoters($display = true) {
+		global $wpdb;
+		$totalvoters = $wpdb->get_var("SELECT SUM(pollq_totalvoters) FROM $wpdb->pollsq");
+		if($display) {
+			echo number_format($totalvoters);
+		} else {
+			return number_format($totalvoters);
 		}
 	}
 }

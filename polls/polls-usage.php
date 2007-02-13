@@ -119,6 +119,12 @@ if(!current_user_can('manage_polls')) {
 &nbsp;&nbsp;&nbsp;&lt;?php get_pollvotes(); ?&gt;
 &lt;?php endif; ?&gt;	</pre>
 	</blockquote>
+	<h3><?php _e("To Display Total Poll Voters", 'wp-polls'); ?></h3>
+	<blockquote>
+		<pre class="wp-polls-usage-pre">&lt;?php if (function_exists('get_pollvoters')): ?&gt;
+&nbsp;&nbsp;&nbsp;&lt;?php get_pollvoters(); ?&gt;
+&lt;?php endif; ?&gt;	</pre>
+	</blockquote>
 </div>
 <div class="wrap"> 
 	<h2><?php _e("Note", 'wp-polls'); ?></h2>
