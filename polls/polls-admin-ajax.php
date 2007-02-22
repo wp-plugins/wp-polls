@@ -29,6 +29,9 @@ if(!current_user_can('manage_polls')) {
 
 ### Form Processing 
 if(!empty($_POST['do'])) {
+	// Set Header
+	header('Content-Type: text/html; charset='.get_option('blog_charset').'');
+
 	// Decide What To Do
 	switch($_POST['do']) {
 		// Delete Polls Logs
