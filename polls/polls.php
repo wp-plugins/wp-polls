@@ -564,7 +564,7 @@ if(!function_exists('get_ipaddress')) {
 ### Function: Place Polls Archive In Content
 add_filter('the_content', 'place_pollsarchive', '7');
 function place_pollsarchive($content){
-	$content = preg_replace( "/\[page_polls\]/ise", "polls_archive()", $content); 
+	$content = preg_replace("/\[page_polls\]/ise", "polls_archive()", $content); 
 	return $content;
 }
 
@@ -573,9 +573,9 @@ function place_pollsarchive($content){
 add_filter('the_content', 'place_poll', '7');
 function place_poll($content){
 	if(!is_feed()) {
-		$content = preg_replace( "/\[poll=(\d+)\]/ise", "display_poll('\\1')", $content);
+		$content = preg_replace("/\[poll=(\d+)\]/ise", "display_poll('\\1')", $content);
 	} else {
-		$content = preg_replace( "/\[poll=(\d+)\]/i", __('Note: There is a poll within this post, please visit the site to participate in this post\'s poll.', 'wp-polls'), $content);
+		$content = preg_replace("/\[poll=(\d+)\]/i", __('Note: There is a poll within this post, please visit the site to participate in this post\'s poll.', 'wp-polls'), $content);
 	}
     return $content;
 }
@@ -1178,7 +1178,7 @@ function create_poll_table() {
 	// If Install, Insert 1st Poll Question With 5 Poll Answers
 	if(empty($first_poll)) {
 		// Insert Poll Question (1 Record)
-		$insert_pollq = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (1, '".__('How Is My Site?', 'wp-polls')."', '".current_time('timestamp')."', 0, 1, '');");
+		$insert_pollq = $wpdb->query("INSERT INTO $wpdb->pollsq VALUES (1, '".__('How Is My Site?', 'wp-polls')."', '".current_time('timestamp')."', 0, 1, '', 0, 0);");
 		if($insert_pollq) {
 			// Insert Poll Answers  (5 Records)
 			$wpdb->query("INSERT INTO $wpdb->pollsa VALUES (1, 1, '".__('Good', 'wp-polls')."', 0);");
