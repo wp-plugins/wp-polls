@@ -12,8 +12,6 @@ Adds an AJAX poll system to your WordPress blog. You can also easily add a poll 
 All the information (general, changelog, installation, upgrade, usage) you need about this plugin can be found here: [WP-Polls Readme](http://www.lesterchan.net/wordpress/readme/wp-polls.html "WP-Polls Readme").
 It is the exact same readme.html is included in the zip package.
 
-There is a problem with WordPress Plugins SVN. It will not zip up sub sub folders, use this WP-Polls direct download link: [WP-Polls 2.14](http://www.lesterchan.net/others/downloads.php?id=10 "WP-Polls 2.14")
-
 == Development Blog ==
 
 [GaMerZ WordPress Plugins Development Blog](http://www.lesterchan.net/wordpress/ "GaMerZ WordPress Plugins Development Blog")
