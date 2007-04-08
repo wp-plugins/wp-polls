@@ -1,7 +1,7 @@
 === WP-Polls ===
 Contributors: GamerZ
 Donate link: http://www.lesterchan.net/wordpress
-Tags: poll, polls, polling, vote, booth, democracy, ajax, survey
+Tags: poll, polls, polling, vote, booth, democracy, ajax, survey, post, widget
 Requires at least: 2.1.0
 Stable tag: 2.14
 
