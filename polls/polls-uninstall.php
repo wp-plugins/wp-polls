@@ -33,7 +33,7 @@ $polls_settings = array('poll_template_voteheader', 'poll_template_votebody', 'p
 								'poll_template_disable', 'poll_template_error', 'poll_currentpoll', 'poll_latestpoll', 
 								'poll_archive_perpage', 'poll_ans_sortby', 'poll_ans_sortorder', 'poll_ans_result_sortby', 
 								'poll_ans_result_sortorder', 'poll_logging_method', 'poll_allowtovote', 'poll_archive_show',
-								'poll_archive_url', 'poll_bar', 'poll_close', 'poll_ajax_style');
+								'poll_archive_url', 'poll_bar', 'poll_close', 'poll_ajax_style', 'poll_template_pollarchivelink', 'widget_polls');
 
 ### Form Processing 
 if(!empty($_POST['do'])) {

@@ -682,10 +682,12 @@ function polls_archive_link($page) {
 ### Function: Displays Polls Archive Link
 function display_polls_archive_link($display = true) {
 	if(intval(get_option('poll_archive_show')) == 1) {
+		$template_pollarchivelink = stripslashes(get_option('poll_template_pollarchivelink'));
+		$template_pollarchivelink = str_replace("%POLL_ARCHIVE_URL%", get_option('poll_archive_url'), $template_pollarchivelink);
 		if($display) {
-			echo "<ul>\n<li><a href=\"".get_option('poll_archive_url')."\">".__('Polls Archive', 'wp-polls')."</a></li></ul>\n";
+			echo $template_pollarchivelink;
 		} else{
-			return "<ul>\n<li><a href=\"".get_option('poll_archive_url')."\">".__('Polls Archive', 'wp-polls')."</a></li></ul>\n";
+			return $template_pollarchivelink;
 		}
 	}
 }
@@ -1200,8 +1202,11 @@ function create_poll_table() {
 	// Database Upgrade For WP-Polls 2.14
 	maybe_add_column($wpdb->pollsq, 'pollq_expiry', "ALTER TABLE $wpdb->pollsq ADD pollq_expiry varchar(20) NOT NULL default '';");
 	add_option('poll_close', 1, 'Poll Close');
-	// Database Upgrade For WP-Polls 2.15
+	// Database Upgrade For WP-Polls 2.20
 	add_option('poll_ajax_style', array('loading' => 1, 'fading' => 1), 'Poll AJAX Style');
+	add_option('poll_template_pollarchivelink', '<ul>'.
+	'<li><a href="%POLL_ARCHIVE_URL%">'.__('Polls Archive', 'wp-polls').'</a></li>'.
+	'</ul>', 'Template For Poll Archive Link');
 	maybe_add_column($wpdb->pollsq, 'pollq_multiple', "ALTER TABLE $wpdb->pollsq ADD pollq_multiple TINYINT( 3 ) NOT NULL DEFAULT '0';");
 	$pollq_totalvoters = maybe_add_column($wpdb->pollsq, 'pollq_totalvoters', "ALTER TABLE $wpdb->pollsq ADD pollq_totalvoters INT( 10 ) NOT NULL DEFAULT '0';");
 	if($pollq_totalvoters) {
