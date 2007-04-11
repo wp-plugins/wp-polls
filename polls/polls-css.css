@@ -16,7 +16,10 @@
 */
 
 
-.wp-polls ul li, .wp-polls-ul li, .wp-polls-ans ul li {
+.wp-polls {
+	/* background-color: #ffffff; */
+}
+.wp-polls ul li, wp-polls-ul li, .wp-polls-ans ul li {
 	text-align: left;
 	background-image: none;
 	display: block;
@@ -25,7 +28,7 @@
 	text-align: left;
 	list-style: none;
 }
-.wp-polls ul li:before, .wp-polls-ul li, .wp-polls-ans ul li:before, #sidebar ul ul li:before {
+.wp-polls ul li:before, wp-polls-ul li, .wp-polls-ans ul li:before, #sidebar ul ul li:before {
 	content: '';
 }
 .wp-polls IMG, .wp-polls LABEL , .wp-polls INPUT, .wp-polls-loading IMG, .wp-polls-image IMG {

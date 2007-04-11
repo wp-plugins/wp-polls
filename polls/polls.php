@@ -52,8 +52,9 @@ function poll_menu() {
 	}
 	if (function_exists('add_submenu_page')) {
 		add_submenu_page('polls/polls-manager.php', __('Manage Polls', 'wp-polls'), __('Manage Polls', 'wp-polls'), 'manage_polls', 'polls/polls-manager.php');
-		add_submenu_page('polls/polls-manager.php', __('Add Poll', 'wp-polls'), __('Add Poll', 'wp-polls'), 'manage_polls', 'polls/polls-add.php');
+		add_submenu_page('polls/polls-manager.php', __('Add Poll', 'wp-polls'), __('Add Poll', 'wp-polls'), 'manage_polls', 'polls/polls-add.php');		
 		add_submenu_page('polls/polls-manager.php', __('Poll Options', 'wp-polls'), __('Poll Options', 'wp-polls'), 'manage_polls', 'polls/polls-options.php');
+		add_submenu_page('polls/polls-manager.php', __('Poll Templates', 'wp-polls'), __('Poll Templates', 'wp-polls'), 'manage_polls', 'polls/polls-templates.php');
 		add_submenu_page('polls/polls-manager.php', __('Poll Usage', 'wp-polls'), __('Poll Usage', 'wp-polls'), 'manage_polls', 'polls/polls-usage.php');
 		add_submenu_page('polls/polls-manager.php', __('Uninstall WP-Polls', 'wp-polls'), __('Uninstall WP-Polls', 'wp-polls'), 'manage_polls', 'polls/polls-uninstall.php');
 	}
@@ -322,7 +323,7 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 			$temp_pollvote .= "\t<form id=\"polls_form_$poll_question_id\" action=\"".htmlspecialchars($_SERVER['REQUEST_URI'])."\" method=\"post\">\n";
 			$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" /></p>\n";
 			if($poll_multiple_ans > 0) {
-				$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" id=\"poll_multiple_ans\" name=\"poll_multiple_ans\" value=\"$poll_multiple_ans\" /></p>\n";
+				$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" id=\"poll_multiple_ans_$poll_question_id\" name=\"poll_multiple_ans_$poll_question_id\" value=\"$poll_multiple_ans\" /></p>\n";
 			}
 			// Print Out Voting Form Header Template
 			$temp_pollvote .= "\t\t$template_question\n";
@@ -691,7 +692,7 @@ function display_polls_archive_link($display = true) {
 
 
 ### Function: Display Polls Archive
-function polls_archive($output = 'both') {
+function polls_archive() {
 	global $wpdb, $polls_ips, $in_pollsarchive;
 	// Polls Variables
 	$in_pollsarchive = true;
@@ -704,9 +705,6 @@ function polls_archive($output = 'both') {
 	$poll_voted = false;
 	$poll_voted_aid = 0;
 	$poll_id = 0;
-	$pollsarchive_output_current_title = '';
-	$pollsarchive_output_current = '';
-	$pollsarchive_output_archive_title = '';
 	$pollsarchive_output_archive = '';
 
 	// Get Total Polls
@@ -736,30 +734,8 @@ function polls_archive($output = 'both') {
 	// Determing Total Amount Of Pages
 	$total_pages = ceil($total_polls / $polls_perpage);
 
-	// Make Sure Poll Is Not Disabled
-	if(intval(get_option('poll_currentpoll')) != -1 && $page < 2) {
-		// Hardcoded Poll ID Is Not Specified
-		if(intval($temp_poll_id) == 0) {
-			// Random Poll
-			if(intval(get_option('poll_currentpoll')) == -2) {
-				$random_poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY RAND() LIMIT 1");
-				$poll_id = intval($random_poll_id);
-			// Current Poll ID Is Not Specified
-			} else if(intval(get_option('poll_currentpoll')) == 0) {
-				// Get Lastest Poll ID
-				$poll_id = intval(get_option('poll_latestpoll'));
-			} else {
-				// Get Current Poll ID
-				$poll_id = intval(get_option('poll_currentpoll'));
-			}
-		// Get Hardcoded Poll ID
-		} else {
-			$poll_id = intval($temp_poll_id);
-		}
-	}
-
 	// Get Poll Questions
-	$questions = $wpdb->get_results("SELECT * FROM $wpdb->pollsq WHERE pollq_id != $poll_id AND pollq_active != -1 ORDER BY pollq_id DESC LIMIT $offset, $polls_perpage");
+	$questions = $wpdb->get_results("SELECT * FROM $wpdb->pollsq WHERE pollq_active = 0 ORDER BY pollq_id DESC LIMIT $offset, $polls_perpage");
 	if($questions) {
 		foreach($questions as $question) {
 			$polls_questions[] = array('id' => intval($question->pollq_id), 'question' => stripslashes($question->pollq_question), 'timestamp' => $question->pollq_timestamp, 'totalvotes' => intval($question->pollq_totalvotes), 'start' => $question->pollq_timestamp, 'end' => trim($question->pollq_expiry), 'multiple' => intval($question->pollq_multiple), 'totalvoters' => intval($question->pollq_totalvoters));
@@ -784,31 +760,7 @@ function polls_archive($output = 'both') {
 		}
 	}
 
-	// Current Poll
-	if($page < 2) {
-		$pollsarchive_output_current_title = '<h2>'.__('Current Poll', 'wp-polls').'</h2>'."\n";
-		// Current Poll
-		if(intval(get_option('poll_currentpoll')) == -1) {
-			$pollsarchive_output_current .= get_option('poll_template_disable');
-		} else {
-			// User Click on View Results Link
-			if(intval($_GET['pollresult']) == $poll_id) {
-				$pollsarchive_output_current .= display_pollresult($poll_id);
-			// Check Whether User Has Voted
-			} else {
-				$poll_active = $wpdb->get_var("SELECT pollq_active FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
-				$poll_active = intval($poll_active);
-				$check_voted = check_voted($poll_id);
-				if($check_voted > 0  || $poll_active == 0) {
-					$pollsarchive_output_current .= display_pollresult($poll_id, $check_voted);	
-				} else {
-					$pollsarchive_output_current .= display_pollvote($poll_id);
-				}
-			}
-		}
-	}
 	// Poll Archives
-	$pollsarchive_output_archive_title = "<h2>".__('Polls Archive', 'wp-polls')."</h2>\n";
 	$pollsarchive_output_archive .= "<div class=\"wp-polls\">\n";
 	foreach($polls_questions as $polls_question) {
 		// Most/Least Variables
@@ -973,7 +925,7 @@ function polls_archive($output = 'both') {
 	}
 
 	// Output Polls Archive Page
-	return $pollsarchive_output_current_title.$pollsarchive_output_current.$pollsarchive_output_archive_title.$pollsarchive_output_archive;
+	return $pollsarchive_output_archive;
 }
 
 
@@ -1072,6 +1024,23 @@ function polls_latest_id() {
 	global $wpdb;
 	$poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY pollq_timestamp DESC LIMIT 1");
 	return intval($poll_id);
+}
+
+
+### Check If In Poll Archive Page
+function in_pollarchive() {
+	$poll_archive_url = get_option('poll_archive_url');
+	$poll_archive_url_array = explode('/', $poll_archive_url);
+	$poll_archive_url = $poll_archive_url_array[sizeof($poll_archive_url_array)-1];	
+	if(empty($poll_archive_url)) {
+		$poll_archive_url = $poll_archive_url_array[sizeof($poll_archive_url_array)-2];
+	}
+	$current_url = $_SERVER['REQUEST_URI'];
+	if(strpos($current_url, $poll_archive_url) === false) {
+		return false;
+	} else {
+		return true;
+	}
 }
 
 

@@ -313,6 +313,18 @@ switch($mode) {
 						<td width="20%" align="right"><strong><?php _e('No. Of Votes', 'wp-polls') ?></strong></td>
 					</tr>
 				</thead>
+				<tfoot>
+					<tr>
+						<td width="20%">&nbsp;</td>
+						<td width="60%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
+						<td width="20%" align="right"><strong><?php _e('Total Votes:', 'wp-polls'); ?></strong><strong id="poll_total_votes"><?php echo $poll_actual_totalvotes; ?></strong> <input type="text" size="4" readonly="readonly" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
+					</tr>
+					<tr>
+						<td width="20%">&nbsp;</td>
+						<td width="60%">&nbsp;</td>
+						<td width="20%" align="right"><strong><?php _e('Total Voters:', 'wp-polls'); ?><?php echo $poll_totalvoters; ?></strong> <input type="text" size="4" name="pollq_totalvoters" value="<?php echo $poll_totalvoters; ?>" /></td>
+					</tr>
+				</tfoot>
 				<tbody id="poll_answers">
 					<?php
 						$i=1;
@@ -341,18 +353,6 @@ switch($mode) {
 						}
 					?>
 				</tbody>
-				<tfoot>
-					<tr>
-						<td width="20%">&nbsp;</td>
-						<td width="60%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
-						<td width="20%" align="right"><strong><?php _e('Total Votes:', 'wp-polls'); ?></strong><strong id="poll_total_votes"><?php echo $poll_actual_totalvotes; ?></strong> <input type="text" size="4" readonly="true" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
-					</tr>
-					<tr>
-						<td width="20%">&nbsp;</td>
-						<td width="60%">&nbsp;</td>
-						<td width="20%" align="right"><strong><?php _e('Total Voters:', 'wp-polls'); ?><?php echo $poll_totalvoters; ?></strong> <input type="text" size="4" name="pollq_totalvoters" value="<?php echo $poll_totalvoters; ?>" /></td>
-					</tr>
-				</tfoot>
 			</table>
 			<!-- Poll Multiple Answers -->
 			<h3><?php _e('Poll Multiple Answers', 'wp-polls') ?></h3>
@@ -364,6 +364,7 @@ switch($mode) {
 							<option value="0"<?php selected('0', $poll_multiple); ?>><?php _e('No', 'wp-polls'); ?></option>
 							<option value="1"<?php if($poll_multiple > 0) { echo ' selected="selected"'; } ?>><?php _e('Yes', 'wp-polls'); ?></option>
 						</select>
+					</td>
 				</tr>
 				<tr>
 					<td width="40%" valign="top"><strong><?php _e('Maximum Number Of Selected Answers Allowed?', 'wp-polls') ?></strong></td>
@@ -520,18 +521,26 @@ switch($mode) {
 		<div class="wrap">
 		<h2><?php _e('Manage Polls', 'wp-polls'); ?></h2>
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-			<tr class="thead">
-				<th><?php _e('ID', 'wp-polls'); ?></th>
-				<th><?php _e('Question', 'wp-polls'); ?></th>				
-				<th><?php _e('Total Voters', 'wp-polls'); ?></th>
-				<th><?php _e('Start Date/Time', 'wp-polls'); ?></th>
-				<th><?php _e('End Date/Time', 'wp-polls'); ?></th>
-				<th><?php _e('Status', 'wp-polls'); ?></th>
-				<th colspan="2"><?php _e('Action', 'wp-polls'); ?></th>
-			</tr>
+			<thead>
+				<tr class="thead">
+					<th><?php _e('ID', 'wp-polls'); ?></th>
+					<th><?php _e('Question', 'wp-polls'); ?></th>				
+					<th><?php _e('Total Voters', 'wp-polls'); ?></th>
+					<th><?php _e('Start Date/Time', 'wp-polls'); ?></th>
+					<th><?php _e('End Date/Time', 'wp-polls'); ?></th>
+					<th><?php _e('Status', 'wp-polls'); ?></th>
+					<th colspan="2"><?php _e('Action', 'wp-polls'); ?></th>
+				</tr>
+			</thead>
 			<tbody id="manage_polls">
 				<?php
 					if($polls) {
+						if(function_exists('dynamic_sidebar')) {
+							$options = get_option('widget_polls');
+							$multiple_polls = explode(',', $options['multiple_polls']);
+						} else {
+							$multiple_polls = array();
+						}
 						$i = 0;
 						$current_poll = intval(get_option('poll_currentpoll'));
 						$latest_poll = intval(get_option('poll_latestpoll'));
@@ -561,6 +570,8 @@ switch($mode) {
 								if($poll_id == $latest_poll) {
 									$style = 'style=\'background-color: #b8d4ff;\'';
 								}
+							} else if(in_array($poll_id, $multiple_polls)) {
+								$style = 'style=\'background-color: #b8d4ff;\'';
 							}
 							echo "<tr id=\"poll-$poll_id\" $style>\n";
 							echo "<td><strong>$poll_id</strong></td>\n";
@@ -573,6 +584,8 @@ switch($mode) {
 								if($poll_id == $latest_poll) {
 									echo '<strong>'.__('Displayed:', 'wp-polls').'</strong> ';
 								}
+							} else if(in_array($poll_id, $multiple_polls)) {
+									echo '<strong>'.__('Displayed:', 'wp-polls').'</strong> ';
 							}
 							echo "$poll_question</td>\n";						
 							echo "<td>$poll_totalvoters</td>\n";

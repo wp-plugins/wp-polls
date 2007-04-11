@@ -182,6 +182,12 @@ $count = 0;
 	<!-- Poll Answers -->
 	<h3><?php _e('Poll Answers', 'wp-polls'); ?></h3>
 	<table width="100%"  border="0" cellspacing="3" cellpadding="3">
+		<tfoot>
+			<tr>
+				<td width="20%">&nbsp;</td>
+				<td width="80%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
+			</tr>
+		</tfoot>
 		<tbody id="poll_answers">
 		<?php
 			for($i = 1; $i <= $poll_noquestion; $i++) {
@@ -198,12 +204,6 @@ $count = 0;
 			}
 		?>
 		</tbody>
-		<tfoot>
-			<tr>
-				<td width="20%">&nbsp;</td>
-				<td width="80%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
-			</tr>
-		</tfoot>
 	</table>
 	<!-- Poll Multiple Answers -->
 	<h3><?php _e('Poll Multiple Answers', 'wp-polls') ?></h3>
@@ -215,11 +215,12 @@ $count = 0;
 					<option value="0"><?php _e('No', 'wp-polls'); ?></option>
 					<option value="1"><?php _e('Yes', 'wp-polls'); ?></option>
 				</select>
+			</td>
 		</tr>
 		<tr>
 			<td width="40%" valign="top"><strong><?php _e('Maximum Number Of Selected Answers Allowed?', 'wp-polls') ?></strong></td>
 			<td width="60%">
-				<select name="pollq_multiple" id="pollq_multiple" size="1" disabled="true">
+				<select name="pollq_multiple" id="pollq_multiple" size="1" disabled="disabled">
 					<?php
 						for($i = 1; $i <= $poll_noquestion; $i++) {
 							echo "<option value=\"$i\">$i</option>\n";

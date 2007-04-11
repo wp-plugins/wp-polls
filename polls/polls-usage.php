@@ -31,7 +31,7 @@ if(!current_user_can('manage_polls')) {
 		<li>
 			<?php _e("Add:", 'wp-polls'); ?>
 			<blockquote>
-				<pre class="wp-polls-usage-pre">&lt;?php if (function_exists('vote_poll') &amp;&amp; !$in_pollsarchive): ?&gt;
+				<pre class="wp-polls-usage-pre">&lt;?php if (function_exists('vote_poll') &amp;&amp; !in_pollarchive()): ?&gt;
 &lt;li&gt;
 &nbsp;&nbsp;&nbsp;&lt;h2&gt;Polls&lt;/h2&gt;
 &nbsp;&nbsp;&nbsp;&lt;ul&gt;

@@ -56,8 +56,8 @@ function poll_vote(current_poll_id) {
 		poll_form = document.getElementById('polls_form_' + poll_id);
 		poll_answer = eval("poll_form.poll_" + poll_id);
 		poll_answer_id = "";
-		if(document.getElementById('poll_multiple_ans')) {
-			poll_multiple_ans = parseInt(document.getElementById('poll_multiple_ans').value);
+		if(document.getElementById('poll_multiple_ans_' + poll_id)) {
+			poll_multiple_ans = parseInt(document.getElementById('poll_multiple_ans_' + poll_id).value);
 		} else {
 			poll_multiple_ans = 0;
 		}
