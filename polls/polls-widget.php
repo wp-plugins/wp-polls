@@ -135,7 +135,7 @@ function widget_polls_init() {
 		_e('Display Multiple Polls', 'wp-polls');
 		echo '</option>'."\n";
 		echo '<option value="0">&nbsp;</option>'."\n";
-		$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY pollq_id DESC");
+		$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");
 		if($polls) {
 			foreach($polls as $poll) {
 				$poll_question = stripslashes($poll->pollq_question);
@@ -160,7 +160,7 @@ function widget_polls_init() {
 		echo ': </label>'."\n";
 		echo '<select id="poll_multiplepolls" name="poll_multiplepolls[]" size="5" multiple="true" style="vertical-align: text-top;" $disabled>'."\n";
 		$multiple_polls = explode(',', $options['multiple_polls']);
-		$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY pollq_id DESC");
+		$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");
 		if($polls) {
 			foreach($polls as $poll) {
 				$poll_question = stripslashes($poll->pollq_question);

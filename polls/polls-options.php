@@ -42,6 +42,7 @@ if($_POST['Submit']) {
 	$poll_ans_result_sortby = strip_tags(trim($_POST['poll_ans_result_sortby']));
 	$poll_ans_result_sortorder = strip_tags(trim($_POST['poll_ans_result_sortorder']));
 	$poll_archive_perpage = intval($_POST['poll_archive_perpage']);
+	$poll_archive_displaypoll = intval($_POST['poll_archive_displaypoll']);
 	$poll_archive_url = strip_tags(trim($_POST['poll_archive_url']));
 	$poll_archive_show = intval($_POST['poll_archive_show']);
 	$poll_currentpoll = intval($_POST['poll_currentpoll']);
@@ -57,6 +58,7 @@ if($_POST['Submit']) {
 	$update_poll_queries[] = update_option('poll_ans_result_sortby', $poll_ans_result_sortby);
 	$update_poll_queries[] = update_option('poll_ans_result_sortorder', $poll_ans_result_sortorder);
 	$update_poll_queries[] = update_option('poll_archive_perpage', $poll_archive_perpage);
+	$update_poll_queries[] = update_option('poll_archive_displaypoll', $poll_archive_displaypoll);
 	$update_poll_queries[] = update_option('poll_archive_url', $poll_archive_url);
 	$update_poll_queries[] = update_option('poll_archive_show', $poll_archive_show);
 	$update_poll_queries[] = update_option('poll_currentpoll', $poll_currentpoll);
@@ -69,9 +71,10 @@ if($_POST['Submit']) {
 	$update_poll_text[] = __('Sort Order Of Poll Answers Option', 'wp-polls');
 	$update_poll_text[] = __('Sort Poll Results By Option', 'wp-polls');
 	$update_poll_text[] = __('Sort Order Of Poll Results Option', 'wp-polls');
-	$update_poll_text[] = __('Archive Polls Per Page Option', 'wp-polls');
-	$update_poll_text[] = __('Polls Archive URL Option', 'wp-polls');
-	$update_poll_text[] = __('Show Polls Achive Link Option', 'wp-polls');
+	$update_poll_text[] = __('Number Of Polls Per Page To Display In Poll Archive Option', 'wp-polls');
+	$update_poll_text[] = __('Type Of Polls To Display In Poll Archive Option', 'wp-polls');
+	$update_poll_text[] = __('Poll Archive URL Option', 'wp-polls');
+	$update_poll_text[] = __('Show Poll Achive Link Option', 'wp-polls');
 	$update_poll_text[] = __('Current Active Poll Option', 'wp-polls');
 	$update_poll_text[] = __('Poll Close Option', 'wp-polls');
 	$update_poll_text[] = __('Logging Method', 'wp-polls');
@@ -297,15 +300,25 @@ if($_POST['Submit']) {
 			<legend><?php _e('Poll Archive', 'wp-polls'); ?></legend>
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
 				 <tr valign="top">
-					<th align="left" width="30%"><?php _e('Polls Per Page:', 'wp-polls'); ?></th>
+					<th align="left" width="30%"><?php _e('Number Of Polls Per Page:', 'wp-polls'); ?></th>
 					<td align="left"><input type="text" name="poll_archive_perpage" value="<?php echo intval(get_option('poll_archive_perpage')); ?>" size="2" /></td>
 				</tr>
 				<tr valign="top">
-					<th align="left" width="30%"><?php _e('Polls Archive URL:', 'wp-polls'); ?></th>
+					<th align="left" width="30%"><?php _e('Type Of Polls To Display In Poll Archive:', 'wp-polls'); ?></th>
+					<td align="left">
+						<select name="poll_archive_displaypoll" size="1">
+							<option value="1"<?php selected('1', get_option('poll_archive_displaypoll')); ?>><?php _e('Closed Polls Only', 'wp-polls'); ?></option>
+							<option value="2"<?php selected('2', get_option('poll_archive_displaypoll')); ?>><?php _e('Opened Polls Only', 'wp-polls'); ?></option>
+							<option value="3"<?php selected('3', get_option('poll_archive_displaypoll')); ?>><?php _e('Closed And Opened Polls', 'wp-polls'); ?></option>
+						</select>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th align="left" width="30%"><?php _e('Poll Archive URL:', 'wp-polls'); ?></th>
 					<td align="left"><input type="text" name="poll_archive_url" value="<?php echo get_option('poll_archive_url'); ?>" size="50" /></td>
 				</tr>
 				<tr valign="top">
-					<th align="left" width="30%"><?php _e('Display Polls Archive Link Below Poll?', 'wp-polls'); ?></th>
+					<th align="left" width="30%"><?php _e('Display Poll Archive Link Below Poll?', 'wp-polls'); ?></th>
 					<td align="left">
 						<select name="poll_archive_show" size="1">
 							<option value="0"<?php selected('0', get_option('poll_archive_show')); ?>><?php _e('No', 'wp-polls'); ?></option>
@@ -314,7 +327,7 @@ if($_POST['Submit']) {
 					</td>
 				</tr>
 				<tr valign="top">
-					<th align="left" colspan="2"><em><?php _e('Note: Only polls that are closed will be shown in the Poll Archive.', 'wp-polls'); ?></em></th>
+					<th align="left" colspan="2"><em><?php _e('Note: Only polls\' results will be shown in the Poll Archive regardless of whether the poll is closed or opened.', 'wp-polls'); ?></em></th>
 				</tr>
 			</table>
 		</fieldset>
@@ -333,7 +346,7 @@ if($_POST['Submit']) {
 							<?php } ?>
 							<option value="0">&nbsp;</option>
 							<?php
-								$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY pollq_id DESC");
+								$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");
 								if($polls) {
 									foreach($polls as $poll) {
 										$poll_question = stripslashes($poll->pollq_question);

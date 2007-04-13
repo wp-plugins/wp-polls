@@ -708,9 +708,22 @@ function polls_archive() {
 	$poll_voted_aid = 0;
 	$poll_id = 0;
 	$pollsarchive_output_archive = '';
-
+	$polls_type = intval(get_option('poll_archive_displaypoll'));
+	$polls_type_sql = '';
+	// Determine What Type Of Polls To Show
+	switch($polls_type) {
+		case 1:
+			$polls_type_sql = 'pollq_active = 0';
+			break;
+		case 2:
+			$polls_type_sql = 'pollq_active = 1';
+			break;
+		case 3:
+			$polls_type_sql = 'pollq_active IN (0,1)';
+			break;
+	}
 	// Get Total Polls
-	$total_polls = $wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq WHERE pollq_timestamp <= '".current_time('timestamp')."'");
+	$total_polls = $wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq WHERE $polls_type_sql AND pollq_active != -1");
 
 	// Checking $page and $offset
 	if (empty($page) || $page == 0) { $page = 1; }
@@ -737,7 +750,7 @@ function polls_archive() {
 	$total_pages = ceil($total_polls / $polls_perpage);
 
 	// Get Poll Questions
-	$questions = $wpdb->get_results("SELECT * FROM $wpdb->pollsq WHERE pollq_active = 0 ORDER BY pollq_id DESC LIMIT $offset, $polls_perpage");
+	$questions = $wpdb->get_results("SELECT * FROM $wpdb->pollsq WHERE $polls_type_sql ORDER BY pollq_id DESC LIMIT $offset, $polls_perpage");
 	if($questions) {
 		foreach($questions as $question) {
 			$polls_questions[] = array('id' => intval($question->pollq_id), 'question' => stripslashes($question->pollq_question), 'timestamp' => $question->pollq_timestamp, 'totalvotes' => intval($question->pollq_totalvotes), 'start' => $question->pollq_timestamp, 'end' => trim($question->pollq_expiry), 'multiple' => intval($question->pollq_multiple), 'totalvoters' => intval($question->pollq_totalvoters));
@@ -783,6 +796,8 @@ function polls_archive() {
 			} else {
 				$poll_end_date  = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $polls_question['end']));
 			}
+		// Archive Poll Header
+		$template_archive_header = stripslashes(get_option('poll_template_pollarchiveheader'));
 		// Poll Question Variables
 		$template_question = stripslashes(get_option('poll_template_resultheader'));
 		$template_question = str_replace("%POLL_QUESTION%", $polls_question['question'], $template_question);
@@ -797,6 +812,7 @@ function polls_archive() {
 			$template_question = str_replace("%POLL_MULTIPLE_ANS_MAX%", '1', $template_question);
 		}
 		// Print Out Result Header Template
+		$pollsarchive_output_archive .= $template_archive_header;
 		$pollsarchive_output_archive .= $template_question;
 		foreach($polls_answers as $polls_answer) {
 			if($polls_question['id'] == $polls_answer['qid']) {
@@ -873,8 +889,27 @@ function polls_archive() {
 		} else {
 			$template_footer  = str_replace("%POLL_MULTIPLE_ANS_MAX%", '1', $template_footer);
 		}
+		// Archive Poll Footer
+		$template_archive_footer = stripslashes(get_option('poll_template_pollarchivefooter'));
+		$template_archive_footer = str_replace("%POLL_START_DATE%", $poll_start_date, $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_END_DATE%", $poll_end_date, $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_TOTALVOTES%", $polls_question['totalvotes'], $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_TOTALVOTERS%", $polls_question['totalvoters'], $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_MOST_ANSWER%", $poll_most_answer, $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_MOST_VOTES%", number_format($poll_most_votes), $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_MOST_PERCENTAGE%", $poll_most_percentage, $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_LEAST_ANSWER%", $poll_least_answer, $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_LEAST_VOTES%", number_format($poll_least_votes), $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_LEAST_PERCENTAGE%", $poll_least_percentage, $template_archive_footer);
+		if($polls_question['multiple'] > 0) {
+			$template_archive_footer  = str_replace("%POLL_MULTIPLE_ANS_MAX%", $polls_question['multiple'], $template_archive_footer);
+		} else {
+			$template_archive_footer  = str_replace("%POLL_MULTIPLE_ANS_MAX%", '1', $template_archive_footer);
+		}
 		// Print Out Results Footer Template
 		$pollsarchive_output_archive .= $template_footer;
+		// Print Out Archive Poll Footer Template
+		$pollsarchive_output_archive .= $template_archive_footer;
 	}
 	$pollsarchive_output_archive .= "</div>\n";
 
@@ -1207,6 +1242,9 @@ function create_poll_table() {
 	add_option('poll_template_pollarchivelink', '<ul>'.
 	'<li><a href="%POLL_ARCHIVE_URL%">'.__('Polls Archive', 'wp-polls').'</a></li>'.
 	'</ul>', 'Template For Poll Archive Link');
+	add_option('poll_archive_displaypoll', 2, 'Type Of Polls To Display In Polls Archive');
+	add_option('poll_archive_pollarchiveheader', '', 'Displayed Before Each Poll In The Poll Archive');
+	add_option('poll_archive_pollarchivefooter', '<p>Start Date: %POLL_START_DATE%<br />End Date: %POLL_END_DATE%</p>', 'Displayed After Each Poll In The Poll Archive');
 	maybe_add_column($wpdb->pollsq, 'pollq_multiple', "ALTER TABLE $wpdb->pollsq ADD pollq_multiple TINYINT( 3 ) NOT NULL DEFAULT '0';");
 	$pollq_totalvoters = maybe_add_column($wpdb->pollsq, 'pollq_totalvoters', "ALTER TABLE $wpdb->pollsq ADD pollq_totalvoters INT( 10 ) NOT NULL DEFAULT '0';");
 	if($pollq_totalvoters) {
