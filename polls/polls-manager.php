@@ -149,6 +149,13 @@ if(!empty($_POST['do'])) {
 
 ### Determines Which Mode It Is
 switch($mode) {
+	// Poll Logging
+	case 'logs':
+		require('polls-logs.php');
+		break;
+?>
+	<?php
+		break;
 	// Edit A Poll
 	case 'edit':
 		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_timestamp, pollq_totalvotes, pollq_active, pollq_expiry, pollq_multiple, pollq_totalvoters FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
@@ -436,75 +443,6 @@ switch($mode) {
 			</p>
 		</div>
 		</form>
-		<!-- Users Voted For This Poll -->
-		<?php
-			$poll_ips = $wpdb->get_results("SELECT pollip_aid, pollip_ip, pollip_host, pollip_timestamp, pollip_user FROM $wpdb->pollsip WHERE pollip_qid = $poll_id ORDER BY pollip_aid ASC, pollip_user ASC");
-		?>
-		<div class="wrap">
-			<h2><?php _e('Users Voted For This Poll', 'wp-polls') ?></h2>
-			<div id="poll_logs_display">
-					<?php
-						if($poll_ips) {
-							echo '<table width="100%"  border="0" cellspacing="3" cellpadding="3">'."\n";
-							$k = 1;
-							$poll_last_aid = -1;
-							foreach($poll_ips as $poll_ip) {
-								$pollip_aid = intval($poll_ip->pollip_aid);
-								$pollip_user = stripslashes($poll_ip->pollip_user);
-								$pollip_ip = $poll_ip->pollip_ip;
-								$pollip_host = $poll_ip->pollip_host;
-								$pollip_date = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_ip->pollip_timestamp));
-								if($pollip_aid != $poll_last_aid) {
-									if($pollip_aid == 0) {
-										echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><strong>$pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
-									} else {
-										echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><strong>".__('Answer', 'wp-polls')." $k: $pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
-										$k++;
-									}
-									echo "<tr class=\"thead\">\n";
-									echo "<th>".__('No.', 'wp-polls')."</th>\n";
-									echo "<th>".__('User', 'wp-polls')."</th>\n";
-									echo "<th>".__('IP/Host', 'wp-polls')."</th>\n";
-									echo "<th>".__('Date', 'wp-polls')."</th>\n";
-									echo "</tr>\n";
-									$i = 1;
-								}
-								if($i%2 == 0) {
-									$style = 'style=\'background-color: none\'';
-								}  else {
-									$style = 'style=\'background-color: #eee\'';
-								}
-								echo "<tr $style>\n";
-								echo "<td>$i</td>\n";
-								echo "<td>$pollip_user</td>\n";
-								echo "<td>$pollip_ip / $pollip_host</td>\n";
-								echo "<td>$pollip_date</td>\n";
-								echo "</tr>\n";
-								$poll_last_aid = $pollip_aid;
-								$i++;
-							}
-							echo '</table>'."\n";
-						}
-					?>
-			</div>
-			<div id="poll_logs_display_none" style="text-align: center; display: <?php if(!$poll_ips) { echo 'block'; } else { echo 'none'; } ?>;" ><?php _e('No poll logs available for this poll.', 'wp-polls'); ?></div>
-		</div>
-		<!-- Delete Poll Logs -->
-		<div class="wrap">
-			<h2><?php _e('Poll Logs', 'wp-polls'); ?></h2>
-			<div align="center" id="poll_logs">
-				<?php if($poll_ips) { ?>
-					<strong><?php _e('Are You Sure You Want To Delete Logs For This Poll Only?', 'wp-polls'); ?></strong><br /><br />
-					<input type="checkbox" id="delete_logs_yes" name="delete_logs_yes" value="yes" />&nbsp;<?php _e('Yes', 'wp-polls'); ?><br /><br />
-					<input type="button" name="do" value="<?php _e('Delete Logs For This Poll Only', 'wp-polls'); ?>" class="button" onclick="delete_this_poll_logs(<?php echo $poll_id; ?>, '<?php printf(js_escape(__('You are about to delete poll logs for this poll \'%s\' ONLY. This action is not reversible.', 'wp-polls')), htmlspecialchars($poll_question_text)); ?>');" />
-				<?php 
-					} else {
-						_e('No poll logs available for this poll.', 'wp-polls');
-					}
-				?>
-			</div>
-			<p><?php _e('Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer.', 'wp-polls'); ?></p>
-		</div>
 <?php
 		break;
 	// Main Page
@@ -529,7 +467,7 @@ switch($mode) {
 					<th><?php _e('Start Date/Time', 'wp-polls'); ?></th>
 					<th><?php _e('End Date/Time', 'wp-polls'); ?></th>
 					<th><?php _e('Status', 'wp-polls'); ?></th>
-					<th colspan="2"><?php _e('Action', 'wp-polls'); ?></th>
+					<th colspan="3"><?php _e('Action', 'wp-polls'); ?></th>
 				</tr>
 			</thead>
 			<tbody id="manage_polls">
@@ -600,8 +538,9 @@ switch($mode) {
 								_e('Closed', 'wp-polls');
 							}
 							echo "</td>\n";
-							echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit')."</a></td>\n";
-							echo "<td><a href=\"#DeletePoll\" onclick=\"delete_poll($poll_id, '".sprintf(js_escape(__('You are about to delete this poll, \'%s\'.', 'wp-polls')), $poll_question)."')\" class=\"delete\">".__('Delete')."</a></td>\n";
+							echo "<td><a href=\"$base_page&amp;mode=logs&amp;id=$poll_id\" class=\"edit\">".__('Logs', 'wp-polls')."</a></td>\n";
+							echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit', 'wp-polls')."</a></td>\n";
+							echo "<td><a href=\"#DeletePoll\" onclick=\"delete_poll($poll_id, '".sprintf(js_escape(__('You are about to delete this poll, \'%s\'.', 'wp-polls')), $poll_question)."')\" class=\"delete\">".__('Delete', 'wp-polls')."</a></td>\n";
 							echo '</tr>';
 							$i++;
 							$total_votes+= $poll_totalvotes;
@@ -609,7 +548,7 @@ switch($mode) {
 							
 						}
 					} else {
-						echo '<tr><td colspan="7" align="center"><strong>'.__('No Polls Found', 'wp-polls').'</strong></td></tr>';
+						echo '<tr><td colspan="9" align="center"><strong>'.__('No Polls Found', 'wp-polls').'</strong></td></tr>';
 					}
 				?>
 			</tbody>

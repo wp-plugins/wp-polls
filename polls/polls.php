@@ -453,7 +453,7 @@ function display_pollresult($poll_id, $user_voted = '', $without_poll_title = fa
 			// Calculate Percentage And Image Bar Width
 			if(!$poll_totalvotes_zero) {
 				if($poll_answer_votes > 0) {
-					$poll_answer_percentage = round((($poll_answer_votes/$poll_question_totalvotes)*100));
+					$poll_answer_percentage = round((($poll_answer_votes/$poll_question_totalvoters)*100));
 					$poll_answer_imagewidth = round($poll_answer_percentage);
 					if($poll_answer_imagewidth == 100) {
 						$poll_answer_imagewidth = 99;
@@ -819,7 +819,7 @@ function polls_archive() {
 				// Calculate Percentage And Image Bar Width
 				if(!$poll_totalvotes_zero) {
 					if($polls_answer['votes'] > 0) {
-						$poll_answer_percentage = round((($polls_answer['votes']/$polls_question['totalvotes'])*100));
+						$poll_answer_percentage = round((($polls_answer['votes']/$polls_question['totalvoters'])*100));
 						$poll_answer_imagewidth = round($poll_answer_percentage*0.9);
 					} else {
 						$poll_answer_percentage = 0;
