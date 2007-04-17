@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.20\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-04-18 01:09+0800\n"
+"PO-Revision-Date: 2007-04-18 01:19+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -62,17 +62,17 @@ msgid "Poll Answers"
 msgstr ""
 
 #: polls-add.php:188
-#: polls-manager.php:326
+#: polls-manager.php:354
 msgid "Add Answer"
 msgstr ""
 
 #: polls-add.php:188
-#: polls-manager.php:326
+#: polls-manager.php:354
 msgid "Remove Answer"
 msgstr ""
 
 #: polls-add.php:200
-#: polls-manager.php:353
+#: polls-manager.php:341
 #, php-format
 msgid "Answer %s:"
 msgstr ""
@@ -452,27 +452,27 @@ msgstr ""
 msgid "No. Of Votes"
 msgstr ""
 
-#: polls-manager.php:327
-msgid "Total Votes:"
-msgstr ""
-
-#: polls-manager.php:332
-#: polls-manager.php:574
-msgid "Total Voters:"
-msgstr ""
-
-#: polls-manager.php:341
+#: polls-manager.php:329
 msgid "Null Votes"
 msgstr ""
 
-#: polls-manager.php:355
+#: polls-manager.php:343
 #: polls-manager.php:543
 msgid "Delete"
 msgstr ""
 
-#: polls-manager.php:355
+#: polls-manager.php:343
 #, php-format
 msgid "You are about to delete this poll's answer '%s'."
+msgstr ""
+
+#: polls-manager.php:355
+msgid "Total Votes:"
+msgstr ""
+
+#: polls-manager.php:360
+#: polls-manager.php:574
+msgid "Total Voters:"
 msgstr ""
 
 #: polls-manager.php:397

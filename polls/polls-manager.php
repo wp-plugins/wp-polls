@@ -320,18 +320,6 @@ switch($mode) {
 						<td width="20%" align="right"><strong><?php _e('No. Of Votes', 'wp-polls') ?></strong></td>
 					</tr>
 				</thead>
-				<tfoot>
-					<tr>
-						<td width="20%">&nbsp;</td>
-						<td width="60%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
-						<td width="20%" align="right"><strong><?php _e('Total Votes:', 'wp-polls'); ?></strong><strong id="poll_total_votes"><?php echo $poll_actual_totalvotes; ?></strong> <input type="text" size="4" readonly="readonly" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
-					</tr>
-					<tr>
-						<td width="20%">&nbsp;</td>
-						<td width="60%">&nbsp;</td>
-						<td width="20%" align="right"><strong><?php _e('Total Voters:', 'wp-polls'); ?><?php echo $poll_totalvoters; ?></strong> <input type="text" size="4" name="pollq_totalvoters" value="<?php echo $poll_totalvoters; ?>" /></td>
-					</tr>
-				</tfoot>
 				<tbody id="poll_answers">
 					<?php
 						$i=1;
@@ -359,6 +347,18 @@ switch($mode) {
 							}
 						}
 					?>
+				</tbody>
+				<tbody>
+					<tr>
+						<td width="20%">&nbsp;</td>
+						<td width="60%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
+						<td width="20%" align="right"><strong><?php _e('Total Votes:', 'wp-polls'); ?></strong><strong id="poll_total_votes"><?php echo $poll_actual_totalvotes; ?></strong> <input type="text" size="4" readonly="readonly" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
+					</tr>
+					<tr>
+						<td width="20%">&nbsp;</td>
+						<td width="60%">&nbsp;</td>
+						<td width="20%" align="right"><strong><?php _e('Total Voters:', 'wp-polls'); ?><?php echo $poll_totalvoters; ?></strong> <input type="text" size="4" name="pollq_totalvoters" value="<?php echo $poll_totalvoters; ?>" /></td>
+					</tr>
 				</tbody>
 			</table>
 			<!-- Poll Multiple Answers -->
