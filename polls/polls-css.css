@@ -16,7 +16,7 @@
 */
 
 
-.wp-polls {
+.wp-polls, .wp-polls-form {
 	/* background-color: #ffffff; */
 }
 .wp-polls ul li, wp-polls-ul li, .wp-polls-ans ul li {

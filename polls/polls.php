@@ -320,7 +320,7 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 		// Display Poll Voting Form
 		if(!$without_poll_title) {
 			$temp_pollvote .= "<div id=\"polls-$poll_question_id\" class=\"wp-polls\">\n";
-			$temp_pollvote .= "\t<form id=\"polls_form_$poll_question_id\" action=\"".htmlspecialchars($_SERVER['REQUEST_URI'])."\" method=\"post\">\n";
+			$temp_pollvote .= "\t<form id=\"polls_form_$poll_question_id\" class=\"wp-polls-form\" action=\"".htmlspecialchars($_SERVER['REQUEST_URI'])."\" method=\"post\">\n";
 			$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" /></p>\n";
 			if($poll_multiple_ans > 0) {
 				$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" id=\"poll_multiple_ans_$poll_question_id\" name=\"poll_multiple_ans_$poll_question_id\" value=\"$poll_multiple_ans\" /></p>\n";
