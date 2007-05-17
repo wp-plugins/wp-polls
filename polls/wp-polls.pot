@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.20\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-04-18 01:19+0800\n"
+"PO-Revision-Date: 2007-05-17 23:42+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,8 @@ msgid "Poll '%s' Added Successfully."
 msgstr ""
 
 #: polls-add.php:123
-#: polls-logs.php:170
+#: polls-logs.php:291
+#: polls-logs.php:334
 #: polls-manager.php:236
 msgid "Answer"
 msgstr ""
@@ -97,7 +98,7 @@ msgid "No"
 msgstr ""
 
 #: polls-add.php:216
-#: polls-logs.php:208
+#: polls-logs.php:381
 #: polls-manager.php:372
 #: polls-manager.php:588
 #: polls-options.php:205
@@ -154,7 +155,7 @@ msgstr ""
 
 #: polls-admin-ajax.php:49
 #: polls-admin-js.php:106
-#: polls-logs.php:209
+#: polls-logs.php:382
 msgid "Delete Logs For This Poll Only"
 msgstr ""
 
@@ -240,8 +241,8 @@ msgid "Please check the 'Yes' checkbox if you want to delete all logs."
 msgstr ""
 
 #: polls-admin-js.php:94
-#: polls-logs.php:199
-#: polls-logs.php:212
+#: polls-logs.php:371
+#: polls-logs.php:385
 msgid "No poll logs available for this poll."
 msgstr ""
 
@@ -261,137 +262,176 @@ msgstr ""
 msgid "Maximum number of choices allowed:"
 msgstr ""
 
-#: polls-logs.php:31
-#: polls-logs.php:32
-#: polls-logs.php:35
+#: polls-logs.php:33
+#: polls-logs.php:34
+#: polls-logs.php:37
+#: polls-logs.php:65
+#: polls-logs.php:69
+#: polls-logs.php:102
+#: polls-logs.php:105
 msgid "Guest"
 msgstr ""
 
-#: polls-logs.php:38
+#: polls-logs.php:123
 msgid "Poll's Logs"
 msgstr ""
 
-#: polls-logs.php:41
+#: polls-logs.php:126
 #, php-format
 msgid "There are a total of <strong>%s</strong> recorded votes for this poll."
 msgstr ""
 
-#: polls-logs.php:42
+#: polls-logs.php:127
 #, php-format
 msgid "<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by registered users"
 msgstr ""
 
-#: polls-logs.php:43
+#: polls-logs.php:128
 #, php-format
 msgid "<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by comment authors"
 msgstr ""
 
-#: polls-logs.php:44
+#: polls-logs.php:129
 #, php-format
 msgid "<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by guests"
 msgstr ""
 
-#: polls-logs.php:55
+#: polls-logs.php:134
 msgid "Filter Poll's Logs"
 msgstr ""
 
-#: polls-logs.php:60
+#: polls-logs.php:143
 msgid "Display All Users That Voted For:"
 msgstr ""
 
-#: polls-logs.php:76
-#: polls-logs.php:139
-msgid "Voters To Include"
+#: polls-logs.php:166
+#: polls-logs.php:217
+msgid "Voters To EXCLUDE"
 msgstr ""
 
-#: polls-logs.php:79
-#: polls-logs.php:142
+#: polls-logs.php:169
+#: polls-logs.php:220
 msgid "Registered Users"
 msgstr ""
 
-#: polls-logs.php:80
-#: polls-logs.php:143
+#: polls-logs.php:170
+#: polls-logs.php:221
 msgid "Comment Authors"
 msgstr ""
 
-#: polls-logs.php:81
-#: polls-logs.php:144
+#: polls-logs.php:171
 msgid "Guests"
 msgstr ""
 
-#: polls-logs.php:85
-#: polls-logs.php:106
-#: polls-logs.php:148
+#: polls-logs.php:175
+#: polls-logs.php:226
+#: polls-logs.php:262
 msgid "Filter"
 msgstr ""
 
-#: polls-logs.php:91
-msgid "Display What This User Has Voted:"
-msgstr ""
-
-#: polls-logs.php:113
+#: polls-logs.php:187
 msgid "Display Users That Voted For: "
 msgstr ""
 
-#: polls-logs.php:117
+#: polls-logs.php:191
 msgid "More Than"
 msgstr ""
 
-#: polls-logs.php:118
+#: polls-logs.php:192
 msgid "More Than Or Exactly"
 msgstr ""
 
-#: polls-logs.php:119
+#: polls-logs.php:193
 msgid "Exactly"
 msgstr ""
 
-#: polls-logs.php:120
+#: polls-logs.php:194
 msgid "Less Than Or Exactly"
 msgstr ""
 
-#: polls-logs.php:121
+#: polls-logs.php:195
 msgid "Less Than"
 msgstr ""
 
-#: polls-logs.php:128
-msgid "1 Choice"
+#: polls-logs.php:202
+msgid "1 Answer"
 msgstr ""
 
-#: polls-logs.php:130
+#: polls-logs.php:205
+#: polls-logs.php:207
 #, php-format
-msgid "%s Choices"
+msgid "%s Answers"
 msgstr ""
 
-#: polls-logs.php:174
-msgid "No."
+#: polls-logs.php:222
+msgid "Guest will automatically be excluded"
 msgstr ""
 
-#: polls-logs.php:175
-msgid "User"
+#: polls-logs.php:243
+msgid "Display What This User Has Voted:"
 msgstr ""
 
-#: polls-logs.php:176
-msgid "IP/Host"
+#: polls-logs.php:271
+msgid "Clear Filter"
 msgstr ""
 
-#: polls-logs.php:177
-msgid "Date"
-msgstr ""
-
-#: polls-logs.php:204
+#: polls-logs.php:278
 msgid "Poll Logs"
 msgstr ""
 
-#: polls-logs.php:207
+#: polls-logs.php:283
+msgid "This default filter is limited to display only <strong>100</strong> records."
+msgstr ""
+
+#: polls-logs.php:292
+msgid "IP"
+msgstr ""
+
+#: polls-logs.php:293
+msgid "Host"
+msgstr ""
+
+#: polls-logs.php:294
+#: polls-logs.php:341
+msgid "Date"
+msgstr ""
+
+#: polls-logs.php:309
+#: polls-logs.php:339
+msgid "User"
+msgstr ""
+
+#: polls-logs.php:338
+msgid "No."
+msgstr ""
+
+#: polls-logs.php:340
+msgid "IP/Host"
+msgstr ""
+
+#: polls-logs.php:362
+#, php-format
+msgid "Total number of records that matches this filter: <strong>%s</strong>"
+msgstr ""
+
+#: polls-logs.php:369
+msgid "No poll logs matches the filter."
+msgstr ""
+
+#: polls-logs.php:377
+msgid "Delete Poll Logs"
+msgstr ""
+
+#: polls-logs.php:380
 msgid "Are You Sure You Want To Delete Logs For This Poll Only?"
 msgstr ""
 
-#: polls-logs.php:209
+#: polls-logs.php:382
 #, php-format
 msgid "You are about to delete poll logs for this poll '%s' ONLY. This action is not reversible."
 msgstr ""
 
-#: polls-logs.php:216
+#: polls-logs.php:389
 msgid "Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer."
 msgstr ""
 
