@@ -1243,8 +1243,8 @@ function create_poll_table() {
 	'<li><a href="%POLL_ARCHIVE_URL%">'.__('Polls Archive', 'wp-polls').'</a></li>'.
 	'</ul>', 'Template For Poll Archive Link');
 	add_option('poll_archive_displaypoll', 2, 'Type Of Polls To Display In Polls Archive');
-	add_option('poll_archive_pollarchiveheader', '', 'Displayed Before Each Poll In The Poll Archive');
-	add_option('poll_archive_pollarchivefooter', '<p>Start Date: %POLL_START_DATE%<br />End Date: %POLL_END_DATE%</p>', 'Displayed After Each Poll In The Poll Archive');
+	add_option('poll_template_pollarchiveheader', '', 'Displayed Before Each Poll In The Poll Archive');
+	add_option('poll_template_pollarchivefooter', '<p>Start Date: %POLL_START_DATE%<br />End Date: %POLL_END_DATE%</p>', 'Displayed After Each Poll In The Poll Archive');
 	maybe_add_column($wpdb->pollsq, 'pollq_multiple', "ALTER TABLE $wpdb->pollsq ADD pollq_multiple TINYINT( 3 ) NOT NULL DEFAULT '0';");
 	$pollq_totalvoters = maybe_add_column($wpdb->pollsq, 'pollq_totalvoters', "ALTER TABLE $wpdb->pollsq ADD pollq_totalvoters INT( 10 ) NOT NULL DEFAULT '0';");
 	if($pollq_totalvoters) {
