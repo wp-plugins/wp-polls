@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.20\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-05-23 15:09+0800\n"
+"PO-Revision-Date: 2007-05-31 19:39+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -364,7 +364,7 @@ msgid "%s Answers"
 msgstr ""
 
 #: polls-logs.php:222
-msgid "Guest will automatically be excluded"
+msgid "Guests will automatically be excluded"
 msgstr ""
 
 #: polls-logs.php:243

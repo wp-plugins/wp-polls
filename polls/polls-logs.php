@@ -219,7 +219,7 @@ if(!empty($_POST['do'])) {
 							<td>
 								<input type="checkbox" id="exclude_registered_2" name="exclude_registered_2" value="1" <?php checked('1', $exclude_registered_2); ?> />&nbsp;<label for="exclude_registered_2"><?php _e('Registered Users', 'wp-polls'); ?></label><br />
 								<input type="checkbox" id="exclude_comment_2" name="exclude_comment_2" value="1" <?php checked('1', $exclude_comment_2); ?> />&nbsp;<label for="exclude_comment_2"><?php _e('Comment Authors', 'wp-polls'); ?></label><br />
-								<?php _e('Guest will automatically be excluded', 'wp-polls'); ?>
+								<?php _e('Guests will automatically be excluded', 'wp-polls'); ?>
 							</td>
 						</tr>
 						<tr>
