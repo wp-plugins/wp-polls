@@ -1124,7 +1124,7 @@ function vote_poll() {
 					exit();	
 				} // End if($vote_a)
 			} else {
-				echo __('You Had Already Voted For This Poll. Poll ID #%s', 'wp-polls');
+				printf(__('You Had Already Voted For This Poll. Poll ID #%s', 'wp-polls'), $poll_id);
 				exit();
 			}// End if($check_voted)
 		} else {
