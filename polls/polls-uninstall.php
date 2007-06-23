@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.1 Plugin: WP-Polls 2.20										|
+|	WordPress 2.1 Plugin: WP-Polls 2.21										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -28,12 +28,8 @@ $base_name = plugin_basename('polls/polls-manager.php');
 $base_page = 'admin.php?page='.$base_name;
 $mode = trim($_GET['mode']);
 $polls_tables = array($wpdb->pollsq, $wpdb->pollsa, $wpdb->pollsip);
-$polls_settings = array('poll_template_voteheader', 'poll_template_votebody', 'poll_template_votefooter', 'poll_template_resultheader',
-								'poll_template_resultbody', 'poll_template_resultbody2', 'poll_template_resultfooter', 'poll_template_resultfooter2', 
-								'poll_template_disable', 'poll_template_error', 'poll_currentpoll', 'poll_latestpoll', 
-								'poll_archive_perpage', 'poll_ans_sortby', 'poll_ans_sortorder', 'poll_ans_result_sortby', 
-								'poll_ans_result_sortorder', 'poll_logging_method', 'poll_allowtovote', 'poll_archive_show',
-								'poll_archive_url', 'poll_bar', 'poll_close', 'poll_ajax_style', 'poll_template_pollarchivelink', 'widget_polls', 'poll_archive_displaypoll', 'poll_archive_pollarchiveheader', 'poll_archive_pollarchivefooter');
+$polls_settings = array('poll_template_voteheader', 'poll_template_votebody', 'poll_template_votefooter', 'poll_template_resultheader', 'poll_template_resultbody', 'poll_template_resultbody2', 'poll_template_resultfooter', 'poll_template_resultfooter2',  'poll_template_disable', 'poll_template_error', 'poll_currentpoll', 'poll_latestpoll', 'poll_archive_perpage', 'poll_ans_sortby', 'poll_ans_sortorder', 'poll_ans_result_sortby', 'poll_ans_result_sortorder', 'poll_logging_method', 'poll_allowtovote', 'poll_archive_show', 'poll_archive_url', 'poll_bar', 'poll_close', 'poll_ajax_style', 'poll_template_pollarchivelink', 'widget_polls', 'poll_archive_displaypoll', 'poll_template_pollarchiveheader', 'poll_template_pollarchivefooter');
+
 
 ### Form Processing 
 if(!empty($_POST['do'])) {
@@ -77,7 +73,7 @@ if(!empty($_POST['do'])) {
 switch($mode) {
 		//  Deactivating WP-Polls (By: Philippe Corbes)
 		case 'end-UNINSTALL':
-			$deactivate_url = "plugins.php?action=deactivate&amp;plugin=polls/polls.php";
+			$deactivate_url = 'plugins.php?action=deactivate&amp;plugin=polls/polls.php';
 			if(function_exists('wp_nonce_url')) { 
 				$deactivate_url = wp_nonce_url($deactivate_url, 'deactivate-plugin_polls/polls.php');
 			}

@@ -3,7 +3,7 @@
 Plugin Name: WP-Polls Widget
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Adds a Poll Widget to display single or multiple polls from WP-Polls Plugin. You will need to activate WP-Polls first.
-Version: 2.20
+Version: 2.21
 Author: Lester 'GaMerZ' Chan
 Author URI: http://www.lesterchan.net
 */
@@ -66,7 +66,7 @@ function widget_polls_init() {
 		if ($_POST['polls-submit']) {
 			$poll_currentpoll = intval($_POST['poll_currentpoll']);
 			$poll_archive_show = intval($_POST['poll_archive_show']);		
-			$options['title'] = strip_tags(stripslashes($_POST['polls-title']));
+			$options['title'] = strip_tags(addslashes($_POST['polls-title']));
 			if(is_array($_POST['poll_multiplepolls'])) {
 				$options['multiple_polls'] = implode(',', $_POST['poll_multiplepolls']);
 			} else {
@@ -93,8 +93,8 @@ function widget_polls_init() {
 		</script>
 		<?php
 		echo '<p style="text-align: left;"><label for="polls-title">';
-		_e('Title');
-		echo ': </label><input type="text" id="polls-title" name="polls-title" value="'.htmlspecialchars($options['title']).'" />'."\n";
+		_e('Title', 'wp-polls');
+		echo ': </label><input type="text" id="polls-title" name="polls-title" value="'.htmlspecialchars(stripslashes($options['title'])).'" /></p>'."\n";
 		echo '<p style="text-align: left;"><label for="polls-displayarchive">';
 		_e('Display Polls Archive Link Below Poll?', 'wp-polls');
 		echo ' </label>'."\n";
@@ -102,12 +102,12 @@ function widget_polls_init() {
 		echo '<option value="0"';
 		selected('0', get_option('poll_archive_show'));
 		echo '>';
-		_e('No');
+		_e('No', 'wp-polls');
 		echo '</option>'."\n";
 		echo '<option value="1"';
 		selected('1', get_option('poll_archive_show'));
 		echo '>';
-		_e('Yes');
+		_e('Yes', 'wp-polls');
 		echo '</option>'."\n";
 		echo '</select></p>'."\n";
 		echo '<p style="text-align: left;"><label for="poll_currentpoll">';

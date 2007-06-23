@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP-Polls 2.20\n"
+"Project-Id-Version: WP-Polls 2.21\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-06-10 23:28+0800\n"
+"PO-Revision-Date: 2007-06-23 15:56+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,7 @@ msgstr ""
 #: polls-options.php:205
 #: polls-options.php:214
 #: polls-options.php:325
-#: polls-uninstall.php:134
+#: polls-uninstall.php:130
 #: polls-widget.php:110
 msgid "Yes"
 msgstr ""
@@ -1269,62 +1269,62 @@ msgstr ""
 msgid "Update Templates"
 msgstr ""
 
-#: polls-uninstall.php:43
-#: polls-uninstall.php:135
+#: polls-uninstall.php:39
+#: polls-uninstall.php:131
 msgid "UNINSTALL WP-Polls"
 msgstr ""
 
-#: polls-uninstall.php:50
+#: polls-uninstall.php:46
 #, php-format
 msgid "Table '%s' has been deleted."
 msgstr ""
 
-#: polls-uninstall.php:59
+#: polls-uninstall.php:55
 #, php-format
 msgid "Setting Key '%s' has been deleted."
 msgstr ""
 
-#: polls-uninstall.php:63
+#: polls-uninstall.php:59
 #, php-format
 msgid "Error deleting Setting Key '%s'."
 msgstr ""
 
-#: polls-uninstall.php:85
-#: polls-uninstall.php:95
+#: polls-uninstall.php:81
+#: polls-uninstall.php:91
 #: polls.php:59
 msgid "Uninstall WP-Polls"
 msgstr ""
 
-#: polls-uninstall.php:86
+#: polls-uninstall.php:82
 #, php-format
 msgid "<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-Polls Will Be Deactivated Automatically."
 msgstr ""
 
-#: polls-uninstall.php:97
+#: polls-uninstall.php:93
 msgid "Deactivating WP-Polls plugin does not remove any data that may have been created, such as the poll data and the poll's voting logs. To completely remove this plugin, you can uninstall it here."
 msgstr ""
 
-#: polls-uninstall.php:100
+#: polls-uninstall.php:96
 msgid "WARNING:"
 msgstr ""
 
-#: polls-uninstall.php:101
+#: polls-uninstall.php:97
 msgid "Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first."
 msgstr ""
 
-#: polls-uninstall.php:104
+#: polls-uninstall.php:100
 msgid "The following WordPress Options/Tables will be DELETED:"
 msgstr ""
 
-#: polls-uninstall.php:108
+#: polls-uninstall.php:104
 msgid "WordPress Options"
 msgstr ""
 
-#: polls-uninstall.php:109
+#: polls-uninstall.php:105
 msgid "WordPress Tables"
 msgstr ""
 
-#: polls-uninstall.php:135
+#: polls-uninstall.php:131
 msgid ""
 "You Are About To Uninstall WP-Polls From WordPress.\\n"
 "This Action Is Not Reversible.\\n"
