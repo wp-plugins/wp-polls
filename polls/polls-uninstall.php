@@ -94,7 +94,7 @@ switch($mode) {
 	</p>
 	<p style="text-align: left; color: red">
 		<strong><?php _e('WARNING:', 'wp-polls'); ?></strong><br />
-		<?php _e('Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.', 'wp-polls') ?>
+		<?php _e('Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.', 'wp-polls'); ?>
 	</p>
 	<p style="text-align: left; color: red">
 		<strong><?php _e('The following WordPress Options/Tables will be DELETED:', 'wp-polls'); ?></strong><br />
