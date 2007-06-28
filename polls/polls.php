@@ -1143,6 +1143,40 @@ function vote_poll() {
 }
 
 
+### Function: Plug Into WP-Stats
+if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['REQUEST_URI'], 'stats-options.php')) {
+	add_filter('wp_stats_page_admin_plugins', 'polls_page_admin_general_stats');
+	add_filter('wp_stats_page_plugins', 'polls_page_general_stats');
+}
+
+
+### Function: Add WP-Polls General Stats To WP-Stats Page Options
+function polls_page_admin_general_stats($content) {
+	$stats_display = get_option('stats_display');
+	if($stats_display['polls'] == 1) {
+		$content .= '<input type="checkbox" name="stats_display[]" value="polls" checked="checked" />&nbsp;&nbsp;'.__('WP-Polls', 'wp-polls').'<br />'."\n";
+	} else {
+		$content .= '<input type="checkbox" name="stats_display[]" value="polls" />&nbsp;&nbsp;'.__('WP-Polls', 'wp-polls').'<br />'."\n";
+	}
+	return $content;
+}
+
+
+### Function: Add WP-Polls General Stats To WP-Stats Page
+function polls_page_general_stats($content) {
+	$stats_display = get_option('stats_display');
+	if($stats_display['polls'] == 1) {
+		$content .= '<p><strong>'.__('WP-Polls', 'wp-polls').'</strong></p>'."\n";
+		$content .= '<ul>'."\n";
+		$content .= '<li><strong>'.get_pollquestions(false).'</strong> '.__('Polls Were Created.', 'wp-polls').'</li>'."\n";
+		$content .= '<li><strong>'.get_pollanswers(false).'</strong> '.__('Polls\' Answers Were Given.', 'wp-polls').'</li>'."\n";
+		$content .= '<li><strong>'.get_pollvotes(false).'</strong> '.__('Votes Were Casted.', 'wp-polls').'</li>'."\n";
+		$content .= '</ul>'."\n";
+	}
+	return $content;
+}
+
+
 ### Function: Create Poll Tables
 add_action('activate_polls/polls.php', 'create_poll_table');
 function create_poll_table() {
