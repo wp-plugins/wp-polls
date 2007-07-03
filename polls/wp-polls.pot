@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.21\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-06-28 16:04+0800\n"
+"PO-Revision-Date: 2007-07-04 01:51+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -1546,15 +1546,15 @@ msgid "WP-Polls"
 msgstr ""
 
 #: polls.php:1171
-msgid "Polls Were Created."
+msgid "polls were created."
 msgstr ""
 
 #: polls.php:1172
-msgid "Polls' Answers Were Given."
+msgid "polls' answers were given."
 msgstr ""
 
 #: polls.php:1173
-msgid "Votes Were Casted."
+msgid "votes were casted."
 msgstr ""
 
 #: polls.php:1221

@@ -1168,9 +1168,9 @@ function polls_page_general_stats($content) {
 	if($stats_display['polls'] == 1) {
 		$content .= '<p><strong>'.__('WP-Polls', 'wp-polls').'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
-		$content .= '<li><strong>'.get_pollquestions(false).'</strong> '.__('Polls Were Created.', 'wp-polls').'</li>'."\n";
-		$content .= '<li><strong>'.get_pollanswers(false).'</strong> '.__('Polls\' Answers Were Given.', 'wp-polls').'</li>'."\n";
-		$content .= '<li><strong>'.get_pollvotes(false).'</strong> '.__('Votes Were Casted.', 'wp-polls').'</li>'."\n";
+		$content .= '<li><strong>'.get_pollquestions(false).'</strong> '.__('polls were created.', 'wp-polls').'</li>'."\n";
+		$content .= '<li><strong>'.get_pollanswers(false).'</strong> '.__('polls\' answers were given.', 'wp-polls').'</li>'."\n";
+		$content .= '<li><strong>'.get_pollvotes(false).'</strong> '.__('votes were casted.', 'wp-polls').'</li>'."\n";
 		$content .= '</ul>'."\n";
 	}
 	return $content;
