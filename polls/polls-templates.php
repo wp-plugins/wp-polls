@@ -277,7 +277,7 @@ if($_POST['Submit']) {
 						- %POLL_TOTALVOTES%<br />
 						- %POLL_TOTALVOTERS%<br />
 						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('voteheader');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('voteheader');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_voteheader" name="poll_template_voteheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_voteheader'))); ?></textarea></td>
 				</tr>
@@ -290,7 +290,7 @@ if($_POST['Submit']) {
 						- %POLL_ANSWER%<br />
 						- %POLL_ANSWER_VOTES%<br />
 						- %POLL_CHECKBOX_RADIO%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('votebody');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('votebody');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_votebody" name="poll_template_votebody"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votebody'))); ?></textarea></td> 
 				</tr>
@@ -301,7 +301,7 @@ if($_POST['Submit']) {
 							- %POLL_ID%<br />
 							- %POLL_RESULT_URL%<br />
 							- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('votefooter');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('votefooter');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votefooter'))); ?></textarea></td> 
 				</tr>
@@ -321,7 +321,7 @@ if($_POST['Submit']) {
 						- %POLL_TOTALVOTES%<br />
 						- %POLL_TOTALVOTERS%<br />
 						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultheader');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultheader');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultheader" name="poll_template_resultheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultheader'))); ?></textarea></td>
 				</tr>
@@ -335,7 +335,7 @@ if($_POST['Submit']) {
 						- %POLL_ANSWER_VOTES%<br />
 						- %POLL_ANSWER_PERCENTAGE%<br />
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultbody');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultbody');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultbody'))); ?></textarea></td> 
 				</tr>
@@ -349,7 +349,7 @@ if($_POST['Submit']) {
 						- %POLL_ANSWER_VOTES%<br />
 						-  %POLL_ANSWER_PERCENTAGE%<br />
 						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultbody2');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultbody2');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultbody2'))); ?></textarea></td> 
 				</tr>
@@ -369,7 +369,7 @@ if($_POST['Submit']) {
 						- %POLL_LEAST_VOTES%<br />
 						- %POLL_LEAST_PERCENTAGE%<br />
 						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultfooter');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultfooter');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultfooter" name="poll_template_resultfooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter'))); ?></textarea></td> 
 				</tr>
@@ -389,7 +389,7 @@ if($_POST['Submit']) {
 						- %POLL_LEAST_VOTES%<br />
 						- %POLL_LEAST_PERCENTAGE%<br />
 						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('resultfooter2');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultfooter2');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultfooter2" name="poll_template_resultfooter2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter2'))); ?></textarea></td> 
 				</tr>
@@ -403,7 +403,7 @@ if($_POST['Submit']) {
 						<strong><?php _e('Poll Archive Link', 'wp-polls'); ?></strong><br /><?php _e('Template For Displaying Poll Archive Link', 'wp-polls'); ?><br /><br />
 						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
 						- %POLL_ARCHIVE_URL%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('pollarchivelink');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchivelink');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_pollarchivelink" name="poll_template_pollarchivelink"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchivelink'))); ?></textarea></td>
 				</tr>
@@ -412,7 +412,7 @@ if($_POST['Submit']) {
 						<strong><?php _e('Individual Poll Header', 'wp-polls'); ?></strong><br /><?php _e('Displayed Before Each Poll In The Poll Archive', 'wp-polls'); ?><br /><br />
 						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
 						- <?php _e('N/A', 'wp-polls'); ?><br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('pollarchiveheader');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchiveheader');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_pollarchiveheader" name="poll_template_pollarchiveheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchiveheader'))); ?></textarea></td>
 				</tr>
@@ -431,7 +431,7 @@ if($_POST['Submit']) {
 						- %POLL_LEAST_VOTES%<br />
 						- %POLL_LEAST_PERCENTAGE%<br />
 						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('pollarchivefooter');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchivefooter');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_pollarchivefooter" name="poll_template_pollarchivefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchivefooter'))); ?></textarea></td>
 				</tr>
@@ -445,7 +445,7 @@ if($_POST['Submit']) {
 						<strong><?php _e('Poll Disabled', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The Poll Is Disabled', 'wp-polls'); ?><br /><br />
 						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
 						- <?php _e('N/A', 'wp-polls'); ?><br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('disable');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('disable');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_disable" name="poll_template_disable"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_disable'))); ?></textarea></td>
 				</tr>
@@ -454,7 +454,7 @@ if($_POST['Submit']) {
 						<strong><?php _e('Poll Error', 'wp-polls'); ?></strong><br /><?php _e('Displayed When An Error Has Occured While Processing The Poll', 'wp-polls'); ?><br /><br />
 						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
 						- <?php _e('N/A', 'wp-polls'); ?><br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="javascript: poll_default_templates('error');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('error');" class="button" />
 					</td>
 					<td align="left"><textarea cols="80" rows="12" id="poll_template_error" name="poll_template_error"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_error'))); ?></textarea></td>
 				</tr>
