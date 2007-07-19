@@ -293,12 +293,12 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 	$poll_question_id = intval($poll_question->pollq_id);
 	$poll_question_totalvotes = intval($poll_question->pollq_totalvotes);
 	$poll_question_totalvoters = intval($poll_question->pollq_totalvoters);
-	$poll_start_date = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_question->pollq_timestamp));
+	$poll_start_date = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_question->pollq_timestamp));
 	$poll_expiry = trim($poll_question->pollq_expiry);
 	if(empty($poll_expiry)) {
 		$poll_end_date  = __('No Expiry', 'wp-polls');
 	} else {
-		$poll_end_date  = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
+		$poll_end_date  = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_expiry));
 	}
 	$poll_multiple_ans = intval($poll_question->pollq_multiple);
 	$template_question = stripslashes(get_option('poll_template_voteheader'));
@@ -409,12 +409,12 @@ function display_pollresult($poll_id, $user_voted = '', $without_poll_title = fa
 	$poll_question_totalvotes = intval($poll_question->pollq_totalvotes);
 	$poll_question_totalvoters = intval($poll_question->pollq_totalvoters);
 	$poll_question_active = intval($poll_question->pollq_active);
-	$poll_start_date = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_question->pollq_timestamp));
+	$poll_start_date = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_question->pollq_timestamp));
 	$poll_expiry = trim($poll_question->pollq_expiry);
 	if(empty($poll_expiry)) {
 		$poll_end_date  = __('No Expiry', 'wp-polls');
 	} else {
-		$poll_end_date  = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $poll_expiry));
+		$poll_end_date  = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_expiry));
 	}
 	$poll_multiple_ans = intval($poll_question->pollq_multiple);
 	$template_question = stripslashes(get_option('poll_template_resultheader'));
@@ -576,7 +576,7 @@ function place_poll($content){
 	if(!is_feed()) {
 		$content = preg_replace("/\[poll=(\d+)\]/ise", "display_poll('\\1')", $content);
 	} else {
-		$content = preg_replace("/\[poll=(\d+)\]/i", __('Note: There is a poll within this post, please visit the site to participate in this post\'s poll.', 'wp-polls'), $content);
+		$content = preg_replace("/\[poll=(\d+)\]/i", __('Note: There is a poll embedded within this post, please visit the site to participate in this post\'s poll.', 'wp-polls'), $content);
 	}
     return $content;
 }
@@ -790,11 +790,11 @@ function polls_archive() {
 		if($polls_question['totalvotes'] > 0) {
 			$poll_totalvotes_zero = false;
 		}
-			$poll_start_date = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $polls_question['start']));
+			$poll_start_date = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $polls_question['start']));
 			if(empty($polls_question['end'])) {
 				$poll_end_date  = __('No Expiry', 'wp-polls');
 			} else {
-				$poll_end_date  = mysql2date(get_option('date_format').' @ '.get_option('time_format'), gmdate('Y-m-d H:i:s', $polls_question['end']));
+				$poll_end_date  = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $polls_question['end']));
 			}
 		// Archive Poll Header
 		$template_archive_header = stripslashes(get_option('poll_template_pollarchiveheader'));

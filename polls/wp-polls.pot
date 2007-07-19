@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.21\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-07-14 02:28+0800\n"
+"PO-Revision-Date: 2007-07-20 04:50+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -394,6 +394,22 @@ msgstr ""
 #: polls-logs.php:294
 #: polls-logs.php:341
 msgid "Date"
+msgstr ""
+
+#: polls-logs.php:301
+#: polls-logs.php:329
+#: polls-manager.php:399
+#: polls-manager.php:411
+#: polls-manager.php:488
+#: polls-manager.php:496
+#: polls.php:296
+#: polls.php:301
+#: polls.php:412
+#: polls.php:417
+#: polls.php:793
+#: polls.php:797
+#, php-format
+msgid "%s @ %s"
 msgstr ""
 
 #: polls-logs.php:309
@@ -1484,7 +1500,7 @@ msgid "Loading"
 msgstr ""
 
 #: polls.php:579
-msgid "Note: There is a poll within this post, please visit the site to participate in this post's poll."
+msgid "Note: There is a poll embedded within this post, please visit the site to participate in this post's poll."
 msgstr ""
 
 #: polls.php:922
