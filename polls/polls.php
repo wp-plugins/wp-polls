@@ -776,7 +776,7 @@ function polls_archive() {
 	}
 
 	// Poll Archives
-	$pollsarchive_output_archive .= "<div class=\"wp-polls\">\n";
+	$pollsarchive_output_archive .= "<div class=\"wp-polls wp-polls-archive\">\n";
 	foreach($polls_questions as $polls_question) {
 		// Most/Least Variables
 		$poll_most_answer = '';
