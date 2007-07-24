@@ -1186,7 +1186,7 @@ function create_poll_table() {
 	$create_table = array();
 	$create_table['pollsq'] = "CREATE TABLE $wpdb->pollsq (".
 									"pollq_id int(10) NOT NULL auto_increment,".
-									"pollq_question varchar(200) NOT NULL default '',".
+									"pollq_question varchar(200) character set utf8 NOT NULL default '',".
 									"pollq_timestamp varchar(20) NOT NULL default '',".
 									"pollq_totalvotes int(10) NOT NULL default '0',".
 									"pollq_active tinyint(1) NOT NULL default '1',".
@@ -1197,7 +1197,7 @@ function create_poll_table() {
 	$create_table['pollsa'] = "CREATE TABLE $wpdb->pollsa (".
 									"polla_aid int(10) NOT NULL auto_increment,".
 									"polla_qid int(10) NOT NULL default '0',".
-									"polla_answers varchar(200) NOT NULL default '',".
+									"polla_answers varchar(200) character set utf8 NOT NULL default '',".
 									"polla_votes int(10) NOT NULL default '0',".
 									"PRIMARY KEY (polla_aid))";
 	$create_table['pollsip'] = "CREATE TABLE $wpdb->pollsip (".
