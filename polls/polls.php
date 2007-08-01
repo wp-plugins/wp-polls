@@ -186,6 +186,29 @@ function poll_header_admin() {
 }
 
 
+### Function: Displays Polls Footer In WP-Admin
+add_action('admin_footer', 'poll_footer_admin');
+function poll_footer_admin() {
+	// Javascript Code Courtesy Of WP-AddQuicktag (http://bueltge.de/wp-addquicktags-de-plugin/120/)
+	echo '<script type="text/javascript">'."\n";
+	echo "\t".'if(document.getElementById("ed_toolbar")){'."\n";
+	echo "\t\t".'qt_toolbar = document.getElementById("ed_toolbar");'."\n";
+	echo "\t\t".'edButtons[edButtons.length] = new edButton("ed_poll","'.__('Poll', 'wp-polls').'", "", "","");'."\n";
+	echo "\t\t".'var qt_button = qt_toolbar.lastChild;'."\n";
+	echo "\t\t".'while (qt_button.nodeType != 1){'."\n";
+	echo "\t\t\t".'qt_button = qt_button.previousSibling;'."\n";
+	echo "\t\t".'}'."\n";
+	echo "\t\t".'qt_button = qt_button.cloneNode(true);'."\n";
+	echo "\t\t".'qt_button.value = "'.__('Poll', 'wp-polls').'";'."\n";
+	echo "\t\t".'qt_button.title = "'.__('Insert Poll', 'wp-polls').'";'."\n";
+	echo "\t\t".'qt_button.onclick = function () {edInsertPoll(edCanvas);}'."\n";
+	echo "\t\t".'qt_button.id = "ed_poll";'."\n";
+	echo "\t\t".'qt_toolbar.appendChild(qt_button);'."\n";
+	echo "\t".'}'."\n";
+	echo '</script>'."\n";
+}
+
+
 ### Function: Check Who Is Allow To Vote
 function check_allowtovote() {
 	global $user_ID;

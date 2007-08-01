@@ -200,3 +200,14 @@ function closing_poll(poll_id, poll_confirm) {
 		polls_admin.runAJAX();
 	}
 }
+
+// Function: Insert Poll Quick Tag
+function edInsertPoll(myField) {
+	var poll_id = prompt("<?php _e('Enter Poll ID', 'wp-polls'); ?>");
+	while(isNaN(poll_id)) {
+		poll_id = prompt("<?php _e('Error: Poll ID must be numeric', 'wp-polls'); ?>\n\n<?php _e('Please enter Poll ID again', 'wp-polls'); ?>");
+	}
+	if (poll_id > 0) {
+		edInsertContent(myField, '[poll=' + poll_id + ']');
+	}
+}
