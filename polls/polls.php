@@ -210,12 +210,12 @@ function poll_footer_admin() {
 
 
 ### Function: Add Quick Tag For Poll In TinyMCE, Coutesy Of An-Archos (http://an-archos.com/anarchy-media-player)
-add_filter("mce_plugins", "poll_mce_plugins", 5);
+add_filter('mce_plugins', 'poll_mce_plugins', 5);
 function poll_mce_plugins($plugins) {    
 	array_push($plugins, '-polls', 'bold');    
 	return $plugins;
 }
-add_filter("mce_buttons", "poll_mce_buttons", 5);
+add_filter('mce_buttons', 'poll_mce_buttons', 5);
 function poll_mce_buttons($buttons) {
 	array_push($buttons, 'separator', 'polls');
 	return $buttons;
