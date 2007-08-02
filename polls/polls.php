@@ -201,11 +201,29 @@ function poll_footer_admin() {
 	echo "\t\t".'qt_button = qt_button.cloneNode(true);'."\n";
 	echo "\t\t".'qt_button.value = "'.__('Poll', 'wp-polls').'";'."\n";
 	echo "\t\t".'qt_button.title = "'.__('Insert Poll', 'wp-polls').'";'."\n";
-	echo "\t\t".'qt_button.onclick = function () {edInsertPoll(edCanvas);}'."\n";
+	echo "\t\t".'qt_button.onclick = function () { insertPoll(\'code\', edCanvas);}'."\n";
 	echo "\t\t".'qt_button.id = "ed_poll";'."\n";
 	echo "\t\t".'qt_toolbar.appendChild(qt_button);'."\n";
 	echo "\t".'}'."\n";
 	echo '</script>'."\n";
+}
+
+
+### Function: Add Quick Tag For Poll In TinyMCE, Coutesy Of An-Archos (http://an-archos.com/anarchy-media-player)
+add_filter("mce_plugins", "poll_mce_plugins", 5);
+function poll_mce_plugins($plugins) {    
+	array_push($plugins, '-polls', 'bold');    
+	return $plugins;
+}
+add_filter("mce_buttons", "poll_mce_buttons", 5);
+function poll_mce_buttons($buttons) {
+	array_push($buttons, 'separator', 'polls');
+	return $buttons;
+}
+add_action('tinymce_before_init','poll_external_plugins');
+function poll_external_plugins() {	
+	echo 'tinyMCE.loadPlugin("polls", "'.get_option('siteurl').'/wp-content/plugins/polls/tinymce/plugins/polls/");' . "\n"; 
+	return;
 }
 
 
