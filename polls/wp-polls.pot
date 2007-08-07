@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.21\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-08-02 19:20+0800\n"
+"PO-Revision-Date: 2007-08-07 19:43+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -418,8 +418,8 @@ msgstr ""
 #: polls.php:342
 #: polls.php:453
 #: polls.php:458
-#: polls.php:834
-#: polls.php:838
+#: polls.php:835
+#: polls.php:839
 #, php-format
 msgid "%s @ %s"
 msgstr ""
@@ -583,8 +583,8 @@ msgstr ""
 #: polls-manager.php:466
 #: polls-templates.php:116
 #: polls-templates.php:119
-#: polls.php:1287
-#: polls.php:1290
+#: polls.php:1288
+#: polls.php:1291
 msgid "Total Voters"
 msgstr ""
 
@@ -599,7 +599,7 @@ msgstr ""
 #: polls-manager.php:494
 #: polls.php:340
 #: polls.php:456
-#: polls.php:836
+#: polls.php:837
 msgid "No Expiry"
 msgstr ""
 
@@ -820,8 +820,8 @@ msgstr ""
 #: polls-options.php:250
 #: polls-templates.php:110
 #: polls-templates.php:113
-#: polls.php:1284
 #: polls.php:1285
+#: polls.php:1286
 msgid "Votes"
 msgstr ""
 
@@ -1009,34 +1009,34 @@ msgstr ""
 
 #: polls-templates.php:104
 #: polls-templates.php:119
-#: polls.php:1278
-#: polls.php:1291
+#: polls.php:1279
+#: polls.php:1292
 msgid "Vote"
 msgstr ""
 
 #: polls-templates.php:104
-#: polls.php:1279
+#: polls.php:1280
 msgid "View Results Of This Poll"
 msgstr ""
 
 #: polls-templates.php:104
-#: polls.php:1279
+#: polls.php:1280
 msgid "View Results"
 msgstr ""
 
 #: polls-templates.php:113
-#: polls.php:1285
+#: polls.php:1286
 msgid "You Have Voted For This Choice"
 msgstr ""
 
 #: polls-templates.php:119
-#: polls.php:1291
+#: polls.php:1292
 msgid "Vote For This Poll"
 msgstr ""
 
 #: polls-templates.php:122
 #: polls-usage.php:80
-#: polls.php:1318
+#: polls.php:1319
 msgid "Polls Archive"
 msgstr ""
 
@@ -1049,12 +1049,12 @@ msgid "End Date:"
 msgstr ""
 
 #: polls-templates.php:131
-#: polls.php:1293
+#: polls.php:1294
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
 #: polls-templates.php:134
-#: polls.php:1294
+#: polls.php:1295
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
@@ -1520,101 +1520,101 @@ msgstr ""
 msgid "Loading"
 msgstr ""
 
-#: polls.php:620
+#: polls.php:621
 msgid "Note: There is a poll embedded within this post, please visit the site to participate in this post's poll."
 msgstr ""
 
-#: polls.php:963
+#: polls.php:964
 msgid "Previous Page"
 msgstr ""
 
-#: polls.php:971
+#: polls.php:972
 msgid "Next Page"
 msgstr ""
 
-#: polls.php:980
+#: polls.php:981
 msgid "Pages"
 msgstr ""
 
-#: polls.php:982
+#: polls.php:983
 msgid "Go to First Page"
 msgstr ""
 
-#: polls.php:982
+#: polls.php:983
 msgid "First"
 msgstr ""
 
-#: polls.php:985
-#: polls.php:997
+#: polls.php:986
+#: polls.php:998
 msgid "Go to Page"
 msgstr ""
 
-#: polls.php:992
+#: polls.php:993
 msgid "Page"
 msgstr ""
 
-#: polls.php:1000
+#: polls.php:1001
 msgid "Go to Last Page"
 msgstr ""
 
-#: polls.php:1000
+#: polls.php:1001
 msgid "Last"
 msgstr ""
 
-#: polls.php:1164
+#: polls.php:1165
 #, php-format
 msgid "Unable To Update Poll Total Votes And Poll Total Voters. Poll ID #%s"
 msgstr ""
 
-#: polls.php:1168
+#: polls.php:1169
 #, php-format
 msgid "You Had Already Voted For This Poll. Poll ID #%s"
 msgstr ""
 
-#: polls.php:1172
+#: polls.php:1173
 #, php-format
 msgid "Invalid Poll ID. Poll ID #%s"
 msgstr ""
 
-#: polls.php:1198
-#: polls.php:1200
-#: polls.php:1210
+#: polls.php:1199
+#: polls.php:1201
+#: polls.php:1211
 msgid "WP-Polls"
 msgstr ""
 
-#: polls.php:1212
+#: polls.php:1213
 msgid "polls were created."
 msgstr ""
 
-#: polls.php:1213
+#: polls.php:1214
 msgid "polls' answers were given."
 msgstr ""
 
-#: polls.php:1214
+#: polls.php:1215
 msgid "votes were casted."
 msgstr ""
 
-#: polls.php:1262
+#: polls.php:1263
 msgid "How Is My Site?"
 msgstr ""
 
-#: polls.php:1265
+#: polls.php:1266
 msgid "Good"
 msgstr ""
 
-#: polls.php:1266
+#: polls.php:1267
 msgid "Excellent"
 msgstr ""
 
-#: polls.php:1267
+#: polls.php:1268
 msgid "Bad"
 msgstr ""
 
-#: polls.php:1268
+#: polls.php:1269
 msgid "Can Be Improved"
 msgstr ""
 
-#: polls.php:1269
+#: polls.php:1270
 msgid "No Comments"
 msgstr ""
 

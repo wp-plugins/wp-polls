@@ -613,6 +613,7 @@ function place_pollsarchive($content){
 
 ### Function: Place Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
 add_filter('the_content', 'place_poll', '7');
+add_filter('the_excerpt', 'place_poll', '7');
 function place_poll($content){
 	if(!is_feed()) {
 		$content = preg_replace("/\[poll=(\d+)\]/ise", "display_poll('\\1')", $content);
