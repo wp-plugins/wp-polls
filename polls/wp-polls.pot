@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.21\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-08-08 22:29+0800\n"
+"PO-Revision-Date: 2007-08-10 02:33+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Ravan <ravanhagen@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgstr ""
 #: polls-manager.php:371
 #: polls-options.php:204
 #: polls-options.php:213
-#: polls-options.php:324
+#: polls-options.php:326
 #: polls-widget.php:105
 msgid "No"
 msgstr ""
@@ -103,7 +103,7 @@ msgstr ""
 #: polls-manager.php:588
 #: polls-options.php:205
 #: polls-options.php:214
-#: polls-options.php:325
+#: polls-options.php:327
 #: polls-uninstall.php:130
 #: polls-widget.php:110
 msgid "Yes"
@@ -134,7 +134,7 @@ msgstr ""
 
 #: polls-add.php:245
 #: polls-manager.php:442
-#: polls-options.php:382
+#: polls-options.php:384
 #: polls-templates.php:464
 msgid "Cancel"
 msgstr ""
@@ -722,7 +722,7 @@ msgid "Poll Close Option"
 msgstr ""
 
 #: polls-options.php:80
-#: polls-options.php:283
+#: polls-options.php:285
 msgid "Logging Method"
 msgstr ""
 
@@ -786,38 +786,43 @@ msgid "Sort Poll Answers By:"
 msgstr ""
 
 #: polls-options.php:227
-#: polls-options.php:251
+#: polls-options.php:252
 msgid "Exact Order"
 msgstr ""
 
 #: polls-options.php:228
-#: polls-options.php:252
+#: polls-options.php:253
 msgid "Alphabetical Order"
 msgstr ""
 
-#: polls-options.php:233
+#: polls-options.php:229
+#: polls-options.php:254
+msgid "Random Order"
+msgstr ""
+
+#: polls-options.php:234
 msgid "Sort Order Of Poll Answers:"
 msgstr ""
 
-#: polls-options.php:236
-#: polls-options.php:260
+#: polls-options.php:237
+#: polls-options.php:262
 msgid "Ascending"
 msgstr ""
 
-#: polls-options.php:237
-#: polls-options.php:261
+#: polls-options.php:238
+#: polls-options.php:263
 msgid "Descending"
 msgstr ""
 
-#: polls-options.php:244
+#: polls-options.php:245
 msgid "Sorting Of Poll Results"
 msgstr ""
 
-#: polls-options.php:247
+#: polls-options.php:248
 msgid "Sort Poll Results By:"
 msgstr ""
 
-#: polls-options.php:250
+#: polls-options.php:251
 #: polls-templates.php:110
 #: polls-templates.php:113
 #: polls.php:1285
@@ -825,133 +830,133 @@ msgstr ""
 msgid "Votes"
 msgstr ""
 
-#: polls-options.php:257
+#: polls-options.php:259
 msgid "Sort Order Of Poll Results:"
 msgstr ""
 
-#: polls-options.php:268
+#: polls-options.php:270
 msgid "Allow To Vote"
 msgstr ""
 
-#: polls-options.php:271
+#: polls-options.php:273
 msgid "Who Is Allowed To Vote?"
 msgstr ""
 
-#: polls-options.php:274
+#: polls-options.php:276
 msgid "Guests Only"
 msgstr ""
 
-#: polls-options.php:275
+#: polls-options.php:277
 msgid "Registered Users Only"
 msgstr ""
 
-#: polls-options.php:276
+#: polls-options.php:278
 msgid "Registered Users And Guests"
 msgstr ""
 
-#: polls-options.php:286
+#: polls-options.php:288
 msgid "Poll Logging Method:"
 msgstr ""
 
-#: polls-options.php:289
+#: polls-options.php:291
 msgid "Do Not Log"
 msgstr ""
 
-#: polls-options.php:290
+#: polls-options.php:292
 msgid "Logged By Cookie"
 msgstr ""
 
-#: polls-options.php:291
+#: polls-options.php:293
 msgid "Logged By IP"
 msgstr ""
 
-#: polls-options.php:292
+#: polls-options.php:294
 msgid "Logged By Cookie And IP"
 msgstr ""
 
-#: polls-options.php:293
+#: polls-options.php:295
 msgid "Logged By Username"
 msgstr ""
 
-#: polls-options.php:300
+#: polls-options.php:302
 msgid "Poll Archive"
 msgstr ""
 
-#: polls-options.php:303
+#: polls-options.php:305
 msgid "Number Of Polls Per Page:"
 msgstr ""
 
-#: polls-options.php:307
+#: polls-options.php:309
 msgid "Type Of Polls To Display In Poll Archive:"
 msgstr ""
 
-#: polls-options.php:310
+#: polls-options.php:312
 msgid "Closed Polls Only"
 msgstr ""
 
-#: polls-options.php:311
+#: polls-options.php:313
 msgid "Opened Polls Only"
 msgstr ""
 
-#: polls-options.php:312
+#: polls-options.php:314
 msgid "Closed And Opened Polls"
 msgstr ""
 
-#: polls-options.php:317
+#: polls-options.php:319
 msgid "Poll Archive URL:"
 msgstr ""
 
-#: polls-options.php:321
+#: polls-options.php:323
 msgid "Display Poll Archive Link Below Poll?"
 msgstr ""
 
-#: polls-options.php:330
+#: polls-options.php:332
 msgid "Note: Only polls' results will be shown in the Poll Archive regardless of whether the poll is closed or opened."
 msgstr ""
 
-#: polls-options.php:335
-#: polls-options.php:338
+#: polls-options.php:337
+#: polls-options.php:340
 #: polls-widget.php:114
 msgid "Current Active Poll"
 msgstr ""
 
-#: polls-options.php:341
+#: polls-options.php:343
 #: polls-widget.php:120
 msgid "Do NOT Display Poll (Disable)"
 msgstr ""
 
-#: polls-options.php:342
+#: polls-options.php:344
 #: polls-widget.php:125
 msgid "Display Random Poll"
 msgstr ""
 
-#: polls-options.php:343
+#: polls-options.php:345
 #: polls-widget.php:130
 msgid "Display Latest Poll"
 msgstr ""
 
-#: polls-options.php:345
+#: polls-options.php:347
 #: polls-widget.php:135
 msgid "Display Multiple Polls"
 msgstr ""
 
-#: polls-options.php:367
+#: polls-options.php:369
 msgid "Note: If you chose 'Display Multiple Polls' for the above option, you need to configure it in Presentation -> Sidebar Widgets -> Poll."
 msgstr ""
 
-#: polls-options.php:371
+#: polls-options.php:373
 msgid "When Poll Is Closed"
 msgstr ""
 
-#: polls-options.php:374
+#: polls-options.php:376
 msgid "Display Poll's Results"
 msgstr ""
 
-#: polls-options.php:375
+#: polls-options.php:377
 msgid "Do Not Display Poll In Post/Sidebar"
 msgstr ""
 
-#: polls-options.php:382
+#: polls-options.php:384
 msgid "Update Options"
 msgstr ""
 
