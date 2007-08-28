@@ -1196,9 +1196,9 @@ if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['
 function polls_page_admin_general_stats($content) {
 	$stats_display = get_option('stats_display');
 	if($stats_display['polls'] == 1) {
-		$content .= '<input type="checkbox" name="stats_display[]" value="polls" checked="checked" />&nbsp;&nbsp;'.__('WP-Polls', 'wp-polls').'<br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_polls" value="polls" checked="checked" />&nbsp;&nbsp;<label for="wpstats_polls">'.__('WP-Polls', 'wp-polls').'</label><br />'."\n";
 	} else {
-		$content .= '<input type="checkbox" name="stats_display[]" value="polls" />&nbsp;&nbsp;'.__('WP-Polls', 'wp-polls').'<br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_polls" value="polls" />&nbsp;&nbsp;<label for="wpstats_polls">'.__('WP-Polls', 'wp-polls').'</label><br />'."\n";
 	}
 	return $content;
 }
@@ -1223,7 +1223,13 @@ function polls_page_general_stats($content) {
 add_action('activate_polls/polls.php', 'create_poll_table');
 function create_poll_table() {
 	global $wpdb;
-	include_once(ABSPATH.'/wp-admin/upgrade-functions.php');
+	if(@is_file(ABSPATH.'/wp-admin/upgrade-functions.php')) {
+		include_once(ABSPATH.'/wp-admin/upgrade-functions.php');
+	} elseif(@is_file(ABSPATH.'/wp-admin/includes/upgrade.php')) {
+		include_once(ABSPATH.'/wp-admin/includes/upgrade.php');
+	} else {
+		die('We have problem finding your \'/wp-admin/upgrade-functions.php\' and \'/wp-admin/includes/upgrade.php\'');
+	}
 	// Create Poll Tables (3 Tables)
 	$create_table = array();
 	$create_table['pollsq'] = "CREATE TABLE $wpdb->pollsq (".
