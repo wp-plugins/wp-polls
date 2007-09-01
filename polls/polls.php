@@ -1082,6 +1082,15 @@ function poll_timestamp($poll_timestamp, $fieldname = 'pollq_timestamp', $displa
 }
 
 
+### Function: Place Cron
+function cron_polls_place() {
+	wp_clear_scheduled_hook('polls_cron');
+	if (!wp_next_scheduled('polls_cron')) {
+		wp_schedule_event(time(), 'daily', 'polls_cron');
+	}
+}
+
+
 ### Funcion: Check All Polls Status To Check If It Expires
 add_action('polls_cron', 'cron_polls_status');
 function cron_polls_status() {
@@ -1337,5 +1346,6 @@ function create_poll_table() {
 	if(!$role->has_cap('manage_polls')) {
 		$role->add_cap('manage_polls');
 	}
+	cron_polls_place();
 }
 ?>

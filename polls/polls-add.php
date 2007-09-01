@@ -95,6 +95,7 @@ if(!empty($_POST['do'])) {
 			if(empty($text)) {
 				$text = '<p style="color: green;">'.sprintf(__('Poll \'%s\' Added Successfully.', 'wp-polls'), stripslashes($pollq_question)).' <a href="'.$base_page.'">Manage Polls &raquo;</a></p>';
 			}
+			cron_polls_place();
 			break;
 	}
 }
