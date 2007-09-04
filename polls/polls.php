@@ -324,7 +324,7 @@ function check_voted_username($poll_id) {
 	$pollsip_userid = intval($user_ID);
 	// Check User ID From IP Logging Database
 	$get_voted_aids = $wpdb->get_col("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_userid = $pollsip_userid");
-	if($get_voted_aids)
+	if($get_voted_aids) {
 		return $get_voted_aids;
 	} else {
 		return 0;
