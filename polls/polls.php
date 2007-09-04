@@ -124,6 +124,8 @@ function get_poll($temp_poll_id = 0, $display = true) {
 		$check_voted = check_voted($poll_id);
 		if($poll_active == 0) {
 			$poll_close = intval(get_option('poll_close'));
+		} else {
+			$poll_close = 0;
 		}
 		if($check_voted > 0 || ($poll_active == 0 && $poll_close == 1) || !check_allowtovote()) {
 			if($display) {
@@ -304,7 +306,11 @@ function check_voted_ip($poll_id) {
 	global $wpdb;
 	// Check IP From IP Logging Database
 	$get_voted_aids = $wpdb->get_col("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_ip = '".get_ipaddress()."'");
-	return $get_voted_aids;
+	if($get_voted_aids) {
+		return $get_voted_aids;
+	} else {
+		return 0;
+	}
 }
 
 
@@ -318,7 +324,11 @@ function check_voted_username($poll_id) {
 	$pollsip_userid = intval($user_ID);
 	// Check User ID From IP Logging Database
 	$get_voted_aids = $wpdb->get_col("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_userid = $pollsip_userid");
-	return $get_voted_aids;
+	if($get_voted_aids)
+		return $get_voted_aids;
+	} else {
+		return 0;
+	}
 }
 
 
