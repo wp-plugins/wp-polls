@@ -363,7 +363,7 @@ if($_POST['Submit']) {
 				</tr>
 				<?php if(function_exists('dynamic_sidebar')) { ?>
 				<tr valign="top">
-					<th align="left" colspan="2"><em><?php _e('Note: If you chose \'Display Multiple Polls\' for the above option, you need to configure it in Presentation -> Sidebar Widgets -> Poll.', 'wp-polls'); ?></em></th>
+					<th align="left" colspan="2"><em><?php _e('Note: If you chose \'Display Multiple Polls\' for the above option, you need to configure it in Presentation -> Widgets -> Poll.', 'wp-polls'); ?></em></th>
 				</tr>
 				<?php } ?>
 				 <tr valign="top">
