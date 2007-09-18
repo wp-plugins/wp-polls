@@ -35,7 +35,10 @@ if (!function_exists('add_action')) {
 
 
 ### Create Text Domain For Translations
-load_plugin_textdomain('wp-polls', 'wp-content/plugins/polls');
+add_action('init', 'polls_textdomain');
+function polls_textdomain() {
+	load_plugin_textdomain('wp-polls', 'wp-content/plugins/polls');
+}
 
 
 ### Polls Table Name
