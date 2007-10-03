@@ -3,7 +3,7 @@
 Plugin Name: WP-Polls
 Plugin URI: http://lesterchan.net/portfolio/programming.php
 Description: Adds an AJAX poll system to your WordPress blog. You can easily include a poll into your WordPress's blog post/page. WP-Polls is extremely customizable via templates and css styles and there are tons of options for you to choose to ensure that WP-Polls runs the way you wanted. It now supports multiple selection of answers.
-Version: 2.21
+Version: 2.22
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 */
@@ -857,8 +857,8 @@ function polls_archive() {
 		$template_question = stripslashes(get_option('poll_template_resultheader'));
 		$template_question = str_replace("%POLL_QUESTION%", $polls_question['question'], $template_question);
 		$template_question = str_replace("%POLL_ID%", $polls_question['id'], $template_question);
-		$template_question = str_replace("%POLL_TOTALVOTES%", $polls_question['totalvotes'], $template_question);
-		$template_question = str_replace("%POLL_TOTALVOTERS%", $polls_question['totalvoters'], $template_question);
+		$template_question = str_replace("%POLL_TOTALVOTES%", number_format($polls_question['totalvotes']), $template_question);
+		$template_question = str_replace("%POLL_TOTALVOTERS%", number_format($polls_question['totalvoters']), $template_question);
 		$template_question = str_replace("%POLL_START_DATE%", $poll_start_date, $template_question);
 		$template_question = str_replace("%POLL_END_DATE%", $poll_end_date, $template_question);
 		if($polls_question['multiple'] > 0) {
@@ -891,7 +891,7 @@ function polls_archive() {
 					$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
 					$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
 					$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_VOTES%", $polls_answer['votes'], $template_answer);
+					$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format($polls_answer['votes']), $template_answer);
 					$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 					$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
 					// Print Out Results Body Template
@@ -902,7 +902,7 @@ function polls_archive() {
 					$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
 					$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
 					$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_VOTES%", $polls_answer['votes'], $template_answer);
+					$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format($polls_answer['votes']), $template_answer);
 					$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 					$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
 					// Print Out Results Body Template
@@ -931,8 +931,8 @@ function polls_archive() {
 		$template_footer = stripslashes(get_option('poll_template_resultfooter'));
 		$template_footer = str_replace("%POLL_START_DATE%", $poll_start_date, $template_footer);
 		$template_footer = str_replace("%POLL_END_DATE%", $poll_end_date, $template_footer);
-		$template_footer = str_replace("%POLL_TOTALVOTES%", $polls_question['totalvotes'], $template_footer);
-		$template_footer = str_replace("%POLL_TOTALVOTERS%", $polls_question['totalvoters'], $template_footer);
+		$template_footer = str_replace("%POLL_TOTALVOTES%", number_format($polls_question['totalvotes']), $template_footer);
+		$template_footer = str_replace("%POLL_TOTALVOTERS%", number_format($polls_question['totalvoters']), $template_footer);
 		$template_footer = str_replace("%POLL_MOST_ANSWER%", $poll_most_answer, $template_footer);
 		$template_footer = str_replace("%POLL_MOST_VOTES%", number_format($poll_most_votes), $template_footer);
 		$template_footer = str_replace("%POLL_MOST_PERCENTAGE%", $poll_most_percentage, $template_footer);
@@ -948,8 +948,8 @@ function polls_archive() {
 		$template_archive_footer = stripslashes(get_option('poll_template_pollarchivefooter'));
 		$template_archive_footer = str_replace("%POLL_START_DATE%", $poll_start_date, $template_archive_footer);
 		$template_archive_footer = str_replace("%POLL_END_DATE%", $poll_end_date, $template_archive_footer);
-		$template_archive_footer = str_replace("%POLL_TOTALVOTES%", $polls_question['totalvotes'], $template_archive_footer);
-		$template_archive_footer = str_replace("%POLL_TOTALVOTERS%", $polls_question['totalvoters'], $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_TOTALVOTES%", number_format($polls_question['totalvotes']), $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_TOTALVOTERS%", number_format($polls_question['totalvoters']), $template_archive_footer);
 		$template_archive_footer = str_replace("%POLL_MOST_ANSWER%", $poll_most_answer, $template_archive_footer);
 		$template_archive_footer = str_replace("%POLL_MOST_VOTES%", number_format($poll_most_votes), $template_archive_footer);
 		$template_archive_footer = str_replace("%POLL_MOST_PERCENTAGE%", $poll_most_percentage, $template_archive_footer);
