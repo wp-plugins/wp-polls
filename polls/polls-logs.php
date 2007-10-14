@@ -298,7 +298,7 @@ if(!empty($_POST['do'])) {
 						$pollip_user = stripslashes($poll_ip->pollip_user);
 						$pollip_ip = $poll_ip->pollip_ip;
 						$pollip_host = $poll_ip->pollip_host;
-						$pollip_date = date_i18n(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), $poll_ip->pollip_timestamp);
+						$pollip_date = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_ip->pollip_timestamp));
 						if($i%2 == 0) {
 							$style = 'style=\'background-color: none\'';
 						}  else {
@@ -326,7 +326,7 @@ if(!empty($_POST['do'])) {
 						$pollip_user = stripslashes($poll_ip->pollip_user);
 						$pollip_ip = $poll_ip->pollip_ip;
 						$pollip_host = $poll_ip->pollip_host;
-						$pollip_date = date_i18n(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), $poll_ip->pollip_timestamp);
+						$pollip_date = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_ip->pollip_timestamp)); 
 						if($pollip_aid != $poll_last_aid) {
 							if($pollip_aid == 0) {
 								echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><strong>$pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
