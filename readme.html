@@ -2,7 +2,7 @@
 <html>
 <head>	
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>WP-Polls 2.22 Readme</title>
+	<title>WP-Polls 2.30 Readme</title>
 	<style type="text/css" media="screen">
 		/* Default Style */
 		BODY {
@@ -204,7 +204,7 @@
 <body>
 <div id="Container">
 	<!-- Title -->
-	<div id="Title">WP-Polls 2.22&nbsp;&nbsp;&nbsp;<span style="color: #aaaaaa;">Readme</span></div>
+	<div id="Title">WP-Polls 2.30&nbsp;&nbsp;&nbsp;<span style="color: #aaaaaa;">Readme</span></div>
 
 	<!-- Tabs -->
 	<ul id="Tabs">
@@ -235,7 +235,7 @@
 			</p>
 			<p>
 				<strong>Download:</strong><br />
-				<strong>&raquo;</strong> <a href="http://lesterchan.net/others/downloads.php?id=10" title="http://lesterchan.net/others/downloads.php?id=10">WP-Polls 2.22 For WordPress 2.3.x</a><br />
+				<strong>&raquo;</strong> <a href="http://lesterchan.net/others/downloads.php?id=10" title="http://lesterchan.net/others/downloads.php?id=10">WP-Polls 2.30 For WordPress 2.3.x</a><br />
 				<strong>&raquo;</strong> <a href="http://lesterchan.net/others/downloads/wp-polls220.zip" title="http://lesterchan.net/others/downloads/wp-polls220.zip">WP-Polls 2.20 For WordPress 2.1.x And 2.2.x</a><br />
 				<strong>&raquo;</strong> <a href="http://lesterchan.net/others/downloads/wp-polls213.zip" title="http://lesterchan.net/others/downloads/wp-polls213.zip">WP-Polls 2.13 For WordPress 2.0.x</a><br />
 				<strong>&raquo;</strong> <a href="http://lesterchan.net/others/downloads/wp-polls202a.zip" title="http://lesterchan.net/others/downloads/wp-polls202a.zip">WP-Polls 2.02a For WordPress 1.5.2</a>
@@ -267,8 +267,6 @@
 			<p>
 				<strong>Note:</strong><br />
 				<strong>&raquo;</strong> The <strong>Changelog</strong>, <strong>Installation</strong>, <strong>Upgrade</strong>, <strong>Usage</strong> Tab at the top of the page.<br />
-				<strong>&raquo;</strong> I have once again change some of the core code to make it work with the future/expired poll. Please post in the support forums if you encounter any bugs.<br />
-				<strong>&raquo;</strong> WP-Polls has undergo major changes to support multiple answers and AJAX for the backend. Please post in the support forums if you encounter any bugs.
 			</p>
 			<p>
 				<strong>Donations:</strong><br />
@@ -286,8 +284,11 @@
 			<div class="SubTitle">&raquo; Changelog</div>
 			<ul>
 				<li>
-					<strong>Version 2.22 (01-01-2008)</strong>
+					<strong>Version 2.30 (01-01-2008)</strong>
 					<ul>
+						<li>NEW: Uses /wp-polls/ Folder Instead Of /polls/</li>
+						<li>NEW: Uses wp-polls.php Instead Of polls.php</li>
+						<li>NEW: Uses wp-polls-widget.php Instead Of polls-widget.php</li>
 						<li>NEW: Use number_format_i18n() Instead</li>
 						<li>FIXED: number_format() Not Used In Polls Archive</li>
 					</ul>
@@ -490,7 +491,7 @@
 				</li>
 				<li>
 					Put:
-					<blockquote>Folder: polls</blockquote>
+					<blockquote>Folder: wp-polls</blockquote>
 				</li>
 				<li>
 					<strong>Activate</strong> WP-Polls Plugin
@@ -504,7 +505,7 @@
 		<!-- Upgrade Instructions -->	
 		<div id="Upgrade" style="display: none;">
 			<div class="SubTitle">&raquo; Upgrade Instructions</div>
-			<div class="SubSubTitle">From v2.xx To v2.22</div>
+			<div class="SubSubTitle">From v2.xx To v2.30</div>
 			<ol>
 				<li>
 					<strong>Deactivate</strong> WP-Polls Plugin
@@ -514,18 +515,12 @@
 				</li>
 				<li>
 					Put/Overwrite:
-					<blockquote>Folder: polls</blockquote>
+					<blockquote>Folder: wp-polls</blockquote>
 				</li>
 				<li>
-					Delete these file if exists:
+					Delete this folder if exists:
 					<blockquote>
-						File: wp-polls.php<br />
-						File: wp-content/plugins/polls/wp-polls.php<br />
-						File: wp-content/plugins/polls/polls-js.js<br />
-						File: wp-content/plugins/polls/images/pollbar.gif<br />
-						File: wp-content/plugins/polls/images/pollend.gif<br />
-						File: wp-content/plugins/polls/images/pollstart.gif<br />
-						File: wp-content/plugins/polls/images/pollbar.gif
+						Folder: polls
 					</blockquote>
 				</li>
 				<li>
@@ -684,6 +679,6 @@
 		</div>
 	</div>
 </div>
-<p id="Copyright">WP-Polls 2.22<br />Copyright &copy; 2007 Lester 'GaMerZ' Chan. All Rights Reserved.</p>
+<p id="Copyright">WP-Polls 2.30<br />Copyright &copy; 2008 Lester 'GaMerZ' Chan. All Rights Reserved.</p>
 </body>
 </html>

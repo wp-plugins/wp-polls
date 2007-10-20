@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.22										|
+|	WordPress 2.3 Plugin: WP-Polls 2.30										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -11,7 +11,7 @@
 |																							|
 |	File Information:																	|
 |	- Add Poll																			|
-|	- wp-content/plugins/polls/polls-add.php									|
+|	- wp-content/plugins/wp-polls/polls-add.php								|
 |																							|
 +----------------------------------------------------------------+
 */
@@ -24,7 +24,7 @@ if(!current_user_can('manage_polls')) {
 
 
 ### Poll Manager
-$base_name = plugin_basename('polls/polls-manager.php');
+$base_name = plugin_basename('wp-polls/polls-manager.php');
 $base_page = 'admin.php?page='.$base_name;
 
 

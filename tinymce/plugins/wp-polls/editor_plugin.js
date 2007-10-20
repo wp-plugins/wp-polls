@@ -1,4 +1,4 @@
-tinyMCE.importPluginLanguagePack('polls');
+tinyMCE.importPluginLanguagePack('wp-polls');
 var TinyMCE_PollsPlugin = {
 	getInfo : function() {
 		return {
@@ -6,13 +6,13 @@ var TinyMCE_PollsPlugin = {
 			author : 'Lester Chan',
 			authorurl : 'http://lesterchan.net',
 			infourl : 'http://lesterchan.net/portfolio/programming.php',
-			version : "2.21"
+			version : "2.30"
 		};
 	},
 	getControlHTML : function(cn) {
 		switch (cn) {
-			case "polls":
-				return tinyMCE.getButtonHTML(cn, 'lang_polls_desc', '{$pluginurl}/images/poll.gif', 'mcePollInsert');
+			case "wp-polls":
+				return tinyMCE.getButtonHTML(cn, 'lang_polls_insert', '{$pluginurl}/images/poll.gif', 'mcePollInsert');
 		}
 		return "";
 	},
@@ -25,4 +25,4 @@ var TinyMCE_PollsPlugin = {
 		return false;
 	}
 };
-tinyMCE.addPlugin("polls", TinyMCE_PollsPlugin);
+tinyMCE.addPlugin("wp-polls", TinyMCE_PollsPlugin);

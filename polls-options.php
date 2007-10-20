@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.22										|
+|	WordPress 2.3 Plugin: WP-Polls 2.30										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -11,7 +11,7 @@
 |																							|
 |	File Information:																	|
 |	- Configure Poll Options															|
-|	- wp-content/plugins/polls/polls-options.php								|
+|	- wp-content/plugins/wp-polls/polls-options.php						|
 |																							|
 +----------------------------------------------------------------+
 */
@@ -24,7 +24,7 @@ if(!current_user_can('manage_polls')) {
 
 
 ### Variables Variables Variables
-$base_name = plugin_basename('polls/polls-options.php');
+$base_name = plugin_basename('wp-polls/polls-options.php');
 $base_page = 'admin.php?page='.$base_name;
 $id = intval($_GET['id']);
 
@@ -116,7 +116,7 @@ if($_POST['Submit']) {
 			if(pollbar_style == 'use_css') {
 				document.getElementById('wp-polls-pollbar').style.backgroundImage = "";
 			} else {
-				document.getElementById('wp-polls-pollbar').style.backgroundImage = "url('<?php echo get_option('siteurl'); ?>/wp-content/plugins/polls/images/" + pollbar_style + "/pollbg.gif')";
+				document.getElementById('wp-polls-pollbar').style.backgroundImage = "url('<?php echo get_option('siteurl'); ?>/wp-content/plugins/wp-polls/images/" + pollbar_style + "/pollbg.gif')";
 			}
 		}
 		document.getElementById('wp-polls-pollbar').style.backgroundColor = pollbar_background;
@@ -137,8 +137,8 @@ if($_POST['Submit']) {
 					<td align="left" colspan="2">
 						<?php
 							$pollbar = get_option('poll_bar');
-							$pollbar_url = get_option('siteurl').'/wp-content/plugins/polls/images';
-							$pollbar_path = ABSPATH.'/wp-content/plugins/polls/images';
+							$pollbar_url = get_option('siteurl').'/wp-content/plugins/wp-polls/images';
+							$pollbar_path = ABSPATH.'/wp-content/plugins/wp-polls/images';
 							if($handle = @opendir($pollbar_path)) {     
 								while (false !== ($filename = readdir($handle))) {  
 									if ($filename != '.' && $filename != '..') {
@@ -183,7 +183,7 @@ if($_POST['Submit']) {
 							if($pollbar['style'] == 'use_css') {
 								echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'"></div>'."\n";
 							} else {
-								echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'; background-image: url(\''.get_option('siteurl').'/wp-content/plugins/polls/images/'.$pollbar['style'].'/pollbg.gif\');"></div>'."\n";
+								echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'; background-image: url(\''.get_option('siteurl').'/wp-content/plugins/wp-polls/images/'.$pollbar['style'].'/pollbg.gif\');"></div>'."\n";
 							}
 						?>
 					</td>

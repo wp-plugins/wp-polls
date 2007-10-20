@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.22										|
+|	WordPress 2.3 Plugin: WP-Polls 2.30										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -11,7 +11,7 @@
 |																							|
 |	File Information:																	|
 |	- Polls Logs																			|
-|	- wp-content/plugins/polls/polls-logs.php									|
+|	- wp-content/plugins/wp-polls/polls-logs.php								|
 |																							|
 +----------------------------------------------------------------+
 */

@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.22										|
+|	WordPress 2.3 Plugin: WP-Polls 2.30										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -11,7 +11,7 @@
 |																							|
 |	File Information:																	|
 |	- Polls Javascript File															|
-|	- wp-content/plugins/polls/polls-js.php										|
+|	- wp-content/plugins/wp-polls/polls-js.php								|
 |																							|
 +----------------------------------------------------------------+
 */
@@ -21,7 +21,7 @@
 @require('../../../wp-config.php');
 cache_javascript_headers();
 
-### Determine polls.php Path
+### Determine wp-polls.php Path
 $polls_ajax_url = dirname($_SERVER['PHP_SELF']);
 if(substr($polls_ajax_url, -1) == '/') {
 	$polls_ajax_url  = substr($polls_ajax_url, 0, -1);
@@ -32,7 +32,7 @@ $poll_ajax_style = get_option('poll_ajax_style');
 ?>
 
 // Variables
-var polls_ajax_url = "<?php echo $polls_ajax_url; ?>/polls.php";
+var polls_ajax_url = "<?php echo $polls_ajax_url; ?>/wp-polls.php";
 var polls_text_wait = "<?php _e('Your last request is still being processed. Please wait a while ...', 'wp-polls'); ?>";
 var polls_text_valid = "<?php _e('Please choose a valid poll answer.', 'wp-polls'); ?>";
 var polls_text_multiple = "<?php _e('Maximum number of choices allowed:', 'wp-polls'); ?>";

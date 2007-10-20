@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP-Polls 2.22\n"
+"Project-Id-Version: WP-Polls 2.30\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-10-14 15:52+0800\n"
+"PO-Revision-Date: 2007-10-21 02:49+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Lester Chan <gamerz84@hotmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 #: polls-add.php:36
 #: polls-add.php:174
 #: polls-add.php:246
-#: polls.php:58
+#: wp-polls.php:58
 msgid "Add Poll"
 msgstr ""
 
@@ -93,7 +93,7 @@ msgstr ""
 #: polls-options.php:201
 #: polls-options.php:210
 #: polls-options.php:323
-#: polls-widget.php:105
+#: wp-polls-widget.php:105
 msgid "No"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 #: polls-options.php:211
 #: polls-options.php:324
 #: polls-uninstall.php:130
-#: polls-widget.php:110
+#: wp-polls-widget.php:110
 msgid "Yes"
 msgstr ""
 
@@ -414,12 +414,12 @@ msgstr ""
 #: polls-manager.php:412
 #: polls-manager.php:489
 #: polls-manager.php:497
-#: polls.php:350
-#: polls.php:355
-#: polls.php:466
-#: polls.php:471
-#: polls.php:846
-#: polls.php:850
+#: wp-polls.php:350
+#: wp-polls.php:355
+#: wp-polls.php:466
+#: wp-polls.php:471
+#: wp-polls.php:846
+#: wp-polls.php:850
 #, php-format
 msgid "%s @ %s"
 msgstr ""
@@ -572,7 +572,7 @@ msgid "You are about to OPEN this poll '%s'."
 msgstr ""
 
 #: polls-manager.php:461
-#: polls.php:57
+#: wp-polls.php:57
 msgid "Manage Polls"
 msgstr ""
 
@@ -583,8 +583,8 @@ msgstr ""
 #: polls-manager.php:467
 #: polls-templates.php:116
 #: polls-templates.php:119
-#: polls.php:1314
-#: polls.php:1317
+#: wp-polls.php:1314
+#: wp-polls.php:1317
 msgid "Total Voters"
 msgstr ""
 
@@ -597,9 +597,9 @@ msgid "Action"
 msgstr ""
 
 #: polls-manager.php:495
-#: polls.php:353
-#: polls.php:469
-#: polls.php:848
+#: wp-polls.php:353
+#: wp-polls.php:469
+#: wp-polls.php:848
 msgid "No Expiry"
 msgstr ""
 
@@ -741,7 +741,7 @@ msgid "No Poll Option Updated"
 msgstr ""
 
 #: polls-options.php:131
-#: polls.php:59
+#: wp-polls.php:59
 msgid "Poll Options"
 msgstr ""
 
@@ -825,8 +825,8 @@ msgstr ""
 #: polls-options.php:248
 #: polls-templates.php:110
 #: polls-templates.php:113
-#: polls.php:1311
-#: polls.php:1312
+#: wp-polls.php:1311
+#: wp-polls.php:1312
 msgid "Votes"
 msgstr ""
 
@@ -916,27 +916,27 @@ msgstr ""
 
 #: polls-options.php:334
 #: polls-options.php:337
-#: polls-widget.php:114
+#: wp-polls-widget.php:114
 msgid "Current Active Poll"
 msgstr ""
 
 #: polls-options.php:340
-#: polls-widget.php:120
+#: wp-polls-widget.php:120
 msgid "Do NOT Display Poll (Disable)"
 msgstr ""
 
 #: polls-options.php:341
-#: polls-widget.php:125
+#: wp-polls-widget.php:125
 msgid "Display Random Poll"
 msgstr ""
 
 #: polls-options.php:342
-#: polls-widget.php:130
+#: wp-polls-widget.php:130
 msgid "Display Latest Poll"
 msgstr ""
 
 #: polls-options.php:344
-#: polls-widget.php:135
+#: wp-polls-widget.php:135
 msgid "Display Multiple Polls"
 msgstr ""
 
@@ -1014,34 +1014,34 @@ msgstr ""
 
 #: polls-templates.php:104
 #: polls-templates.php:119
-#: polls.php:1305
-#: polls.php:1318
+#: wp-polls.php:1305
+#: wp-polls.php:1318
 msgid "Vote"
 msgstr ""
 
 #: polls-templates.php:104
-#: polls.php:1306
+#: wp-polls.php:1306
 msgid "View Results Of This Poll"
 msgstr ""
 
 #: polls-templates.php:104
-#: polls.php:1306
+#: wp-polls.php:1306
 msgid "View Results"
 msgstr ""
 
 #: polls-templates.php:113
-#: polls.php:1312
+#: wp-polls.php:1312
 msgid "You Have Voted For This Choice"
 msgstr ""
 
 #: polls-templates.php:119
-#: polls.php:1318
+#: wp-polls.php:1318
 msgid "Vote For This Poll"
 msgstr ""
 
 #: polls-templates.php:122
 #: polls-usage.php:80
-#: polls.php:1345
+#: wp-polls.php:1345
 msgid "Polls Archive"
 msgstr ""
 
@@ -1054,17 +1054,17 @@ msgid "End Date:"
 msgstr ""
 
 #: polls-templates.php:131
-#: polls.php:1320
+#: wp-polls.php:1320
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
 #: polls-templates.php:134
-#: polls.php:1321
+#: wp-polls.php:1321
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
 #: polls-templates.php:144
-#: polls.php:60
+#: wp-polls.php:60
 msgid "Poll Templates"
 msgstr ""
 
@@ -1324,7 +1324,7 @@ msgstr ""
 
 #: polls-uninstall.php:81
 #: polls-uninstall.php:91
-#: polls.php:62
+#: wp-polls.php:62
 msgid "Uninstall WP-Polls"
 msgstr ""
 
@@ -1491,136 +1491,136 @@ msgstr ""
 msgid "Where <strong>#ffffff</strong> should be your background color for the poll."
 msgstr ""
 
-#: polls-widget.php:64
-#: polls.php:54
+#: wp-polls-widget.php:64
+#: wp-polls.php:54
 msgid "Polls"
 msgstr ""
 
-#: polls-widget.php:96
+#: wp-polls-widget.php:96
 msgid "Title"
 msgstr ""
 
-#: polls-widget.php:99
+#: wp-polls-widget.php:99
 msgid "Display Polls Archive Link Below Poll?"
 msgstr ""
 
-#: polls-widget.php:159
+#: wp-polls-widget.php:159
 msgid "Select Multiple Polls"
 msgstr ""
 
-#: polls.php:61
+#: wp-polls.php:61
 msgid "Poll Usage"
 msgstr ""
 
-#: polls.php:201
-#: polls.php:207
+#: wp-polls.php:201
+#: wp-polls.php:207
 msgid "Poll"
 msgstr ""
 
-#: polls.php:208
+#: wp-polls.php:208
 msgid "Insert Poll"
 msgstr ""
 
-#: polls.php:431
-#: polls.php:591
+#: wp-polls.php:431
+#: wp-polls.php:591
 msgid "Loading"
 msgstr ""
 
-#: polls.php:634
+#: wp-polls.php:634
 msgid "Note: There is a poll embedded within this post, please visit the site to participate in this post's poll."
 msgstr ""
 
-#: polls.php:975
+#: wp-polls.php:975
 msgid "Previous Page"
 msgstr ""
 
-#: polls.php:983
+#: wp-polls.php:983
 msgid "Next Page"
 msgstr ""
 
-#: polls.php:992
+#: wp-polls.php:992
 msgid "Pages"
 msgstr ""
 
-#: polls.php:994
+#: wp-polls.php:994
 msgid "Go to First Page"
 msgstr ""
 
-#: polls.php:994
+#: wp-polls.php:994
 msgid "First"
 msgstr ""
 
-#: polls.php:997
-#: polls.php:1009
+#: wp-polls.php:997
+#: wp-polls.php:1009
 msgid "Go to Page"
 msgstr ""
 
-#: polls.php:1004
+#: wp-polls.php:1004
 msgid "Page"
 msgstr ""
 
-#: polls.php:1012
+#: wp-polls.php:1012
 msgid "Go to Last Page"
 msgstr ""
 
-#: polls.php:1012
+#: wp-polls.php:1012
 msgid "Last"
 msgstr ""
 
-#: polls.php:1185
+#: wp-polls.php:1185
 #, php-format
 msgid "Unable To Update Poll Total Votes And Poll Total Voters. Poll ID #%s"
 msgstr ""
 
-#: polls.php:1189
+#: wp-polls.php:1189
 #, php-format
 msgid "You Had Already Voted For This Poll. Poll ID #%s"
 msgstr ""
 
-#: polls.php:1193
+#: wp-polls.php:1193
 #, php-format
 msgid "Invalid Poll ID. Poll ID #%s"
 msgstr ""
 
-#: polls.php:1219
-#: polls.php:1221
-#: polls.php:1231
+#: wp-polls.php:1219
+#: wp-polls.php:1221
+#: wp-polls.php:1231
 msgid "WP-Polls"
 msgstr ""
 
-#: polls.php:1233
+#: wp-polls.php:1233
 msgid "polls were created."
 msgstr ""
 
-#: polls.php:1234
+#: wp-polls.php:1234
 msgid "polls' answers were given."
 msgstr ""
 
-#: polls.php:1235
+#: wp-polls.php:1235
 msgid "votes were casted."
 msgstr ""
 
-#: polls.php:1289
+#: wp-polls.php:1289
 msgid "How Is My Site?"
 msgstr ""
 
-#: polls.php:1292
+#: wp-polls.php:1292
 msgid "Good"
 msgstr ""
 
-#: polls.php:1293
+#: wp-polls.php:1293
 msgid "Excellent"
 msgstr ""
 
-#: polls.php:1294
+#: wp-polls.php:1294
 msgid "Bad"
 msgstr ""
 
-#: polls.php:1295
+#: wp-polls.php:1295
 msgid "Can Be Improved"
 msgstr ""
 
-#: polls.php:1296
+#: wp-polls.php:1296
 msgid "No Comments"
 msgstr ""
 

@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.22										|
+|	WordPress 2.3 Plugin: WP-Polls 2.30										|
 |	Copyright (c) 2007 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -11,7 +11,7 @@
 |																							|
 |	File Information:																	|
 |	- Uninstall WP-Polls																|
-|	- wp-content/plugins/polls/polls-uninstall.php							|
+|	- wp-content/plugins/wp-polls/polls-uninstall.php						|
 |																							|
 +----------------------------------------------------------------+
 */
@@ -24,7 +24,7 @@ if(!current_user_can('manage_polls')) {
 
 
 ### Variables Variables Variables
-$base_name = plugin_basename('polls/polls-manager.php');
+$base_name = plugin_basename('wp-polls/polls-manager.php');
 $base_page = 'admin.php?page='.$base_name;
 $mode = trim($_GET['mode']);
 $polls_tables = array($wpdb->pollsq, $wpdb->pollsa, $wpdb->pollsip);
@@ -73,9 +73,9 @@ if(!empty($_POST['do'])) {
 switch($mode) {
 		//  Deactivating WP-Polls (By: Philippe Corbes)
 		case 'end-UNINSTALL':
-			$deactivate_url = 'plugins.php?action=deactivate&amp;plugin=polls/polls.php';
+			$deactivate_url = 'plugins.php?action=deactivate&amp;plugin=wp-polls/wp-polls.php';
 			if(function_exists('wp_nonce_url')) { 
-				$deactivate_url = wp_nonce_url($deactivate_url, 'deactivate-plugin_polls/polls.php');
+				$deactivate_url = wp_nonce_url($deactivate_url, 'deactivate-plugin_wp-polls/wp-polls.php');
 			}
 			echo '<div class="wrap">';
 			echo '<h2>'.__('Uninstall WP-Polls', 'wp-polls').'</h2>';
