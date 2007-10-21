@@ -141,7 +141,10 @@ if($_POST['Submit']) {
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
 <form id="poll_options_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
 <div class="wrap"> 
-	<h2><?php _e('Poll Templates', 'wp-polls'); ?></h2> 
+	<h2><?php _e('Poll Templates', 'wp-polls'); ?></h2>
+		<p class="submit">
+			<input type="submit" name="Submit" class="button" value="<?php _e('Update Templates &raquo;', 'wp-polls'); ?>" />
+		</p>
 		<fieldset class="options">
 			<legend><?php _e('Template Variables', 'wp-polls'); ?></legend>
 			<table width="100%"  border="0" cellspacing="0" cellpadding="5">
@@ -460,8 +463,8 @@ if($_POST['Submit']) {
 				</tr>
 			</table>
 		</fieldset>
-		<div align="center">
-			<input type="submit" name="Submit" class="button" value="<?php _e('Update Templates', 'wp-polls'); ?>" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /> 
-		</div>
+		<p class="submit">
+			<input type="submit" name="Submit" class="button" value="<?php _e('Update Templates &raquo;', 'wp-polls'); ?>" />
+		</p>
 </div> 
 </form> 
