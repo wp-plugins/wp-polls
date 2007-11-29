@@ -1050,7 +1050,7 @@ function poll_timestamp($poll_timestamp, $fieldname = 'pollq_timestamp', $displa
 	echo '</select>&nbsp;&nbsp;'."\n";
 	$year = gmdate('Y', $poll_timestamp);
 	echo '<select name="'.$fieldname.'_year" size="1">'."\n";
-	for($i = 2000; $i <= $year; $i++) {
+	for($i = 2000; $i <= ($year+10); $i++) {
 		if($year == $i) {
 			echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";	
 		} else {
