@@ -1,4 +1,3 @@
-<?php
 /*
 +----------------------------------------------------------------+
 |																							|
@@ -11,38 +10,18 @@
 |																							|
 |	File Information:																	|
 |	- Polls Javascript File															|
-|	- wp-content/plugins/wp-polls/polls-js.php								|
+|	- wp-content/plugins/wp-polls/polls-js.js									|
 |																							|
 +----------------------------------------------------------------+
 */
 
 
-### Include wp-config.php
-@require('../../../wp-config.php');
-cache_javascript_headers();
-
-### Determine wp-polls.php Path
-$polls_ajax_url = dirname($_SERVER['PHP_SELF']);
-if(substr($polls_ajax_url, -1) == '/') {
-	$polls_ajax_url  = substr($polls_ajax_url, 0, -1);
-}
-
-### Get Poll AJAX Style
-$poll_ajax_style = get_option('poll_ajax_style');
-?>
-
 // Variables
-var polls_ajax_url = "<?php echo $polls_ajax_url; ?>/wp-polls.php";
-var polls_text_wait = "<?php _e('Your last request is still being processed. Please wait a while ...', 'wp-polls'); ?>";
-var polls_text_valid = "<?php _e('Please choose a valid poll answer.', 'wp-polls'); ?>";
-var polls_text_multiple = "<?php _e('Maximum number of choices allowed:', 'wp-polls'); ?>";
 var polls = new sack(polls_ajax_url);
 var poll_id = 0;
 var poll_answer_id = "";
 var poll_fadein_opacity = 0;
 var poll_fadeout_opacity = 100;
-var poll_show_loading = <?php echo intval($poll_ajax_style['loading']); ?>;
-var poll_show_fading = <?php echo intval($poll_ajax_style['fading']); ?>;
 var is_ie = (document.all && document.getElementById);
 var is_moz = (!document.all && document.getElementById);
 var is_opera = (navigator.userAgent.indexOf("Opera") > -1);

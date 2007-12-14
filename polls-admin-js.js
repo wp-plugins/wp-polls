@@ -1,4 +1,3 @@
-<?php
 /*
 +----------------------------------------------------------------+
 |																							|
@@ -11,24 +10,12 @@
 |																							|
 |	File Information:																	|
 |	- Polls Admin Javascript File													|
-|	- wp-content/plugins/wp-polls/polls-admin-js.php						|
+|	- wp-content/plugins/wp-polls/polls-admin-js.js	 						|
 |																							|
 +----------------------------------------------------------------+
 */
 
 
-### Include wp-config.php
-@require('../../../wp-config.php');
-cache_javascript_headers();
-
-### Determine polls-admin-ajax.php Path
-$polls_admin_ajax_url = dirname($_SERVER['PHP_SELF']);
-if(substr($polls_admin_ajax_url, -1) == '/') {
-	$polls_admin_ajax_url  = substr($polls_admin_ajax_url, 0, -1);
-}
-?>
-// Variables
-var polls_admin_ajax_url = "<?php echo $polls_admin_ajax_url; ?>/polls-admin-ajax.php";
 var polls_admin = new sack(polls_admin_ajax_url);
 var global_poll_id = 0;
 var global_poll_aid = 0;
@@ -53,7 +40,7 @@ function delete_poll(poll_id, poll_confirm) {
 	if(delete_poll_confirm) {
 		global_poll_id = poll_id;
 		polls_admin.reset();
-		polls_admin.setVar("do", "<?php _e('Delete Poll', 'wp-polls'); ?>");
+		polls_admin.setVar("do", polls_admin_text_delete_poll);
 		polls_admin.setVar("pollq_id", poll_id);
 		polls_admin.method = 'POST';
 		polls_admin.element = 'message';
@@ -66,7 +53,7 @@ function delete_poll(poll_id, poll_confirm) {
 function delete_poll_logs_message() {
 	document.getElementById('message').style.display = "block";
 	Fat.fade_element("message", null, 3000, "#FFFF00");
-	document.getElementById("poll_logs").innerHTML = "<?php _e('No poll logs available.', 'wp-polls'); ?>";
+	document.getElementById("poll_logs").innerHTML = polls_admin_text_no_poll_logs;
 }
 
 // Function: Delete Poll Logs
@@ -75,14 +62,14 @@ function delete_poll_logs(poll_confirm) {
 	if(delete_poll_logs_confirm) {
 		if(document.getElementById("delete_logs_yes").checked == true) {
 			polls_admin.reset();
-			polls_admin.setVar("do", "<?php _e('Delete All Logs', 'wp-polls'); ?>");
+			polls_admin.setVar("do", polls_admin_text_delete_all_logs);
 			polls_admin.setVar("delete_logs_yes", "yes");
 			polls_admin.method = 'POST';
 			polls_admin.element = 'message';
 			polls_admin.onCompletion = delete_poll_logs_message;
 			polls_admin.runAJAX();
 		} else {
-			alert("<?php _e('Please check the \'Yes\' checkbox if you want to delete all logs.', 'wp-polls'); ?>");
+			alert(polls_admin_text_checkbox_delete_all_logs);
 		}
 	}
 }
@@ -91,7 +78,7 @@ function delete_poll_logs(poll_confirm) {
 function delete_this_poll_logs_message() {
 	document.getElementById('message').style.display = "block";
 	Fat.fade_element("message", null, 3000, "#FFFF00");
-	document.getElementById("poll_logs").innerHTML = "<?php _e('No poll logs available for this poll.', 'wp-polls'); ?>";
+	document.getElementById("poll_logs").innerHTML = polls_admin_text_no_poll_logs;
 	document.getElementById("poll_logs_display").style.display = 'none';
 	document.getElementById("poll_logs_display_none").style.display = 'block';
 }
@@ -103,7 +90,7 @@ function delete_this_poll_logs(poll_id, poll_confirm) {
 		if(document.getElementById("delete_logs_yes").checked == true) {
 			global_poll_id = poll_id;
 			polls_admin.reset();
-			polls_admin.setVar("do", "<?php _e('Delete Logs For This Poll Only', 'wp-polls'); ?>");
+			polls_admin.setVar("do", polls_admin_text_delete_poll_logs);
 			polls_admin.setVar("delete_logs_yes", "yes");
 			polls_admin.setVar("pollq_id", poll_id);
 			polls_admin.method = 'POST';
@@ -111,7 +98,7 @@ function delete_this_poll_logs(poll_id, poll_confirm) {
 			polls_admin.onCompletion = delete_this_poll_logs_message;
 			polls_admin.runAJAX();
 		} else {
-			alert("<?php _e('Please check the \'Yes\' checkbox if you want to delete all logs for this poll ONLY.', 'wp-polls'); ?>");
+			alert(polls_admin_text_checkbox_delete_poll_logs);
 		}
 	}
 }
@@ -145,7 +132,7 @@ function delete_poll_ans(poll_id, poll_aid, poll_aid_vote, poll_confirm) {
 		global_poll_aid = poll_aid;
 		global_poll_aid_votes = poll_aid_vote;
 		polls_admin.reset();
-		polls_admin.setVar("do", "<?php _e('Delete Poll Answer', 'wp-polls'); ?>");
+		polls_admin.setVar("do", polls_admin_text_delete_poll_ans);
 		polls_admin.setVar("pollq_id", poll_id);
 		polls_admin.setVar("polla_aid", poll_aid);
 		polls_admin.method = 'POST';
@@ -169,7 +156,7 @@ function opening_poll(poll_id, poll_confirm) {
 	if(open_poll_confirm) {
 		global_poll_id = poll_id;
 		polls_admin.reset();
-		polls_admin.setVar("do", "<?php _e('Open Poll', 'wp-polls'); ?>");
+		polls_admin.setVar("do", polls_admin_text_open_poll);
 		polls_admin.setVar("pollq_id", poll_id);
 		polls_admin.method = 'POST';
 		polls_admin.element = 'message';
@@ -192,7 +179,7 @@ function closing_poll(poll_id, poll_confirm) {
 	if(close_poll_confirm) {
 		global_poll_id = poll_id;
 		polls_admin.reset();
-		polls_admin.setVar("do", "<?php _e('Close Poll', 'wp-polls'); ?>");
+		polls_admin.setVar("do", polls_admin_text_close_poll);
 		polls_admin.setVar("pollq_id", poll_id);
 		polls_admin.method = 'POST';
 		polls_admin.element = 'message';
@@ -203,9 +190,9 @@ function closing_poll(poll_id, poll_confirm) {
 
 // Function: Insert Poll Quick Tag
 function insertPoll(where, myField) {
-	var poll_id = prompt("<?php _e('Enter Poll ID', 'wp-polls'); ?>");
+	var poll_id = prompt(polls_admin_text_enter_poll_id);
 	while(isNaN(poll_id)) {
-		poll_id = prompt("<?php _e('Error: Poll ID must be numeric', 'wp-polls'); ?>\n\n<?php _e('Please enter Poll ID again', 'wp-polls'); ?>");
+		poll_id = prompt(polls_admin_text_enter_poll_id_again);
 	}
 	if (poll_id > 0) {
 		if(where == 'code') {

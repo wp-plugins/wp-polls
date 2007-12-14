@@ -341,7 +341,7 @@ switch($mode) {
 								echo "<tr id=\"poll-answer-$polla_aid\" $style>\n";
 								echo '<td width="20%"><strong>'.sprintf(__('Answer %s:', 'wp-polls'), $i).'</strong></td>'."\n";
 								echo "<td width=\"60%\"><input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_aid-$polla_aid\" value=\"".htmlspecialchars($polla_answers)."\" />&nbsp;&nbsp;&nbsp;";
-								echo "<input type=\"button\" value=\"".__('Delete', 'wp-polls')."\" onclick=\"delete_poll_ans($poll_id, $polla_aid, $polla_votes, '".sprintf(js_escape(__('You are about to delete this poll\'s answer \'%s\'.', 'wp-polls')), htmlspecialchars($polla_answers))."');\" class=\"button\" /></td>\n";
+								echo "<input type=\"button\" value=\"".__('Delete', 'wp-polls')."\" onclick=\"delete_poll_ans($poll_id, $polla_aid, $polla_votes, '".sprintf(js_escape(__('You are about to delete this poll\'s answer \'%s\'.', 'wp-polls')), js_escape(htmlspecialchars($polla_answers)))."');\" class=\"button\" /></td>\n";
 								echo "<td width=\"20%\" align=\"right\">$polla_votes <input type=\"text\" size=\"4\" id=\"polla_votes-$polla_aid\" name=\"polla_votes-$polla_aid\" value=\"$polla_votes\" onblur=\"check_totalvotes();\" /></td>\n</tr>\n";
 								$poll_actual_totalvotes += $polla_votes;
 								$i++;
@@ -541,7 +541,7 @@ switch($mode) {
 							echo "</td>\n";
 							echo "<td><a href=\"$base_page&amp;mode=logs&amp;id=$poll_id\" class=\"edit\">".__('Logs', 'wp-polls')."</a></td>\n";
 							echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit', 'wp-polls')."</a></td>\n";
-							echo "<td><a href=\"#DeletePoll\" onclick=\"delete_poll($poll_id, '".sprintf(js_escape(__('You are about to delete this poll, \'%s\'.', 'wp-polls')), $poll_question)."')\" class=\"delete\">".__('Delete', 'wp-polls')."</a></td>\n";
+							echo "<td><a href=\"#DeletePoll\" onclick=\"delete_poll($poll_id, '".sprintf(js_escape(__('You are about to delete this poll, \'%s\'.', 'wp-polls')), js_escape($poll_question))."')\" class=\"delete\">".__('Delete', 'wp-polls')."</a></td>\n";
 							echo '</tr>';
 							$i++;
 							$total_votes+= $poll_totalvotes;
