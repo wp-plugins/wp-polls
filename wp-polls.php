@@ -162,8 +162,8 @@ function poll_header() {
 	echo "\t".'var polls_text_wait = \''. __('Your last request is still being processed. Please wait a while ...', 'wp-polls').'\';'."\n";
 	echo "\t".'var polls_text_valid = \''.__('Please choose a valid poll answer.', 'wp-polls').'\';'."\n";
 	echo "\t".'var polls_text_multiple = \''.__('Maximum number of choices allowed:', 'wp-polls').'\';'."\n";
-	echo "\t".'var poll_show_loading = \''.intval($poll_ajax_style['loading']).'\';'."\n";
-	echo "\t".'var poll_show_fading = \''.intval($poll_ajax_style['fading']).'\';'."\n";
+	echo "\t".'var poll_show_loading = '.intval($poll_ajax_style['loading']).';'."\n";
+	echo "\t".'var poll_show_fading = '.intval($poll_ajax_style['fading']).';'."\n";
 	echo '/* ]]> */'."\n";
 	echo '</script>'."\n";
 	wp_print_scripts(array('sack', 'wp-polls'));
@@ -246,7 +246,7 @@ function poll_footer_admin() {
 ### Function: Add Quick Tag For Poll In TinyMCE, Coutesy Of An-Archos (http://an-archos.com/anarchy-media-player)
 add_filter('mce_plugins', 'poll_mce_plugins', 5);
 function poll_mce_plugins($plugins) {    
-	array_push($plugins, '-wp-polls', 'bold');    
+	array_push($plugins, '-wp-polls');    
 	return $plugins;
 }
 add_filter('mce_buttons', 'poll_mce_buttons', 5);
