@@ -246,17 +246,17 @@ function poll_footer_admin() {
 ### Function: Add Quick Tag For Poll In TinyMCE, Coutesy Of An-Archos (http://an-archos.com/anarchy-media-player)
 add_filter('mce_plugins', 'poll_mce_plugins', 5);
 function poll_mce_plugins($plugins) {    
-	array_push($plugins, '-wp-polls');    
+	array_push($plugins, '-polls');    
 	return $plugins;
 }
 add_filter('mce_buttons', 'poll_mce_buttons', 5);
 function poll_mce_buttons($buttons) {
-	array_push($buttons, 'separator', 'wp-polls');
+	array_push($buttons, 'separator', 'polls');
 	return $buttons;
 }
 add_action('tinymce_before_init','poll_external_plugins');
 function poll_external_plugins() {	
-	echo 'tinyMCE.loadPlugin("wp-polls", "'.get_option('siteurl').'/wp-content/plugins/wp-polls/tinymce/plugins/wp-polls/");' . "\n"; 
+	echo 'tinyMCE.loadPlugin("polls", "'.get_option('siteurl').'/wp-content/plugins/wp-polls/tinymce/plugins/polls/");' . "\n"; 
 	return;
 }
 

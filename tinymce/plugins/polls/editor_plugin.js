@@ -1,4 +1,4 @@
-tinyMCE.importPluginLanguagePack('wp-polls');
+tinyMCE.importPluginLanguagePack('polls', 'en');
 var TinyMCE_PollsPlugin = {
 	getInfo : function() {
 		return {
@@ -11,7 +11,7 @@ var TinyMCE_PollsPlugin = {
 	},
 	getControlHTML : function(cn) {
 		switch (cn) {
-			case "wp-polls":
+			case "polls":
 				return tinyMCE.getButtonHTML(cn, 'lang_polls_insert', '{$pluginurl}/images/poll.gif', 'mcePollInsert');
 		}
 		return "";
@@ -25,4 +25,4 @@ var TinyMCE_PollsPlugin = {
 		return false;
 	}
 };
-tinyMCE.addPlugin("wp-polls", TinyMCE_PollsPlugin);
+tinyMCE.addPlugin("polls", TinyMCE_PollsPlugin);
