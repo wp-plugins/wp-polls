@@ -123,10 +123,10 @@ if(!empty($_POST['do'])) {
 	<h2><?php _e('Poll\'s Logs', 'wp-polls'); ?></h2>
 	<p><strong><?php echo $poll_question; ?></strong></p>
 	<p>
-		<?php printf(__('There are a total of <strong>%s</strong> recorded votes for this poll.', 'wp-polls'), $poll_totalrecorded); ?><br />
-		<?php printf(__('<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by registered users', 'wp-polls'), $poll_registered); ?><br />
-		<?php printf(__('<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by comment authors', 'wp-polls'), $poll_comments); ?><br />
-		<?php printf(__('<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by guests', 'wp-polls'), $poll_guest); ?>
+		<?php printf(__('There are a total of <strong>%s</strong> recorded votes for this poll.', 'wp-polls'), number_format_i18n($poll_totalrecorded)); ?><br />
+		<?php printf(__('<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by registered users', 'wp-polls'), number_format_i18n($poll_registered)); ?><br />
+		<?php printf(__('<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by comment authors', 'wp-polls'), number_format_i18n($poll_comments)); ?><br />
+		<?php printf(__('<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by guests', 'wp-polls'), number_format_i18n($poll_guest)); ?>
 	</p>
 </div>
 <?php if($poll_totalrecorded > 0) { ?>
