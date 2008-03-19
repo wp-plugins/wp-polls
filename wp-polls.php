@@ -58,7 +58,6 @@ function poll_menu() {
 		add_submenu_page('wp-polls/polls-manager.php', __('Add Poll', 'wp-polls'), __('Add Poll', 'wp-polls'), 'manage_polls', 'wp-polls/polls-add.php');		
 		add_submenu_page('wp-polls/polls-manager.php', __('Poll Options', 'wp-polls'), __('Poll Options', 'wp-polls'), 'manage_polls', 'wp-polls/polls-options.php');
 		add_submenu_page('wp-polls/polls-manager.php', __('Poll Templates', 'wp-polls'), __('Poll Templates', 'wp-polls'), 'manage_polls', 'wp-polls/polls-templates.php');
-		add_submenu_page('wp-polls/polls-manager.php', __('Poll Usage', 'wp-polls'), __('Poll Usage', 'wp-polls'), 'manage_polls', 'wp-polls/polls-usage.php');
 		add_submenu_page('wp-polls/polls-manager.php', __('Uninstall WP-Polls', 'wp-polls'), __('Uninstall WP-Polls', 'wp-polls'), 'manage_polls', 'wp-polls/polls-uninstall.php');
 	}
 }
@@ -243,21 +242,24 @@ function poll_footer_admin() {
 }
 
 
-### Function: Add Quick Tag For Poll In TinyMCE, Coutesy Of An-Archos (http://an-archos.com/anarchy-media-player)
-add_filter('mce_plugins', 'poll_mce_plugins', 5);
-function poll_mce_plugins($plugins) {    
-	array_push($plugins, '-polls');    
-	return $plugins;
+### Function: Add Quick Tag For Poll In TinyMCE >= WordPress 2.5
+add_action('init', 'poll_tinymce_addbuttons');
+function poll_tinymce_addbuttons() {
+	if(!current_user_can('edit_posts') && ! current_user_can('edit_pages')) {
+		return;
+	}
+	if(get_user_option('rich_editing') == 'true') {
+		add_filter("mce_external_plugins", "poll_tinymce_addplugin");
+		add_filter('mce_buttons', 'poll_tinymce_registerbutton');
+	}
 }
-add_filter('mce_buttons', 'poll_mce_buttons', 5);
-function poll_mce_buttons($buttons) {
+function poll_tinymce_registerbutton($buttons) {
 	array_push($buttons, 'separator', 'polls');
 	return $buttons;
 }
-add_action('tinymce_before_init','poll_external_plugins');
-function poll_external_plugins() {	
-	echo 'tinyMCE.loadPlugin("polls", "'.get_option('siteurl').'/wp-content/plugins/wp-polls/tinymce/plugins/polls/");' . "\n"; 
-	return;
+function poll_tinymce_addplugin($plugin_array) {
+	$plugin_array['polls'] = get_option('siteurl').'/wp-content/plugins/wp-polls/tinymce/plugins/polls/editor_plugin.js';
+	return $plugin_array;
 }
 
 
@@ -336,8 +338,13 @@ function check_voted_cookie($poll_id) {
 ### Function: Check Voted By IP
 function check_voted_ip($poll_id) {
 	global $wpdb;
+	$log_expiry = intval(get_option('poll_cookielog_expiry'));
+	$log_expiry_sql = '';
+	if($log_expiry > 0) {
+		$log_expiry_sql = 'AND ('.current_time('timestamp').'-(pollip_timestamp+0)) < '.$log_expiry;
+	}
 	// Check IP From IP Logging Database
-	$get_voted_aids = $wpdb->get_col("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_ip = '".get_ipaddress()."'");
+	$get_voted_aids = $wpdb->get_col("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_ip = '".get_ipaddress()."' $log_expiry_sql");
 	if($get_voted_aids) {
 		return $get_voted_aids;
 	} else {
@@ -354,8 +361,13 @@ function check_voted_username($poll_id) {
 		return check_voted_ip($poll_id);
 	}
 	$pollsip_userid = intval($user_ID);
+	$log_expiry = intval(get_option('poll_cookielog_expiry'));
+	$log_expiry_sql = '';
+	if($log_expiry > 0) {
+		$log_expiry_sql = 'AND ('.current_time('timestamp').'-(pollip_timestamp+0)) < '.$log_expiry;
+	}
 	// Check User ID From IP Logging Database
-	$get_voted_aids = $wpdb->get_col("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_userid = $pollsip_userid");
+	$get_voted_aids = $wpdb->get_col("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_userid = $pollsip_userid $log_expiry_sql");
 	if($get_voted_aids) {
 		return $get_voted_aids;
 	} else {
@@ -1198,7 +1210,11 @@ function vote_poll() {
 				// Only Create Cookie If User Choose Logging Method 1 Or 2
 				$poll_logging_method = intval(get_option('poll_logging_method'));
 				if($poll_logging_method == 1 || $poll_logging_method == 3) {
-					$vote_cookie = setcookie("voted_".$poll_id, $poll_aid, time() + 30000000, COOKIEPATH);						
+					$cookie_expiry = intval(get_option('poll_cookielog_expiry'));
+					if($cookie_expiry == 0) {
+						$cookie_expiry = 30000000;
+					}
+					$vote_cookie = setcookie("voted_".$poll_id, $poll_aid, ($pollip_timestamp + $cookie_expiry), COOKIEPATH);						
 				}
 				foreach($poll_aid_array as $polla_aid) {
 					$wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $polla_aid");
@@ -1381,6 +1397,8 @@ function create_poll_table() {
 	if($pollq_totalvoters) {
 		$wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvoters = pollq_totalvotes");
 	}
+	// Database Upgrade For WP-Polls 2.30
+	add_option('poll_cookielog_expiry', 0, 'Cookie And Log Expiry Time');	
 	// Set 'manage_polls' Capabilities To Administrator	
 	$role = get_role('administrator');
 	if(!$role->has_cap('manage_polls')) {

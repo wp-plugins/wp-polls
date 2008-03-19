@@ -1,3 +1,3 @@
-tinyMCE.addToLang('polls',{
-insert : 'Insert Poll'
+tinyMCE.addI18n("en.polls", {
+	insert_poll : 'Insert Poll'
 });

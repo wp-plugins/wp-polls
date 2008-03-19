@@ -2,8 +2,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.30										|
-|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
+|	WordPress 2.5 Plugin: WP-Polls 2.30										|
+|	Copyright (c) 2008 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -254,7 +254,6 @@ switch($mode) {
 				poll_option.setAttribute('value', count_poll_answer);
 				poll_option.setAttribute('id', "pollq-multiple-" + (count_poll_answer+1));
 				// Elements - TD/TR
-				if(count_poll_answer%2 != 0) { poll_tr.style.background = "#eee"; }
 				poll_tr.setAttribute('id', "poll-answer-new-" + count_poll_answer_new);
 				poll_td1.setAttribute('width', "20%");
 				poll_td2.setAttribute('width', "60%");
@@ -295,7 +294,6 @@ switch($mode) {
 			}
 			/* ]]> */
 		</script>
-		<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
 
 		<!-- Edit Poll -->
 		<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
@@ -303,21 +301,24 @@ switch($mode) {
 		<input type="hidden" name="pollq_active" value="<?php echo $poll_active; ?>" />
 		<div class="wrap">
 			<h2><?php _e('Edit Poll', 'wp-polls'); ?></h2>
+
+			<?php if(!empty($text)) { echo '<!-- Last Action --><br class="clear" /><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
+
 			<!-- Poll Question -->
 			<h3><?php _e('Poll Question', 'wp-polls'); ?></h3>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-				<tr style="background-color: #eee;">
-					<td width="20%"><strong><?php _e('Question', 'wp-polls') ?></strong></td>
+			<table class="form-table">
+				<tr>
+					<th scope="row" valign="top"><?php _e('Question', 'wp-polls') ?></th>
 					<td width="80%"><input type="text" size="70" name="pollq_question" value="<?php echo htmlspecialchars($poll_question_text); ?>" /></td>
 				</tr>
 			</table>
 			<!-- Poll Answers -->
 			<h3><?php _e('Poll Answers', 'wp-polls'); ?></h3>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
+			<table class="form-table">
 				<thead>
-					<tr class="thead">
-						<td width="20%"><strong><?php _e('Answer No.:', 'wp-polls') ?></strong></td>
-						<td width="60%"><strong><?php _e('Answer Text:', 'wp-polls') ?></strong></td>
+					<tr >
+						<td width="20%"><strong><?php _e('Answer No.', 'wp-polls') ?></strong></td>
+						<td width="60%"><strong><?php _e('Answer Text', 'wp-polls') ?></strong></td>
 						<td width="20%" align="right"><strong><?php _e('No. Of Votes', 'wp-polls') ?></strong></td>
 					</tr>
 				</thead>
@@ -329,16 +330,11 @@ switch($mode) {
 							$pollip_answers = array();
 							$pollip_answers[0] = __('Null Votes', 'wp-polls'); 
 							foreach($poll_answers as $poll_answer) {
-								if($i%2 == 0) {
-									$style = 'style=\'background: none;\'';																				
-								}  else {
-									$style = 'style=\'background-color: #eee;\'';	
-								}
 								$polla_aid = intval($poll_answer->polla_aid);
 								$polla_answers = stripslashes($poll_answer->polla_answers);
 								$polla_votes = intval($poll_answer->polla_votes);
 								$pollip_answers[$polla_aid] = $polla_answers;
-								echo "<tr id=\"poll-answer-$polla_aid\" $style>\n";
+								echo "<tr id=\"poll-answer-$polla_aid\">\n";
 								echo '<td width="20%"><strong>'.sprintf(__('Answer %s:', 'wp-polls'), $i).'</strong></td>'."\n";
 								echo "<td width=\"60%\"><input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_aid-$polla_aid\" value=\"".htmlspecialchars($polla_answers)."\" />&nbsp;&nbsp;&nbsp;";
 								echo "<input type=\"button\" value=\"".__('Delete', 'wp-polls')."\" onclick=\"delete_poll_ans($poll_id, $polla_aid, $polla_votes, '".sprintf(js_escape(__('You are about to delete this poll\'s answer \'%s\'.', 'wp-polls')), js_escape(htmlspecialchars($polla_answers)))."');\" class=\"button\" /></td>\n";
@@ -364,8 +360,8 @@ switch($mode) {
 			</table>
 			<!-- Poll Multiple Answers -->
 			<h3><?php _e('Poll Multiple Answers', 'wp-polls') ?></h3>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-				<tr style="background-color: #eee;">
+			<table class="form-table">
+				<tr>
 					<td width="40%" valign="top"><strong><?php _e('Allows Users To Select More Than One Answer?', 'wp-polls'); ?></strong></td>
 					<td width="60%">
 						<select name="pollq_multiple_yes" id="pollq_multiple_yes" size="1" onchange="check_pollq_multiple();">
@@ -393,8 +389,8 @@ switch($mode) {
 			</table>
 			<!-- Poll Start/End Date -->
 			<h3><?php _e('Poll Start/End Date', 'wp-polls'); ?></h3>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-				<tr style="background-color: #eee;">
+			<table class="form-table">
+				<tr>
 					<td width="20%" valign="top"><strong><?php _e('Start Date/Time', 'wp-polls'); ?></strong>:</td>
 					<td width="80%">
 						<?php echo mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_timestamp)); ?><br />
@@ -455,13 +451,14 @@ switch($mode) {
 ?>
 		<!-- Last Action -->		
 		<div id="message" class="updated" style="display: none;"></div>
-
+		
 		<!-- Manage Polls -->
 		<div class="wrap">
 		<h2><?php _e('Manage Polls', 'wp-polls'); ?></h2>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
+			<br style="clear" />
+			<table class="widefat">
 			<thead>
-				<tr class="thead">
+				<tr>
 					<th><?php _e('ID', 'wp-polls'); ?></th>
 					<th><?php _e('Question', 'wp-polls'); ?></th>				
 					<th><?php _e('Total Voters', 'wp-polls'); ?></th>
@@ -497,20 +494,20 @@ switch($mode) {
 								$poll_expiry_text = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_expiry)); 
 							}
 							if($i%2 == 0) {
-								$style = 'style=\'background-color: #eee;\'';
+								$style = 'class="alternate"';
 							}  else {
-								$style = 'style=\'background: none;\'';
+								$style = '';
 							}
 							if($current_poll > 0) {
 								if($current_poll == $poll_id) {
-									$style = 'style=\'background-color: #b8d4ff;\'';
+									$style = 'class="highlight"';
 								}
 							} elseif($current_poll == 0) {
 								if($poll_id == $latest_poll) {
-									$style = 'style=\'background-color: #b8d4ff;\'';
+									$style = 'class="highlight"';
 								}
 							} else if(in_array($poll_id, $multiple_polls)) {
-								$style = 'style=\'background-color: #b8d4ff;\'';
+								$style = 'class="highlight"';
 							}
 							echo "<tr id=\"poll-$poll_id\" $style>\n";
 							echo "<td><strong>$poll_id</strong></td>\n";
@@ -555,31 +552,37 @@ switch($mode) {
 			</tbody>
 			</table>
 		</div>
+		<p>&nbsp;</p>
+
 		<!-- Polls Stats -->
 		<div class="wrap">
 		<h2><?php _e('Polls Stats', 'wp-polls'); ?></h2>
-			<table border="0" cellspacing="3" cellpadding="3">
+			<br style="clear" />
+			<table class="widefat">
 			<tr>
-				<th align="left"><?php _e('Total Polls:', 'wp-polls'); ?></th>
+				<th align="left"><?php _e('Total Polls', 'wp-polls'); ?></th>
 				<td align="left"><?php echo $i; ?></td>
 			</tr>
-			<tr>
-				<th align="left"><?php _e('Total Polls\' Answers:', 'wp-polls'); ?></th>
+			<tr class="alternate">
+				<th align="left"><?php _e('Total Polls\' Answers', 'wp-polls'); ?></th>
 				<td align="left"><?php echo number_format_i18n($total_ans); ?></td>
 			</tr>
 			<tr>
-				<th align="left"><?php _e('Total Votes Casted:', 'wp-polls'); ?></th>
+				<th align="left"><?php _e('Total Votes Casted', 'wp-polls'); ?></th>
 				<td align="left"><?php echo number_format_i18n($total_votes); ?></td>
 			</tr>
-			<tr>
-				<th align="left"><?php _e('Total Voters:', 'wp-polls'); ?></th>
+			<tr class="alternate">
+				<th align="left"><?php _e('Total Voters', 'wp-polls'); ?></th>
 				<td align="left"><?php echo number_format_i18n($total_voters); ?></td>
 			</tr>
 			</table>
 		</div>
+		<p>&nbsp;</p>
+
 		<!-- Delete Polls Logs -->
 		<div class="wrap">
 			<h2><?php _e('Polls Logs', 'wp-polls'); ?></h2>
+			<br style="clear" />
 			<div align="center" id="poll_logs">
 			<?php
 				$poll_ips = intval($wpdb->get_var("SELECT COUNT(pollip_id) FROM $wpdb->pollsip"));

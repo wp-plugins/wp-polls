@@ -1,8 +1,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.30										|
-|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
+|	WordPress 2.5 Plugin: WP-Polls 2.30										|
+|	Copyright (c) 2008 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -24,8 +24,6 @@ var global_poll_aid_votes  = 0;
 // Function: Delete Poll Message
 function delete_poll_message() {
 	document.getElementById('message').style.display = "block";
-	Fat.fade_element("message", null, 3000, "#FFFF00");
-	Fat.fade_element("poll-" + global_poll_id, null, 1000, "#FF3333");
 	setTimeout("remove_poll()", 1000);
 }
 
@@ -52,7 +50,6 @@ function delete_poll(poll_id, poll_confirm) {
 // Function: Delete Poll Logs Message
 function delete_poll_logs_message() {
 	document.getElementById('message').style.display = "block";
-	Fat.fade_element("message", null, 3000, "#FFFF00");
 	document.getElementById("poll_logs").innerHTML = polls_admin_text_no_poll_logs;
 }
 
@@ -77,7 +74,6 @@ function delete_poll_logs(poll_confirm) {
 // Function: Delete Individual Poll Logs Message
 function delete_this_poll_logs_message() {
 	document.getElementById('message').style.display = "block";
-	Fat.fade_element("message", null, 3000, "#FFFF00");
 	document.getElementById("poll_logs").innerHTML = polls_admin_text_no_poll_logs;
 	document.getElementById("poll_logs_display").style.display = 'none';
 	document.getElementById("poll_logs_display_none").style.display = 'block';
@@ -106,8 +102,6 @@ function delete_this_poll_logs(poll_id, poll_confirm) {
 // Function: Delete Poll Answer Message
 function delete_poll_ans_message() {
 	document.getElementById('message').style.display = "block";
-	Fat.fade_element("message", null, 3000, "#FFFF00");
-	Fat.fade_element("poll-answer-" + global_poll_aid, null, 1000, "#FF3333");
 	setTimeout("remove_poll_ans()", 1000);
 	document.getElementById('poll_total_votes').innerHTML = (parseInt(document.getElementById('poll_total_votes').innerHTML) - parseInt(global_poll_aid_votes));
 	poll_total_votes = parseInt(document.getElementById('pollq_totalvotes').value);
@@ -145,7 +139,6 @@ function delete_poll_ans(poll_id, poll_aid, poll_aid_vote, poll_confirm) {
 // Function: Open Poll Message
 function opening_poll_message() {
 	document.getElementById('message').style.display = "block";
-	Fat.fade_element("message", null, 3000, "#FFFF00");
 	document.getElementById("open_poll").style.display = "none";
 	document.getElementById("close_poll").style.display = "inline";
 }
@@ -168,7 +161,6 @@ function opening_poll(poll_id, poll_confirm) {
 // Function: Close Poll Message
 function closing_poll_message() {
 	document.getElementById('message').style.display = "block";
-	Fat.fade_element("message", null, 3000, "#FFFF00");
 	document.getElementById("open_poll").style.display = "inline";
 	document.getElementById("close_poll").style.display = "none";
 }

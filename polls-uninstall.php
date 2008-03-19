@@ -2,8 +2,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.30										|
-|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
+|	WordPress 2.5 Plugin: WP-Polls 2.30										|
+|	Copyright (c) 2008 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -28,7 +28,7 @@ $base_name = plugin_basename('wp-polls/polls-manager.php');
 $base_page = 'admin.php?page='.$base_name;
 $mode = trim($_GET['mode']);
 $polls_tables = array($wpdb->pollsq, $wpdb->pollsa, $wpdb->pollsip);
-$polls_settings = array('poll_template_voteheader', 'poll_template_votebody', 'poll_template_votefooter', 'poll_template_resultheader', 'poll_template_resultbody', 'poll_template_resultbody2', 'poll_template_resultfooter', 'poll_template_resultfooter2',  'poll_template_disable', 'poll_template_error', 'poll_currentpoll', 'poll_latestpoll', 'poll_archive_perpage', 'poll_ans_sortby', 'poll_ans_sortorder', 'poll_ans_result_sortby', 'poll_ans_result_sortorder', 'poll_logging_method', 'poll_allowtovote', 'poll_archive_show', 'poll_archive_url', 'poll_bar', 'poll_close', 'poll_ajax_style', 'poll_template_pollarchivelink', 'widget_polls', 'poll_archive_displaypoll', 'poll_template_pollarchiveheader', 'poll_template_pollarchivefooter');
+$polls_settings = array('poll_template_voteheader', 'poll_template_votebody', 'poll_template_votefooter', 'poll_template_resultheader', 'poll_template_resultbody', 'poll_template_resultbody2', 'poll_template_resultfooter', 'poll_template_resultfooter2',  'poll_template_disable', 'poll_template_error', 'poll_currentpoll', 'poll_latestpoll', 'poll_archive_perpage', 'poll_ans_sortby', 'poll_ans_sortorder', 'poll_ans_result_sortby', 'poll_ans_result_sortorder', 'poll_logging_method', 'poll_allowtovote', 'poll_archive_show', 'poll_archive_url', 'poll_bar', 'poll_close', 'poll_ajax_style', 'poll_template_pollarchivelink', 'widget_polls', 'poll_archive_displaypoll', 'poll_template_pollarchiveheader', 'poll_template_pollarchivefooter', 'poll_cookielog_expiry');
 
 
 ### Form Processing 

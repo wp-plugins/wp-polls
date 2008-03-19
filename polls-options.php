@@ -48,6 +48,7 @@ if($_POST['Submit']) {
 	$poll_currentpoll = intval($_POST['poll_currentpoll']);
 	$poll_close = intval($_POST['poll_close']);
 	$poll_logging_method = intval($_POST['poll_logging_method']);
+	$poll_cookielog_expiry = intval($_POST['poll_cookielog_expiry']);
 	$poll_allowtovote = intval($_POST['poll_allowtovote']);
 	$update_poll_queries = array();
 	$update_poll_text = array();	
@@ -64,6 +65,7 @@ if($_POST['Submit']) {
 	$update_poll_queries[] = update_option('poll_currentpoll', $poll_currentpoll);
 	$update_poll_queries[] = update_option('poll_close', $poll_close);
 	$update_poll_queries[] = update_option('poll_logging_method', $poll_logging_method);
+	$update_poll_queries[] = update_option('poll_cookielog_expiry', $poll_cookielog_expiry);
 	$update_poll_queries[] = update_option('poll_allowtovote', $poll_allowtovote);
 	$update_poll_text[] = __('Poll Bar Style', 'wp-polls');
 	$update_poll_text[] = __('Poll AJAX Style', 'wp-polls');
@@ -78,6 +80,7 @@ if($_POST['Submit']) {
 	$update_poll_text[] = __('Current Active Poll Option', 'wp-polls');
 	$update_poll_text[] = __('Poll Close Option', 'wp-polls');
 	$update_poll_text[] = __('Logging Method', 'wp-polls');
+	$update_poll_text[] = __('Cookie And Log Expiry Option', 'wp-polls');
 	$update_poll_text[] = __('Allow To Vote Option', 'wp-polls');
 	$i=0;
 	$text = '';
@@ -129,9 +132,6 @@ if($_POST['Submit']) {
 <form id="poll_options_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
 <div class="wrap"> 
 	<h2><?php _e('Poll Options', 'wp-polls'); ?></h2>
-		<p class="submit">
-			<input type="submit" name="Submit" class="button" value="<?php _e('Update Options &raquo;', 'wp-polls'); ?>" />
-		</p>
 		<fieldset class="options">
 			<legend><?php _e('Poll Bar Style', 'wp-polls'); ?></legend>
 			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
@@ -295,6 +295,10 @@ if($_POST['Submit']) {
 							<option value="4"<?php selected('4', get_option('poll_logging_method')); ?>><?php _e('Logged By Username', 'wp-polls'); ?></option>
 						</select>
 					</td>
+				</tr>
+				<tr valign="top">
+					<th align="left" width="30%"><?php _e('Expiry Time For Cookie And Log:', 'wp-polls'); ?></th>
+					<td align="left"><input type="text" name="poll_cookielog_expiry" value="<?php echo intval(get_option('poll_cookielog_expiry')); ?>" size="10" /> <?php _e('seconds (0 to disable)', 'wp-polls'); ?></td>
 				</tr>
 			</table>
 		</fieldset>
