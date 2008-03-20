@@ -2,8 +2,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.30										|
-|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
+|	WordPress 2.5 Plugin: WP-Polls 2.30										|
+|	Copyright (c) 2008 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -118,10 +118,10 @@ $count = 0;
 	function create_poll_answer() {
 		// Create Elements
 		var poll_tr = document.createElement("tr");
-		var poll_td1 = document.createElement("td");
+		var poll_td1 = document.createElement("th");
 		var poll_td2 = document.createElement("td");
 		var poll_answer = document.createElement("input");
-		var poll_answer_count = document.createTextNode("<?php _e('Answer', 'wp-polls'); ?> " + (count_poll_answer+1) + ":");
+		var poll_answer_count = document.createTextNode("<?php _e('Answer', 'wp-polls'); ?> " + (count_poll_answer+1));
 		var poll_answer_bold = document.createElement("strong");
 		var poll_option = document.createElement("option");
 		var poll_option_text = document.createTextNode((count_poll_answer+1));
@@ -134,9 +134,9 @@ $count = 0;
 		poll_option.setAttribute('value', count_poll_answer);
 		poll_option.setAttribute('id', "pollq-multiple-" + (count_poll_answer+1));
 		// Elements - TD/TR
-		if(count_poll_answer%2 != 0) { poll_tr.style.background = "#eee"; }
 		poll_tr.setAttribute('id', "poll-answer-" + count_poll_answer);
 		poll_td1.setAttribute('width', "20%");
+		poll_td1.setAttribute('scope', "row");
 		poll_td2.setAttribute('width', "80%");
 		// Appending
 		poll_tr.appendChild(poll_td1);
@@ -168,21 +168,23 @@ $count = 0;
 	}
 	/* ]]> */
 </script>
-<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } ?>
 <form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
 <div class="wrap">
 	<h2><?php _e('Add Poll', 'wp-polls'); ?></h2>
+
+	<?php if(!empty($text)) { echo '<!-- Last Action --><br class="clear" /><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } ?>
+	
 	<!-- Poll Question -->
 	<h3><?php _e('Poll Question', 'wp-polls'); ?></h3>
-	<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-		<tr style="background-color: #eee;">
-			<td width="20%"><strong><?php _e('Question:', 'wp-polls') ?></strong></td>
+	<table class="form-table">
+		<tr>
+			<th width="20%" scope="row" valign="top"><?php _e('Question', 'wp-polls') ?></th>
 			<td width="80%"><input type="text" size="70" name="pollq_question" value="" /></td>
 		</tr>
 	</table>
 	<!-- Poll Answers -->
 	<h3><?php _e('Poll Answers', 'wp-polls'); ?></h3>
-	<table width="100%"  border="0" cellspacing="3" cellpadding="3">
+	<table class="form-table">
 		<tfoot>
 			<tr>
 				<td width="20%">&nbsp;</td>
@@ -192,13 +194,8 @@ $count = 0;
 		<tbody id="poll_answers">
 		<?php
 			for($i = 1; $i <= $poll_noquestion; $i++) {
-				if($i%2 == 0) {
-					$style = 'style=\'background: none;\'';																				
-				}  else {
-					$style = 'style=\'background-color: #eee;\'';	
-				}
-				echo "<tr id=\"poll-answer-$i\" $style>\n";
-				echo "<td width=\"20%\"><strong>".sprintf(__('Answer %s:', 'wp-polls'), $i)."</strong></td>\n";
+				echo "<tr id=\"poll-answer-$i\">\n";
+				echo "<th width=\"20%\" scope=\"row\" valign=\"top\">".sprintf(__('Answer %s', 'wp-polls'), $i)."</th>\n";
 				echo "<td width=\"80%\"><input type=\"text\" size=\"50\" name=\"polla_answers[]\" /></td>\n";
 				echo "</tr>\n";
 				$count++;
@@ -208,9 +205,9 @@ $count = 0;
 	</table>
 	<!-- Poll Multiple Answers -->
 	<h3><?php _e('Poll Multiple Answers', 'wp-polls') ?></h3>
-	<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-		<tr style="background-color: #eee;">
-			<td width="40%" valign="top"><strong><?php _e('Allows Users To Select More Than One Answer?', 'wp-polls'); ?></strong></td>
+	<table class="form-table">
+		<tr>
+			<th width="40%" scope="row" valign="top"><?php _e('Allows Users To Select More Than One Answer?', 'wp-polls'); ?></th>
 			<td width="60%">
 				<select name="pollq_multiple_yes" id="pollq_multiple_yes" size="1" onchange="check_pollq_multiple();">
 					<option value="0"><?php _e('No', 'wp-polls'); ?></option>
@@ -219,7 +216,7 @@ $count = 0;
 			</td>
 		</tr>
 		<tr>
-			<td width="40%" valign="top"><strong><?php _e('Maximum Number Of Selected Answers Allowed?', 'wp-polls') ?></strong></td>
+			<th width="40%" scope="row" valign="top"><?php _e('Maximum Number Of Selected Answers Allowed?', 'wp-polls') ?></th>
 			<td width="60%">
 				<select name="pollq_multiple" id="pollq_multiple" size="1" disabled="disabled">
 					<?php
@@ -233,13 +230,13 @@ $count = 0;
 	</table>
 	<!-- Poll Start/End Date -->
 	<h3><?php _e('Poll Start/End Date', 'wp-polls'); ?></h3>
-	<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-		<tr style="background-color: #eee;">
-			<td width="20%"><strong><?php _e('Start Date/Time:', 'wp-polls') ?></strong></td>
+	<table class="form-table">
+		<tr>
+			<th width="20%" scope="row" valign="top"><?php _e('Start Date/Time', 'wp-polls') ?></th>
 			<td width="80%"><?php poll_timestamp(current_time('timestamp')); ?></td>
 		</tr>
 		<tr>
-			<td width="20%" valign="top"><strong><?php _e('End Date/Time:', 'wp-polls') ?></strong></td>
+			<th width="20%" scope="row" valign="top"><?php _e('End Date/Time', 'wp-polls') ?></th>
 			<td width="80%"><input type="checkbox" name="pollq_expiry_no" id="pollq_expiry_no" value="1" checked="checked" onclick="check_pollexpiry();" />&nbsp;&nbsp;<label for="pollq_expiry_no"><?php _e('Do NOT Expire This Poll', 'wp-polls'); ?></label><?php poll_timestamp(current_time('timestamp'), 'pollq_expiry', 'none'); ?></td>
 		</tr>
 	</table>

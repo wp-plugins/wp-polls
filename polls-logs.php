@@ -2,8 +2,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.30										|
-|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
+|	WordPress 2.5 Plugin: WP-Polls 2.30										|
+|	Copyright (c) 2008 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -118,10 +118,10 @@ if(!empty($_POST['do'])) {
 	$poll_ips = $wpdb->get_results("SELECT pollip_aid, pollip_ip, pollip_host, pollip_timestamp, pollip_user FROM $wpdb->pollsip WHERE pollip_qid = $poll_id ORDER BY pollip_aid ASC, pollip_user ASC LIMIT 100");
 }
 ?>
-<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
 <div class="wrap">
 	<h2><?php _e('Poll\'s Logs', 'wp-polls'); ?></h2>
-	<p><strong><?php echo $poll_question; ?></strong></p>
+	<?php if(!empty($text)) { echo '<!-- Last Action --><br class="clear" /><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<br class="clear" /><div id="message" class="updated" style="display: none;"></div>'; } ?>
+	<h3><?php echo $poll_question; ?></h3>
 	<p>
 		<?php printf(__('There are a total of <strong>%s</strong> recorded votes for this poll.', 'wp-polls'), number_format_i18n($poll_totalrecorded)); ?><br />
 		<?php printf(__('<strong>&raquo;</strong> <strong>%s</strong> vote(s) are voted by registered users', 'wp-polls'), number_format_i18n($poll_registered)); ?><br />
@@ -137,11 +137,9 @@ if(!empty($_POST['do'])) {
 			<td width="50%">
 				<form method="post" action="<?php echo htmlspecialchars($base_page); ?>&amp;mode=logs&amp;id=<?php echo $poll_id; ?>">
 				<p style="display: none;"><input type="hidden" name="filter" value="1" /></p>
-				<table border="0" cellspacing="3" cellpadding="3">
+				<table class="form-table">
 					<tr>
-						<td>
-							<strong><?php _e('Display All Users That Voted For:', 'wp-polls'); ?></strong>
-						</td>
+						<th scope="row" valign="top"><?php _e('Display All Users That Voted For', 'wp-polls'); ?></th>
 						<td>
 							<select name="users_voted_for" size="1">
 								<?php
@@ -162,9 +160,7 @@ if(!empty($_POST['do'])) {
 						</td>
 					</tr>
 					<tr>
-						<td valign="top">
-							<strong><?php _e('Voters To EXCLUDE', 'wp-polls'); ?></strong>
-						</td>
+						<th scope="row" valign="top"><?php _e('Voters To EXCLUDE', 'wp-polls'); ?></th>
 						<td>
 							<input type="checkbox" id="exclude_registered_1" name="exclude_registered" value="1" <?php checked('1', $exclude_registered); ?> />&nbsp;<label for="exclude_registered_1"><?php _e('Registered Users', 'wp-polls'); ?></label><br />
 							<input type="checkbox" id="exclude_comment_1" name="exclude_comment" value="1" <?php checked('1', $exclude_comment); ?> />&nbsp;<label for="exclude_comment_1"><?php _e('Comment Authors', 'wp-polls'); ?></label><br />
@@ -181,11 +177,9 @@ if(!empty($_POST['do'])) {
 				<?php if($poll_multiple > 0) { ?>
 					<form method="post" action="<?php echo htmlspecialchars($base_page); ?>&amp;mode=logs&amp;id=<?php echo $poll_id; ?>">
 					<p style="display: none;"><input type="hidden" name="filter" value="2" /></p>
-					<table border="0" cellspacing="3" cellpadding="3">
+					<table class="form-table">
 						<tr>
-							<td>
-								<strong><?php _e('Display Users That Voted For: ', 'wp-polls'); ?></strong>
-							</td>
+							<th scope="row" valign="top"><?php _e('Display Users That Voted For', 'wp-polls'); ?></th>
 							<td>
 								<select name="num_choices_sign" size="1">
 									<option value="more" <?php selected('more', $num_choices_sign); ?>><?php _e('More Than', 'wp-polls'); ?></option>
@@ -213,9 +207,7 @@ if(!empty($_POST['do'])) {
 							</td>
 						</tr>
 						<tr>
-							<td valign="top">
-								<strong><?php _e('Voters To EXCLUDE', 'wp-polls'); ?></strong>
-							</td>
+							<th scope="row" valign="top"><?php _e('Voters To EXCLUDE', 'wp-polls'); ?></th>
 							<td>
 								<input type="checkbox" id="exclude_registered_2" name="exclude_registered_2" value="1" <?php checked('1', $exclude_registered_2); ?> />&nbsp;<label for="exclude_registered_2"><?php _e('Registered Users', 'wp-polls'); ?></label><br />
 								<input type="checkbox" id="exclude_comment_2" name="exclude_comment_2" value="1" <?php checked('1', $exclude_comment_2); ?> />&nbsp;<label for="exclude_comment_2"><?php _e('Comment Authors', 'wp-polls'); ?></label><br />
@@ -237,11 +229,9 @@ if(!empty($_POST['do'])) {
 				<?php if($poll_voters) { ?>
 				<form method="post" action="<?php echo htmlspecialchars($base_page); ?>&amp;mode=logs&amp;id=<?php echo $poll_id; ?>">
 				<p style="display: none;"><input type="hidden" name="filter" value="3" /></p>
-				<table border="0" cellspacing="3" cellpadding="3">
+				<table class="form-table">
 					<tr>
-						<td>
-							<strong><?php _e('Display What This User Has Voted:', 'wp-polls'); ?></strong>
-						</td>
+						<th scope="row" valign="top"><?php _e('Display What This User Has Voted', 'wp-polls'); ?></th>
 						<td>
 							<select name="what_user_voted" size="1">
 								<?php
@@ -267,12 +257,11 @@ if(!empty($_POST['do'])) {
 					&nbsp;
 				<?php } // End if($poll_multiple > -1) ?>		
 			</td>
-			<td>
-				<input type="button" value="<?php _e('Clear Filter', 'wp-polls'); ?>" onclick="self.location.href = '<?php echo htmlspecialchars($base_page); ?>&amp;mode=logs&amp;id=<?php echo $poll_id; ?>';" class="button" />
-			</td>
+			<td align="center"><input type="button" value="<?php _e('Clear Filter', 'wp-polls'); ?>" onclick="self.location.href = '<?php echo htmlspecialchars($base_page); ?>&amp;mode=logs&amp;id=<?php echo $poll_id; ?>';" class="button" /></td>
 		</tr>
 	</table>
 </div>
+<p>&nbsp;</p>
 <?php } // End if($poll_totalrecorded > 0) ?>
 <div class="wrap">
 	<h2><?php _e('Poll Logs', 'wp-polls'); ?></h2>
@@ -282,7 +271,7 @@ if(!empty($_POST['do'])) {
 				if(empty($_POST['do'])) {
 					echo '<p>'.__('This default filter is limited to display only <strong>100</strong> records.', 'wp-polls').'</p>';
 				}
-				echo '<table width="100%"  border="0" cellspacing="3" cellpadding="3">'."\n";
+				echo '<table class="widefat">'."\n";
 				$k = 1;
 				$j = 0;
 				$poll_last_aid = -1;
@@ -300,12 +289,12 @@ if(!empty($_POST['do'])) {
 						$pollip_host = $poll_ip->pollip_host;
 						$pollip_date = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_ip->pollip_timestamp));
 						if($i%2 == 0) {
-							$style = 'style=\'background-color: none\'';
+							$style = '';
 						}  else {
-							$style = 'style=\'background-color: #eee\'';
+							$style = 'class="alternate"';
 						}
 						if($pollip_user != $temp_pollip_user) {
-							echo '<tr style="background-color: #b8d4ff">'."\n";
+							echo '<tr class="highlight">'."\n";
 							echo "<td colspan=\"4\"><strong>".__('User', 'wp-polls')." $k: $pollip_user</strong></td>\n";
 							echo '</tr>';
 							$k++;
@@ -329,9 +318,9 @@ if(!empty($_POST['do'])) {
 						$pollip_date = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_ip->pollip_timestamp)); 
 						if($pollip_aid != $poll_last_aid) {
 							if($pollip_aid == 0) {
-								echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><strong>$pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
+								echo "<tr class=\"highlight\">\n<td colspan=\"4\"><strong>$pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
 							} else {
-								echo "<tr style='background-color: #b8d4ff'>\n<td colspan=\"4\"><strong>".__('Answer', 'wp-polls')." $k: $pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
+								echo "<tr class=\"highlight\">\n<td colspan=\"4\"><strong>".__('Answer', 'wp-polls')." $k: $pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
 								$k++;
 							}
 							echo "<tr class=\"thead\">\n";
@@ -343,9 +332,9 @@ if(!empty($_POST['do'])) {
 							$i = 1;
 						}
 						if($i%2 == 0) {
-							$style = 'style=\'background-color: none\'';
+							$style = '';
 						}  else {
-							$style = 'style=\'background-color: #eee\'';
+							$style = 'class="alternate"';
 						}
 						echo "<tr $style>\n";
 						echo "<td>$i</td>\n";
@@ -358,7 +347,7 @@ if(!empty($_POST['do'])) {
 						$j++;
 					}
 				}
-				echo "<tr class=\"thead\">\n";
+				echo "<tr class=\"highlight\">\n";
 				echo "<td colspan=\"4\">".sprintf(__('Total number of records that matches this filter: <strong>%s</strong>', 'wp-polls'), number_format_i18n($j))."</td>";
 				echo "</tr>\n";
 				echo '</table>'."\n";
@@ -366,15 +355,17 @@ if(!empty($_POST['do'])) {
 		?>
 	</div>
 	<?php if(!empty($_POST['do'])) { ?>
-		<div id="poll_logs_display_none" style="text-align: center; display: <?php if(!$poll_ips) { echo 'block'; } else { echo 'none'; } ?>;" ><?php _e('No poll logs matches the filter.', 'wp-polls'); ?></div>
+		<br class="clear" /><div id="poll_logs_display_none" style="text-align: center; display: <?php if(!$poll_ips) { echo 'block'; } else { echo 'none'; } ?>;" ><?php _e('No poll logs matches the filter.', 'wp-polls'); ?></div>
 	<?php } else { ?>
-		<div id="poll_logs_display_none" style="text-align: center; display: <?php if(!$poll_logs_count) { echo 'block'; } else { echo 'none'; } ?>;" ><?php _e('No poll logs available for this poll.', 'wp-polls'); ?></div>
+		<br class="clear" /><div id="poll_logs_display_none" style="text-align: center; display: <?php if(!$poll_logs_count) { echo 'block'; } else { echo 'none'; } ?>;" ><?php _e('No poll logs available for this poll.', 'wp-polls'); ?></div>
 	<?php } ?>
 </div>
+<p>&nbsp;</p>
 
 <!-- Delete Poll Logs -->
 <div class="wrap">
 	<h2><?php _e('Delete Poll Logs', 'wp-polls'); ?></h2>
+	<br class="clear" />
 	<div align="center" id="poll_logs">
 		<?php if($poll_logs_count) { ?>
 			<strong><?php _e('Are You Sure You Want To Delete Logs For This Poll Only?', 'wp-polls'); ?></strong><br /><br />

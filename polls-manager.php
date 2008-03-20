@@ -229,12 +229,12 @@ switch($mode) {
 			function create_poll_answer() {
 				// Create Elements
 				var poll_tr = document.createElement("tr");
-				var poll_td1 = document.createElement("td");
+				var poll_td1 = document.createElement("th");
 				var poll_td2 = document.createElement("td");
 				var poll_td3 = document.createElement("td");
 				var poll_answer = document.createElement("input");
 				var poll_votes = document.createElement("input");
-				var poll_answer_count = document.createTextNode("<?php _e('Answer', 'wp-polls'); ?> " + (count_poll_answer+1) + ":");
+				var poll_answer_count = document.createTextNode("<?php _e('Answer', 'wp-polls'); ?> " + (count_poll_answer+1));
 				var poll_votes_count = document.createTextNode("0 ");
 				var poll_answer_bold = document.createElement("strong");
 				var poll_option = document.createElement("option");
@@ -256,8 +256,10 @@ switch($mode) {
 				// Elements - TD/TR
 				poll_tr.setAttribute('id', "poll-answer-new-" + count_poll_answer_new);
 				poll_td1.setAttribute('width', "20%");
+				poll_td1.setAttribute('scope', "row");
+				poll_td1.setAttribute('valign', "top");
 				poll_td2.setAttribute('width', "60%");
-				poll_td3.setAttribute('width', "10%");
+				poll_td3.setAttribute('width', "20%");
 				poll_td3.setAttribute('align', "right");
 				// Appending To Elements
 				poll_tr.appendChild(poll_td1);
@@ -302,13 +304,13 @@ switch($mode) {
 		<div class="wrap">
 			<h2><?php _e('Edit Poll', 'wp-polls'); ?></h2>
 
-			<?php if(!empty($text)) { echo '<!-- Last Action --><br class="clear" /><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
+			<?php if(!empty($text)) { echo '<!-- Last Action --><br class="clear" /><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<br class="clear" /><div id="message" class="updated" style="display: none;"></div>'; } ?>
 
 			<!-- Poll Question -->
 			<h3><?php _e('Poll Question', 'wp-polls'); ?></h3>
 			<table class="form-table">
 				<tr>
-					<th scope="row" valign="top"><?php _e('Question', 'wp-polls') ?></th>
+					<th width="20%" scope="row" valign="top"><?php _e('Question', 'wp-polls') ?></th>
 					<td width="80%"><input type="text" size="70" name="pollq_question" value="<?php echo htmlspecialchars($poll_question_text); ?>" /></td>
 				</tr>
 			</table>
@@ -316,10 +318,10 @@ switch($mode) {
 			<h3><?php _e('Poll Answers', 'wp-polls'); ?></h3>
 			<table class="form-table">
 				<thead>
-					<tr >
-						<td width="20%"><strong><?php _e('Answer No.', 'wp-polls') ?></strong></td>
-						<td width="60%"><strong><?php _e('Answer Text', 'wp-polls') ?></strong></td>
-						<td width="20%" align="right"><strong><?php _e('No. Of Votes', 'wp-polls') ?></strong></td>
+					<tr>
+						<th width="20%" scope="row" valign="top"><?php _e('Answer No.', 'wp-polls') ?></th>
+						<th width="60%" scope="row" valign="top"><?php _e('Answer Text', 'wp-polls') ?></th>
+						<th width="20%" scope="row" valign="top" style="text-align: right;"><?php _e('No. Of Votes', 'wp-polls') ?></th>
 					</tr>
 				</thead>
 				<tbody id="poll_answers">
@@ -335,7 +337,7 @@ switch($mode) {
 								$polla_votes = intval($poll_answer->polla_votes);
 								$pollip_answers[$polla_aid] = $polla_answers;
 								echo "<tr id=\"poll-answer-$polla_aid\">\n";
-								echo '<td width="20%"><strong>'.sprintf(__('Answer %s:', 'wp-polls'), $i).'</strong></td>'."\n";
+								echo '<th width="20%" scope="row" valign="top">'.sprintf(__('Answer %s', 'wp-polls'), $i).'</th>'."\n";
 								echo "<td width=\"60%\"><input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_aid-$polla_aid\" value=\"".htmlspecialchars($polla_answers)."\" />&nbsp;&nbsp;&nbsp;";
 								echo "<input type=\"button\" value=\"".__('Delete', 'wp-polls')."\" onclick=\"delete_poll_ans($poll_id, $polla_aid, $polla_votes, '".sprintf(js_escape(__('You are about to delete this poll\'s answer \'%s\'.', 'wp-polls')), js_escape(htmlspecialchars($polla_answers)))."');\" class=\"button\" /></td>\n";
 								echo '<td width="20%" align="right">'.number_format_i18n($polla_votes)." <input type=\"text\" size=\"4\" id=\"polla_votes-$polla_aid\" name=\"polla_votes-$polla_aid\" value=\"$polla_votes\" onblur=\"check_totalvotes();\" /></td>\n</tr>\n";
@@ -362,7 +364,7 @@ switch($mode) {
 			<h3><?php _e('Poll Multiple Answers', 'wp-polls') ?></h3>
 			<table class="form-table">
 				<tr>
-					<td width="40%" valign="top"><strong><?php _e('Allows Users To Select More Than One Answer?', 'wp-polls'); ?></strong></td>
+					<th width="40%" scope="row" valign="top"><?php _e('Allows Users To Select More Than One Answer?', 'wp-polls'); ?></th>
 					<td width="60%">
 						<select name="pollq_multiple_yes" id="pollq_multiple_yes" size="1" onchange="check_pollq_multiple();">
 							<option value="0"<?php selected('0', $poll_multiple); ?>><?php _e('No', 'wp-polls'); ?></option>
@@ -371,9 +373,9 @@ switch($mode) {
 					</td>
 				</tr>
 				<tr>
-					<td width="40%" valign="top"><strong><?php _e('Maximum Number Of Selected Answers Allowed?', 'wp-polls') ?></strong></td>
+					<th width="40%" scope="row" valign="top"><?php _e('Maximum Number Of Selected Answers Allowed?', 'wp-polls') ?></th>
 					<td width="60%">
-						<select name="pollq_multiple" id="pollq_multiple" size="1" <?php if($poll_multiple == 0) { echo 'disabled="true"'; } ?>>
+						<select name="pollq_multiple" id="pollq_multiple" size="1" <?php if($poll_multiple == 0) { echo 'disabled="disabled"'; } ?>>
 							<?php
 								for($i = 1; $i <= $poll_noquestion; $i++) {
 									if($poll_multiple > 0 && $poll_multiple == $i) {
@@ -391,7 +393,7 @@ switch($mode) {
 			<h3><?php _e('Poll Start/End Date', 'wp-polls'); ?></h3>
 			<table class="form-table">
 				<tr>
-					<td width="20%" valign="top"><strong><?php _e('Start Date/Time', 'wp-polls'); ?></strong>:</td>
+					<th width="20%" scope="row" valign="top"><?php _e('Start Date/Time', 'wp-polls'); ?></th>
 					<td width="80%">
 						<?php echo mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_timestamp)); ?><br />
 						<input type="checkbox" name="edit_polltimestamp" id="edit_polltimestamp" value="1" onclick="check_polltimestamp()" />&nbsp;<label for="edit_polltimestamp"><?php _e('Edit Start Date/Time', 'wp-polls'); ?></label><br />
@@ -399,7 +401,7 @@ switch($mode) {
 					</td>
 				</tr>
 					<tr>
-					<td width="20%" valign="top"><strong><?php _e('End Date/Time', 'wp-polls'); ?></strong>:</td>
+					<th width="20%" scope="row" valign="top"><?php _e('End Date/Time', 'wp-polls'); ?></th>
 					<td width="80%">
 						<?php
 							if(empty($poll_expiry)) {
@@ -448,13 +450,12 @@ switch($mode) {
 		$total_ans =  $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->pollsa");
 		$total_votes = 0;
 		$total_voters = 0;
-?>
-		<!-- Last Action -->		
-		<div id="message" class="updated" style="display: none;"></div>
-		
+?>	
 		<!-- Manage Polls -->
 		<div class="wrap">
 		<h2><?php _e('Manage Polls', 'wp-polls'); ?></h2>
+			<!-- Last Action -->		
+			<div id="message" class="updated" style="display: none; margin-top: 15px;"></div>
 			<br style="clear" />
 			<table class="widefat">
 			<thead>
