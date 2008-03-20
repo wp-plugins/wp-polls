@@ -2,8 +2,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.3 Plugin: WP-Polls 2.30										|
-|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
+|	WordPress 2.5 Plugin: WP-Polls 2.30										|
+|	Copyright (c) 2008 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -138,333 +138,330 @@ if($_POST['Submit']) {
 	}
 /* ]]> */
 </script>
-<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
 <form id="poll_options_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
 <div class="wrap"> 
 	<h2><?php _e('Poll Templates', 'wp-polls'); ?></h2>
-		<p class="submit">
-			<input type="submit" name="Submit" class="button" value="<?php _e('Update Templates &raquo;', 'wp-polls'); ?>" />
-		</p>
-		<fieldset class="options">
-			<legend><?php _e('Template Variables', 'wp-polls'); ?></legend>
-			<table width="100%"  border="0" cellspacing="0" cellpadding="5">
-				<tr>
-					<td>
-						<strong>%POLL_ID%</strong><br />
-						<?php _e('Display the poll\'s ID', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_ANSWER_ID%</strong><br />
-						<?php _e('Display the poll\'s answer ID', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_QUESTION%</strong><br />
-						<?php _e('Display the poll\'s question', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_ANSWER%</strong><br />
-						<?php _e('Display the poll\'s answer', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_TOTALVOTES%</strong><br />
-						<?php _e('Display the poll\'s total votes NOT the number of people who voted for the poll', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_ANSWER_TEXT%</strong><br />
-						<?php _e('Display the poll\'s answer without HTML formatting.', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_RESULT_URL%</strong><br />
-						<?php _e('Displays URL to poll\'s result', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_ANSWER_VOTES%</strong><br />
-						<?php _e('Display the poll\'s answer votes', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_MOST_ANSWER%</strong><br />
-						<?php _e('Display the poll\'s most voted answer', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_ANSWER_PERCENTAGE%</strong><br />
-						<?php _e('Display the poll\'s answer percentage', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_MOST_VOTES%</strong><br />
-						<?php _e('Display the poll\'s answer votes for the most voted answer', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_ANSWER_IMAGEWIDTH%</strong><br />
-						<?php _e('Display the poll\'s answer image width', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_MOST_PERCENTAGE%</strong><br />
-						<?php _e('Display the poll\'s answer percentage for the most voted answer', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_LEAST_ANSWER%</strong><br />
-						<?php _e('Display the poll\'s least voted answer', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_START_DATE%</strong><br />
-						<?php _e('Display the poll\'s start date/time', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_LEAST_VOTES%</strong><br />
-						<?php _e('Display the poll\'s answer votes for the least voted answer', 'wp-polls'); ?>
-				</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_END_DATE%</strong><br />
-						<?php _e('Display the poll\'s end date/time', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_LEAST_PERCENTAGE%</strong><br />
-						<?php _e('Display the poll\'s answer percentage for the least voted answer', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_MULTIPLE_ANS_MAX%</strong><br />
-						<?php _e('Display the the maximum number of answers the user can choose if the poll supports multiple answers', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_CHECKBOX_RADIO%</strong><br />
-						<?php _e('Display "checkbox" or "radio" input types depending on the poll type', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<strong>%POLL_TOTALVOTERS%</strong><br />
-						<?php _e('Display the number of people who voted for the poll NOT the total votes of the poll', 'wp-polls'); ?>
-					</td>
-					<td>
-						<strong>%POLL_ARCHIVE_URL%</strong><br />
-						<?php _e('Display the poll archive URL', 'wp-polls'); ?>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<strong><?php _e('Note:', 'wp-polls'); ?></strong><br />
-						<?php _e('<strong>%POLL_TOTALVOTES%</strong> and <strong>%POLL_TOTALVOTERS%</strong> will be different if your poll supports multiple answers. If your poll allows only single answer, both value will be the same.', 'wp-polls'); ?>
-					</td>
-				</tr>
-			</table>
-		</fieldset>
-		<fieldset class="options">
-			<legend><?php _e('Poll Voting Form Templates', 'wp-polls'); ?></legend>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-				 <tr valign="top">
-					<td width="30%" align="left">
-						<strong><?php _e('Voting Form Header:', 'wp-polls'); ?></strong><br /><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- %POLL_ID%<br />
-						- %POLL_QUESTION%<br />
-						- %POLL_START_DATE%<br />
-						- %POLL_END_DATE%<br />
-						- %POLL_TOTALVOTES%<br />
-						- %POLL_TOTALVOTERS%<br />
-						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('voteheader');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_voteheader" name="poll_template_voteheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_voteheader'))); ?></textarea></td>
-				</tr>
-				<tr valign="top"> 
-					<td width="30%" align="left">
-						<strong><?php _e('Voting Form Body:', 'wp-polls'); ?></strong><br /><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- %POLL_ID%<br />
-						- %POLL_ANSWER_ID%<br />
-						- %POLL_ANSWER%<br />
-						- %POLL_ANSWER_VOTES%<br />
-						- %POLL_CHECKBOX_RADIO%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('votebody');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_votebody" name="poll_template_votebody"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votebody'))); ?></textarea></td> 
-				</tr>
-				<tr valign="top"> 
-					<td width="30%" align="left">
-						<strong><?php _e('Voting Form Footer:', 'wp-polls'); ?></strong><br /><br /><br />
-							<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-							- %POLL_ID%<br />
-							- %POLL_RESULT_URL%<br />
-							- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('votefooter');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votefooter'))); ?></textarea></td> 
-				</tr>
-			</table>
-		</fieldset>
-		<fieldset class="options">
-			<legend><?php _e('Poll Result Templates', 'wp-polls'); ?></legend>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3"> 
-				 <tr valign="top">
-					<td width="30%" align="left">
-						<strong><?php _e('Result Header:', 'wp-polls'); ?></strong><br /><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- %POLL_ID%<br />
-						- %POLL_QUESTION%<br />
-						- %POLL_START_DATE%<br />
-						- %POLL_END_DATE%<br />
-						- %POLL_TOTALVOTES%<br />
-						- %POLL_TOTALVOTERS%<br />
-						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultheader');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultheader" name="poll_template_resultheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultheader'))); ?></textarea></td>
-				</tr>
-				<tr valign="top"> 
-					<td width="30%" align="left">
-						<strong><?php _e('Result Body:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS NOT Voted', 'wp-polls'); ?><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- %POLL_ANSWER_ID%<br />
-						- %POLL_ANSWER%<br />
-						- %POLL_ANSWER_TEXT%<br />
-						- %POLL_ANSWER_VOTES%<br />
-						- %POLL_ANSWER_PERCENTAGE%<br />
-						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultbody');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultbody'))); ?></textarea></td> 
-				</tr>
-				<tr valign="top"> 
-					<td width="30%" align="left">
-						<strong><?php _e('Result Body:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS Voted', 'wp-polls'); ?><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- %POLL_ANSWER_ID%<br />
-						- %POLL_ANSWER%<br />
-						- %POLL_ANSWER_TEXT%<br />
-						- %POLL_ANSWER_VOTES%<br />
-						-  %POLL_ANSWER_PERCENTAGE%<br />
-						- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultbody2');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultbody2'))); ?></textarea></td> 
-				</tr>
-				<tr valign="top"> 
-					<td width="30%" align="left">
-						<strong><?php _e('Result Footer:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS Voted', 'wp-polls'); ?><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- %POLL_ID%<br />
-						- %POLL_START_DATE%<br />
-						- %POLL_END_DATE%<br />
-						- %POLL_TOTALVOTES%<br />
-						- %POLL_TOTALVOTERS%<br />
-						- %POLL_MOST_ANSWER%<br />
-						- %POLL_MOST_VOTES%<br />
-						- %POLL_MOST_PERCENTAGE%<br />
-						- %POLL_LEAST_ANSWER%<br />
-						- %POLL_LEAST_VOTES%<br />
-						- %POLL_LEAST_PERCENTAGE%<br />
-						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultfooter');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultfooter" name="poll_template_resultfooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter'))); ?></textarea></td> 
-				</tr>
-				<tr valign="top"> 
-					<td width="30%" align="left">
-						<strong><?php _e('Result Footer:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS NOT Voted', 'wp-polls'); ?><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- %POLL_ID%<br />
-						- %POLL_START_DATE%<br />
-						- %POLL_END_DATE%<br />
-						- %POLL_TOTALVOTES%<br />
-						- %POLL_TOTALVOTERS%<br />
-						- %POLL_MOST_ANSWER%<br />
-						- %POLL_MOST_VOTES%<br />
-						- %POLL_MOST_PERCENTAGE%<br />
-						- %POLL_LEAST_ANSWER%<br />
-						- %POLL_LEAST_VOTES%<br />
-						- %POLL_LEAST_PERCENTAGE%<br />
-						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultfooter2');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_resultfooter2" name="poll_template_resultfooter2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter2'))); ?></textarea></td> 
-				</tr>
-			</table>
-		</fieldset>
-		<fieldset class="options">
-			<legend><?php _e('Poll Archive Templates', 'wp-polls'); ?></legend>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3"> 
-				<tr valign="top">
-					<td width="30%" align="left">
-						<strong><?php _e('Poll Archive Link', 'wp-polls'); ?></strong><br /><?php _e('Template For Displaying Poll Archive Link', 'wp-polls'); ?><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- %POLL_ARCHIVE_URL%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchivelink');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_pollarchivelink" name="poll_template_pollarchivelink"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchivelink'))); ?></textarea></td>
-				</tr>
-				 <tr valign="top">
-					<td width="30%" align="left">
-						<strong><?php _e('Individual Poll Header', 'wp-polls'); ?></strong><br /><?php _e('Displayed Before Each Poll In The Poll Archive', 'wp-polls'); ?><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- <?php _e('N/A', 'wp-polls'); ?><br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchiveheader');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_pollarchiveheader" name="poll_template_pollarchiveheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchiveheader'))); ?></textarea></td>
-				</tr>
-				<tr valign="top">
-					<td width="30%" align="left">
-						<strong><?php _e('Individual Poll Footer', 'wp-polls'); ?></strong><br /><?php _e('Displayed After Each Poll In The Poll Archive', 'wp-polls'); ?><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- %POLL_START_DATE%<br />
-						- %POLL_END_DATE%<br />
-						- %POLL_TOTALVOTES%<br />
-						- %POLL_TOTALVOTERS%<br />
-						- %POLL_MOST_ANSWER%<br />
-						- %POLL_MOST_VOTES%<br />
-						- %POLL_MOST_PERCENTAGE%<br />
-						- %POLL_LEAST_ANSWER%<br />
-						- %POLL_LEAST_VOTES%<br />
-						- %POLL_LEAST_PERCENTAGE%<br />
-						- %POLL_MULTIPLE_ANS_MAX%<br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchivefooter');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_pollarchivefooter" name="poll_template_pollarchivefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchivefooter'))); ?></textarea></td>
-				</tr>
-			</table>
-		</fieldset>
-		<fieldset class="options">
-			<legend><?php _e('Poll Misc Templates', 'wp-polls'); ?></legend>
-			<table width="100%"  border="0" cellspacing="3" cellpadding="3"> 
-				 <tr valign="top">
-					<td width="30%" align="left">
-						<strong><?php _e('Poll Disabled', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The Poll Is Disabled', 'wp-polls'); ?><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- <?php _e('N/A', 'wp-polls'); ?><br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('disable');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_disable" name="poll_template_disable"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_disable'))); ?></textarea></td>
-				</tr>
-				<tr valign="top">
-					<td width="30%" align="left">
-						<strong><?php _e('Poll Error', 'wp-polls'); ?></strong><br /><?php _e('Displayed When An Error Has Occured While Processing The Poll', 'wp-polls'); ?><br /><br />
-						<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
-						- <?php _e('N/A', 'wp-polls'); ?><br /><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('error');" class="button" />
-					</td>
-					<td align="left"><textarea cols="80" rows="12" id="poll_template_error" name="poll_template_error"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_error'))); ?></textarea></td>
-				</tr>
-			</table>
-		</fieldset>
-		<p class="submit">
-			<input type="submit" name="Submit" class="button" value="<?php _e('Update Templates &raquo;', 'wp-polls'); ?>" />
-		</p>
+	
+	<?php if(!empty($text)) { echo '<!-- Last Action --><br class="clear" /><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
+	
+	<!-- Template Variables -->
+	<h3><?php _e('Template Variables', 'wp-polls'); ?></h3>
+	<table class="widefat">
+		<tr>
+			<td>
+				<strong>%POLL_ID%</strong><br />
+				<?php _e('Display the poll\'s ID', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_ANSWER_ID%</strong><br />
+				<?php _e('Display the poll\'s answer ID', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr class="alternate">
+			<td>
+				<strong>%POLL_QUESTION%</strong><br />
+				<?php _e('Display the poll\'s question', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_ANSWER%</strong><br />
+				<?php _e('Display the poll\'s answer', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>%POLL_TOTALVOTES%</strong><br />
+				<?php _e('Display the poll\'s total votes NOT the number of people who voted for the poll', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_ANSWER_TEXT%</strong><br />
+				<?php _e('Display the poll\'s answer without HTML formatting.', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr class="alternate">
+			<td>
+				<strong>%POLL_RESULT_URL%</strong><br />
+				<?php _e('Displays URL to poll\'s result', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_ANSWER_VOTES%</strong><br />
+				<?php _e('Display the poll\'s answer votes', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>%POLL_MOST_ANSWER%</strong><br />
+				<?php _e('Display the poll\'s most voted answer', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_ANSWER_PERCENTAGE%</strong><br />
+				<?php _e('Display the poll\'s answer percentage', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr class="alternate">
+			<td>
+				<strong>%POLL_MOST_VOTES%</strong><br />
+				<?php _e('Display the poll\'s answer votes for the most voted answer', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_ANSWER_IMAGEWIDTH%</strong><br />
+				<?php _e('Display the poll\'s answer image width', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>%POLL_MOST_PERCENTAGE%</strong><br />
+				<?php _e('Display the poll\'s answer percentage for the most voted answer', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_LEAST_ANSWER%</strong><br />
+				<?php _e('Display the poll\'s least voted answer', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr class="alternate">
+			<td>
+				<strong>%POLL_START_DATE%</strong><br />
+				<?php _e('Display the poll\'s start date/time', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_LEAST_VOTES%</strong><br />
+				<?php _e('Display the poll\'s answer votes for the least voted answer', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>%POLL_END_DATE%</strong><br />
+				<?php _e('Display the poll\'s end date/time', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_LEAST_PERCENTAGE%</strong><br />
+				<?php _e('Display the poll\'s answer percentage for the least voted answer', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr class="alternate">
+			<td>
+				<strong>%POLL_MULTIPLE_ANS_MAX%</strong><br />
+				<?php _e('Display the the maximum number of answers the user can choose if the poll supports multiple answers', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_CHECKBOX_RADIO%</strong><br />
+				<?php _e('Display "checkbox" or "radio" input types depending on the poll type', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>%POLL_TOTALVOTERS%</strong><br />
+				<?php _e('Display the number of people who voted for the poll NOT the total votes of the poll', 'wp-polls'); ?>
+			</td>
+			<td>
+				<strong>%POLL_ARCHIVE_URL%</strong><br />
+				<?php _e('Display the poll archive URL', 'wp-polls'); ?>
+			</td>
+		</tr>
+		<tr class="alternate">
+			<td colspan="2">
+				<?php _e('Note: <strong>%POLL_TOTALVOTES%</strong> and <strong>%POLL_TOTALVOTERS%</strong> will be different if your poll supports multiple answers. If your poll allows only single answer, both value will be the same.', 'wp-polls'); ?>
+			</td>
+		</tr>
+	</table>
+
+	<!-- Poll Voting Form Templates -->
+	<h3><?php _e('Poll Voting Form Templates', 'wp-polls'); ?></h3>
+	<table class="form-table">
+		 <tr>
+			<td width="30%" align="left">
+				<strong><?php _e('Voting Form Header:', 'wp-polls'); ?></strong><br /><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- %POLL_ID%<br />
+				- %POLL_QUESTION%<br />
+				- %POLL_START_DATE%<br />
+				- %POLL_END_DATE%<br />
+				- %POLL_TOTALVOTES%<br />
+				- %POLL_TOTALVOTERS%<br />
+				- %POLL_MULTIPLE_ANS_MAX%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('voteheader');" class="button" />
+			</td>
+			<td><textarea cols="80" rows="15" id="poll_template_voteheader" name="poll_template_voteheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_voteheader'))); ?></textarea></td>
+		</tr>
+		<tr> 
+			<td width="30%" align="left">
+				<strong><?php _e('Voting Form Body:', 'wp-polls'); ?></strong><br /><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- %POLL_ID%<br />
+				- %POLL_ANSWER_ID%<br />
+				- %POLL_ANSWER%<br />
+				- %POLL_ANSWER_VOTES%<br />
+				- %POLL_CHECKBOX_RADIO%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('votebody');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_votebody" name="poll_template_votebody"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votebody'))); ?></textarea></td> 
+		</tr>
+		<tr> 
+			<td width="30%" align="left">
+				<strong><?php _e('Voting Form Footer:', 'wp-polls'); ?></strong><br /><br /><br />
+					<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+					- %POLL_ID%<br />
+					- %POLL_RESULT_URL%<br />
+					- %POLL_MULTIPLE_ANS_MAX%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('votefooter');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votefooter'))); ?></textarea></td> 
+		</tr>
+	</table>
+	
+	<!-- Poll Result Templates -->
+	<h3><?php _e('Poll Result Templates', 'wp-polls'); ?></h3>
+	<table class="form-table"> 
+		 <tr>
+			<td width="30%" align="left">
+				<strong><?php _e('Result Header:', 'wp-polls'); ?></strong><br /><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- %POLL_ID%<br />
+				- %POLL_QUESTION%<br />
+				- %POLL_START_DATE%<br />
+				- %POLL_END_DATE%<br />
+				- %POLL_TOTALVOTES%<br />
+				- %POLL_TOTALVOTERS%<br />
+				- %POLL_MULTIPLE_ANS_MAX%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultheader');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_resultheader" name="poll_template_resultheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultheader'))); ?></textarea></td>
+		</tr>
+		<tr> 
+			<td width="30%" align="left">
+				<strong><?php _e('Result Body:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS NOT Voted', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- %POLL_ANSWER_ID%<br />
+				- %POLL_ANSWER%<br />
+				- %POLL_ANSWER_TEXT%<br />
+				- %POLL_ANSWER_VOTES%<br />
+				- %POLL_ANSWER_PERCENTAGE%<br />
+				- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultbody');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_resultbody" name="poll_template_resultbody"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultbody'))); ?></textarea></td> 
+		</tr>
+		<tr> 
+			<td width="30%" align="left">
+				<strong><?php _e('Result Body:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS Voted', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- %POLL_ANSWER_ID%<br />
+				- %POLL_ANSWER%<br />
+				- %POLL_ANSWER_TEXT%<br />
+				- %POLL_ANSWER_VOTES%<br />
+				-  %POLL_ANSWER_PERCENTAGE%<br />
+				- %POLL_ANSWER_IMAGEWIDTH%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultbody2');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_resultbody2" name="poll_template_resultbody2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultbody2'))); ?></textarea></td> 
+		</tr>
+		<tr> 
+			<td width="30%" align="left">
+				<strong><?php _e('Result Footer:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS Voted', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- %POLL_ID%<br />
+				- %POLL_START_DATE%<br />
+				- %POLL_END_DATE%<br />
+				- %POLL_TOTALVOTES%<br />
+				- %POLL_TOTALVOTERS%<br />
+				- %POLL_MOST_ANSWER%<br />
+				- %POLL_MOST_VOTES%<br />
+				- %POLL_MOST_PERCENTAGE%<br />
+				- %POLL_LEAST_ANSWER%<br />
+				- %POLL_LEAST_VOTES%<br />
+				- %POLL_LEAST_PERCENTAGE%<br />
+				- %POLL_MULTIPLE_ANS_MAX%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultfooter');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_resultfooter" name="poll_template_resultfooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter'))); ?></textarea></td> 
+		</tr>
+		<tr> 
+			<td width="30%" align="left">
+				<strong><?php _e('Result Footer:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS NOT Voted', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- %POLL_ID%<br />
+				- %POLL_START_DATE%<br />
+				- %POLL_END_DATE%<br />
+				- %POLL_TOTALVOTES%<br />
+				- %POLL_TOTALVOTERS%<br />
+				- %POLL_MOST_ANSWER%<br />
+				- %POLL_MOST_VOTES%<br />
+				- %POLL_MOST_PERCENTAGE%<br />
+				- %POLL_LEAST_ANSWER%<br />
+				- %POLL_LEAST_VOTES%<br />
+				- %POLL_LEAST_PERCENTAGE%<br />
+				- %POLL_MULTIPLE_ANS_MAX%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('resultfooter2');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_resultfooter2" name="poll_template_resultfooter2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter2'))); ?></textarea></td> 
+		</tr>
+	</table>
+
+	<!-- Poll Archive Templates -->
+	<h3><?php _e('Poll Archive Templates', 'wp-polls'); ?></h3>
+	<table class="form-table"> 
+		<tr>
+			<td width="30%" align="left">
+				<strong><?php _e('Poll Archive Link', 'wp-polls'); ?></strong><br /><?php _e('Template For Displaying Poll Archive Link', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- %POLL_ARCHIVE_URL%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchivelink');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_pollarchivelink" name="poll_template_pollarchivelink"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchivelink'))); ?></textarea></td>
+		</tr>
+		 <tr>
+			<td width="30%" align="left">
+				<strong><?php _e('Individual Poll Header', 'wp-polls'); ?></strong><br /><?php _e('Displayed Before Each Poll In The Poll Archive', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- <?php _e('N/A', 'wp-polls'); ?><br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchiveheader');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_pollarchiveheader" name="poll_template_pollarchiveheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchiveheader'))); ?></textarea></td>
+		</tr>
+		<tr>
+			<td width="30%" align="left">
+				<strong><?php _e('Individual Poll Footer', 'wp-polls'); ?></strong><br /><?php _e('Displayed After Each Poll In The Poll Archive', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- %POLL_START_DATE%<br />
+				- %POLL_END_DATE%<br />
+				- %POLL_TOTALVOTES%<br />
+				- %POLL_TOTALVOTERS%<br />
+				- %POLL_MOST_ANSWER%<br />
+				- %POLL_MOST_VOTES%<br />
+				- %POLL_MOST_PERCENTAGE%<br />
+				- %POLL_LEAST_ANSWER%<br />
+				- %POLL_LEAST_VOTES%<br />
+				- %POLL_LEAST_PERCENTAGE%<br />
+				- %POLL_MULTIPLE_ANS_MAX%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchivefooter');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_pollarchivefooter" name="poll_template_pollarchivefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchivefooter'))); ?></textarea></td>
+		</tr>
+	</table>
+
+	<!-- Poll Misc Templates -->
+	<h3><?php _e('Poll Misc Templates', 'wp-polls'); ?></h3>
+	<table class="form-table"> 
+		 <tr>
+			<td width="30%" align="left">
+				<strong><?php _e('Poll Disabled', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The Poll Is Disabled', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- <?php _e('N/A', 'wp-polls'); ?><br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('disable');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_disable" name="poll_template_disable"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_disable'))); ?></textarea></td>
+		</tr>
+		<tr>
+			<td width="30%" align="left">
+				<strong><?php _e('Poll Error', 'wp-polls'); ?></strong><br /><?php _e('Displayed When An Error Has Occured While Processing The Poll', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- <?php _e('N/A', 'wp-polls'); ?><br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('error');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_error" name="poll_template_error"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_error'))); ?></textarea></td>
+		</tr>
+	</table>
+	<p class="submit">
+		<input type="submit" name="Submit" class="button" value="<?php _e('Update Templates &raquo;', 'wp-polls'); ?>" />
+	</p>
 </div> 
 </form> 

@@ -99,13 +99,15 @@ switch($mode) {
 	<p style="text-align: left; color: red">
 		<strong><?php _e('The following WordPress Options/Tables will be DELETED:', 'wp-polls'); ?></strong><br />
 	</p>
-	<table width="50%"  border="0" cellspacing="3" cellpadding="3">
-		<tr class="thead">
-			<td align="center"><strong><?php _e('WordPress Options', 'wp-polls'); ?></strong></td>
-			<td align="center"><strong><?php _e('WordPress Tables', 'wp-polls'); ?></strong></td>
-		</tr>
+	<table class="widefat">
+		<thead>
+			<tr>
+				<th><?php _e('WordPress Options', 'wp-polls'); ?></th>
+				<th><?php _e('WordPress Tables', 'wp-polls'); ?></th>
+			</tr>
+		</thead>
 		<tr>
-			<td valign="top" style="background-color: #eee;">
+			<td valign="top">
 				<ol>
 				<?php
 					foreach($polls_settings as $settings) {
@@ -114,7 +116,7 @@ switch($mode) {
 				?>
 				</ol>
 			</td>
-			<td valign="top" style="background-color: #eee;">
+			<td valign="top" class="alternate">
 				<ol>
 				<?php
 					foreach($polls_tables as $tables) {
@@ -125,8 +127,8 @@ switch($mode) {
 			</td>
 		</tr>
 	</table>
-	<p>&nbsp;</p>
 	<p style="text-align: center;">
+		<?php _e('Do you really want to uninstall WP-Polls?', 'wp-polls'); ?><br /><br />
 		<input type="checkbox" name="uninstall_poll_yes" value="yes" />&nbsp;<?php _e('Yes', 'wp-polls'); ?><br /><br />
 		<input type="submit" name="do" value="<?php _e('UNINSTALL WP-Polls', 'wp-polls'); ?>" class="button" onclick="return confirm('<?php _e('You Are About To Uninstall WP-Polls From WordPress.\nThis Action Is Not Reversible.\n\n Choose [Cancel] To Stop, [OK] To Uninstall.', 'wp-polls'); ?>')" />
 	</p>

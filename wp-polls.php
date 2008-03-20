@@ -10,7 +10,7 @@ Author URI: http://lesterchan.net
 
 
 /*  
-	Copyright 2007  Lester Chan  (email : gamerz84@hotmail.com)
+	Copyright 2008  Lester Chan  (email : gamerz84@hotmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,9 +42,10 @@ function polls_textdomain() {
 
 
 ### Polls Table Name
-$wpdb->pollsq					= $table_prefix.'pollsq';
-$wpdb->pollsa					= $table_prefix.'pollsa';
-$wpdb->pollsip					= $table_prefix.'pollsip';
+global $wpdb;
+$wpdb->pollsq = $wpdb->prefix.'pollsq';
+$wpdb->pollsa = $wpdb->prefix.'pollsa';
+$wpdb->pollsip	 = $wpdb->prefix.'pollsip';
 
 
 ### Function: Poll Administration Menu
