@@ -561,20 +561,20 @@ switch($mode) {
 			<br style="clear" />
 			<table class="widefat">
 			<tr>
-				<th align="left"><?php _e('Total Polls', 'wp-polls'); ?></th>
-				<td align="left"><?php echo $i; ?></td>
+				<th><?php _e('Total Polls', 'wp-polls'); ?></th>
+				<td><?php echo $i; ?></td>
 			</tr>
 			<tr class="alternate">
-				<th align="left"><?php _e('Total Polls\' Answers', 'wp-polls'); ?></th>
-				<td align="left"><?php echo number_format_i18n($total_ans); ?></td>
+				<th><?php _e('Total Polls\' Answers', 'wp-polls'); ?></th>
+				<td><?php echo number_format_i18n($total_ans); ?></td>
 			</tr>
 			<tr>
-				<th align="left"><?php _e('Total Votes Casted', 'wp-polls'); ?></th>
-				<td align="left"><?php echo number_format_i18n($total_votes); ?></td>
+				<th><?php _e('Total Votes Casted', 'wp-polls'); ?></th>
+				<td><?php echo number_format_i18n($total_votes); ?></td>
 			</tr>
 			<tr class="alternate">
-				<th align="left"><?php _e('Total Voters', 'wp-polls'); ?></th>
-				<td align="left"><?php echo number_format_i18n($total_voters); ?></td>
+				<th><?php _e('Total Voters', 'wp-polls'); ?></th>
+				<td><?php echo number_format_i18n($total_voters); ?></td>
 			</tr>
 			</table>
 		</div>
