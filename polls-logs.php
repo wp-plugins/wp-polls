@@ -118,9 +118,9 @@ if(!empty($_POST['do'])) {
 	$poll_ips = $wpdb->get_results("SELECT pollip_aid, pollip_ip, pollip_host, pollip_timestamp, pollip_user FROM $wpdb->pollsip WHERE pollip_qid = $poll_id ORDER BY pollip_aid ASC, pollip_user ASC LIMIT 100");
 }
 ?>
+<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
 <div class="wrap">
 	<h2><?php _e('Poll\'s Logs', 'wp-polls'); ?></h2>
-	<?php if(!empty($text)) { echo '<!-- Last Action --><br class="clear" /><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<br class="clear" /><div id="message" class="updated" style="display: none;"></div>'; } ?>
 	<h3><?php echo $poll_question; ?></h3>
 	<p>
 		<?php printf(__('There are a total of <strong>%s</strong> recorded votes for this poll.', 'wp-polls'), number_format_i18n($poll_totalrecorded)); ?><br />

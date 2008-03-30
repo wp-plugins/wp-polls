@@ -93,7 +93,7 @@ if(!empty($_POST['do'])) {
 			$latest_pollid = polls_latest_id();
 			$update_latestpoll = update_option('poll_latestpoll', $latest_pollid);
 			if(empty($text)) {
-				$text = '<p style="color: green;">'.sprintf(__('Poll \'%s\' Added Successfully.', 'wp-polls'), stripslashes($pollq_question)).' <a href="'.$base_page.'">Manage Polls &raquo;</a></p>';
+				$text = '<p style="color: green;">'.sprintf(__('Poll \'%s\' Added Successfully.', 'wp-polls'), stripslashes($pollq_question)).' <a href="'.$base_page.'">'.__('Manage Polls', 'wp-polls').'</a></p>';
 			}
 			cron_polls_place();
 			break;
@@ -168,12 +168,10 @@ $count = 0;
 	}
 	/* ]]> */
 </script>
+<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } ?>
 <form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
 <div class="wrap">
 	<h2><?php _e('Add Poll', 'wp-polls'); ?></h2>
-
-	<?php if(!empty($text)) { echo '<!-- Last Action --><br class="clear" /><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } ?>
-	
 	<!-- Poll Question -->
 	<h3><?php _e('Poll Question', 'wp-polls'); ?></h3>
 	<table class="form-table">

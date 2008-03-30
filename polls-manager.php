@@ -297,15 +297,14 @@ switch($mode) {
 			/* ]]> */
 		</script>
 
+		<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
+
 		<!-- Edit Poll -->
 		<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
 		<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
 		<input type="hidden" name="pollq_active" value="<?php echo $poll_active; ?>" />
 		<div class="wrap">
 			<h2><?php _e('Edit Poll', 'wp-polls'); ?></h2>
-
-			<?php if(!empty($text)) { echo '<!-- Last Action --><br class="clear" /><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<br class="clear" /><div id="message" class="updated" style="display: none;"></div>'; } ?>
-
 			<!-- Poll Question -->
 			<h3><?php _e('Poll Question', 'wp-polls'); ?></h3>
 			<table class="form-table">
@@ -451,113 +450,114 @@ switch($mode) {
 		$total_votes = 0;
 		$total_voters = 0;
 ?>	
+		<!-- Last Action -->		
+		<div id="message" class="updated" style="display: none;"></div>
+
 		<!-- Manage Polls -->
 		<div class="wrap">
-		<h2><?php _e('Manage Polls', 'wp-polls'); ?></h2>
-			<!-- Last Action -->		
-			<div id="message" class="updated" style="display: none; margin-top: 15px;"></div>
+			<h2><?php _e('Manage Polls', 'wp-polls'); ?></h2>
 			<br style="clear" />
 			<table class="widefat">
-			<thead>
-				<tr>
-					<th><?php _e('ID', 'wp-polls'); ?></th>
-					<th><?php _e('Question', 'wp-polls'); ?></th>				
-					<th><?php _e('Total Voters', 'wp-polls'); ?></th>
-					<th><?php _e('Start Date/Time', 'wp-polls'); ?></th>
-					<th><?php _e('End Date/Time', 'wp-polls'); ?></th>
-					<th><?php _e('Status', 'wp-polls'); ?></th>
-					<th colspan="3"><?php _e('Action', 'wp-polls'); ?></th>
-				</tr>
-			</thead>
-			<tbody id="manage_polls">
-				<?php
-					if($polls) {
-						if(function_exists('dynamic_sidebar')) {
-							$options = get_option('widget_polls');
-							$multiple_polls = explode(',', $options['multiple_polls']);
+				<thead>
+					<tr>
+						<th><?php _e('ID', 'wp-polls'); ?></th>
+						<th><?php _e('Question', 'wp-polls'); ?></th>				
+						<th><?php _e('Total Voters', 'wp-polls'); ?></th>
+						<th><?php _e('Start Date/Time', 'wp-polls'); ?></th>
+						<th><?php _e('End Date/Time', 'wp-polls'); ?></th>
+						<th><?php _e('Status', 'wp-polls'); ?></th>
+						<th colspan="3"><?php _e('Action', 'wp-polls'); ?></th>
+					</tr>
+				</thead>
+				<tbody id="manage_polls">
+					<?php
+						if($polls) {
+							if(function_exists('dynamic_sidebar')) {
+								$options = get_option('widget_polls');
+								$multiple_polls = explode(',', $options['multiple_polls']);
+							} else {
+								$multiple_polls = array();
+							}
+							$i = 0;
+							$current_poll = intval(get_option('poll_currentpoll'));
+							$latest_poll = intval(get_option('poll_latestpoll'));
+							foreach($polls as $poll) {
+								$poll_id = intval($poll->pollq_id);
+								$poll_question = stripslashes($poll->pollq_question);
+								$poll_date = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll->pollq_timestamp)); 
+								$poll_totalvotes = intval($poll->pollq_totalvotes);
+								$poll_totalvoters = intval($poll->pollq_totalvoters);
+								$poll_active = intval($poll->pollq_active);
+								$poll_expiry = trim($poll->pollq_expiry);
+								if(empty($poll_expiry)) {
+									$poll_expiry_text  = __('No Expiry', 'wp-polls');
+								} else {
+									$poll_expiry_text = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_expiry)); 
+								}
+								if($i%2 == 0) {
+									$style = 'class="alternate"';
+								}  else {
+									$style = '';
+								}
+								if($current_poll > 0) {
+									if($current_poll == $poll_id) {
+										$style = 'class="highlight"';
+									}
+								} elseif($current_poll == 0) {
+									if($poll_id == $latest_poll) {
+										$style = 'class="highlight"';
+									}
+								} else if(in_array($poll_id, $multiple_polls)) {
+									$style = 'class="highlight"';
+								}
+								echo "<tr id=\"poll-$poll_id\" $style>\n";
+								echo "<td><strong>$poll_id</strong></td>\n";
+								echo '<td>';
+								if($current_poll > 0) {
+									if($current_poll == $poll_id) {
+										echo '<strong>'.__('Displayed:', 'wp-polls').'</strong> ';
+									}
+								} elseif($current_poll == 0) {
+									if($poll_id == $latest_poll) {
+										echo '<strong>'.__('Displayed:', 'wp-polls').'</strong> ';
+									}
+								} else if(in_array($poll_id, $multiple_polls)) {
+										echo '<strong>'.__('Displayed:', 'wp-polls').'</strong> ';
+								}
+								echo "$poll_question</td>\n";						
+								echo '<td>'.number_format_i18n($poll_totalvoters)."</td>\n";
+								echo "<td>$poll_date</td>\n";
+								echo "<td>$poll_expiry_text</td>\n";
+								echo '<td>';
+								if($poll_active == 1) {
+									_e('Open', 'wp-polls');
+								} elseif($poll_active == -1) {
+									_e('Future', 'wp-polls');
+								} else {
+									_e('Closed', 'wp-polls');
+								}
+								echo "</td>\n";
+								echo "<td><a href=\"$base_page&amp;mode=logs&amp;id=$poll_id\" class=\"edit\">".__('Logs', 'wp-polls')."</a></td>\n";
+								echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit', 'wp-polls')."</a></td>\n";
+								echo "<td><a href=\"#DeletePoll\" onclick=\"delete_poll($poll_id, '".sprintf(js_escape(__('You are about to delete this poll, \'%s\'.', 'wp-polls')), js_escape($poll_question))."')\" class=\"delete\">".__('Delete', 'wp-polls')."</a></td>\n";
+								echo '</tr>';
+								$i++;
+								$total_votes+= $poll_totalvotes;
+								$total_voters+= $poll_totalvoters;
+								
+							}
 						} else {
-							$multiple_polls = array();
+							echo '<tr><td colspan="9" align="center"><strong>'.__('No Polls Found', 'wp-polls').'</strong></td></tr>';
 						}
-						$i = 0;
-						$current_poll = intval(get_option('poll_currentpoll'));
-						$latest_poll = intval(get_option('poll_latestpoll'));
-						foreach($polls as $poll) {
-							$poll_id = intval($poll->pollq_id);
-							$poll_question = stripslashes($poll->pollq_question);
-							$poll_date = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll->pollq_timestamp)); 
-							$poll_totalvotes = intval($poll->pollq_totalvotes);
-							$poll_totalvoters = intval($poll->pollq_totalvoters);
-							$poll_active = intval($poll->pollq_active);
-							$poll_expiry = trim($poll->pollq_expiry);
-							if(empty($poll_expiry)) {
-								$poll_expiry_text  = __('No Expiry', 'wp-polls');
-							} else {
-								$poll_expiry_text = mysql2date(sprintf(__('%s @ %s', 'wp-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_expiry)); 
-							}
-							if($i%2 == 0) {
-								$style = 'class="alternate"';
-							}  else {
-								$style = '';
-							}
-							if($current_poll > 0) {
-								if($current_poll == $poll_id) {
-									$style = 'class="highlight"';
-								}
-							} elseif($current_poll == 0) {
-								if($poll_id == $latest_poll) {
-									$style = 'class="highlight"';
-								}
-							} else if(in_array($poll_id, $multiple_polls)) {
-								$style = 'class="highlight"';
-							}
-							echo "<tr id=\"poll-$poll_id\" $style>\n";
-							echo "<td><strong>$poll_id</strong></td>\n";
-							echo '<td>';
-							if($current_poll > 0) {
-								if($current_poll == $poll_id) {
-									echo '<strong>'.__('Displayed:', 'wp-polls').'</strong> ';
-								}
-							} elseif($current_poll == 0) {
-								if($poll_id == $latest_poll) {
-									echo '<strong>'.__('Displayed:', 'wp-polls').'</strong> ';
-								}
-							} else if(in_array($poll_id, $multiple_polls)) {
-									echo '<strong>'.__('Displayed:', 'wp-polls').'</strong> ';
-							}
-							echo "$poll_question</td>\n";						
-							echo '<td>'.number_format_i18n($poll_totalvoters)."</td>\n";
-							echo "<td>$poll_date</td>\n";
-							echo "<td>$poll_expiry_text</td>\n";
-							echo '<td>';
-							if($poll_active == 1) {
-								_e('Open', 'wp-polls');
-							} elseif($poll_active == -1) {
-								_e('Future', 'wp-polls');
-							} else {
-								_e('Closed', 'wp-polls');
-							}
-							echo "</td>\n";
-							echo "<td><a href=\"$base_page&amp;mode=logs&amp;id=$poll_id\" class=\"edit\">".__('Logs', 'wp-polls')."</a></td>\n";
-							echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit', 'wp-polls')."</a></td>\n";
-							echo "<td><a href=\"#DeletePoll\" onclick=\"delete_poll($poll_id, '".sprintf(js_escape(__('You are about to delete this poll, \'%s\'.', 'wp-polls')), js_escape($poll_question))."')\" class=\"delete\">".__('Delete', 'wp-polls')."</a></td>\n";
-							echo '</tr>';
-							$i++;
-							$total_votes+= $poll_totalvotes;
-							$total_voters+= $poll_totalvoters;
-							
-						}
-					} else {
-						echo '<tr><td colspan="9" align="center"><strong>'.__('No Polls Found', 'wp-polls').'</strong></td></tr>';
-					}
-				?>
-			</tbody>
+					?>
+				</tbody>
 			</table>
 		</div>
 		<p>&nbsp;</p>
 
 		<!-- Polls Stats -->
 		<div class="wrap">
-		<h2><?php _e('Polls Stats', 'wp-polls'); ?></h2>
+			<h2><?php _e('Polls Stats', 'wp-polls'); ?></h2>
 			<br style="clear" />
 			<table class="widefat">
 			<tr>
