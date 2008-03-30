@@ -269,7 +269,7 @@
 				<strong>&raquo;</strong> I spent most of my free time creating, updating, maintaining and supporting these plugins, if you really love my plugins and could spare me a couple of bucks as my school allowance, I will really appericiate it. If not feel free to use it without any obligations. Thank You. My Paypal account is 
 				<script type="text/javascript">
 					/* <![CDATA[*/
-					document.write(' <strong>gamerz84@hotmail.com</strong>.');
+					document.write(' <strong>lesterchan@gmail.com</strong>.');
 					/* ]]> */
 				</script>
 			</p>
@@ -280,9 +280,13 @@
 			<div class="SubTitle">&raquo; Changelog</div>
 			<ul>
 				<li>
-					<strong>Version 2.30 (01-04-2008)</strong>
+					<strong>Version 2.30 (01-06-2008)</strong>
 					<ul>
 						<li>NEW: Works For WordPress 2.5 Only</li>
+						<li>NEW: Uses Shortcode API</li>
+						<li>NEW: When Inserting Poll Into Post, It is Now [poll id="1"], Where 1 Is Your Poll ID</li>
+						<li>NEW: When User Does Not Have Permission To Vote, The Voting Form Is Now Disabled Instead Of Showing Poll's Result</li>
+						<li>NEW: Added A New Action Called "Display Disabled Poll's Voting Form" To Action Taken When A Poll Is Closed</li>
 						<li>NEW: Updated WP-Polls TinyMCE Plugin To Work With TinyMCE 3.0</li>
 						<li>NEW: Add Time Expiry For Cookie/Log</li>
 						<li>NEW: Removed polls-usage.php</li>
@@ -564,7 +568,8 @@
 						&lt;?php endif; ?&gt;
 					</blockquote>
 					<p>To show specific poll, use &lt;?php get_poll(<strong>2</strong>);?&gt; where <strong>2</strong> is your poll id.</p>
-					<p>To embed a specific poll in your post, use [poll=<strong>2</strong>] where <strong>2</strong> is your poll id.</p>
+					<p>To embed a specific poll in your post, use [poll id="<strong>2</strong>"] where <strong>2</strong> is your poll id.</p>
+					<p>To embed a specific poll's result in your post, use [poll id="<strong>2</strong>" type="result"] where <strong>2</strong> is your poll id.</p>
 				</li>
 				<li>
 					Scroll down for instructions on how to create a <strong>Polls Archive</strong>.

@@ -251,3 +251,11 @@ function poll_process_booth() {
 		poll_fadeout_opacity = 100;
 	}
 }
+
+// Function: Disable Poll's Voting Booth
+function poll_disable_voting(current_poll_id){
+	poll_form = document.getElementById('polls_form_' + current_poll_id);
+	for(i = 0; i < poll_form.length; i++){
+		poll_form[i].disabled = true;
+	}
+}

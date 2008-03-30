@@ -188,9 +188,9 @@ function insertPoll(where, myField) {
 	}
 	if (poll_id > 0) {
 		if(where == 'code') {
-			edInsertContent(myField, '[poll=' + poll_id + ']');
+			edInsertContent(myField, '[poll id="' + poll_id + '"]');
 		} else {
-			return '[poll=' + poll_id + ']';
+			return '[poll id="' + poll_id + '"]';
 		}
 	}
 }

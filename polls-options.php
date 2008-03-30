@@ -373,7 +373,7 @@ if($_POST['Submit']) {
 		</tr>
 		<?php if(function_exists('dynamic_sidebar')) { ?>
 		<tr>
-			<th scope="row"valign="top"><?php _e('Note', 'wp-polls'); ?></em></th>
+			<th scope="row"valign="top"><?php _e('Note', 'wp-polls'); ?></th>
 			<td><em><?php _e('If you chose \'Display Multiple Polls\' for the above option, you need to configure it in Presentation -> Widgets -> Poll.', 'wp-polls'); ?></em></td>
 		</tr>
 		<?php } ?>
@@ -382,7 +382,8 @@ if($_POST['Submit']) {
 			<td>
 				<select name="poll_close" size="1">
 					<option value="1"<?php selected(1, get_option('poll_close')); ?>><?php _e('Display Poll\'s Results', 'wp-polls'); ?></option>
-					<option value="2"<?php selected(2, get_option('poll_close')); ?>><?php _e('Do Not Display Poll In Post/Sidebar', 'wp-polls'); ?></option>
+					<option value="3"<?php selected(3, get_option('poll_close')); ?>><?php _e('Display Disabled Poll\'s Voting Form', 'wp-polls'); ?></option>
+					<option value="2"<?php selected(2, get_option('poll_close')); ?>><?php _e('Do Not Display Poll In Post/Sidebar', 'wp-polls'); ?></option>		
 				</select>
 			</td>
 		</tr>

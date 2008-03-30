@@ -10,7 +10,7 @@ Author URI: http://lesterchan.net
 
 
 /*  
-	Copyright 2008  Lester Chan  (email : gamerz84@hotmail.com)
+	Copyright 2008  Lester Chan  (email : lesterchan@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -130,13 +130,21 @@ function get_poll($temp_poll_id = 0, $display = true) {
 		} else {
 			$poll_close = 0;
 		}
-		if($check_voted > 0 || ($poll_active == 0 && $poll_close == 1) || !check_allowtovote()) {
+		if($check_voted > 0 || ($poll_active == 0 && $poll_close == 1)) {
 			if($display) {
 				echo display_pollresult($poll_id, $check_voted);
 				return;
 			} else {
 				return display_pollresult($poll_id, $check_voted);
 			}
+		} elseif(!check_allowtovote() || ($poll_active == 0 && $poll_close == 3)) {
+			$disable_poll_js = '<script type="text/javascript">poll_disable_voting('.$poll_id.');</script>';
+			if($display) {
+				echo display_pollvote($poll_id).$disable_poll_js;
+				return;
+			} else {
+				return display_pollvote($poll_id).$disable_poll_js;
+			}			
 		} elseif($poll_active == 1) {
 			if($display) {
 				echo display_pollvote($poll_id);
@@ -416,7 +424,7 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 		// Display Poll Voting Form
 		if(!$without_poll_title) {
 			$temp_pollvote .= "<div id=\"polls-$poll_question_id\" class=\"wp-polls\">\n";
-			$temp_pollvote .= "\t<form id=\"polls_form_$poll_question_id\" class=\"wp-polls-form\" action=\"".htmlspecialchars($_SERVER['REQUEST_URI'])."\" method=\"post\">\n";
+			$temp_pollvote .= "\t<form id=\"polls_form_$poll_question_id\" class=\"wp-polls-form\" action=\"".htmlspecialchars($_SERVER['REQUEST_URI'])."\" method=\"post\" disabled=\"disabled\">\n";
 			$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" /></p>\n";
 			if($poll_multiple_ans > 0) {
 				$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" id=\"poll_multiple_ans_$poll_question_id\" name=\"poll_multiple_ans_$poll_question_id\" value=\"$poll_multiple_ans\" /></p>\n";
@@ -658,30 +666,26 @@ if(!function_exists('get_ipaddress')) {
 }
 
 
-### Function: Place Polls Archive In Content
-add_filter('the_content', 'place_pollsarchive', '7');
-function place_pollsarchive($content){
-	$content = preg_replace("/\[page_polls\]/ise", "polls_archive()", $content); 
-	return $content;
+### Function: Short Code For Inserting Polls Archive Into Page
+add_shortcode('page_polls', 'poll_page_shortcode');
+function poll_page_shortcode($atts) {
+	return polls_archive();
 }
 
 
-### Function: Place Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
-add_filter('the_content', 'place_poll', '7');
-add_filter('the_excerpt', 'place_poll', '7');
-function place_poll($content){
+### Function: Short Code For Inserting Polls Into Posts
+add_shortcode('poll', 'poll_shortcode');
+function poll_shortcode($atts) {
+	extract(shortcode_atts(array('id' => 0, 'type' => 'vote'), $atts));
 	if(!is_feed()) {
-		$content = preg_replace("/\[poll=(\d+)\]/ise", "display_poll('\\1')", $content);
+		if($type == 'vote') {
+			return get_poll($id, false);
+		} elseif($type == 'result') {
+			return display_pollresult($id);
+		}
 	} else {
-		$content = preg_replace("/\[poll=(\d+)\]/i", __('Note: There is a poll embedded within this post, please visit the site to participate in this post\'s poll.', 'wp-polls'), $content);
+		return __('Note: There is a poll embedded within this post, please visit the site to participate in this post\'s poll.', 'wp-polls');
 	}
-    return $content;
-}
-
-
-### Function: Display The Poll In Content (By: Robert Accettura Of http://robert.accettura.com/)
-function display_poll($poll_id){
-	return get_poll($poll_id, false);
 }
 
 
