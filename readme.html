@@ -302,6 +302,7 @@
 						<li>FIXED: number_format() Not Used In Polls Archive</li>
 						<li>FIXED: Unable To Schedule Future Poll If The Year Is Different From Current Year</li>
 						<li>FIXED: TinyMCE Tool Tip For Insert Poll Not Translated</li>
+						<li>FIXED: Content-Type Not Being Sent Back When AJAX Return Results</li>
 					</ul>
 				</li>
 				<li>
@@ -578,19 +579,19 @@
 			<div class="SubSubTitle">General Usage (With Widget)</div>
 			<ol>
 				<li>
-					<strong>Activate</strong> WP-Polls Widget Plugin
+					<strong>Activate</strong> WP-Polls Widget Plugin.
 				</li>
 				<li>
-					Go to '<strong>WP-Admin -> Presentation -> Widgets</strong>'
+					Go to '<strong>WP-Admin -> Design -> Widgets</strong>'.
 				</li>
 				<li>
-					<strong>Drag</strong> the Polls Widget to your sidebar
+					You can <strong>add</strong> the Polls Widget by clicking on the 'Add' link besides it.
 				</li>
 				<li>
-					You can <strong>configure</strong> the Polls Widget by clicking on the configure icon
+					After adding, you can <strong>configure</strong> the Polls Widget by clicking on the 'Edit' link besides it.
 				</li>
 				<li>
-					Click 'Save changes'
+					Click 'Save Changes'.
 				</li>
 				<li>
 					Scroll down for instructions on how to create a <strong>Polls Archive</strong>.
@@ -599,19 +600,22 @@
 			<div class="SubSubTitle">Polls Archive</div>
 			<ol>
 				<li>
-					Go to '<strong>WP-Admin -> Write -> Write Page</strong>'
+					Go to '<strong>WP-Admin -> Write -> Page</strong>'.
 				</li>
 				<li>
-					Type any title you like in the post's title area
+					Type any title you like in the post's title area.
 				</li>
 				<li>
-					Type '<strong>[page_polls]</strong>' in the post's content area (without the quotes)
+					After typing the title, WordPress will generate the permalink to the page. You will see an 'Edit' link just beside the permalink.
 				</li>
 				<li>
-					Type '<strong>pollsarchive</strong>' in the post's slug area (without the quotes)
+					Click 'Edit' and type in '<strong>pollsarchive</strong>' in the text field (without the quotes) and click 'Save'.
 				</li>
 				<li>
-					Click 'Publish'
+					Type '<strong>[page_polls]</strong>' in the post's content area (without the quotes).
+				</li>
+				<li>
+					Click 'Publish'.
 				</li>
 				<li>
 					If you <strong>ARE NOT</strong> using nice permalinks, you need to go to 'WP-Admin -> Polls -> Poll Option' and under '<strong>Poll Archive -> Polls Archive URL</strong>', you need to fill in the URL to the Polls Archive Page you created above.

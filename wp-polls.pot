@@ -1,12 +1,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.30\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-04-06 03:22+0800\n"
-"Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-04-12 04:04+0800\n"
+"PO-Revision-Date: 2008-04-12 04:04+0800\n"
+"Last-Translator: Lester Chan <lesterchan@gmail.com>\n"
 "Language-Team: Lester Chan <lesterchan@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Country: SINGAPORE\n"
 "X-Poedit-KeywordsList: __;_e\n"
@@ -535,8 +536,8 @@ msgstr ""
 #: polls-manager.php:576
 #: polls-templates.php:116
 #: polls-templates.php:119
-#: wp-polls.php:1364
-#: wp-polls.php:1367
+#: wp-polls.php:1366
+#: wp-polls.php:1369
 msgid "Total Voters"
 msgstr ""
 
@@ -785,8 +786,8 @@ msgstr ""
 #: polls-options.php:251
 #: polls-templates.php:110
 #: polls-templates.php:113
-#: wp-polls.php:1361
-#: wp-polls.php:1362
+#: wp-polls.php:1363
+#: wp-polls.php:1364
 msgid "Votes"
 msgstr ""
 
@@ -992,33 +993,33 @@ msgstr ""
 
 #: polls-templates.php:104
 #: polls-templates.php:119
-#: wp-polls.php:1355
-#: wp-polls.php:1368
+#: wp-polls.php:1357
+#: wp-polls.php:1370
 msgid "Vote"
 msgstr ""
 
 #: polls-templates.php:104
-#: wp-polls.php:1356
+#: wp-polls.php:1358
 msgid "View Results Of This Poll"
 msgstr ""
 
 #: polls-templates.php:104
-#: wp-polls.php:1356
+#: wp-polls.php:1358
 msgid "View Results"
 msgstr ""
 
 #: polls-templates.php:113
-#: wp-polls.php:1362
+#: wp-polls.php:1364
 msgid "You Have Voted For This Choice"
 msgstr ""
 
 #: polls-templates.php:119
-#: wp-polls.php:1368
+#: wp-polls.php:1370
 msgid "Vote For This Poll"
 msgstr ""
 
 #: polls-templates.php:122
-#: wp-polls.php:1395
+#: wp-polls.php:1397
 msgid "Polls Archive"
 msgstr ""
 
@@ -1031,12 +1032,12 @@ msgid "End Date:"
 msgstr ""
 
 #: polls-templates.php:131
-#: wp-polls.php:1370
+#: wp-polls.php:1372
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
 #: polls-templates.php:134
-#: wp-polls.php:1371
+#: wp-polls.php:1373
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
@@ -1457,45 +1458,45 @@ msgstr ""
 msgid "Invalid Poll ID. Poll ID #%s"
 msgstr ""
 
-#: wp-polls.php:1269
 #: wp-polls.php:1271
-#: wp-polls.php:1281
+#: wp-polls.php:1273
+#: wp-polls.php:1283
 msgid "WP-Polls"
 msgstr ""
 
-#: wp-polls.php:1283
+#: wp-polls.php:1285
 msgid "polls were created."
 msgstr ""
 
-#: wp-polls.php:1284
+#: wp-polls.php:1286
 msgid "polls' answers were given."
 msgstr ""
 
-#: wp-polls.php:1285
+#: wp-polls.php:1287
 msgid "votes were casted."
 msgstr ""
 
-#: wp-polls.php:1339
+#: wp-polls.php:1341
 msgid "How Is My Site?"
 msgstr ""
 
-#: wp-polls.php:1342
+#: wp-polls.php:1344
 msgid "Good"
 msgstr ""
 
-#: wp-polls.php:1343
+#: wp-polls.php:1345
 msgid "Excellent"
 msgstr ""
 
-#: wp-polls.php:1344
+#: wp-polls.php:1346
 msgid "Bad"
 msgstr ""
 
-#: wp-polls.php:1345
+#: wp-polls.php:1347
 msgid "Can Be Improved"
 msgstr ""
 
-#: wp-polls.php:1346
+#: wp-polls.php:1348
 msgid "No Comments"
 msgstr ""
 
