@@ -117,7 +117,7 @@ function poll_fadein_text() {
 			poll_unloading_text();
 		} else if(is_ie) {
 			if(poll_show_fading) {
-				document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadein_opacity;
+				document.getElementById('polls-' + poll_id + '-ans').style.filter = 'alpha(opacity=' + poll_fadein_opacity + ')';
 			} else {
 				poll_fadein_opacity = 100;
 				poll_unloading_text();
@@ -159,7 +159,7 @@ function poll_process() {
 			poll_fadeout_opacity = 0;
 		} else if(is_ie) {
 			if(poll_show_fading) {
-				document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadeout_opacity;
+				document.getElementById('polls-' + poll_id + '-ans').style.filter = 'alpha(opacity=' + poll_fadeout_opacity + ')';
 			} else {
 				poll_fadeout_opacity = 0;
 			}
@@ -194,7 +194,7 @@ function poll_process_result() {
 			poll_fadeout_opacity = 0;
 		} else if(is_ie) {
 			if(poll_show_fading) {
-				document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadeout_opacity;
+				document.getElementById('polls-' + poll_id + '-ans').style.filter = 'alpha(opacity=' + poll_fadeout_opacity + ')';
 			} else {
 				poll_fadeout_opacity = 0;
 			}
@@ -227,7 +227,7 @@ function poll_process_booth() {
 			poll_fadeout_opacity = 0;
 		} else if(is_ie) {
 			if(poll_show_fading) {
-				document.getElementById('polls-' + poll_id + '-ans').filters.alpha.opacity = poll_fadeout_opacity;
+				document.getElementById('polls-' + poll_id + '-ans').style.filter = 'alpha(opacity=' + poll_fadeout_opacity + ')';
 			} else {
 				poll_fadeout_opacity = 0;
 			}
