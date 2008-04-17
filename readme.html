@@ -283,6 +283,7 @@
 					<strong>Version 2.30 (01-06-2008)</strong>
 					<ul>
 						<li>NEW: Works For WordPress 2.5 Only</li>
+						<li>NEW: WP-Polls Will Load 'polls-css.css' Inside Your Theme Directory If It Exists. If Not, It Will Just Load The Default 'polls-css.css' By WP-Polls</li>
 						<li>NEW: Uses Shortcode API</li>
 						<li>NEW: When Inserting Poll Into Post, It is Now [poll id="1"], Where 1 Is Your Poll ID</li>
 						<li>NEW: When User Does Not Have Permission To Vote, The Voting Form Is Now Disabled Instead Of Showing Poll's Result</li>
@@ -623,6 +624,13 @@
 			</ol>
 			<div class="SubSubTitle">Note</div>
 			<ul>
+				<li>
+					WP-Polls will load '<strong>polls-css.css</strong>' from your theme's directory if it exists.
+					<ul>
+						<li>If it doesn't exists, it will just load the default 'polls-css.css' that comes with WP-Polls.</li>
+						<li>This will allow you to upgrade WP-Polls without worrying about overwriting your polls styles that you have created.</li>
+					</ul>
+				</li>
 				<li>
 					In IE, some of the poll's text may appear jagged (this is normal in IE). To solve this issue,
 					<ol>

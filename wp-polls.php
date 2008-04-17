@@ -175,7 +175,11 @@ function poll_header() {
 	echo '/* ]]> */'."\n";
 	echo '</script>'."\n";
 	wp_print_scripts(array('sack', 'wp-polls'));
-	echo '<link rel="stylesheet" href="'.get_option('siteurl').'/wp-content/plugins/wp-polls/polls-css.css" type="text/css" media="screen" />'."\n";
+	if(@file_exists(get_template_directory().'/polls-css.css')) {
+		echo '<link rel="stylesheet" href="'.get_stylesheet_directory_uri().'/polls-css.css" type="text/css" media="screen" />'."\n";	
+	} else {
+		echo '<link rel="stylesheet" href="'.get_option('siteurl').'/wp-content/plugins/wp-polls/polls-css.css" type="text/css" media="screen" />'."\n";	
+	}
 	echo '<style type="text/css">'."\n";	
 	if($pollbar['style'] == 'use_css') {
 		echo '.wp-polls .pollbar {'."\n";
