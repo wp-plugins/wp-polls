@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.30\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-17 17:25+0800\n"
-"PO-Revision-Date: 2008-04-17 17:25+0800\n"
+"POT-Creation-Date: 2008-04-21 22:14+0800\n"
+"PO-Revision-Date: 2008-04-21 22:14+0800\n"
 "Last-Translator: Lester Chan <lesterchan@gmail.com>\n"
 "Language-Team: Lester Chan <lesterchan@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -386,8 +386,8 @@ msgstr ""
 #: wp-polls.php:409
 #: wp-polls.php:520
 #: wp-polls.php:525
-#: wp-polls.php:896
-#: wp-polls.php:900
+#: wp-polls.php:910
+#: wp-polls.php:914
 #, php-format
 msgid "%s @ %s"
 msgstr ""
@@ -534,8 +534,8 @@ msgstr ""
 
 #: polls-manager.php:465
 #: polls-manager.php:576
-#: polls-templates.php:116
-#: polls-templates.php:119
+#: polls-templates.php:122
+#: polls-templates.php:125
 #: wp-polls.php:1370
 #: wp-polls.php:1373
 msgid "Total Voters"
@@ -552,7 +552,7 @@ msgstr ""
 #: polls-manager.php:493
 #: wp-polls.php:407
 #: wp-polls.php:523
-#: wp-polls.php:898
+#: wp-polls.php:912
 msgid "No Expiry"
 msgstr ""
 
@@ -692,12 +692,12 @@ msgid "Allow To Vote Option"
 msgstr ""
 
 #: polls-options.php:89
-#: polls-templates.php:79
+#: polls-templates.php:85
 msgid "Updated"
 msgstr ""
 
 #: polls-options.php:94
-#: polls-templates.php:84
+#: polls-templates.php:90
 msgid "No Poll Option Updated"
 msgstr ""
 
@@ -784,8 +784,8 @@ msgid "Sort Poll Results By:"
 msgstr ""
 
 #: polls-options.php:251
-#: polls-templates.php:110
-#: polls-templates.php:113
+#: polls-templates.php:116
+#: polls-templates.php:119
 #: wp-polls.php:1367
 #: wp-polls.php:1368
 msgid "Votes"
@@ -935,340 +935,370 @@ msgid "Do Not Display Poll In Post/Sidebar"
 msgstr ""
 
 #: polls-options.php:392
-#: polls-templates.php:462
+#: polls-templates.php:492
 msgid "Save Changes"
 msgstr ""
 
-#: polls-templates.php:62
+#: polls-templates.php:66
 msgid "Voting Form Header Template"
 msgstr ""
 
-#: polls-templates.php:63
+#: polls-templates.php:67
 msgid "Voting Form Body Template"
 msgstr ""
 
-#: polls-templates.php:64
+#: polls-templates.php:68
 msgid "Voting Form Footer Template"
 msgstr ""
 
-#: polls-templates.php:65
+#: polls-templates.php:69
 msgid "Result Header Template"
 msgstr ""
 
-#: polls-templates.php:66
+#: polls-templates.php:70
 msgid "Result Body Template"
 msgstr ""
 
-#: polls-templates.php:67
+#: polls-templates.php:71
 msgid "Result Body2 Template"
 msgstr ""
 
-#: polls-templates.php:68
+#: polls-templates.php:72
 msgid "Result Footer Template"
 msgstr ""
 
-#: polls-templates.php:69
+#: polls-templates.php:73
 msgid "Result Footer2 Template"
 msgstr ""
 
-#: polls-templates.php:70
+#: polls-templates.php:74
 msgid "Poll Archive Link Template"
 msgstr ""
 
-#: polls-templates.php:71
+#: polls-templates.php:75
 msgid "Poll Archive Poll Header Template"
 msgstr ""
 
-#: polls-templates.php:72
+#: polls-templates.php:76
 msgid "Poll Archive Poll Footer Template"
 msgstr ""
 
-#: polls-templates.php:73
+#: polls-templates.php:77
+msgid "Poll Archive Paging Header Template"
+msgstr ""
+
+#: polls-templates.php:78
+msgid "Poll Archive Paging Footer Template"
+msgstr ""
+
+#: polls-templates.php:79
 msgid "Poll Disabled Template"
 msgstr ""
 
-#: polls-templates.php:74
+#: polls-templates.php:80
 msgid "Poll Error Template"
 msgstr ""
 
-#: polls-templates.php:104
-#: polls-templates.php:119
+#: polls-templates.php:110
+#: polls-templates.php:125
 #: wp-polls.php:1361
 #: wp-polls.php:1374
 msgid "Vote"
 msgstr ""
 
-#: polls-templates.php:104
+#: polls-templates.php:110
 #: wp-polls.php:1362
 msgid "View Results Of This Poll"
 msgstr ""
 
-#: polls-templates.php:104
+#: polls-templates.php:110
 #: wp-polls.php:1362
 msgid "View Results"
 msgstr ""
 
-#: polls-templates.php:113
+#: polls-templates.php:119
 #: wp-polls.php:1368
 msgid "You Have Voted For This Choice"
 msgstr ""
 
-#: polls-templates.php:119
+#: polls-templates.php:125
 #: wp-polls.php:1374
 msgid "Vote For This Poll"
 msgstr ""
 
-#: polls-templates.php:122
+#: polls-templates.php:128
 #: wp-polls.php:1401
 msgid "Polls Archive"
 msgstr ""
 
-#: polls-templates.php:128
+#: polls-templates.php:134
 msgid "Start Date:"
 msgstr ""
 
-#: polls-templates.php:128
+#: polls-templates.php:134
 msgid "End Date:"
 msgstr ""
 
-#: polls-templates.php:131
+#: polls-templates.php:143
 #: wp-polls.php:1376
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
-#: polls-templates.php:134
+#: polls-templates.php:146
 #: wp-polls.php:1377
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
-#: polls-templates.php:144
+#: polls-templates.php:156
 #: wp-polls.php:61
 msgid "Poll Templates"
 msgstr ""
 
-#: polls-templates.php:146
+#: polls-templates.php:158
 msgid "Template Variables"
 msgstr ""
 
-#: polls-templates.php:151
+#: polls-templates.php:163
 msgid "Display the poll's ID"
 msgstr ""
 
-#: polls-templates.php:155
+#: polls-templates.php:167
 msgid "Display the poll's answer ID"
 msgstr ""
 
-#: polls-templates.php:161
+#: polls-templates.php:173
 msgid "Display the poll's question"
 msgstr ""
 
-#: polls-templates.php:165
+#: polls-templates.php:177
 msgid "Display the poll's answer"
 msgstr ""
 
-#: polls-templates.php:171
+#: polls-templates.php:183
 msgid "Display the poll's total votes NOT the number of people who voted for the poll"
 msgstr ""
 
-#: polls-templates.php:175
+#: polls-templates.php:187
 msgid "Display the poll's answer without HTML formatting."
 msgstr ""
 
-#: polls-templates.php:181
+#: polls-templates.php:193
 msgid "Displays URL to poll's result"
 msgstr ""
 
-#: polls-templates.php:185
+#: polls-templates.php:197
 msgid "Display the poll's answer votes"
 msgstr ""
 
-#: polls-templates.php:191
+#: polls-templates.php:203
 msgid "Display the poll's most voted answer"
 msgstr ""
 
-#: polls-templates.php:195
+#: polls-templates.php:207
 msgid "Display the poll's answer percentage"
 msgstr ""
 
-#: polls-templates.php:201
+#: polls-templates.php:213
 msgid "Display the poll's answer votes for the most voted answer"
 msgstr ""
 
-#: polls-templates.php:205
+#: polls-templates.php:217
 msgid "Display the poll's answer image width"
 msgstr ""
 
-#: polls-templates.php:211
+#: polls-templates.php:223
 msgid "Display the poll's answer percentage for the most voted answer"
 msgstr ""
 
-#: polls-templates.php:215
+#: polls-templates.php:227
 msgid "Display the poll's least voted answer"
 msgstr ""
 
-#: polls-templates.php:221
+#: polls-templates.php:233
 msgid "Display the poll's start date/time"
 msgstr ""
 
-#: polls-templates.php:225
+#: polls-templates.php:237
 msgid "Display the poll's answer votes for the least voted answer"
 msgstr ""
 
-#: polls-templates.php:231
+#: polls-templates.php:243
 msgid "Display the poll's end date/time"
 msgstr ""
 
-#: polls-templates.php:235
+#: polls-templates.php:247
 msgid "Display the poll's answer percentage for the least voted answer"
 msgstr ""
 
-#: polls-templates.php:241
+#: polls-templates.php:253
 msgid "Display the the maximum number of answers the user can choose if the poll supports multiple answers"
 msgstr ""
 
-#: polls-templates.php:245
+#: polls-templates.php:257
 msgid "Display \"checkbox\" or \"radio\" input types depending on the poll type"
 msgstr ""
 
-#: polls-templates.php:251
+#: polls-templates.php:263
 msgid "Display the number of people who voted for the poll NOT the total votes of the poll"
 msgstr ""
 
-#: polls-templates.php:255
+#: polls-templates.php:267
 msgid "Display the poll archive URL"
 msgstr ""
 
-#: polls-templates.php:260
+#: polls-templates.php:272
 msgid "Note: <strong>%POLL_TOTALVOTES%</strong> and <strong>%POLL_TOTALVOTERS%</strong> will be different if your poll supports multiple answers. If your poll allows only single answer, both value will be the same."
 msgstr ""
 
-#: polls-templates.php:266
+#: polls-templates.php:278
 msgid "Poll Voting Form Templates"
 msgstr ""
 
-#: polls-templates.php:270
+#: polls-templates.php:282
 msgid "Voting Form Header:"
 msgstr ""
 
-#: polls-templates.php:271
-#: polls-templates.php:286
-#: polls-templates.php:299
-#: polls-templates.php:315
-#: polls-templates.php:330
-#: polls-templates.php:344
-#: polls-templates.php:358
-#: polls-templates.php:378
-#: polls-templates.php:403
-#: polls-templates.php:412
-#: polls-templates.php:421
-#: polls-templates.php:445
-#: polls-templates.php:454
+#: polls-templates.php:283
+#: polls-templates.php:298
+#: polls-templates.php:311
+#: polls-templates.php:327
+#: polls-templates.php:342
+#: polls-templates.php:356
+#: polls-templates.php:370
+#: polls-templates.php:390
+#: polls-templates.php:415
+#: polls-templates.php:424
+#: polls-templates.php:433
+#: polls-templates.php:452
+#: polls-templates.php:461
+#: polls-templates.php:475
+#: polls-templates.php:484
 msgid "Allowed Variables:"
 msgstr ""
 
-#: polls-templates.php:279
-#: polls-templates.php:292
-#: polls-templates.php:303
-#: polls-templates.php:323
-#: polls-templates.php:337
-#: polls-templates.php:351
-#: polls-templates.php:371
-#: polls-templates.php:391
-#: polls-templates.php:405
-#: polls-templates.php:414
-#: polls-templates.php:433
-#: polls-templates.php:447
-#: polls-templates.php:456
+#: polls-templates.php:291
+#: polls-templates.php:304
+#: polls-templates.php:315
+#: polls-templates.php:335
+#: polls-templates.php:349
+#: polls-templates.php:363
+#: polls-templates.php:383
+#: polls-templates.php:403
+#: polls-templates.php:417
+#: polls-templates.php:426
+#: polls-templates.php:445
+#: polls-templates.php:454
+#: polls-templates.php:463
+#: polls-templates.php:477
+#: polls-templates.php:486
 msgid "Restore Default Template"
 msgstr ""
 
-#: polls-templates.php:285
+#: polls-templates.php:297
 msgid "Voting Form Body:"
 msgstr ""
 
-#: polls-templates.php:298
+#: polls-templates.php:310
 msgid "Voting Form Footer:"
 msgstr ""
 
-#: polls-templates.php:310
+#: polls-templates.php:322
 msgid "Poll Result Templates"
 msgstr ""
 
-#: polls-templates.php:314
+#: polls-templates.php:326
 msgid "Result Header:"
 msgstr ""
 
-#: polls-templates.php:329
-#: polls-templates.php:343
+#: polls-templates.php:341
+#: polls-templates.php:355
 msgid "Result Body:"
 msgstr ""
 
-#: polls-templates.php:329
-#: polls-templates.php:377
+#: polls-templates.php:341
+#: polls-templates.php:389
 msgid "Displayed When The User HAS NOT Voted"
 msgstr ""
 
-#: polls-templates.php:343
-#: polls-templates.php:357
+#: polls-templates.php:355
+#: polls-templates.php:369
 msgid "Displayed When The User HAS Voted"
 msgstr ""
 
-#: polls-templates.php:357
-#: polls-templates.php:377
+#: polls-templates.php:369
+#: polls-templates.php:389
 msgid "Result Footer:"
 msgstr ""
 
-#: polls-templates.php:398
+#: polls-templates.php:410
 msgid "Poll Archive Templates"
 msgstr ""
 
-#: polls-templates.php:402
+#: polls-templates.php:414
 msgid "Poll Archive Link"
 msgstr ""
 
-#: polls-templates.php:402
+#: polls-templates.php:414
 msgid "Template For Displaying Poll Archive Link"
 msgstr ""
 
-#: polls-templates.php:411
+#: polls-templates.php:423
 msgid "Individual Poll Header"
 msgstr ""
 
-#: polls-templates.php:411
+#: polls-templates.php:423
 msgid "Displayed Before Each Poll In The Poll Archive"
 msgstr ""
 
-#: polls-templates.php:413
-#: polls-templates.php:446
-#: polls-templates.php:455
+#: polls-templates.php:425
+#: polls-templates.php:453
+#: polls-templates.php:462
+#: polls-templates.php:476
+#: polls-templates.php:485
 msgid "N/A"
 msgstr ""
 
-#: polls-templates.php:420
+#: polls-templates.php:432
 msgid "Individual Poll Footer"
 msgstr ""
 
-#: polls-templates.php:420
+#: polls-templates.php:432
 msgid "Displayed After Each Poll In The Poll Archive"
 msgstr ""
 
-#: polls-templates.php:440
+#: polls-templates.php:451
+msgid "Paging Header"
+msgstr ""
+
+#: polls-templates.php:451
+msgid "Displayed Before Paging In The Poll Archive"
+msgstr ""
+
+#: polls-templates.php:460
+msgid "Paging Footer"
+msgstr ""
+
+#: polls-templates.php:460
+msgid "Displayed After Paging In The Poll Archive"
+msgstr ""
+
+#: polls-templates.php:470
 msgid "Poll Misc Templates"
 msgstr ""
 
-#: polls-templates.php:444
+#: polls-templates.php:474
 msgid "Poll Disabled"
 msgstr ""
 
-#: polls-templates.php:444
+#: polls-templates.php:474
 msgid "Displayed When The Poll Is Disabled"
 msgstr ""
 
-#: polls-templates.php:453
+#: polls-templates.php:483
 msgid "Poll Error"
 msgstr ""
 
-#: polls-templates.php:453
+#: polls-templates.php:483
 msgid "Displayed When An Error Has Occured While Processing The Poll"
 msgstr ""
 
@@ -1406,41 +1436,25 @@ msgstr ""
 msgid "Note: There is a poll embedded within this post, please visit the site to participate in this post's poll."
 msgstr ""
 
-#: wp-polls.php:1025
-msgid "Previous Page"
+#: wp-polls.php:1041
+#, php-format
+msgid "Page %s of %s"
 msgstr ""
 
-#: wp-polls.php:1033
-msgid "Next Page"
-msgstr ""
-
-#: wp-polls.php:1042
-msgid "Pages"
-msgstr ""
-
-#: wp-polls.php:1044
-msgid "Go to First Page"
-msgstr ""
-
-#: wp-polls.php:1044
-msgid "First"
+#: wp-polls.php:1043
+msgid "&laquo; First"
 msgstr ""
 
 #: wp-polls.php:1047
-#: wp-polls.php:1059
-msgid "Go to Page"
+msgid "&laquo;"
 msgstr ""
 
-#: wp-polls.php:1054
-msgid "Page"
+#: wp-polls.php:1057
+msgid "&raquo;"
 msgstr ""
 
-#: wp-polls.php:1062
-msgid "Go to Last Page"
-msgstr ""
-
-#: wp-polls.php:1062
-msgid "Last"
+#: wp-polls.php:1061
+msgid "Last &raquo;"
 msgstr ""
 
 #: wp-polls.php:1239

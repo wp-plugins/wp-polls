@@ -42,6 +42,8 @@ if($_POST['Submit']) {
 	$poll_template_pollarchivelink = trim($_POST['poll_template_pollarchivelink']);
 	$poll_template_pollarchiveheader = trim($_POST['poll_template_pollarchiveheader']);
 	$poll_template_pollarchivefooter = trim($_POST['poll_template_pollarchivefooter']);
+	$poll_template_pollarchivepagingheader = trim($_POST['poll_template_pollarchivepagingheader']);
+	$poll_template_pollarchivepagingfooter = trim($_POST['poll_template_pollarchivepagingfooter']);
 	$poll_template_disable = trim($_POST['poll_template_disable']);
 	$poll_template_error = trim($_POST['poll_template_error']);
 	$update_poll_queries = array();
@@ -57,6 +59,8 @@ if($_POST['Submit']) {
 	$update_poll_queries[] = update_option('poll_template_pollarchivelink', $poll_template_pollarchivelink);
 	$update_poll_queries[] = update_option('poll_template_pollarchiveheader', $poll_template_pollarchiveheader);
 	$update_poll_queries[] = update_option('poll_template_pollarchivefooter', $poll_template_pollarchivefooter);
+	$update_poll_queries[] = update_option('poll_template_pollarchivepagingheader', $poll_template_pollarchivepagingheader);
+	$update_poll_queries[] = update_option('poll_template_pollarchivepagingfooter', $poll_template_pollarchivepagingfooter);
 	$update_poll_queries[] = update_option('poll_template_disable', $poll_template_disable);
 	$update_poll_queries[] = update_option('poll_template_error', $poll_template_error);
 	$update_poll_text[] = __('Voting Form Header Template', 'wp-polls');
@@ -70,6 +74,8 @@ if($_POST['Submit']) {
 	$update_poll_text[] = __('Poll Archive Link Template', 'wp-polls');
 	$update_poll_text[] = __('Poll Archive Poll Header Template', 'wp-polls');
 	$update_poll_text[] = __('Poll Archive Poll Footer Template', 'wp-polls');
+	$update_poll_text[] = __('Poll Archive Paging Header Template', 'wp-polls');
+	$update_poll_text[] = __('Poll Archive Paging Footer Template', 'wp-polls');
 	$update_poll_text[] = __('Poll Disabled Template', 'wp-polls');
 	$update_poll_text[] = __('Poll Error Template', 'wp-polls');
 	$i=0;
@@ -126,6 +132,12 @@ if($_POST['Submit']) {
 				break;
 			case "pollarchivefooter":
 				default_template = "<p><?php _e('Start Date:', 'wp-polls'); ?> %POLL_START_DATE%<br /><?php _e('End Date:', 'wp-polls'); ?> %POLL_END_DATE%</p>";
+				break;
+			case "pollarchivepagingheader":
+				default_template = "";
+				break;
+			case "pollarchivepagingfooter":
+				default_template = "";
 				break;
 			case "disable":
 				default_template = "<?php _e('Sorry, there are no polls available at the moment.', 'wp-polls'); ?>";
@@ -433,6 +445,24 @@ if($_POST['Submit']) {
 				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchivefooter');" class="button" />
 			</td>
 			<td align="left"><textarea cols="80" rows="15" id="poll_template_pollarchivefooter" name="poll_template_pollarchivefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchivefooter'))); ?></textarea></td>
+		</tr>
+		<tr>
+			<td width="30%" align="left">
+				<strong><?php _e('Paging Header', 'wp-polls'); ?></strong><br /><?php _e('Displayed Before Paging In The Poll Archive', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- <?php _e('N/A', 'wp-polls'); ?><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchivepagingheader');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_pollarchivepagingheader" name="poll_template_pollarchivepagingheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchivepagingheader'))); ?></textarea></td>
+		</tr>
+		<tr>
+			<td width="30%" align="left">
+				<strong><?php _e('Paging Footer', 'wp-polls'); ?></strong><br /><?php _e('Displayed After Paging In The Poll Archive', 'wp-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				- <?php _e('N/A', 'wp-polls'); ?><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-polls'); ?>" onclick="poll_default_templates('pollarchivepagingfooter');" class="button" />
+			</td>
+			<td align="left"><textarea cols="80" rows="15" id="poll_template_pollarchivepagingfooter" name="poll_template_pollarchivepagingfooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_pollarchivepagingfooter'))); ?></textarea></td>
 		</tr>
 	</table>
 

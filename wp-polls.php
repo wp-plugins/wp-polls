@@ -175,7 +175,7 @@ function poll_header() {
 	echo '/* ]]> */'."\n";
 	echo '</script>'."\n";
 	wp_print_scripts(array('sack', 'wp-polls'));
-	if(@file_exists(get_template_directory().'/polls-css.css')) {
+	if(@file_exists(TEMPLATEPATH.'/polls-css.css')) {
 		echo '<link rel="stylesheet" href="'.get_stylesheet_directory_uri().'/polls-css.css" type="text/css" media="screen" />'."\n";	
 	} else {
 		echo '<link rel="stylesheet" href="'.get_option('siteurl').'/wp-content/plugins/wp-polls/polls-css.css" type="text/css" media="screen" />'."\n";	
@@ -828,30 +828,44 @@ function polls_archive() {
 	// Get Total Polls
 	$total_polls = $wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq WHERE $polls_type_sql AND pollq_active != -1");
 
-	// Checking $page and $offset
-	if (empty($page) || $page == 0) { $page = 1; }
-	if (empty($offset)) { $offset = 0; }
-
-	// Determin $offset
-	$offset = ($page-1) * $polls_perpage;
-
-	// Determine Max Number Of Polls To Display On Page
-	if(($offset + $polls_perpage) > $total_polls) { 
-		$max_on_page = $total_polls; 
-	} else { 
-		$max_on_page = ($offset + $polls_perpage); 
+	// Calculate Paging
+	$numposts = $total_polls;
+	$perpage = $polls_perpage;
+	$max_page = ceil($numposts/$perpage);	
+	if(empty($page) || $page == 0) {
+		$page = 1;
 	}
-
-	// Determine Number Of Polls To Display On Page
-	if (($offset + 1) > ($total_polls)) { 
-		$display_on_page = $total_polls; 
+	$offset = ($page-1) * $perpage;
+	$pages_to_show = 10;
+	$pages_to_show_minus_1 = $pages_to_show-1;
+	$half_page_start = floor($pages_to_show_minus_1/2);
+	$half_page_end = ceil($pages_to_show_minus_1/2);
+	$start_page = $page - $half_page_start;
+	if($start_page <= 0) {
+		$start_page = 1;
+	}
+	$end_page = $page + $half_page_end;
+	if(($end_page - $start_page) != $pages_to_show_minus_1) {
+		$end_page = $start_page + $pages_to_show_minus_1;
+	}
+	if($end_page > $max_page) {
+		$start_page = $max_page - $pages_to_show_minus_1;
+		$end_page = $max_page;
+	}
+	if($start_page <= 0) {
+		$start_page = 1;
+	}
+	if(($offset + $perpage) > $numposts) { 
+		$max_on_page = $numposts; 
+	} else { 
+		$max_on_page = ($offset + $perpage); 
+	}
+	if (($offset + 1) > ($numposts)) { 
+		$display_on_page = $numposts; 
 	} else { 
 		$display_on_page = ($offset + 1); 
 	}
-
-	// Determing Total Amount Of Pages
-	$total_pages = ceil($total_polls / $polls_perpage);
-
+	
 	// Get Poll Questions
 	$questions = $wpdb->get_results("SELECT * FROM $wpdb->pollsq WHERE $polls_type_sql ORDER BY pollq_id DESC LIMIT $offset, $polls_perpage");
 	if($questions) {
@@ -1017,51 +1031,37 @@ function polls_archive() {
 	$pollsarchive_output_archive .= "</div>\n";
 
 	// Polls Archive Paging
-	if($total_pages > 1) {
-		// Output Previous Page
-		$pollsarchive_output_archive .= "<p>\n";
-		$pollsarchive_output_archive .= "<span style=\"float: left;\">\n";
-		if($page > 1 && ((($page*$polls_perpage)-($polls_perpage-1)) <= $total_polls)) {
-			$pollsarchive_output_archive .= '<strong>&laquo;</strong> <a href="'.polls_archive_link($page-1).'" title="&laquo; '.__('Previous Page', 'wp-polls').'">'.__('Previous Page', 'wp-polls').'</a>';
+	if($max_page > 1) {
+		$pollsarchive_output_archive .= stripslashes(get_option('poll_template_pollarchivepagingheader'));
+		if(function_exists('wp_pagenavi')) {
+			$pollsarchive_output_archive .= '<div class="wp-pagenavi">'."\n";
 		} else {
-			$pollsarchive_output_archive .= '&nbsp;';
-		}		
-		$pollsarchive_output_archive .= "</span>\n";
-		// Output Next Page
-		$pollsarchive_output_archive .= "<span style=\"float: right;\">\n";
-		if($page >= 1 && ((($page*$polls_perpage)+1) <=  $total_polls)) {
-			$pollsarchive_output_archive .= '<a href="'.polls_archive_link($page+1).'" title="'.__('Next Page', 'wp-polls').' &raquo;">'.__('Next Page', 'wp-polls').'</a> <strong>&raquo;</strong>';
-		} else {
-			$pollsarchive_output_archive .= '&nbsp;';
+			$pollsarchive_output_archive .= '<div class="wp-polls-paging">'."\n";
 		}
-		$pollsarchive_output_archive .= "</span>\n";
-		// Output Pages
-		$pollsarchive_output_archive .= "</p>\n";
-		$pollsarchive_output_archive .= "<br style=\"clear: both;\" />\n";
-		$pollsarchive_output_archive .= "<p style=\"text-align: center;\">\n";
-		$pollsarchive_output_archive .= __('Pages', 'wp-polls')." ($total_pages): ";
-		if ($page >= 4) {
-			$pollsarchive_output_archive .= '<strong><a href="'.polls_archive_link(1).'" title="'.__('Go to First Page', 'wp-polls').'">&laquo; '.__('First', 'wp-polls').'</a></strong> ... ';
+		$pollsarchive_output_archive .= '<span class="pages">'.sprintf(__('Page %s of %s', 'wp-polls'), $page, $max_page).'</span>';			
+		if ($start_page >= 2 && $pages_to_show < $max_page) {
+			$pollsarchive_output_archive .= '<a href="'.polls_archive_link(1).'" title="'.__('&laquo; First', 'wp-polls').'">'.__('&laquo; First', 'wp-polls').'</a>';
+			$pollsarchive_output_archive .= '<span class="extend">...</span>';
 		}
 		if($page > 1) {
-			$pollsarchive_output_archive .= ' <strong><a href="'.polls_archive_link($page-1).'" title="&laquo; '.__('Go to Page', 'wp-polls').' '.($page-1).'">&laquo;</a></strong> ';
+			$pollsarchive_output_archive .= '<a href="'.polls_archive_link(($page-1)).'" title="'.__('&laquo;', 'wp-polls').'">'.__('&laquo;', 'wp-polls').'</a>';
 		}
-		for($i = $page - 2 ; $i  <= $page +2; $i++) {
-			if ($i >= 1 && $i <= $total_pages) {
-				if($i == $page) {
-					$pollsarchive_output_archive .= "<strong>[$i]</strong> ";
-				} else {
-					$pollsarchive_output_archive .= '<a href="'.polls_archive_link($i).'" title="'.__('Page', 'wp-polls').' '.$i.'">'.$i.'</a> ';
-				}
+		for($i = $start_page; $i  <= $end_page; $i++) {						
+			if($i == $page) {
+				$pollsarchive_output_archive .= '<span class="current">'.$i.'</span>';
+			} else {
+				$pollsarchive_output_archive .= '<a href="'.polls_archive_link($i).'" title="'.$i.'">'.$i.'</a>';
 			}
 		}
-		if($page < $total_pages) {
-			$pollsarchive_output_archive .= ' <strong><a href="'.polls_archive_link($page+1).'" title="'.__('Go to Page', 'wp-polls').' '.($page+1).' &raquo;">&raquo;</a></strong> ';
+		if(empty($page) || ($page+1) <= $max_page) {
+			$pollsarchive_output_archive .= '<a href="'.polls_archive_link(($page+1)).'" title="'.__('&raquo;', 'wp-polls').'">'.__('&raquo;', 'wp-polls').'</a>';
 		}
-		if (($page+2) < $total_pages) {
-			$pollsarchive_output_archive .= ' ... <strong><a href="'.polls_archive_link($total_pages).'" title="'.__('Go to Last Page', 'wp-polls').'">'.__('Last', 'wp-polls').' &raquo;</a></strong>';
+		if ($end_page < $max_page) {
+			$pollsarchive_output_archive .= '<span class="extend">...</span>';
+			$pollsarchive_output_archive .= '<a href="'.polls_archive_link($max_page).'" title="'.__('Last &raquo;', 'wp-polls').'">'.__('Last &raquo;', 'wp-polls').'</a>';
 		}
-		$pollsarchive_output_archive .= "</p>\n";
+		$pollsarchive_output_archive .= '</div>';
+		$pollsarchive_output_archive .= stripslashes(get_option('poll_template_pollarchivepagingfooter'));
 	}
 
 	// Output Polls Archive Page
@@ -1409,7 +1409,9 @@ function create_poll_table() {
 		$wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvoters = pollq_totalvotes");
 	}
 	// Database Upgrade For WP-Polls 2.30
-	add_option('poll_cookielog_expiry', 0, 'Cookie And Log Expiry Time');	
+	add_option('poll_cookielog_expiry', 0, 'Cookie And Log Expiry Time');
+	add_option('poll_template_pollarchivepagingheader', '', 'Displayed Before Paging In The Poll Archive');
+	add_option('poll_template_pollarchivepagingfooter', '', 'Displayed After Paging In The Poll Archive');
 	// Set 'manage_polls' Capabilities To Administrator	
 	$role = get_role('administrator');
 	if(!$role->has_cap('manage_polls')) {
