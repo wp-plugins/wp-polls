@@ -39,7 +39,7 @@ function widget_polls_init() {
 		global $in_pollsarchive;
 		extract($args);
 		$options = get_option('widget_polls');
-		$title = htmlspecialchars($options['title']);		
+		$title = htmlspecialchars(stripslashes($options['title']));		
 		if (function_exists('vote_poll') && !in_pollarchive()) {
 			echo $before_widget.$before_title.$title.$after_title;
 			if(intval(get_option('poll_currentpoll')) == -3) {
