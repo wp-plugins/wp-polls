@@ -66,7 +66,7 @@ function widget_polls_init() {
 		if ($_POST['polls-submit']) {
 			$poll_currentpoll = intval($_POST['poll_currentpoll']);
 			$poll_archive_show = intval($_POST['poll_archive_show']);		
-			$options['title'] = strip_tags(addslashes($_POST['polls-title']));
+			$options['title'] = strip_tags($_POST['polls-title']);
 			if(is_array($_POST['poll_multiplepolls'])) {
 				$options['multiple_polls'] = implode(',', $_POST['poll_multiplepolls']);
 			} else {
