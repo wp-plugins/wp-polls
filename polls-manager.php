@@ -435,8 +435,8 @@ switch($mode) {
 					$poll_close_display = 'none';
 				}
 			?>
-				<input type="button" class="button" name="do" id="close_poll" value="<?php _e('Close Poll', 'wp-polls'); ?>" onclick="closing_poll(<?php echo $poll_id; ?>, '<?php printf(js_escape(__('You are about to CLOSE this poll \'%s\'.', 'wp-polls')), htmlspecialchars($poll_question_text)); ?>');" style="display: <?php echo $poll_close_display; ?>;" />
-				<input type="button" class="button" name="do" id="open_poll" value="<?php _e('Open Poll', 'wp-polls'); ?>" onclick="opening_poll(<?php echo $poll_id; ?>, '<?php printf(js_escape(__('You are about to OPEN this poll \'%s\'.', 'wp-polls')), htmlspecialchars($poll_question_text)); ?>');" style="display: <?php echo $poll_open_display; ?>;" />
+				<input type="button" class="button" name="do" id="close_poll" value="<?php _e('Close Poll', 'wp-polls'); ?>" onclick="closing_poll(<?php echo $poll_id; ?>, '<?php printf(js_escape(__('You are about to CLOSE this poll \'%s\'.', 'wp-polls')), htmlspecialchars(js_escape($poll_question_text))); ?>');" style="display: <?php echo $poll_close_display; ?>;" />
+				<input type="button" class="button" name="do" id="open_poll" value="<?php _e('Open Poll', 'wp-polls'); ?>" onclick="opening_poll(<?php echo $poll_id; ?>, '<?php printf(js_escape(__('You are about to OPEN this poll \'%s\'.', 'wp-polls')), htmlspecialchars(js_escape($poll_question_text))); ?>');" style="display: <?php echo $poll_open_display; ?>;" />
 				&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" />
 			</p>
 		</div>
