@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP-Polls 2.30\n"
+"Project-Id-Version: WP-Polls 2.31\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 12:14+0800\n"
-"PO-Revision-Date: 2008-05-13 12:14+0800\n"
+"POT-Creation-Date: 2008-06-10 04:06+0800\n"
+"PO-Revision-Date: 2008-06-10 04:06+0800\n"
 "Last-Translator: Lester Chan <lesterchan@gmail.com>\n"
 "Language-Team: Lester Chan <lesterchan@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -536,8 +536,8 @@ msgstr ""
 #: polls-manager.php:576
 #: polls-templates.php:122
 #: polls-templates.php:125
-#: wp-polls.php:1370
-#: wp-polls.php:1373
+#: wp-polls.php:1379
+#: wp-polls.php:1382
 msgid "Total Voters"
 msgstr ""
 
@@ -786,8 +786,8 @@ msgstr ""
 #: polls-options.php:251
 #: polls-templates.php:116
 #: polls-templates.php:119
-#: wp-polls.php:1367
-#: wp-polls.php:1368
+#: wp-polls.php:1376
+#: wp-polls.php:1377
 msgid "Votes"
 msgstr ""
 
@@ -1001,33 +1001,33 @@ msgstr ""
 
 #: polls-templates.php:110
 #: polls-templates.php:125
-#: wp-polls.php:1361
-#: wp-polls.php:1374
+#: wp-polls.php:1370
+#: wp-polls.php:1383
 msgid "Vote"
 msgstr ""
 
 #: polls-templates.php:110
-#: wp-polls.php:1362
+#: wp-polls.php:1371
 msgid "View Results Of This Poll"
 msgstr ""
 
 #: polls-templates.php:110
-#: wp-polls.php:1362
+#: wp-polls.php:1371
 msgid "View Results"
 msgstr ""
 
 #: polls-templates.php:119
-#: wp-polls.php:1368
+#: wp-polls.php:1377
 msgid "You Have Voted For This Choice"
 msgstr ""
 
 #: polls-templates.php:125
-#: wp-polls.php:1374
+#: wp-polls.php:1383
 msgid "Vote For This Poll"
 msgstr ""
 
 #: polls-templates.php:128
-#: wp-polls.php:1401
+#: wp-polls.php:1410
 msgid "Polls Archive"
 msgstr ""
 
@@ -1040,12 +1040,12 @@ msgid "End Date:"
 msgstr ""
 
 #: polls-templates.php:143
-#: wp-polls.php:1376
+#: wp-polls.php:1385
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
 #: polls-templates.php:146
-#: wp-polls.php:1377
+#: wp-polls.php:1386
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
@@ -1490,27 +1490,27 @@ msgstr ""
 msgid "votes were casted."
 msgstr ""
 
-#: wp-polls.php:1345
+#: wp-polls.php:1354
 msgid "How Is My Site?"
 msgstr ""
 
-#: wp-polls.php:1348
+#: wp-polls.php:1357
 msgid "Good"
 msgstr ""
 
-#: wp-polls.php:1349
+#: wp-polls.php:1358
 msgid "Excellent"
 msgstr ""
 
-#: wp-polls.php:1350
+#: wp-polls.php:1359
 msgid "Bad"
 msgstr ""
 
-#: wp-polls.php:1351
+#: wp-polls.php:1360
 msgid "Can Be Improved"
 msgstr ""
 
-#: wp-polls.php:1352
+#: wp-polls.php:1361
 msgid "No Comments"
 msgstr ""
 

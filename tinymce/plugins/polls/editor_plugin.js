@@ -23,8 +23,8 @@
 				longname : 'WP-Polls',
 				author : 'Lester Chan',
 				authorurl : 'http://lesterchan.net',
-				infourl : 'http://lesterchan.net/portfolio/programming.php',
-				version : '2.30'
+				infourl : 'http://lesterchan.net/portfolio/programming/php/',
+				version : '2.31'
 			};
 		}
 	});
