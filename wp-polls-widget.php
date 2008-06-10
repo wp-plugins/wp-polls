@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP-Polls Widget
-Plugin URI: http://lesterchan.net/portfolio/programming.php
+Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Adds a Poll Widget to display single or multiple polls from WP-Polls Plugin. You will need to activate WP-Polls first.
 Version: 2.30
 Author: Lester 'GaMerZ' Chan
