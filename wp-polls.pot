@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-Polls 2.31\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-19 18:58+0800\n"
-"PO-Revision-Date: 2008-06-19 18:58+0800\n"
+"POT-Creation-Date: 2008-06-25 14:17+0800\n"
+"PO-Revision-Date: 2008-06-25 14:17+0800\n"
 "Last-Translator: Lester Chan <lesterchan@gmail.com>\n"
 "Language-Team: Lester Chan <lesterchan@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -784,11 +784,7 @@ msgid "Sort Poll Results By:"
 msgstr ""
 
 #: polls-options.php:251
-#: polls-templates.php:116
-#: polls-templates.php:119
-#: wp-polls.php:1376
-#: wp-polls.php:1377
-msgid "Votes"
+msgid "Votes Casted"
 msgstr ""
 
 #: polls-options.php:259
@@ -1014,6 +1010,13 @@ msgstr ""
 #: polls-templates.php:110
 #: wp-polls.php:1371
 msgid "View Results"
+msgstr ""
+
+#: polls-templates.php:116
+#: polls-templates.php:119
+#: wp-polls.php:1376
+#: wp-polls.php:1377
+msgid "Votes"
 msgstr ""
 
 #: polls-templates.php:119
