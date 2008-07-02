@@ -18,7 +18,12 @@
 
 
 ### Include wp-config.php
-@require('../../../wp-config.php');
+$wp_root = dirname(dirname(dirname(dirname(__FILE__))));
+if (file_exists($wp_root.'/wp-load.php')) {
+	require_once($wp_root.'/wp-load.php');
+} else {
+	require_once($wp_root.'/wp-config.php');
+}
 
 
 ### Check Whether User Can Manage Polls

@@ -119,7 +119,7 @@ if($_POST['Submit']) {
 			if(pollbar_style == 'use_css') {
 				document.getElementById('wp-polls-pollbar').style.backgroundImage = "";
 			} else {
-				document.getElementById('wp-polls-pollbar').style.backgroundImage = "url('<?php echo get_option('siteurl'); ?>/wp-content/plugins/wp-polls/images/" + pollbar_style + "/pollbg.gif')";
+				document.getElementById('wp-polls-pollbar').style.backgroundImage = "url('<?php echo WP_PLUGIN_URL; ?>/wp-polls/images/" + pollbar_style + "/pollbg.gif')";
 			}
 		}
 		document.getElementById('wp-polls-pollbar').style.backgroundColor = pollbar_background;
@@ -140,8 +140,8 @@ if($_POST['Submit']) {
 			<td colspan="2">
 				<?php
 					$pollbar = get_option('poll_bar');
-					$pollbar_url = get_option('siteurl').'/wp-content/plugins/wp-polls/images';
-					$pollbar_path = ABSPATH.'/wp-content/plugins/wp-polls/images';
+					$pollbar_url = WP_PLUGIN_URL.'/wp-polls/images';
+					$pollbar_path = WP_PLUGIN_DIR.'/wp-polls/images';
 					if($handle = @opendir($pollbar_path)) {     
 						while (false !== ($filename = readdir($handle))) {  
 							if ($filename != '.' && $filename != '..') {
@@ -186,7 +186,7 @@ if($_POST['Submit']) {
 					if($pollbar['style'] == 'use_css') {
 						echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'"></div>'."\n";
 					} else {
-						echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'; background-image: url(\''.get_option('siteurl').'/wp-content/plugins/wp-polls/images/'.$pollbar['style'].'/pollbg.gif\');"></div>'."\n";
+						echo '<div id="wp-polls-pollbar" style="width: 100px; height: '.$pollbar['height'].'px; background-color: #'.$pollbar['background'].'; border: 1px solid #'.$pollbar['border'].'; background-image: url(\''.WP_PLUGIN_URL.'/wp-polls/images/'.$pollbar['style'].'/pollbg.gif\');"></div>'."\n";
 					}
 				?>
 			</td>
