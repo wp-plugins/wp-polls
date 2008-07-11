@@ -557,23 +557,23 @@ switch($mode) {
 
 		<!-- Polls Stats -->
 		<div class="wrap">
-			<h2><?php _e('Polls Stats', 'wp-polls'); ?></h2>
+			<h2><?php _e('Polls Stats:', 'wp-polls'); ?></h2>
 			<br style="clear" />
 			<table class="widefat">
 			<tr>
-				<th><?php _e('Total Polls', 'wp-polls'); ?></th>
+				<th><?php _e('Total Polls:', 'wp-polls'); ?></th>
 				<td><?php echo $i; ?></td>
 			</tr>
 			<tr class="alternate">
-				<th><?php _e('Total Polls\' Answers', 'wp-polls'); ?></th>
+				<th><?php _e('Total Polls\' Answers:', 'wp-polls'); ?></th>
 				<td><?php echo number_format_i18n($total_ans); ?></td>
 			</tr>
 			<tr>
-				<th><?php _e('Total Votes Casted', 'wp-polls'); ?></th>
+				<th><?php _e('Total Votes Casted:', 'wp-polls'); ?></th>
 				<td><?php echo number_format_i18n($total_votes); ?></td>
 			</tr>
 			<tr class="alternate">
-				<th><?php _e('Total Voters', 'wp-polls'); ?></th>
+				<th><?php _e('Total Voters:', 'wp-polls'); ?></th>
 				<td><?php echo number_format_i18n($total_voters); ?></td>
 			</tr>
 			</table>
@@ -598,7 +598,7 @@ switch($mode) {
 				}
 			?>
 			</div>
-			<p style="text-align: left;"><?php _e('Note:<br />If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer.', 'wp-polls'); ?></p>
+			<p style="text-align: left;"><?php _e('Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer.', 'wp-polls'); ?></p>
 		</div>
 <?php
 } // End switch($mode)

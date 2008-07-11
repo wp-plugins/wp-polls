@@ -1310,9 +1310,9 @@ function polls_page_general_stats($content) {
 	if($stats_display['polls'] == 1) {
 		$content .= '<p><strong>'.__('WP-Polls', 'wp-polls').'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
-		$content .= '<li><strong>'.get_pollquestions(false).'</strong> '.__('polls were created.', 'wp-polls').'</li>'."\n";
-		$content .= '<li><strong>'.get_pollanswers(false).'</strong> '.__('polls\' answers were given.', 'wp-polls').'</li>'."\n";
-		$content .= '<li><strong>'.get_pollvotes(false).'</strong> '.__('votes were casted.', 'wp-polls').'</li>'."\n";
+		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> poll was created.', '<strong>%s</strong> polls were created.', get_pollquestions(false), 'wp-polls'), get_pollquestions(false)).'</li>'."\n";
+		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> polls\' answer was given.', '<strong>%s</strong> polls\' answers were given.', get_pollanswers(false), 'wp-polls'), get_pollanswers(false)).'</li>'."\n";
+		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> vote was casted.', '<strong>%s</strong> votes were casted.', get_pollvotes(false), 'wp-polls'), get_pollvotes(false)).'</li>'."\n";
 		$content .= '</ul>'."\n";
 	}
 	return $content;
