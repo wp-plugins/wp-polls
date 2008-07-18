@@ -158,7 +158,7 @@ function widget_polls_init() {
 		echo '<p id="poll_multiplepolls_text" style="text-align: left; '.$display.'"><label for="poll_multiplepolls">';
 		_e('Select Multiple Polls', 'wp-polls');
 		echo ': </label>'."\n";
-		echo '<select id="poll_multiplepolls" name="poll_multiplepolls[]" size="5" multiple="true" style="vertical-align: text-top;" $disabled>'."\n";
+		echo '<select id="poll_multiplepolls" name="poll_multiplepolls[]" size="5" multiple="true" style="height: 100px; vertical-align: text-top;" $disabled>'."\n";
 		$multiple_polls = explode(',', $options['multiple_polls']);
 		$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");
 		if($polls) {
