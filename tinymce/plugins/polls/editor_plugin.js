@@ -24,7 +24,7 @@
 				author : 'Lester Chan',
 				authorurl : 'http://lesterchan.net',
 				infourl : 'http://lesterchan.net/portfolio/programming/php/',
-				version : '2.31'
+				version : '2.40'
 			};
 		}
 	});
