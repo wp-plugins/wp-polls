@@ -709,11 +709,11 @@ function poll_shortcode($atts) {
 if(!function_exists('get_pollquestions')) {
 	function get_pollquestions($display = true) {
 		global $wpdb;
-		$totalpollq = $wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq");
+		$totalpollq = intval($wpdb->get_var("SELECT COUNT(pollq_id) FROM $wpdb->pollsq"));
 		if($display) {
-			echo number_format_i18n($totalpollq);
+			echo $totalpollq;
 		} else {
-			return number_format_i18n($totalpollq);
+			return $totalpollq;
 		}
 	}
 }
@@ -723,11 +723,11 @@ if(!function_exists('get_pollquestions')) {
 if(!function_exists('get_pollanswers')) {
 	function get_pollanswers($display = true) {
 		global $wpdb;
-		$totalpolla = $wpdb->get_var("SELECT COUNT(polla_aid) FROM $wpdb->pollsa");
+		$totalpolla = intval($wpdb->get_var("SELECT COUNT(polla_aid) FROM $wpdb->pollsa"));
 		if($display) {
-			echo number_format_i18n($totalpolla);
+			echo $totalpolla;
 		} else {
-			return number_format_i18n($totalpolla);
+			return $totalpolla;
 		}
 	}
 }
@@ -737,11 +737,11 @@ if(!function_exists('get_pollanswers')) {
 if(!function_exists('get_pollvotes')) {
 	function get_pollvotes($display = true) {
 		global $wpdb;
-		$totalvotes = $wpdb->get_var("SELECT SUM(pollq_totalvotes) FROM $wpdb->pollsq");
+		$totalvotes = intval($wpdb->get_var("SELECT SUM(pollq_totalvotes) FROM $wpdb->pollsq"));
 		if($display) {
-			echo number_format_i18n($totalvotes);
+			echo $totalvotes;
 		} else {
-			return number_format_i18n($totalvotes);
+			return $totalvotes;
 		}
 	}
 }
@@ -751,11 +751,11 @@ if(!function_exists('get_pollvotes')) {
 if(!function_exists('get_pollvoters')) {
 	function get_pollvoters($display = true) {
 		global $wpdb;
-		$totalvoters = $wpdb->get_var("SELECT SUM(pollq_totalvoters) FROM $wpdb->pollsq");
+		$totalvoters = intval($wpdb->get_var("SELECT SUM(pollq_totalvoters) FROM $wpdb->pollsq"));
 		if($display) {
-			echo number_format_i18n($totalvoters);
+			echo $totalvoters;
 		} else {
-			return number_format_i18n($totalvoters);
+			return $totalvoters;
 		}
 	}
 }
@@ -1298,9 +1298,9 @@ function polls_page_general_stats($content) {
 	if($stats_display['polls'] == 1) {
 		$content .= '<p><strong>'.__('WP-Polls', 'wp-polls').'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
-		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> poll was created.', '<strong>%s</strong> polls were created.', get_pollquestions(false), 'wp-polls'), get_pollquestions(false)).'</li>'."\n";
-		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> polls\' answer was given.', '<strong>%s</strong> polls\' answers were given.', get_pollanswers(false), 'wp-polls'), get_pollanswers(false)).'</li>'."\n";
-		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> vote was casted.', '<strong>%s</strong> votes were casted.', get_pollvotes(false), 'wp-polls'), get_pollvotes(false)).'</li>'."\n";
+		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> poll was created.', '<strong>%s</strong> polls were created.', get_pollquestions(false), 'wp-polls'), number_format_i18n(get_pollquestions(false))).'</li>'."\n";
+		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> polls\' answer was given.', '<strong>%s</strong> polls\' answers were given.', get_pollanswers(false), 'wp-polls'), number_format_i18n(get_pollanswers(false))).'</li>'."\n";
+		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> vote was casted.', '<strong>%s</strong> votes were casted.', get_pollvotes(false), 'wp-polls'), number_format_i18n(get_pollvotes(false))).'</li>'."\n";
 		$content .= '</ul>'."\n";
 	}
 	return $content;
