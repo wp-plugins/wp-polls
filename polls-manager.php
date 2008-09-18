@@ -159,6 +159,7 @@ switch($mode) {
 		break;
 	// Edit A Poll
 	case 'edit':
+    $last_col_align = ('rtl' == $text_direction) ? 'left' : 'right';
 		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_timestamp, pollq_totalvotes, pollq_active, pollq_expiry, pollq_multiple, pollq_totalvoters FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
 		$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_id ORDER BY polla_aid ASC");
 		$poll_noquestion = $wpdb->get_var("SELECT COUNT(polla_aid) FROM $wpdb->pollsa WHERE polla_qid = $poll_id");
@@ -260,7 +261,7 @@ switch($mode) {
 				poll_td1.setAttribute('valign', "top");
 				poll_td2.setAttribute('width', "60%");
 				poll_td3.setAttribute('width', "20%");
-				poll_td3.setAttribute('align', "right");
+				poll_td3.setAttribute('align', "<?php echo $last_col_align; ?>");
 				// Appending To Elements
 				poll_tr.appendChild(poll_td1);
 				poll_tr.appendChild(poll_td2);
@@ -320,7 +321,7 @@ switch($mode) {
 					<tr>
 						<th width="20%" scope="row" valign="top"><?php _e('Answer No.', 'wp-polls') ?></th>
 						<th width="60%" scope="row" valign="top"><?php _e('Answer Text', 'wp-polls') ?></th>
-						<th width="20%" scope="row" valign="top" style="text-align: right;"><?php _e('No. Of Votes', 'wp-polls') ?></th>
+						<th width="20%" scope="row" valign="top" style="text-align: <?php echo $last_col_align; ?>;"><?php _e('No. Of Votes', 'wp-polls') ?></th>
 					</tr>
 				</thead>
 				<tbody id="poll_answers">
@@ -336,10 +337,10 @@ switch($mode) {
 								$polla_votes = intval($poll_answer->polla_votes);
 								$pollip_answers[$polla_aid] = $polla_answers;
 								echo "<tr id=\"poll-answer-$polla_aid\">\n";
-								echo '<th width="20%" scope="row" valign="top">'.sprintf(__('Answer %s', 'wp-polls'), $i).'</th>'."\n";
+								echo '<th width="20%" scope="row" valign="top">'.sprintf(__('Answer %s', 'wp-polls'), number_format_i18n($i)).'</th>'."\n";
 								echo "<td width=\"60%\"><input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_aid-$polla_aid\" value=\"".htmlspecialchars($polla_answers)."\" />&nbsp;&nbsp;&nbsp;";
 								echo "<input type=\"button\" value=\"".__('Delete', 'wp-polls')."\" onclick=\"delete_poll_ans($poll_id, $polla_aid, $polla_votes, '".sprintf(js_escape(__('You are about to delete this poll\'s answer \'%s\'.', 'wp-polls')), js_escape(htmlspecialchars($polla_answers)))."');\" class=\"button\" /></td>\n";
-								echo '<td width="20%" align="right">'.number_format_i18n($polla_votes)." <input type=\"text\" size=\"4\" id=\"polla_votes-$polla_aid\" name=\"polla_votes-$polla_aid\" value=\"$polla_votes\" onblur=\"check_totalvotes();\" /></td>\n</tr>\n";
+								echo '<td width="20%" align="'.$last_col_align.'">'.number_format_i18n($polla_votes)." <input type=\"text\" size=\"4\" id=\"polla_votes-$polla_aid\" name=\"polla_votes-$polla_aid\" value=\"$polla_votes\" onblur=\"check_totalvotes();\" /></td>\n</tr>\n";
 								$poll_actual_totalvotes += $polla_votes;
 								$i++;
 							}
@@ -350,12 +351,12 @@ switch($mode) {
 					<tr>
 						<td width="20%">&nbsp;</td>
 						<td width="60%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
-						<td width="20%" align="right"><strong><?php _e('Total Votes:', 'wp-polls'); ?></strong><strong id="poll_total_votes"><?php echo $poll_actual_totalvotes; ?></strong> <input type="text" size="4" readonly="readonly" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
+						<td width="20%" align="<?php echo $last_col_align; ?>"><strong><?php _e('Total Votes:', 'wp-polls'); ?></strong> <strong id="poll_total_votes"><?php echo number_format_i18n($poll_actual_totalvotes); ?></strong> <input type="text" size="4" readonly="readonly" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
 					</tr>
 					<tr>
 						<td width="20%">&nbsp;</td>
 						<td width="60%">&nbsp;</td>
-						<td width="20%" align="right"><strong><?php _e('Total Voters:', 'wp-polls'); ?><?php echo number_format_i18n($poll_totalvoters); ?></strong> <input type="text" size="4" name="pollq_totalvoters" value="<?php echo $poll_totalvoters; ?>" /></td>
+						<td width="20%" align="<?php echo $last_col_align; ?>"><strong><?php _e('Total Voters:', 'wp-polls'); ?> <?php echo number_format_i18n($poll_totalvoters); ?></strong> <input type="text" size="4" name="pollq_totalvoters" value="<?php echo $poll_totalvoters; ?>" /></td>
 					</tr>
 				</tbody>
 			</table>
@@ -378,9 +379,9 @@ switch($mode) {
 							<?php
 								for($i = 1; $i <= $poll_noquestion; $i++) {
 									if($poll_multiple > 0 && $poll_multiple == $i) {
-										echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";
+										echo "<option value=\"$i\" selected=\"selected\">".number_format_i18n($i)."</option>\n";
 									} else {
-										echo "<option value=\"$i\">$i</option>\n";
+										echo "<option value=\"$i\">".number_format_i18n($i)."</option>\n";
 									}
 								}
 							?>
@@ -511,7 +512,7 @@ switch($mode) {
 									$style = 'class="highlight"';
 								}
 								echo "<tr id=\"poll-$poll_id\" $style>\n";
-								echo "<td><strong>$poll_id</strong></td>\n";
+								echo '<td><strong>'.number_format_i18n($poll_id).'</strong></td>'."\n";
 								echo '<td>';
 								if($current_poll > 0) {
 									if($current_poll == $poll_id) {
@@ -562,7 +563,7 @@ switch($mode) {
 			<table class="widefat">
 			<tr>
 				<th><?php _e('Total Polls:', 'wp-polls'); ?></th>
-				<td><?php echo $i; ?></td>
+				<td><?php echo number_format_i18n($i); ?></td>
 			</tr>
 			<tr class="alternate">
 				<th><?php _e('Total Polls\' Answers:', 'wp-polls'); ?></th>
@@ -598,7 +599,7 @@ switch($mode) {
 				}
 			?>
 			</div>
-			<p style="text-align: left;"><?php _e('Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer.', 'wp-polls'); ?></p>
+			<p><?php _e('Note: If your logging method is by IP and Cookie or by Cookie, users may still be unable to vote if they have voted before as the cookie is still stored in their computer.', 'wp-polls'); ?></p>
 		</div>
 <?php
 } // End switch($mode)

@@ -114,6 +114,7 @@ if($_POST['Submit']) {
 			for(i = 0; i < pollbar_style_options.length; i++) {
 				 if(pollbar_style_options[i].checked)  {
 					pollbar_style = pollbar_style_options[i].value;
+          break;
 				 }
 			}
 			if(pollbar_style == 'use_css') {
@@ -146,38 +147,39 @@ if($_POST['Submit']) {
 						while (false !== ($filename = readdir($handle))) {  
 							if ($filename != '.' && $filename != '..') {
 								if(is_dir($pollbar_path.'/'.$filename)) {
+                  echo '<p>'."\n";
 									$pollbar_info = getimagesize($pollbar_path.'/'.$filename.'/pollbg.gif');
 									if($pollbar['style'] == $filename) {
-										echo '<input type="radio" name="poll_bar_style" value="'.$filename.'" checked="checked" onblur="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';										
+										echo '<input type="radio" name="poll_bar_style" value="'.$filename.'" checked="checked" onclick="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';										
 									} else {
-										echo '<input type="radio" name="poll_bar_style" value="'.$filename.'" onblur="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';
+										echo '<input type="radio" name="poll_bar_style" value="'.$filename.'" onclick="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';
 									}
 									echo '&nbsp;&nbsp;&nbsp;';
 									echo '<img src="'.$pollbar_url.'/'.$filename.'/pollbg.gif" height="'.$pollbar_info[1].'" width="100" alt="pollbg.gif" />';
 									echo '&nbsp;&nbsp;&nbsp;('.$filename.')';
-									echo '<br /><br />'."\n";
+                  echo '</p>'."\n";
 								}
 							} 
 						} 
 						closedir($handle);
 					}
 				?>
-				<input type="radio" name="poll_bar_style" value="use_css"<?php checked('use_css', $pollbar['style']); ?> onblur="update_pollbar('style');" /> <?php _e('Use CSS Style', 'wp-polls'); ?>
+				<input type="radio" name="poll_bar_style" value="use_css"<?php checked('use_css', $pollbar['style']); ?> onclick="update_pollbar('style');" /> <?php _e('Use CSS Style', 'wp-polls'); ?>
 			</td>
 		</tr>
 		<tr>
 			<th scope="row" valign="top"><?php _e('Poll Bar Background', 'wp-polls'); ?></th>
-			<td width="10%">#<input type="text" id="poll_bar_bg" name="poll_bar_bg" value="<?php echo $pollbar['background']; ?>" size="6" maxlength="6" onblur="update_pollbar('background');" /></td>
+			<td width="10%" dir="ltr">#<input type="text" id="poll_bar_bg" name="poll_bar_bg" value="<?php echo $pollbar['background']; ?>" size="6" maxlength="6" onblur="update_pollbar('background');" /></td>
 			<td><div id="wp-polls-pollbar-bg" style="background-color: #<?php echo $pollbar['background']; ?>;"></div></td>
 		</tr>
 		<tr>
 			<th scope="row" valign="top"><?php _e('Poll Bar Border', 'wp-polls'); ?></th>
-			<td width="10%">#<input type="text" id="poll_bar_border" name="poll_bar_border" value="<?php echo $pollbar['border']; ?>" size="6" maxlength="6" onblur="update_pollbar('border');" /></td>
+			<td width="10%" dir="ltr">#<input type="text" id="poll_bar_border" name="poll_bar_border" value="<?php echo $pollbar['border']; ?>" size="6" maxlength="6" onblur="update_pollbar('border');" /></td>
 			<td><div id="wp-polls-pollbar-border" style="background-color: #<?php echo $pollbar['border']; ?>;"></div></td>
 		</tr>
 		<tr>
 			<th scope="row" valign="top"><?php _e('Poll Bar Height', 'wp-polls'); ?></th>
-			<td colspan="2"><input type="text" id="poll_bar_height" name="poll_bar_height" value="<?php echo $pollbar['height']; ?>" size="2" maxlength="2" onblur="update_pollbar('height');" />px</td>
+			<td colspan="2" dir="ltr"><input type="text" id="poll_bar_height" name="poll_bar_height" value="<?php echo $pollbar['height']; ?>" size="2" maxlength="2" onblur="update_pollbar('height');" />px</td>
 		</tr>
 		<tr>
 			<th scope="row" valign="top"><?php _e('Your poll bar will look like this', 'wp-polls'); ?></th>
@@ -321,7 +323,7 @@ if($_POST['Submit']) {
 		</tr>
 		<tr>
 			<th scope="row" valign="top"><?php _e('Poll Archive URL:', 'wp-polls'); ?></th>
-			<td><input type="text" name="poll_archive_url" value="<?php echo get_option('poll_archive_url'); ?>" size="50" /></td>
+			<td><input type="text" name="poll_archive_url" value="<?php echo get_option('poll_archive_url'); ?>" size="50" dir="ltr" /></td>
 		</tr>
 		<tr>
 			<th scope="row" valign="top"><?php _e('Display Poll Archive Link Below Poll?', 'wp-polls'); ?></th>
@@ -351,7 +353,7 @@ if($_POST['Submit']) {
 					<?php if(function_exists('dynamic_sidebar')) { ?>
 					<option value="-3"<?php selected(-3, get_option('poll_currentpoll')); ?>><?php _e('Display Multiple Polls', 'wp-polls'); ?></option>
 					<?php } ?>
-					<option value="0">&nbsp;</option>
+					<optgroup>&nbsp;</optgroup>
 					<?php
 						$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");
 						if($polls) {

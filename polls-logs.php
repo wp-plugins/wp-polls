@@ -123,10 +123,10 @@ if(!empty($_POST['do'])) {
 	<h2><?php _e('Poll\'s Logs', 'wp-polls'); ?></h2>
 	<h3><?php echo $poll_question; ?></h3>
 	<p>
-		<?php printf(__ngettext('There are a total of <strong>%s</strong> recorded vote for this poll.', 'There are a total of <strong>%s</strong> recorded votes for this poll.', number_format_i18n($poll_totalrecorded), 'wp-polls'), number_format_i18n($poll_totalrecorded)); ?><br />
-		<?php printf(__ngettext('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by registered users', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by registered users', number_format_i18n($poll_registered), 'wp-polls'), number_format_i18n($poll_registered)); ?><br />
-		<?php printf(__ngettext('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by comment authors', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by comment authors', number_format_i18n($poll_comments), 'wp-polls'), number_format_i18n($poll_comments)); ?><br />
-		<?php printf(__ngettext('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by guests', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by guests', number_format_i18n($poll_guest), 'wp-polls'), number_format_i18n($poll_guest)); ?>
+		<?php printf(__ngettext('There are a total of <strong>%s</strong> recorded vote for this poll.', 'There are a total of <strong>%s</strong> recorded votes for this poll.', $poll_totalrecorded, 'wp-polls'), number_format_i18n($poll_totalrecorded)); ?><br />
+		<?php printf(__ngettext('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by registered users', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by registered users', $poll_registered, 'wp-polls'), number_format_i18n($poll_registered)); ?><br />
+		<?php printf(__ngettext('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by comment authors', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by comment authors', $poll_comments, 'wp-polls'), number_format_i18n($poll_comments)); ?><br />
+		<?php printf(__ngettext('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by guests', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by guests', $poll_guest, 'wp-polls'), number_format_i18n($poll_guest)); ?>
 	</p>
 </div>
 <?php if($poll_totalrecorded > 0) { ?>
@@ -196,9 +196,9 @@ if(!empty($_POST['do'])) {
 												echo '<option value="1">'.__('1 Answer', 'wp-polls').'</option>';
 											} else {
 												if($i == $num_choices) {
-													echo '<option value="'.$i.'" selected="selected">'.sprintf(__ngettext('%s Answer', '%s Answers', $i, 'wp-polls'), $i).'</option>';
+													echo '<option value="'.$i.'" selected="selected">'.sprintf(__ngettext('%s Answer', '%s Answers', $i, 'wp-polls'), number_format_i18n($i)).'</option>';
 												} else {
-													echo '<option value="'.$i.'">'.sprintf(__ngettext('%s Answer', '%s Answers', $i, 'wp-polls'), $i).'</option>';
+													echo '<option value="'.$i.'">'.sprintf(__ngettext('%s Answer', '%s Answers', $i, 'wp-polls'), number_format_i18n($i)).'</option>';
 												}
 											}
 										}
@@ -295,7 +295,7 @@ if(!empty($_POST['do'])) {
 						}
 						if($pollip_user != $temp_pollip_user) {
 							echo '<tr class="highlight">'."\n";
-							echo "<td colspan=\"4\"><strong>".__('User', 'wp-polls')." $k: $pollip_user</strong></td>\n";
+							echo "<td colspan=\"4\"><strong>".__('User', 'wp-polls')." ".number_format_i18n($k).": $pollip_user</strong></td>\n";
 							echo '</tr>';
 							$k++;
 						}		
@@ -320,7 +320,7 @@ if(!empty($_POST['do'])) {
 							if($pollip_aid == 0) {
 								echo "<tr class=\"highlight\">\n<td colspan=\"4\"><strong>$pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
 							} else {
-								echo "<tr class=\"highlight\">\n<td colspan=\"4\"><strong>".__('Answer', 'wp-polls')." $k: $pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
+								echo "<tr class=\"highlight\">\n<td colspan=\"4\"><strong>".__('Answer', 'wp-polls')." ".number_format_i18n($k).": $pollip_answers[$pollip_aid]</strong></td>\n</tr>\n";
 								$k++;
 							}
 							echo "<tr class=\"thead\">\n";
@@ -337,7 +337,7 @@ if(!empty($_POST['do'])) {
 							$style = 'class="alternate"';
 						}
 						echo "<tr $style>\n";
-						echo "<td>$i</td>\n";
+						echo "<td>".number_format_i18n($i)."</td>\n";
 						echo "<td>$pollip_user</td>\n";
 						echo "<td>$pollip_ip / $pollip_host</td>\n";
 						echo "<td>$pollip_date</td>\n";

@@ -193,7 +193,7 @@ $count = 0;
 		<?php
 			for($i = 1; $i <= $poll_noquestion; $i++) {
 				echo "<tr id=\"poll-answer-$i\">\n";
-				echo "<th width=\"20%\" scope=\"row\" valign=\"top\">".sprintf(__('Answer %s', 'wp-polls'), $i)."</th>\n";
+				echo "<th width=\"20%\" scope=\"row\" valign=\"top\">".sprintf(__('Answer %s', 'wp-polls'), number_format_i18n($i))."</th>\n";
 				echo "<td width=\"80%\"><input type=\"text\" size=\"50\" name=\"polla_answers[]\" /></td>\n";
 				echo "</tr>\n";
 				$count++;
@@ -219,7 +219,7 @@ $count = 0;
 				<select name="pollq_multiple" id="pollq_multiple" size="1" disabled="disabled">
 					<?php
 						for($i = 1; $i <= $poll_noquestion; $i++) {
-							echo "<option value=\"$i\">$i</option>\n";
+							echo "<option value=\"$i\">".number_format_i18n($i)."</option>\n";
 						}
 					?>
 				</select>

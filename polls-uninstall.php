@@ -89,14 +89,14 @@ switch($mode) {
 <form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
 <div class="wrap">
 	<h2><?php _e('Uninstall WP-Polls', 'wp-polls'); ?></h2>
-	<p style="text-align: left;">
+	<p>
 		<?php _e('Deactivating WP-Polls plugin does not remove any data that may have been created, such as the poll data and the poll\'s voting logs. To completely remove this plugin, you can uninstall it here.', 'wp-polls'); ?>
 	</p>
-	<p style="text-align: left; color: red">
+	<p style="color: red">
 		<strong><?php _e('WARNING:', 'wp-polls'); ?></strong><br />
 		<?php _e('Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.', 'wp-polls'); ?>
 	</p>
-	<p style="text-align: left; color: red">
+	<p style="color: red">
 		<strong><?php _e('The following WordPress Options/Tables will be DELETED:', 'wp-polls'); ?></strong><br />
 	</p>
 	<table class="widefat">

@@ -92,10 +92,10 @@ function widget_polls_init() {
 			/* ]]> */
 		</script>
 		<?php
-		echo '<p style="text-align: left;"><label for="polls-title">';
+		echo '<p><label for="polls-title">';
 		_e('Title', 'wp-polls');
 		echo ': </label><input type="text" id="polls-title" name="polls-title" value="'.htmlspecialchars(stripslashes($options['title'])).'" /></p>'."\n";
-		echo '<p style="text-align: left;"><label for="polls-displayarchive">';
+		echo '<p><label for="polls-displayarchive">';
 		_e('Display Polls Archive Link Below Poll?', 'wp-polls');
 		echo ' </label>'."\n";
 		echo '<select id="polls-displayarchive" name="poll_archive_show" size="1">'."\n";
@@ -110,7 +110,7 @@ function widget_polls_init() {
 		_e('Yes', 'wp-polls');
 		echo '</option>'."\n";
 		echo '</select></p>'."\n";
-		echo '<p style="text-align: left;"><label for="poll_currentpoll">';
+		echo '<p><label for="poll_currentpoll">';
 		_e('Current Active Poll', 'wp-polls');
 		echo ': </label>'."\n";
 		echo '<select id="poll_currentpoll" name="poll_currentpoll" size="1" onchange="show_multiple_polls()">'."\n";
@@ -134,7 +134,7 @@ function widget_polls_init() {
 		echo '>';
 		_e('Display Multiple Polls', 'wp-polls');
 		echo '</option>'."\n";
-		echo '<option value="0">&nbsp;</option>'."\n";
+		echo '<optgroup>&nbsp;</optgroup>'."\n";
 		$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");
 		if($polls) {
 			foreach($polls as $poll) {
@@ -155,7 +155,7 @@ function widget_polls_init() {
 			$display = 'display: none;';
 			$disabled = 'disabled="disabled"';
 		}
-		echo '<p id="poll_multiplepolls_text" style="text-align: left; '.$display.'"><label for="poll_multiplepolls">';
+		echo '<p id="poll_multiplepolls_text" style="'.$display.'"><label for="poll_multiplepolls">';
 		_e('Select Multiple Polls', 'wp-polls');
 		echo ': </label>'."\n";
 		echo '<select id="poll_multiplepolls" name="poll_multiplepolls[]" size="5" multiple="true" style="height: 100px; vertical-align: text-top;" $disabled>'."\n";
