@@ -294,6 +294,7 @@
 						<li>NEW: Applied Output Of polls_archive() To "polls_archive" Filter by <a href="http://persian-programming.com/" title="http://persian-programming.com/">Kambiz R. Khojasteh</a></li>						
 						<li>NEW: Added Call To polls_textdomain() In create_poll_table() and vote_poll() functions by <a href="http://persian-programming.com/" title="http://persian-programming.com/">Kambiz R. Khojasteh</a></li>
 						<li>NEW: Uses wp_register_style(), wp_print_styles(), plugins_url() And site_url()</li>
+						<li>NEW: [poll id="-1"] or <?php get_poll(-1); ?> Will Randomize The Poll</li>
 						<li>FIXED: SSL Support</li>
 						<li>FIXED Moved Call To update_pollbar() From onblur To onclick Event. It Was Showing The Last Selection Instead Of Current One by <a href="http://persian-programming.com/" title="http://persian-programming.com/">Kambiz R. Khojasteh</a></li>
 					</ul>
@@ -598,8 +599,10 @@
 						&lt;/li&gt;<br />
 						&lt;?php endif; ?&gt;
 					</blockquote>
-					<p>To show specific poll, use &lt;?php get_poll(<strong>2</strong>);?&gt; where <strong>2</strong> is your poll id.</p>
+					<p>To show specific poll, use &lt;?php get_poll(<strong>2</strong>); ?&gt; where <strong>2</strong> is your poll id.</p>
+					<p>To show random poll, use &lt;?php get_poll(<strong>-1</strong>); ?&gt;</p>
 					<p>To embed a specific poll in your post, use [poll id="<strong>2</strong>"] where <strong>2</strong> is your poll id.</p>
+					<p>To embed a random poll in your post, use [poll id="<strong>-1</strong>"]</p>
 					<p>To embed a specific poll's result in your post, use [poll id="<strong>2</strong>" type="result"] where <strong>2</strong> is your poll id.</p>
 				</li>
 				<li>

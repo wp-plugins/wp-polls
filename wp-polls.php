@@ -74,6 +74,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 	global $wpdb, $polls_loaded;
 	// Poll Result Link
 	$pollresult_id = intval($_GET['pollresult']);
+	$temp_poll_id = intval($temp_poll_id);
 	// Check Whether Poll Is Disabled
 	if(intval(get_option('poll_currentpoll')) == -1) {
 		if($display) {
@@ -85,27 +86,34 @@ function get_poll($temp_poll_id = 0, $display = true) {
 	// Poll Is Enabled
 	} else {
 		// Hardcoded Poll ID Is Not Specified
-		if(intval($temp_poll_id) == 0) {
+		switch($temp_poll_id) {
 			// Random Poll
-			if(intval(get_option('poll_currentpoll')) == -2) {
-				$random_poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY RAND() LIMIT 1");
-				$poll_id = intval($random_poll_id);
-				if($pollresult_id > 0) {
-					$poll_id = $pollresult_id;
-				} elseif(intval($_POST['poll_id']) > 0) {
-					$poll_id = intval($_POST['poll_id']);
+			case -1:
+				$poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY RAND() LIMIT 1");
+				break;
+			// Latest Poll
+			case 0:
+				// Random Poll
+				if(intval(get_option('poll_currentpoll')) == -2) {
+					$random_poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY RAND() LIMIT 1");
+					$poll_id = intval($random_poll_id);
+					if($pollresult_id > 0) {
+						$poll_id = $pollresult_id;
+					} elseif(intval($_POST['poll_id']) > 0) {
+						$poll_id = intval($_POST['poll_id']);
+					}
+				// Current Poll ID Is Not Specified
+				} elseif(intval(get_option('poll_currentpoll')) == 0) {
+					// Get Lastest Poll ID
+					$poll_id = intval(get_option('poll_latestpoll'));
+				} else {
+					// Get Current Poll ID
+					$poll_id = intval(get_option('poll_currentpoll'));
 				}
-			// Current Poll ID Is Not Specified
-			} elseif(intval(get_option('poll_currentpoll')) == 0) {
-				// Get Lastest Poll ID
-				$poll_id = intval(get_option('poll_latestpoll'));
-			} else {
-				// Get Current Poll ID
-				$poll_id = intval(get_option('poll_currentpoll'));
-			}
-		// Get Hardcoded Poll ID
-		} else {
-			$poll_id = intval($temp_poll_id);
+				break;
+			// Take Poll ID From Arguments
+			default:
+				$poll_id = $temp_poll_id;
 		}
 	}
 	

@@ -186,7 +186,7 @@ function insertPoll(where, myField) {
 	while(isNaN(poll_id)) {
 		poll_id = prompt(polls_admin_text_enter_poll_id_again);
 	}
-	if (poll_id > 0) {
+	if (poll_id >= -1) {
 		if(where == 'code') {
 			edInsertContent(myField, '[poll id="' + poll_id + '"]');
 		} else {
