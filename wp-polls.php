@@ -1241,7 +1241,7 @@ function vote_poll() {
 				} elseif(!empty($_COOKIE['comment_author_'.COOKIEHASH])) {
 					$pollip_user = addslashes($_COOKIE['comment_author_'.COOKIEHASH]);
 				} else {
-					$pollip_user = 'Guest';
+					$pollip_user = __('Guest', 'wp-polls');
 				}
 				$pollip_userid = intval($user_ID);
 				$pollip_ip = get_ipaddress();
