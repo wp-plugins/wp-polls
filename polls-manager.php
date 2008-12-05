@@ -305,6 +305,7 @@ switch($mode) {
 		<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
 		<input type="hidden" name="pollq_active" value="<?php echo $poll_active; ?>" />
 		<div class="wrap">
+			<div id="icon-wp-polls" class="icon32"><br /></div>
 			<h2><?php _e('Edit Poll', 'wp-polls'); ?></h2>
 			<!-- Poll Question -->
 			<h3><?php _e('Poll Question', 'wp-polls'); ?></h3>
@@ -456,7 +457,9 @@ switch($mode) {
 
 		<!-- Manage Polls -->
 		<div class="wrap">
+			<div id="icon-wp-polls" class="icon32"><br /></div>
 			<h2><?php _e('Manage Polls', 'wp-polls'); ?></h2>
+			<h3><?php _e('Polls', 'wp-polls'); ?></h3>
 			<br style="clear" />
 			<table class="widefat">
 				<thead>
@@ -558,7 +561,7 @@ switch($mode) {
 
 		<!-- Polls Stats -->
 		<div class="wrap">
-			<h2><?php _e('Polls Stats:', 'wp-polls'); ?></h2>
+			<h3><?php _e('Polls Stats:', 'wp-polls'); ?></h3>
 			<br style="clear" />
 			<table class="widefat">
 			<tr>
@@ -583,7 +586,7 @@ switch($mode) {
 
 		<!-- Delete Polls Logs -->
 		<div class="wrap">
-			<h2><?php _e('Polls Logs', 'wp-polls'); ?></h2>
+			<h3><?php _e('Polls Logs', 'wp-polls'); ?></h3>
 			<br style="clear" />
 			<div align="center" id="poll_logs">
 			<?php

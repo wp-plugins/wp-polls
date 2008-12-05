@@ -78,6 +78,7 @@ switch($mode) {
 				$deactivate_url = wp_nonce_url($deactivate_url, 'deactivate-plugin_wp-polls/wp-polls.php');
 			}
 			echo '<div class="wrap">';
+			echo '<div id="icon-wp-polls" class="icon32"><br /></div>';
 			echo '<h2>'.__('Uninstall WP-Polls', 'wp-polls').'</h2>';
 			echo '<p><strong>'.sprintf(__('<a href="%s">Click Here</a> To Finish The Uninstallation And WP-Polls Will Be Deactivated Automatically.', 'wp-polls'), $deactivate_url).'</strong></p>';
 			echo '</div>';
@@ -88,6 +89,7 @@ switch($mode) {
 <!-- Uninstall WP-Polls (By: Philippe Corbes) -->
 <form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
 <div class="wrap">
+	<div id="icon-wp-polls" class="icon32"><br /></div>
 	<h2><?php _e('Uninstall WP-Polls', 'wp-polls'); ?></h2>
 	<p>
 		<?php _e('Deactivating WP-Polls plugin does not remove any data that may have been created, such as the poll data and the poll\'s voting logs. To completely remove this plugin, you can uninstall it here.', 'wp-polls'); ?>

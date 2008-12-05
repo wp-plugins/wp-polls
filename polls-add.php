@@ -171,6 +171,7 @@ $count = 0;
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } ?>
 <form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
 <div class="wrap">
+	<div id="icon-wp-polls" class="icon32"><br /></div>
 	<h2><?php _e('Add Poll', 'wp-polls'); ?></h2>
 	<!-- Poll Question -->
 	<h3><?php _e('Poll Question', 'wp-polls'); ?></h3>

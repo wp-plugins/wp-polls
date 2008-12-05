@@ -120,6 +120,7 @@ if(!empty($_POST['do'])) {
 ?>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
 <div class="wrap">
+	<div id="icon-wp-polls" class="icon32"><br /></div>
 	<h2><?php _e('Poll\'s Logs', 'wp-polls'); ?></h2>
 	<h3><?php echo $poll_question; ?></h3>
 	<p>
@@ -131,7 +132,7 @@ if(!empty($_POST['do'])) {
 </div>
 <?php if($poll_totalrecorded > 0) { ?>
 <div class="wrap">
-	<h2><?php _e('Filter Poll\'s Logs', 'wp-polls') ?></h2>
+	<h3><?php _e('Filter Poll\'s Logs', 'wp-polls') ?></h3>
 	<table width="100%"  border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td width="50%">
@@ -264,7 +265,7 @@ if(!empty($_POST['do'])) {
 <p>&nbsp;</p>
 <?php } // End if($poll_totalrecorded > 0) ?>
 <div class="wrap">
-	<h2><?php _e('Poll Logs', 'wp-polls'); ?></h2>
+	<h3><?php _e('Poll Logs', 'wp-polls'); ?></h3>
 	<div id="poll_logs_display">
 		<?php
 			if($poll_ips) {
@@ -364,7 +365,7 @@ if(!empty($_POST['do'])) {
 
 <!-- Delete Poll Logs -->
 <div class="wrap">
-	<h2><?php _e('Delete Poll Logs', 'wp-polls'); ?></h2>
+	<h3><?php _e('Delete Poll Logs', 'wp-polls'); ?></h3>
 	<br class="clear" />
 	<div align="center" id="poll_logs">
 		<?php if($poll_logs_count) { ?>

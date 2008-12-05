@@ -131,7 +131,8 @@ if($_POST['Submit']) {
 </script>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
 <form id="poll_options_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
-<div class="wrap"> 
+<div class="wrap">
+	<div id="icon-wp-polls" class="icon32"><br /></div>
 	<h2><?php _e('Poll Options', 'wp-polls'); ?></h2>
 	<!-- Poll Bar Style -->
 	<h3><?php _e('Poll Bar Style', 'wp-polls'); ?></h3>
