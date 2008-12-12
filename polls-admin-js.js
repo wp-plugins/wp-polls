@@ -179,18 +179,3 @@ function closing_poll(poll_id, poll_confirm) {
 		polls_admin.runAJAX();
 	}
 }
-
-// Function: Insert Poll Quick Tag
-function insertPoll(where, myField) {
-	var poll_id = prompt(polls_admin_text_enter_poll_id);
-	while(isNaN(poll_id)) {
-		poll_id = prompt(polls_admin_text_enter_poll_id_again);
-	}
-	if (poll_id >= -1) {
-		if(where == 'code') {
-			edInsertContent(myField, '[poll id="' + poll_id + '"]');
-		} else {
-			return '[poll id="' + poll_id + '"]';
-		}
-	}
-}
