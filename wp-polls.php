@@ -461,7 +461,7 @@ function check_voted_username($poll_id) {
 
 
 ### Function: Display Voting Form
-function display_pollvote($poll_id, $without_poll_title = false) {
+function display_pollvote($poll_id, $display_loading = true) {
 	global $wpdb;
 	// Temp Poll Result
 	$temp_pollvote = '';
@@ -497,16 +497,14 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 	// If There Is Poll Question With Answers
 	if($poll_question && $poll_answers) {
 		// Display Poll Voting Form
-		if(!$without_poll_title) {
-			$temp_pollvote .= "<div id=\"polls-$poll_question_id\" class=\"wp-polls\">\n";
-			$temp_pollvote .= "\t<form id=\"polls_form_$poll_question_id\" class=\"wp-polls-form\" action=\"".htmlspecialchars($_SERVER['REQUEST_URI'])."\" method=\"post\">\n";
-			$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" /></p>\n";
-			if($poll_multiple_ans > 0) {
-				$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" id=\"poll_multiple_ans_$poll_question_id\" name=\"poll_multiple_ans_$poll_question_id\" value=\"$poll_multiple_ans\" /></p>\n";
-			}
-			// Print Out Voting Form Header Template
-			$temp_pollvote .= "\t\t$template_question\n";
+		$temp_pollvote .= "<div id=\"polls-$poll_question_id\" class=\"wp-polls\">\n";
+		$temp_pollvote .= "\t<form id=\"polls_form_$poll_question_id\" class=\"wp-polls-form\" action=\"".htmlspecialchars($_SERVER['REQUEST_URI'])."\" method=\"post\">\n";
+		$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" /></p>\n";
+		if($poll_multiple_ans > 0) {
+			$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" id=\"poll_multiple_ans_$poll_question_id\" name=\"poll_multiple_ans_$poll_question_id\" value=\"$poll_multiple_ans\" /></p>\n";
 		}
+		// Print Out Voting Form Header Template
+		$temp_pollvote .= "\t\t$template_question\n";
 		foreach($poll_answers as $poll_answer) {
 			// Poll Answer Variables
 			$poll_answer_id = intval($poll_answer->polla_aid); 
@@ -548,14 +546,14 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 		}
 		// Print Out Voting Form Footer Template
 		$temp_pollvote .= "\t\t$template_footer\n";
-		if(!$without_poll_title) {
-			$temp_pollvote .= "\t</form>\n";
-			$temp_pollvote .= "</div>\n";
+		$temp_pollvote .= "\t</form>\n";
+		$temp_pollvote .= "</div>\n";
+		if($display_loading) {
 			$poll_ajax_style = get_option('poll_ajax_style');
 			if(intval($poll_ajax_style['loading']) == 1) {
 				$temp_pollvote .= "<div id=\"polls-$poll_question_id-loading\" class=\"wp-polls-loading\"><img src=\"".plugins_url('wp-polls/images/loading.gif')."\" width=\"16\" height=\"16\" alt=\"".__('Loading', 'wp-polls')." ...\" title=\"".__('Loading', 'wp-polls')." ...\" class=\"wp-polls-image\" />&nbsp;".__('Loading', 'wp-polls')." ...</div>\n";
 			}
-		}		
+		}
 	} else {
 		$temp_pollvote .= stripslashes(get_option('poll_template_disable'));
 	}
@@ -565,7 +563,7 @@ function display_pollvote($poll_id, $without_poll_title = false) {
 
 
 ### Function: Display Results Form
-function display_pollresult($poll_id, $user_voted = '', $without_poll_title = false) {
+function display_pollresult($poll_id, $user_voted = '', $display_loading = true) {
 	global $wpdb;
 	// User Voted
 	if(!is_array($user_voted)) {
@@ -618,10 +616,8 @@ function display_pollresult($poll_id, $user_voted = '', $without_poll_title = fa
 			$poll_totalvotes_zero = false;
 		}
 		// Print Out Result Header Template
-		if(!$without_poll_title) {
-			$temp_pollresult .= "<div id=\"polls-$poll_question_id\" class=\"wp-polls\">\n";
-			$temp_pollresult .= "\t\t$template_question\n";
-		}
+		$temp_pollresult .= "<div id=\"polls-$poll_question_id\" class=\"wp-polls\">\n";
+		$temp_pollresult .= "\t\t$template_question\n";
 		foreach($poll_answers as $poll_answer) {
 			// Poll Answer Variables
 			$poll_answer_id = intval($poll_answer->polla_aid); 
@@ -709,13 +705,13 @@ function display_pollresult($poll_id, $user_voted = '', $without_poll_title = fa
 		}
 		// Print Out Results Footer Template
 		$temp_pollresult .= "\t\t$template_footer\n";
-		if(!$without_poll_title) {
-			$temp_pollresult .= "</div>\n";
+		$temp_pollresult .= "</div>\n";
+		if($display_loading) {
 			$poll_ajax_style = get_option('poll_ajax_style');
 			if(intval($poll_ajax_style['loading']) == 1) {
 				$temp_pollresult .= "<div id=\"polls-$poll_question_id-loading\" class=\"wp-polls-loading\"><img src=\"".plugins_url('wp-polls/images/loading.gif')."\" width=\"16\" height=\"16\" alt=\"".__('Loading', 'wp-polls')." ...\" title=\"".__('Loading', 'wp-polls')." ...\" class=\"wp-polls-image\" />&nbsp;".__('Loading', 'wp-polls')." ...</div>\n";
 			}
-		}		
+		}	
 	} else {
 		$temp_pollresult .= stripslashes(get_option('poll_template_disable'));
 	}	
@@ -1271,7 +1267,7 @@ vote_poll();
 function vote_poll() {
 	global $wpdb, $user_identity, $user_ID;
 	if(!empty($_POST['vote'])) {
-    polls_textdomain();
+		polls_textdomain();
 		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
 		$poll_id = intval($_POST['poll_id']);
 		$poll_aid = $_POST["poll_$poll_id"];
@@ -1307,7 +1303,7 @@ function vote_poll() {
 					foreach($poll_aid_array as $polla_aid) {
 						$wpdb->query("INSERT INTO $wpdb->pollsip VALUES (0, $poll_id, $polla_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user', $pollip_userid)");
 					}
-					echo "<ul class=\"wp-polls-ul\">\n".display_pollresult($poll_id,$poll_aid_array, 1);
+					echo display_pollresult($poll_id,$poll_aid_array, false);
 					exit();
 				} else {
 					printf(__('Unable To Update Poll Total Votes And Poll Total Voters. Poll ID #%s', 'wp-polls'), $poll_id);
@@ -1324,12 +1320,12 @@ function vote_poll() {
 	} elseif (intval($_GET['pollresult']) > 0) {
 		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
 		$poll_id = intval($_GET['pollresult']);
-		echo "<ul class=\"wp-polls-ul\">\n".display_pollresult($poll_id, 0, true);
+		echo display_pollresult($poll_id, 0, false);
 		exit();
 	} elseif (intval($_GET['pollbooth']) > 0) {
 		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
 		$poll_id = intval($_GET['pollbooth']);
-		echo "<ul class=\"wp-polls-ul\">\n".display_pollvote($poll_id, true);
+		echo display_pollvote($poll_id, false);
 		exit();
 	} // End if(!empty($_POST['vote']))
 }
