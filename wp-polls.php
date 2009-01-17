@@ -151,7 +151,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 				return display_pollresult($poll_id, $check_voted);
 			}
 		} elseif(!check_allowtovote() || ($poll_active == 0 && $poll_close == 3)) {
-			$disable_poll_js = '<script type="text/javascript">poll_disable_voting('.$poll_id.');</script>';
+			$disable_poll_js = '<script type="text/javascript">poll_form=document.getElementById(\'polls_form_'.$poll_id.'\');for(i=0;i<poll_form.length;i++){poll_form[i].disabled = true;}</script>';
 			if($display) {
 				echo display_pollvote($poll_id).$disable_poll_js;
 				return;
