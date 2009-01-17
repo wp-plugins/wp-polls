@@ -252,7 +252,7 @@ function poll_javascripts_admin() {
 		'text_delete_poll' => __('Delete Poll', 'wp-polls'),
 		'text_no_poll_logs' => __('No poll logs available.', 'wp-polls'),
 		'text_delete_all_logs' => __('Delete All Logs', 'wp-polls'),
-		'text_checkbox_delete_all_log' => __('Please check the \\\'Yes\\\' checkbox if you want to delete all logs.', 'wp-polls'),
+		'text_checkbox_delete_all_logs' => __('Please check the \\\'Yes\\\' checkbox if you want to delete all logs.', 'wp-polls'),
 		'text_delete_poll_logs' => __('Delete Logs For This Poll Only', 'wp-polls'),
 		'text_checkbox_delete_poll_logs' => __('Please check the \\\'Yes\\\' checkbox if you want to delete all logs for this poll ONLY.', 'wp-polls'),
 		'text_delete_poll_ans' => __('Delete Poll Answer', 'wp-polls'),

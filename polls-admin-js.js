@@ -16,106 +16,56 @@
 */
 
 
-var polls_admin = new sack(polls_admin_ajax_url);
 var global_poll_id = 0;
 var global_poll_aid = 0;
 var global_poll_aid_votes  = 0;
-
-// Function: Delete Poll Message
-function delete_poll_message() {
-	document.getElementById('message').style.display = "block";
-	setTimeout("remove_poll()", 1000);
-}
-
-// Function: Remove Poll From Manage Poll
-function remove_poll() {
-	document.getElementById("manage_polls").removeChild(document.getElementById("poll-" + global_poll_id));
-}
 
 // Function: Delete Poll
 function delete_poll(poll_id, poll_confirm) {
 	delete_poll_confirm = confirm(poll_confirm);
 	if(delete_poll_confirm) {
 		global_poll_id = poll_id;
-		polls_admin.reset();
-		polls_admin.setVar("do", polls_admin_text_delete_poll);
-		polls_admin.setVar("pollq_id", poll_id);
-		polls_admin.method = 'POST';
-		polls_admin.element = 'message';
-		polls_admin.onCompletion = delete_poll_message;
-		polls_admin.runAJAX();
+		jQuery.ajax({type: 'POST', url: pollsAdminL10n.admin_ajax_url, data: 'do=' + pollsAdminL10n.text_delete_poll + '&pollq_id=' + poll_id, cache: false, success: function (data) {
+			jQuery('#message').html(data);
+			jQuery('#message').show();
+			jQuery('#poll-' + global_poll_id).remove();
+		}});
 	}
-}
-
-// Function: Delete Poll Logs Message
-function delete_poll_logs_message() {
-	document.getElementById('message').style.display = "block";
-	document.getElementById("poll_logs").innerHTML = polls_admin_text_no_poll_logs;
 }
 
 // Function: Delete Poll Logs
 function delete_poll_logs(poll_confirm) {
 	delete_poll_logs_confirm = confirm(poll_confirm);
 	if(delete_poll_logs_confirm) {
-		if(document.getElementById("delete_logs_yes").checked == true) {
-			polls_admin.reset();
-			polls_admin.setVar("do", polls_admin_text_delete_all_logs);
-			polls_admin.setVar("delete_logs_yes", "yes");
-			polls_admin.method = 'POST';
-			polls_admin.element = 'message';
-			polls_admin.onCompletion = delete_poll_logs_message;
-			polls_admin.runAJAX();
+		if(jQuery('#delete_logs_yes').is(':checked')) {
+			jQuery.ajax({type: 'POST', url: pollsAdminL10n.admin_ajax_url, data: 'do=' + pollsAdminL10n.text_delete_all_logs + '&delete_logs_yes=yes', cache: false, success: function (data) {
+				jQuery('#message').html(data);
+				jQuery('#message').show();
+				jQuery('#poll_logs').html(pollsAdminL10n.text_no_poll_logs);
+			}});
 		} else {
-			alert(polls_admin_text_checkbox_delete_all_logs);
+			alert(pollsAdminL10n.text_checkbox_delete_all_logs);
 		}
 	}
-}
-
-// Function: Delete Individual Poll Logs Message
-function delete_this_poll_logs_message() {
-	document.getElementById('message').style.display = "block";
-	document.getElementById("poll_logs").innerHTML = polls_admin_text_no_poll_logs;
-	document.getElementById("poll_logs_display").style.display = 'none';
-	document.getElementById("poll_logs_display_none").style.display = 'block';
 }
 
 // Function: Delete Individual Poll Logs
 function delete_this_poll_logs(poll_id, poll_confirm) {
 	delete_poll_logs_confirm = confirm(poll_confirm);
 	if(delete_poll_logs_confirm) {
-		if(document.getElementById("delete_logs_yes").checked == true) {
+		if(jQuery('#delete_logs_yes').is(':checked')) {
 			global_poll_id = poll_id;
-			polls_admin.reset();
-			polls_admin.setVar("do", polls_admin_text_delete_poll_logs);
-			polls_admin.setVar("delete_logs_yes", "yes");
-			polls_admin.setVar("pollq_id", poll_id);
-			polls_admin.method = 'POST';
-			polls_admin.element = 'message';
-			polls_admin.onCompletion = delete_this_poll_logs_message;
-			polls_admin.runAJAX();
+			jQuery.ajax({type: 'POST', url: pollsAdminL10n.admin_ajax_url, data: 'do=' + pollsAdminL10n.text_delete_poll_logs + '&pollq_id=' + poll_id + '&delete_logs_yes=yes', cache: false, success: function (data) {
+				jQuery('#message').html(data);
+				jQuery('#message').show();
+				jQuery('#poll_logs').html(pollsAdminL10n.text_no_poll_logs);
+				jQuery('#poll_logs_display').hide();
+				jQuery('#poll_logs_display_none').show();
+			}});
 		} else {
-			alert(polls_admin_text_checkbox_delete_poll_logs);
+			alert(pollsAdminL10n.text_checkbox_delete_poll_logs);
 		}
 	}
-}
-
-// Function: Delete Poll Answer Message
-function delete_poll_ans_message() {
-	document.getElementById('message').style.display = "block";
-	setTimeout("remove_poll_ans()", 1000);
-	document.getElementById('poll_total_votes').innerHTML = (parseInt(document.getElementById('poll_total_votes').innerHTML) - parseInt(global_poll_aid_votes));
-	poll_total_votes = parseInt(document.getElementById('pollq_totalvotes').value);
-	poll_answer_vote = parseInt(document.getElementById("polla_votes-" + global_poll_aid).value);
-	poll_total_votes_new = (poll_total_votes - poll_answer_vote);
-	if(poll_total_votes_new < 0) {
-		poll_total_votes_new = 0;
-	}
-	document.getElementById('pollq_totalvotes').value = parseInt(poll_total_votes_new);
-}
-
-// Function: Remove Poll From Manage Poll
-function remove_poll_ans() {
-	document.getElementById("poll_answers").removeChild(document.getElementById("poll-answer-" + global_poll_aid));
 }
 
 // Function: Delete Poll Answer
@@ -125,22 +75,20 @@ function delete_poll_ans(poll_id, poll_aid, poll_aid_vote, poll_confirm) {
 		global_poll_id = poll_id;
 		global_poll_aid = poll_aid;
 		global_poll_aid_votes = poll_aid_vote;
-		polls_admin.reset();
-		polls_admin.setVar("do", polls_admin_text_delete_poll_ans);
-		polls_admin.setVar("pollq_id", poll_id);
-		polls_admin.setVar("polla_aid", poll_aid);
-		polls_admin.method = 'POST';
-		polls_admin.element = 'message';
-		polls_admin.onCompletion = delete_poll_ans_message;
-		polls_admin.runAJAX();
+		jQuery.ajax({type: 'POST', url: pollsAdminL10n.admin_ajax_url, data: 'do=' + pollsAdminL10n.text_delete_poll_ans + '&pollq_id=' + poll_id + '&polla_aid=' + poll_aid, cache: false, success: function (data) {
+			jQuery('#message').html(data);
+			jQuery('#message').show();
+			jQuery('#poll_total_votes').html((parseInt(jQuery('#poll_total_votes').html()) - parseInt(global_poll_aid_votes)));
+			poll_total_votes = parseInt(jQuery('#pollq_totalvotes').val());
+			poll_answer_vote = parseInt(jQuery('#polla_votes-' + global_poll_aid).val());
+			poll_total_votes_new = (poll_total_votes - poll_answer_vote);
+			if(poll_total_votes_new < 0) {
+				poll_total_votes_new = 0;
+			}
+			jQuery('#pollq_totalvotes').val(parseInt(poll_total_votes_new));		
+			jQuery('#poll-answer-' + global_poll_aid).remove();
+		}});
 	}
-}
-
-// Function: Open Poll Message
-function opening_poll_message() {
-	document.getElementById('message').style.display = "block";
-	document.getElementById("open_poll").style.display = "none";
-	document.getElementById("close_poll").style.display = "inline";
 }
 
 // Function: Open Poll
@@ -148,21 +96,13 @@ function opening_poll(poll_id, poll_confirm) {
 	open_poll_confirm = confirm(poll_confirm);
 	if(open_poll_confirm) {
 		global_poll_id = poll_id;
-		polls_admin.reset();
-		polls_admin.setVar("do", polls_admin_text_open_poll);
-		polls_admin.setVar("pollq_id", poll_id);
-		polls_admin.method = 'POST';
-		polls_admin.element = 'message';
-		polls_admin.onCompletion = opening_poll_message;
-		polls_admin.runAJAX();
+		jQuery.ajax({type: 'POST', url: pollsAdminL10n.admin_ajax_url, data: 'do=' + pollsAdminL10n.text_open_poll + '&pollq_id=' + poll_id, cache: false, success: function (data) {
+			jQuery('#message').html(data);
+			jQuery('#message').show();
+			jQuery('#open_poll').hide();
+			jQuery('#close_poll').show();
+		}});
 	}
-}
-
-// Function: Close Poll Message
-function closing_poll_message() {
-	document.getElementById('message').style.display = "block";
-	document.getElementById("open_poll").style.display = "inline";
-	document.getElementById("close_poll").style.display = "none";
 }
 
 // Function: Close Poll
@@ -170,12 +110,11 @@ function closing_poll(poll_id, poll_confirm) {
 	close_poll_confirm = confirm(poll_confirm);
 	if(close_poll_confirm) {
 		global_poll_id = poll_id;
-		polls_admin.reset();
-		polls_admin.setVar("do", polls_admin_text_close_poll);
-		polls_admin.setVar("pollq_id", poll_id);
-		polls_admin.method = 'POST';
-		polls_admin.element = 'message';
-		polls_admin.onCompletion = closing_poll_message;
-		polls_admin.runAJAX();
+		jQuery.ajax({type: 'POST', url: pollsAdminL10n.admin_ajax_url, data: 'do=' + pollsAdminL10n.text_close_poll + '&pollq_id=' + poll_id, cache: false, success: function (data) {
+			jQuery('#message').html(data);
+			jQuery('#message').show();
+			jQuery('#open_poll').show();
+			jQuery('#close_poll').hide();
+		}});
 	}
 }
