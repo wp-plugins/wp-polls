@@ -159,7 +159,7 @@ switch($mode) {
 		break;
 	// Edit A Poll
 	case 'edit':
-    $last_col_align = ('rtl' == $text_direction) ? 'left' : 'right';
+		$last_col_align = ('rtl' == $text_direction) ? 'left' : 'right';
 		$poll_question = $wpdb->get_row("SELECT pollq_question, pollq_timestamp, pollq_totalvotes, pollq_active, pollq_expiry, pollq_multiple, pollq_totalvoters FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
 		$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_id ORDER BY polla_aid ASC");
 		$poll_noquestion = $wpdb->get_var("SELECT COUNT(polla_aid) FROM $wpdb->pollsa WHERE polla_qid = $poll_id");
@@ -171,133 +171,6 @@ switch($mode) {
 		$poll_multiple = intval($poll_question->pollq_multiple);
 		$poll_totalvoters = intval($poll_question->pollq_totalvoters);
 ?>
-		<script type="text/javascript">
-			/* <![CDATA[*/
-			var total_votes = 0;
-			var total_new_votes = 0;
-			function check_totalvotes() {	
-				var temp_vote = 0;
-				total_votes = 0;
-				<?php
-					foreach($poll_answers as $poll_answer) {
-						$polla_aid = intval($poll_answer->polla_aid);
-						echo "\t\t\t\tif(document.getElementById('polla_votes-$polla_aid')) {\n";
-						echo "\t\t\t\t\ttemp_vote = parseInt(document.getElementById('polla_votes-$polla_aid').value);\n";
-						echo "\t\t\t\t\tif(isNaN(temp_vote)) {\n";
-						echo "\t\t\t\t\t\tdocument.getElementById('polla_votes-$polla_aid').value = 0;\n";
-						echo "\t\t\t\t\t\ttemp_vote = 0;\n";
-						echo "\t\t\t\t\t}\n";
-						echo "\t\t\t\t\ttotal_votes += temp_vote;\n";
-						echo "\t\t\t\t}\n";
-					}
-				?>
-				totalvotes();
-			}
-			function check_totalvotes_new() {	
-				var new_votes = document.getElementsByName("polla_answers_new_votes[]");
-				var temp_new_vote = 0;
-				total_new_votes = 0;
-				for(i = 0; i < new_votes.length; i++) {
-					temp_new_vote = parseInt(new_votes[i].value);
-					if(isNaN(temp_new_vote)) {
-						temp_new_vote = 0;
-					}
-					total_new_votes += temp_new_vote;
-				}
-				totalvotes();
-			}
-			function totalvotes() {
-				document.getElementById('pollq_totalvotes').value = (parseInt(total_votes) + parseInt(total_new_votes));
-			}
-			function check_polltimestamp() {
-				poll_edit_polltimestamp = document.getElementById("edit_polltimestamp").checked;
-				if(poll_edit_polltimestamp) {
-					document.getElementById("pollq_timestamp").style.display = 'block';
-				} else {
-					document.getElementById("pollq_timestamp").style.display = 'none';
-				}
-			}
-			function check_pollexpiry() {
-				pollq_expiry_no = document.getElementById("pollq_expiry_no").checked;
-				if(pollq_expiry_no) {
-					document.getElementById("pollq_expiry_timestamp").style.display = 'none';
-				} else {
-					document.getElementById("pollq_expiry_timestamp").style.display = 'block';
-				}
-			}
-			var count_poll_answer = <?php echo $poll_noquestion; ?>;
-			var count_poll_answer_new = 0;
-			function create_poll_answer() {
-				// Create Elements
-				var poll_tr = document.createElement("tr");
-				var poll_td1 = document.createElement("th");
-				var poll_td2 = document.createElement("td");
-				var poll_td3 = document.createElement("td");
-				var poll_answer = document.createElement("input");
-				var poll_votes = document.createElement("input");
-				var poll_answer_count = document.createTextNode("<?php _e('Answer', 'wp-polls'); ?> " + (count_poll_answer+1));
-				var poll_votes_count = document.createTextNode("0 ");
-				var poll_answer_bold = document.createElement("strong");
-				var poll_option = document.createElement("option");
-				var poll_option_text = document.createTextNode((count_poll_answer+1));
-				count_poll_answer++;
-				count_poll_answer_new++;
-				// Elements - Input
-				poll_answer.setAttribute('type', "text");
-				poll_answer.setAttribute('name', "polla_answers_new[]");
-				poll_answer.setAttribute('size', "50");
-				poll_votes.setAttribute('type', "text");
-				poll_votes.setAttribute('name', "polla_answers_new_votes[]")
-				poll_votes.setAttribute('size', "4");
-				poll_votes.setAttribute('value', "0");
-				poll_votes.setAttribute('onblur', "check_totalvotes_new();");
-				// Elements - Options
-				poll_option.setAttribute('value', count_poll_answer);
-				poll_option.setAttribute('id', "pollq-multiple-" + (count_poll_answer+1));
-				// Elements - TD/TR
-				poll_tr.setAttribute('id', "poll-answer-new-" + count_poll_answer_new);
-				poll_td1.setAttribute('width', "20%");
-				poll_td1.setAttribute('scope', "row");
-				poll_td1.setAttribute('valign', "top");
-				poll_td2.setAttribute('width', "60%");
-				poll_td3.setAttribute('width', "20%");
-				poll_td3.setAttribute('align', "<?php echo $last_col_align; ?>");
-				// Appending To Elements
-				poll_tr.appendChild(poll_td1);
-				poll_tr.appendChild(poll_td2);
-				poll_tr.appendChild(poll_td3);
-				poll_answer_bold.appendChild(poll_answer_count);
-				poll_td1.appendChild(poll_answer_bold);
-				poll_td2.appendChild(poll_answer);				
-				poll_td3.appendChild(poll_votes_count);
-				poll_td3.appendChild(poll_votes);
-				poll_option.appendChild(poll_option_text);
-				document.getElementById("poll_answers").appendChild(poll_tr);
-				document.getElementById("pollq_multiple").appendChild(poll_option);
-			}
-			function remove_poll_answer() {
-				if(count_poll_answer_new == 0) {
-					alert("<?php _e('No more poll\'s answer to be removed.', 'wp-polls'); ?>");
-				} else {
-					document.getElementById("poll_answers").removeChild(document.getElementById("poll-answer-new-" + count_poll_answer_new));
-					document.getElementById("pollq_multiple").removeChild(document.getElementById("pollq-multiple-" + (count_poll_answer+1)));
-					document.getElementById("pollq_multiple").value = count_poll_answer;
-					count_poll_answer--;
-					count_poll_answer_new--;
-					check_totalvotes_new();
-				}
-			}
-			function check_pollq_multiple() {
-				if(parseInt(document.getElementById("pollq_multiple_yes").value) == 1) {
-					document.getElementById("pollq_multiple").disabled = false;
-				} else {
-					document.getElementById("pollq_multiple").value = 1;
-					document.getElementById("pollq_multiple").disabled = true;
-				}
-			}
-			/* ]]> */
-		</script>
-
 		<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
 
 		<!-- Edit Poll -->
@@ -351,7 +224,7 @@ switch($mode) {
 				<tbody>
 					<tr>
 						<td width="20%">&nbsp;</td>
-						<td width="60%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="create_poll_answer();" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="<?php _e('Remove Answer', 'wp-polls') ?>" onclick="remove_poll_answer();" class="button" /></td>
+						<td width="60%"><input type="button" value="<?php _e('Add Answer', 'wp-polls') ?>" onclick="add_poll_answer_edit();" class="button" /></td>
 						<td width="20%" align="<?php echo $last_col_align; ?>"><strong><?php _e('Total Votes:', 'wp-polls'); ?></strong> <strong id="poll_total_votes"><?php echo number_format_i18n($poll_actual_totalvotes); ?></strong> <input type="text" size="4" readonly="readonly" id="pollq_totalvotes" name="pollq_totalvotes" value="<?php echo $poll_actual_totalvotes; ?>" onblur="check_totalvotes();" /></td>
 					</tr>
 					<tr>
