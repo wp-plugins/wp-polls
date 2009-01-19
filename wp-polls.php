@@ -244,39 +244,29 @@ function poll_javascripts() {
 }
 
 
-### Function: Enqueue Polls JavaScripts In WP-Admin
-add_action('admin_print_scripts-wp-polls/polls-manager.php', 'poll_javascripts_admin');
-add_action('admin_print_scripts-wp-polls/polls-add.php', 'poll_javascripts_admin');
-add_action('admin_print_scripts-wp-polls/polls-options.php', 'poll_javascripts_admin');
-add_action('admin_print_scripts-wp-polls/polls-templates.php', 'poll_javascripts_admin');
-add_action('admin_print_scripts-wp-polls/polls-uninstall.php', 'poll_javascripts_admin');
-function poll_javascripts_admin() {
+### Function: Enqueue Polls Stylesheets/JavaScripts In WP-Admin
+add_action('admin_enqueue_scripts', 'poll_scripts_admin');
+function poll_scripts_admin($hook_suffix) {
 	global $text_direction;
-	wp_enqueue_script('wp-polls-admin', plugins_url('wp-polls/polls-admin-js.js'), array('jquery'), '2.50', true);
-	wp_localize_script('wp-polls-admin', 'pollsAdminL10n', array(
-		'admin_ajax_url' => plugins_url('wp-polls/polls-admin-ajax.php'),
-		'text_direction' => ('rtl' == $text_direction) ? 'left' : 'right',
-		'text_delete_poll' => __('Delete Poll', 'wp-polls'),
-		'text_no_poll_logs' => __('No poll logs available.', 'wp-polls'),
-		'text_delete_all_logs' => __('Delete All Logs', 'wp-polls'),
-		'text_checkbox_delete_all_logs' => __('Please check the \\\'Yes\\\' checkbox if you want to delete all logs.', 'wp-polls'),
-		'text_delete_poll_logs' => __('Delete Logs For This Poll Only', 'wp-polls'),
-		'text_checkbox_delete_poll_logs' => __('Please check the \\\'Yes\\\' checkbox if you want to delete all logs for this poll ONLY.', 'wp-polls'),
-		'text_delete_poll_ans' => __('Delete Poll Answer', 'wp-polls'),
-		'text_open_poll' => __('Open Poll', 'wp-polls'),
-		'text_close_poll' => __('Close Poll', 'wp-polls'),
-		'text_answer' => __('Answer', 'wp-polls'),
-		'text_remove_poll_answer' => __('Remove', 'wp-polls')
-	));
-}
-
-
-### Function: Enqueue Polls Stylesheets In WP-Admin
-add_action('admin_enqueue_scripts', 'poll_stylesheets_admin');
-function poll_stylesheets_admin($hook_suffix) {
 	$poll_admin_pages = array('wp-polls/polls-manager.php', 'wp-polls/polls-add.php', 'wp-polls/polls-options.php', 'wp-polls/polls-templates.php', 'wp-polls/polls-uninstall.php');
 	if(in_array($hook_suffix, $poll_admin_pages)) {
 		wp_enqueue_style('wp-polls-admin', plugins_url('wp-polls/polls-admin-css.css'), false, '2.50', 'all');
+		wp_enqueue_script('wp-polls-admin', plugins_url('wp-polls/polls-admin-js.js'), array('jquery'), '2.50', true);
+		wp_localize_script('wp-polls-admin', 'pollsAdminL10n', array(
+			'admin_ajax_url' => plugins_url('wp-polls/polls-admin-ajax.php'),
+			'text_direction' => ('rtl' == $text_direction) ? 'left' : 'right',
+			'text_delete_poll' => __('Delete Poll', 'wp-polls'),
+			'text_no_poll_logs' => __('No poll logs available.', 'wp-polls'),
+			'text_delete_all_logs' => __('Delete All Logs', 'wp-polls'),
+			'text_checkbox_delete_all_logs' => __('Please check the \\\'Yes\\\' checkbox if you want to delete all logs.', 'wp-polls'),
+			'text_delete_poll_logs' => __('Delete Logs For This Poll Only', 'wp-polls'),
+			'text_checkbox_delete_poll_logs' => __('Please check the \\\'Yes\\\' checkbox if you want to delete all logs for this poll ONLY.', 'wp-polls'),
+			'text_delete_poll_ans' => __('Delete Poll Answer', 'wp-polls'),
+			'text_open_poll' => __('Open Poll', 'wp-polls'),
+			'text_close_poll' => __('Close Poll', 'wp-polls'),
+			'text_answer' => __('Answer', 'wp-polls'),
+			'text_remove_poll_answer' => __('Remove', 'wp-polls')
+		));
 	}
 }
 
