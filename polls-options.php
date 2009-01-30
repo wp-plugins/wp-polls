@@ -99,33 +99,25 @@ if($_POST['Submit']) {
 <script type="text/javascript">
 /* <![CDATA[*/
 	function set_pollbar_height(height) {
-			document.getElementById('poll_bar_height').value = height;
+			jQuery("#poll_bar_height").val(height);
 	}
 	function update_pollbar(where) {
-		pollbar_background = '#' + document.getElementById('poll_bar_bg').value;
-		pollbar_border = '#' + document.getElementById('poll_bar_border').value;
-		pollbar_height = document.getElementById('poll_bar_height').value + 'px';
-		if(where  == 'background') {
-			document.getElementById('wp-polls-pollbar-bg').style.backgroundColor = pollbar_background;			
-		} else if(where == 'border') {
-			document.getElementById('wp-polls-pollbar-border').style.backgroundColor = pollbar_border;
-		} else if(where == 'style') {
-			pollbar_style_options = document.getElementById('poll_options_form').poll_bar_style;
-			for(i = 0; i < pollbar_style_options.length; i++) {
-				 if(pollbar_style_options[i].checked)  {
-					pollbar_style = pollbar_style_options[i].value;
-          break;
-				 }
-			}
-			if(pollbar_style == 'use_css') {
-				document.getElementById('wp-polls-pollbar').style.backgroundImage = "";
+		pollbar_background = "#" + jQuery("#poll_bar_bg").val();
+		pollbar_border = "#" + jQuery("#poll_bar_border").val();
+		pollbar_height = jQuery("#poll_bar_height").val() + "px";
+		if(where  == "background") {
+			jQuery("#wp-polls-pollbar-bg").css("background-color", pollbar_background);
+		} else if(where == "border") {
+			jQuery("#wp-polls-pollbar-border").css("background-color", pollbar_border);
+		} else if(where == "style") {
+			pollbar_style = jQuery("input[name='poll_bar_style']:checked").val();
+			if(pollbar_style == "use_css") {
+				jQuery("#wp-polls-pollbar").css("background-image", "none");
 			} else {
-				document.getElementById('wp-polls-pollbar').style.backgroundImage = "url('<?php echo plugins_url('wp-polls/images/'); ?>" + pollbar_style + "/pollbg.gif')";
+				jQuery("#wp-polls-pollbar").css("background-image", "url('<?php echo plugins_url('wp-polls/images/'); ?>" + pollbar_style + "/pollbg.gif')");
 			}
 		}
-		document.getElementById('wp-polls-pollbar').style.backgroundColor = pollbar_background;
-		document.getElementById('wp-polls-pollbar').style.border = '1px solid ' + pollbar_border;
-		document.getElementById('wp-polls-pollbar').style.height = pollbar_height;
+		jQuery("#wp-polls-pollbar").css({"background-color":pollbar_background, "border":"1px solid " + pollbar_border, "height":pollbar_height});
 	}	
 /* ]]> */
 </script>
@@ -148,24 +140,24 @@ if($_POST['Submit']) {
 						while (false !== ($filename = readdir($handle))) {  
 							if ($filename != '.' && $filename != '..') {
 								if(is_dir($pollbar_path.'/'.$filename)) {
-                  echo '<p>'."\n";
+									echo '<p>'."\n";
 									$pollbar_info = getimagesize($pollbar_path.'/'.$filename.'/pollbg.gif');
 									if($pollbar['style'] == $filename) {
-										echo '<input type="radio" name="poll_bar_style" value="'.$filename.'" checked="checked" onclick="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';										
+										echo '<input type="radio" id="poll_bar_style-'.$filename.'" name="poll_bar_style" value="'.$filename.'" checked="checked" onclick="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';										
 									} else {
-										echo '<input type="radio" name="poll_bar_style" value="'.$filename.'" onclick="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';
+										echo '<input type="radio" id="poll_bar_style-'.$filename.'" name="poll_bar_style" value="'.$filename.'" onclick="set_pollbar_height('.$pollbar_info[1].'); update_pollbar(\'style\');" />';
 									}
-									echo '&nbsp;&nbsp;&nbsp;';
+									echo '<label for="poll_bar_style-'.$filename.'">&nbsp;&nbsp;&nbsp;';
 									echo '<img src="'.$pollbar_url.'/'.$filename.'/pollbg.gif" height="'.$pollbar_info[1].'" width="100" alt="pollbg.gif" />';
-									echo '&nbsp;&nbsp;&nbsp;('.$filename.')';
-                  echo '</p>'."\n";
+									echo '&nbsp;&nbsp;&nbsp;('.$filename.')</label>';
+									echo '</p>'."\n";
 								}
 							} 
 						} 
 						closedir($handle);
 					}
 				?>
-				<input type="radio" name="poll_bar_style" value="use_css"<?php checked('use_css', $pollbar['style']); ?> onclick="update_pollbar('style');" /> <?php _e('Use CSS Style', 'wp-polls'); ?>
+				<input type="radio" id="poll_bar_style-use_css" name="poll_bar_style" value="use_css"<?php checked('use_css', $pollbar['style']); ?> onclick="update_pollbar('style');" /><label for="poll_bar_style-use_css"> <?php _e('Use CSS Style', 'wp-polls'); ?></label>
 			</td>
 		</tr>
 		<tr>

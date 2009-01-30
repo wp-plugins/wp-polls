@@ -146,7 +146,7 @@ if($_POST['Submit']) {
 				default_template = "<?php _e('An error has occurred when processing your poll.', 'wp-polls'); ?>";
 				break;
 		}
-		document.getElementById("poll_template_" + template).value = default_template;
+		jQuery("#poll_template_" + template).val(default_template);
 	}
 /* ]]> */
 </script>

@@ -80,13 +80,13 @@ function widget_polls_init() {
 		<script type="text/javascript">
 			/* <![CDATA[*/
 				function show_multiple_polls() {
-					if(document.getElementById('poll_currentpoll').value == -3) {
-						document.getElementById('poll_multiplepolls').disabled = false;
-						document.getElementById('poll_multiplepolls_text').style.display = 'block';
+					if(parseInt(jQuery("#poll_currentpoll").val()) == -3) {
+						jQuery("#poll_multiplepolls").removeAttr("disabled");
+						jQuery("#poll_multiplepolls_text").show();
 					} else {						
-						document.getElementById('poll_multiplepolls').selectedIndex = -1;
-						document.getElementById('poll_multiplepolls').disabled = true;
-						document.getElementById('poll_multiplepolls_text').style.display = 'none';
+						jQuery("#poll_multiplepolls").attr("selectedIndex", "-1"); 
+						jQuery("#poll_multiplepolls").attr("disabled", "disabled");
+						jQuery("#poll_multiplepolls_text").hide();
 					}
 				}
 			/* ]]> */
