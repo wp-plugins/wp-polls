@@ -261,17 +261,22 @@ add_action('admin_footer-post-new.php', 'poll_footer_admin');
 add_action('admin_footer-post.php', 'poll_footer_admin');
 add_action('admin_footer-page-new.php', 'poll_footer_admin');
 add_action('admin_footer-page.php', 'poll_footer_admin');
-function poll_footer_admin() {	
+function poll_footer_admin() {
+	// Javascript Code Courtesy Of WP-AddQuicktag (http://bueltge.de/wp-addquicktags-de-plugin/120/)
 	echo '<script type="text/javascript">'."\n";
 	echo '/* <![CDATA[ */'."\n";
-	echo "\t".'var polls_admin_text_enter_poll_id = \''.js_escape(__('Enter Poll ID', 'wp-polls')).'\';'."\n";
-	echo "\t".'var polls_admin_text_enter_poll_id_again = \''.js_escape(__('Error: Poll ID must be numeric', 'wp-polls')).'\n\n'.js_escape(__('Please enter Poll ID again', 'wp-polls')).'\';'."\n";
+	echo "\t".'var pollsEdL10n = {'."\n";
+	echo "\t\t".'enter_poll_id: "'.js_escape(__('Enter Poll ID', 'wp-polls')).'",'."\n";
+	echo "\t\t".'enter_poll_id_again: "'.js_escape(__('Error: Poll ID must be numeric', 'wp-polls')).'\n\n'.js_escape(__('Please enter Poll ID again', 'wp-polls')).'",'."\n";
+	echo "\t\t".'poll: "'.js_escape(__('Poll', 'wp-polls')).'",'."\n";
+	echo "\t\t".'insert_poll: "'.js_escape(__('Insert_Poll', 'wp-polls')).'",'."\n";
+	echo "\t".'};'."\n";
 	echo "\t".'function insertPoll(where, myField) {'."\n";
-	echo "\t\t".'var poll_id = prompt(polls_admin_text_enter_poll_id);'."\n";
+	echo "\t\t".'var poll_id = jQuery.trim(prompt(pollsEdL10n.enter_poll_id));'."\n";
 	echo "\t\t".'while(isNaN(poll_id)) {'."\n";
-	echo "\t\t\t".'poll_id = prompt(polls_admin_text_enter_poll_id_again);'."\n";
+	echo "\t\t\t".'poll_id = jQuery.trim(prompt(pollsEdL10n.enter_poll_id_again));'."\n";
 	echo "\t\t".'}'."\n";
-	echo "\t\t".'if (poll_id >= -1) {'."\n";
+	echo "\t\t".'if (poll_id >= -1 && poll_id != null && poll_id != "") {'."\n";
 	echo "\t\t\t".'if(where == \'code\') {'."\n";
 	echo "\t\t\t\t".'edInsertContent(myField, \'[poll id="\' + poll_id + \'"]\');'."\n";
 	echo "\t\t\t".'} else {'."\n";
@@ -279,17 +284,16 @@ function poll_footer_admin() {
 	echo "\t\t\t".'}'."\n";
 	echo "\t\t".'}'."\n";
 	echo "\t".'}'."\n";
-	// Javascript Code Courtesy Of WP-AddQuicktag (http://bueltge.de/wp-addquicktags-de-plugin/120/)
 	echo "\t".'if(document.getElementById("ed_toolbar")){'."\n";
 	echo "\t\t".'qt_toolbar = document.getElementById("ed_toolbar");'."\n";
-	echo "\t\t".'edButtons[edButtons.length] = new edButton("ed_poll","'.js_escape(__('Poll', 'wp-polls')).'", "", "","");'."\n";
+	echo "\t\t".'edButtons[edButtons.length] = new edButton("ed_poll",pollsEdL10n.poll, "", "","");'."\n";
 	echo "\t\t".'var qt_button = qt_toolbar.lastChild;'."\n";
 	echo "\t\t".'while (qt_button.nodeType != 1){'."\n";
 	echo "\t\t\t".'qt_button = qt_button.previousSibling;'."\n";
 	echo "\t\t".'}'."\n";
 	echo "\t\t".'qt_button = qt_button.cloneNode(true);'."\n";
-	echo "\t\t".'qt_button.value = "'.js_escape(__('Poll', 'wp-polls')).'";'."\n";
-	echo "\t\t".'qt_button.title = "'.js_escape(__('Insert Poll', 'wp-polls')).'";'."\n";
+	echo "\t\t".'qt_button.value = pollsEdL10n.poll;'."\n";
+	echo "\t\t".'qt_button.title = pollsEdL10n.insert_poll;'."\n";
 	echo "\t\t".'qt_button.onclick = function () { insertPoll(\'code\', edCanvas);}'."\n";
 	echo "\t\t".'qt_button.id = "ed_poll";'."\n";
 	echo "\t\t".'qt_toolbar.appendChild(qt_button);'."\n";
