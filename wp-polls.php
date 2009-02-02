@@ -595,6 +595,8 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 	$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_question_id ORDER BY ".get_option('poll_ans_result_sortby').' '.get_option('poll_ans_result_sortorder'));
 	// If There Is Poll Question With Answers
 	if($poll_question && $poll_answers) {
+		// Store The Percentage Of The Poll
+		$poll_answer_percentage_array = array();
 		// Is The Poll Total Votes 0?
 		$poll_totalvotes_zero = true;
 		if($poll_question_totalvotes > 0) {
@@ -613,7 +615,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 			// Calculate Percentage And Image Bar Width
 			if(!$poll_totalvotes_zero) {
 				if($poll_answer_votes > 0) {
-					$poll_answer_percentage = round((($poll_answer_votes/$poll_question_totalvoters)*100));
+					$poll_answer_percentage = round((($poll_answer_votes/$poll_question_totalvoters)*100));					
 					$poll_answer_imagewidth = round($poll_answer_percentage);
 					if($poll_answer_imagewidth == 100) {
 						$poll_answer_imagewidth = 99;
@@ -626,6 +628,12 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 				$poll_answer_percentage = 0;
 				$poll_answer_imagewidth = 1;
 			}
+			// Make Sure That Total Percentage Is 100% By Adding A Buffer To The Last Poll Answer
+			$poll_answer_percentage_array[] = $poll_answer_percentage;
+			if(sizeof($poll_answer_percentage_array) == sizeof($poll_answers)) {
+				$percentage_error_buffer = 100 - array_sum($poll_answer_percentage_array);
+				$poll_answer_percentage = $poll_answer_percentage + $percentage_error_buffer;
+			}
 			// Let User See What Options They Voted
 			if(in_array($poll_answer_id, $user_voted)) {
 				// Results Body Variables
@@ -634,7 +642,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 				$template_answer = str_replace("%POLL_ANSWER%", $poll_answer_text, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($poll_answer_text)), $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format_i18n($poll_answer_votes), $template_answer);
-				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", number_format_i18n($poll_answer_percentage, 1), $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
 				// Print Out Results Body Template
 				$temp_pollresult .= "\t\t$template_answer\n";
@@ -645,7 +653,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 				$template_answer = str_replace("%POLL_ANSWER%", $poll_answer_text, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($poll_answer_text)), $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format_i18n($poll_answer_votes), $template_answer);
-				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", number_format_i18n($poll_answer_percentage, 1), $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
 				// Print Out Results Body Template
 				$temp_pollresult .= "\t\t$template_answer\n";
@@ -679,10 +687,10 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 		$template_footer = str_replace("%POLL_TOTALVOTERS%", number_format_i18n($poll_question_totalvoters), $template_footer);
 		$template_footer = str_replace("%POLL_MOST_ANSWER%", $poll_most_answer, $template_footer);
 		$template_footer = str_replace("%POLL_MOST_VOTES%", number_format_i18n($poll_most_votes), $template_footer);
-		$template_footer = str_replace("%POLL_MOST_PERCENTAGE%", number_format_i18n($poll_most_percentage, 1), $template_footer);
+		$template_footer = str_replace("%POLL_MOST_PERCENTAGE%", $poll_most_percentage, $template_footer);
 		$template_footer = str_replace("%POLL_LEAST_ANSWER%", $poll_least_answer, $template_footer);
 		$template_footer = str_replace("%POLL_LEAST_VOTES%", number_format_i18n($poll_least_votes), $template_footer);
-		$template_footer = str_replace("%POLL_LEAST_PERCENTAGE%", number_format_i18n($poll_least_percentage, 1), $template_footer);
+		$template_footer = str_replace("%POLL_LEAST_PERCENTAGE%", $poll_least_percentage, $template_footer);
 		if($poll_multiple_ans > 0) {
 			$template_footer = str_replace("%POLL_MULTIPLE_ANS_MAX%", $poll_multiple_ans, $template_footer);
 		} else {
@@ -802,21 +810,16 @@ if(!function_exists('get_pollvoters')) {
 
 
 ### Function: Check Voted To Get Voted Answer
-function check_voted_multiple($poll_id) {
-	global $polls_ips;
-	$temp_voted_aid = array();
+function check_voted_multiple($poll_id, $polls_ips) {
 	if(!empty($_COOKIE["voted_$poll_id"])) {
-		$temp_voted_aid = explode(',', $_COOKIE["voted_$poll_id"]);
+		return explode(',', $_COOKIE["voted_$poll_id"]);
 	} else {
 		if($polls_ips) {
-			foreach($polls_ips as $polls_ip) {
-				if($polls_ip['qid'] == $poll_id) {
-					$temp_voted_aid[] = $polls_ip['aid'];
-				}
-			}
+			return $polls_ips;
+		} else {
+			return array();
 		}
 	}
-	return $temp_voted_aid;
 }
 
 
@@ -850,7 +853,7 @@ function display_polls_archive_link($display = true) {
 
 ### Function: Display Polls Archive
 function polls_archive() {
-	global $wpdb, $polls_ips, $in_pollsarchive;
+	global $wpdb, $in_pollsarchive;
 	// Polls Variables
 	$in_pollsarchive = true;
 	$page = intval($_GET['poll_page']);
@@ -932,18 +935,17 @@ function polls_archive() {
 	$answers = $wpdb->get_results("SELECT polla_aid, polla_qid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid IN ($poll_questions_ids) ORDER BY ".get_option('poll_ans_result_sortby').' '.get_option('poll_ans_result_sortorder'));
 	if($answers) {
 		foreach($answers as $answer) {
-			$polls_answers[] = array('aid' => intval($answer->polla_aid), 'qid' => intval($answer->polla_qid), 'answers' => stripslashes($answer->polla_answers), 'votes' => intval($answer->polla_votes));
+			$polls_answers[intval($answer->polla_qid)][] = array('aid' => intval($answer->polla_aid), 'qid' => intval($answer->polla_qid), 'answers' => stripslashes($answer->polla_answers), 'votes' => intval($answer->polla_votes));
 		}
 	}
 
 	// Get Poll IPs
-	$ips = $wpdb->get_results("SELECT pollip_qid, pollip_aid FROM $wpdb->pollsip WHERE pollip_qid IN ($poll_questions_ids) AND pollip_ip = '".get_ipaddress()."'");
+	$ips = $wpdb->get_results("SELECT pollip_qid, pollip_aid FROM $wpdb->pollsip WHERE pollip_qid IN ($poll_questions_ids) AND pollip_ip = '".get_ipaddress()."' ORDER BY pollip_qid ASC");
 	if($ips) {
 		foreach($ips as $ip) {
-			$polls_ips[] = array('qid' => intval($ip->pollip_qid), 'aid' => intval($ip->pollip_aid));
+			$polls_ips[intval($ip->pollip_qid)][] = intval($ip->pollip_aid);
 		}
 	}
-
 	// Poll Archives
 	$pollsarchive_output_archive .= "<div class=\"wp-polls wp-polls-archive\">\n";
 	foreach($polls_questions as $polls_question) {
@@ -983,62 +985,66 @@ function polls_archive() {
 		// Print Out Result Header Template
 		$pollsarchive_output_archive .= $template_archive_header;
 		$pollsarchive_output_archive .= $template_question;
-		foreach($polls_answers as $polls_answer) {
-			if($polls_question['id'] == $polls_answer['qid']) {
-				// Calculate Percentage And Image Bar Width
-				if(!$poll_totalvotes_zero) {
-					if($polls_answer['votes'] > 0) {
-						$poll_answer_percentage = round((($polls_answer['votes']/$polls_question['totalvoters'])*100));
-						$poll_answer_imagewidth = round($poll_answer_percentage*0.9);
-					} else {
-						$poll_answer_percentage = 0;
-						$poll_answer_imagewidth = 1;
-					}
+		// Store The Percentage Of The Poll
+		$poll_answer_percentage_array = array();
+		foreach($polls_answers[$polls_question['id']] as $polls_answer) {
+			// Calculate Percentage And Image Bar Width
+			if(!$poll_totalvotes_zero) {
+				if($polls_answer['votes'] > 0) {
+					$poll_answer_percentage = round((($polls_answer['votes']/$polls_question['totalvoters'])*100));
+					$poll_answer_imagewidth = round($poll_answer_percentage*0.9);
 				} else {
 					$poll_answer_percentage = 0;
 					$poll_answer_imagewidth = 1;
 				}
-				// Let User See What Options They Voted
-				if(in_array($polls_answer['aid'], check_voted_multiple($polls_question['id']))) {				
-					// Results Body Variables
-					$template_answer = stripslashes(get_option('poll_template_resultbody2'));
-					$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format_i18n($polls_answer['votes']), $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", number_format_i18n($poll_answer_percentage, 1), $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
-					// Print Out Results Body Template
-					$pollsarchive_output_archive .= $template_answer;
-				} else {
-					// Results Body Variables
-					$template_answer = stripslashes(get_option('poll_template_resultbody'));
-					$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format_i18n($polls_answer['votes']), $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", number_format_i18n($poll_answer_percentage, 1), $template_answer);
-					$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
-					// Print Out Results Body Template
-					$pollsarchive_output_archive .= $template_answer;
-				}
-				// Get Most Voted Data
-				if($polls_answer['votes'] > $poll_most_votes) {
-					$poll_most_answer = $polls_answer['answers'];
-					$poll_most_votes = $polls_answer['votes'];
-					$poll_most_percentage = $poll_answer_percentage;
-				}
-				// Get Least Voted Data
-				if($poll_least_votes == 0) {
-					$poll_least_votes = $polls_answer['votes'];
-				}
-				if($polls_answer['votes'] <= $poll_least_votes) {
-					$poll_least_answer = $polls_answer['answers'];
-					$poll_least_votes = $polls_answer['votes'];
-					$poll_least_percentage = $poll_answer_percentage;
-				}
-				// Delete Away From Array
-				unset($polls_answer['answers']);
+			} else {
+				$poll_answer_percentage = 0;
+				$poll_answer_imagewidth = 1;
+			}
+			// Make Sure That Total Percentage Is 100% By Adding A Buffer To The Last Poll Answer
+			$poll_answer_percentage_array[] = $poll_answer_percentage;
+			if(sizeof($poll_answer_percentage_array) == sizeof($polls_answers[$polls_question['id']])) {
+				$percentage_error_buffer = 100 - array_sum($poll_answer_percentage_array);
+				$poll_answer_percentage = $poll_answer_percentage + $percentage_error_buffer;
+			}
+			// Let User See What Options They Voted
+			if(in_array($polls_answer['aid'], check_voted_multiple($polls_question['id'], $polls_ips[$polls_question['id']]))) {				
+				// Results Body Variables
+				$template_answer = stripslashes(get_option('poll_template_resultbody2'));
+				$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format_i18n($polls_answer['votes']), $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
+				// Print Out Results Body Template
+				$pollsarchive_output_archive .= $template_answer;
+			} else {
+				// Results Body Variables
+				$template_answer = stripslashes(get_option('poll_template_resultbody'));
+				$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_VOTES%", number_format_i18n($polls_answer['votes']), $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_PERCENTAGE%", $poll_answer_percentage, $template_answer);
+				$template_answer = str_replace("%POLL_ANSWER_IMAGEWIDTH%", $poll_answer_imagewidth, $template_answer);
+				// Print Out Results Body Template
+				$pollsarchive_output_archive .= $template_answer;
+			}
+			// Get Most Voted Data
+			if($polls_answer['votes'] > $poll_most_votes) {
+				$poll_most_answer = $polls_answer['answers'];
+				$poll_most_votes = $polls_answer['votes'];
+				$poll_most_percentage = $poll_answer_percentage;
+			}
+			// Get Least Voted Data
+			if($poll_least_votes == 0) {
+				$poll_least_votes = $polls_answer['votes'];
+			}
+			if($polls_answer['votes'] <= $poll_least_votes) {
+				$poll_least_answer = $polls_answer['answers'];
+				$poll_least_votes = $polls_answer['votes'];
+				$poll_least_percentage = $poll_answer_percentage;
 			}
 		}
 		// Results Footer Variables
@@ -1049,10 +1055,10 @@ function polls_archive() {
 		$template_footer = str_replace("%POLL_TOTALVOTERS%", number_format_i18n($polls_question['totalvoters']), $template_footer);
 		$template_footer = str_replace("%POLL_MOST_ANSWER%", $poll_most_answer, $template_footer);
 		$template_footer = str_replace("%POLL_MOST_VOTES%", number_format_i18n($poll_most_votes), $template_footer);
-		$template_footer = str_replace("%POLL_MOST_PERCENTAGE%", number_format_i18n($poll_most_percentage, 1), $template_footer);
+		$template_footer = str_replace("%POLL_MOST_PERCENTAGE%", $poll_most_percentage, $template_footer);
 		$template_footer = str_replace("%POLL_LEAST_ANSWER%", $poll_least_answer, $template_footer);
 		$template_footer = str_replace("%POLL_LEAST_VOTES%", number_format_i18n($poll_least_votes), $template_footer);
-		$template_footer = str_replace("%POLL_LEAST_PERCENTAGE%", number_format_i18n($poll_least_percentage, 1), $template_footer);
+		$template_footer = str_replace("%POLL_LEAST_PERCENTAGE%", $poll_least_percentage, $template_footer);
 		if($polls_question['multiple'] > 0) {
 			$template_footer  = str_replace("%POLL_MULTIPLE_ANS_MAX%", $polls_question['multiple'], $template_footer);
 		} else {
@@ -1066,10 +1072,10 @@ function polls_archive() {
 		$template_archive_footer = str_replace("%POLL_TOTALVOTERS%", number_format_i18n($polls_question['totalvoters']), $template_archive_footer);
 		$template_archive_footer = str_replace("%POLL_MOST_ANSWER%", $poll_most_answer, $template_archive_footer);
 		$template_archive_footer = str_replace("%POLL_MOST_VOTES%", number_format_i18n($poll_most_votes), $template_archive_footer);
-		$template_archive_footer = str_replace("%POLL_MOST_PERCENTAGE%", number_format_i18n($poll_most_percentage, 1), $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_MOST_PERCENTAGE%", $poll_most_percentage, $template_archive_footer);
 		$template_archive_footer = str_replace("%POLL_LEAST_ANSWER%", $poll_least_answer, $template_archive_footer);
 		$template_archive_footer = str_replace("%POLL_LEAST_VOTES%", number_format_i18n($poll_least_votes), $template_archive_footer);
-		$template_archive_footer = str_replace("%POLL_LEAST_PERCENTAGE%", number_format_i18n($poll_least_percentage, 1), $template_archive_footer);
+		$template_archive_footer = str_replace("%POLL_LEAST_PERCENTAGE%", $poll_least_percentage, $template_archive_footer);
 		if($polls_question['multiple'] > 0) {
 			$template_archive_footer  = str_replace("%POLL_MULTIPLE_ANS_MAX%", $polls_question['multiple'], $template_archive_footer);
 		} else {
@@ -1278,10 +1284,15 @@ function vote_poll() {
 					if($cookie_expiry == 0) {
 						$cookie_expiry = 30000000;
 					}
-					$vote_cookie = setcookie("voted_".$poll_id, $poll_aid, ($pollip_timestamp + $cookie_expiry), COOKIEPATH);						
+					$vote_cookie = setcookie('voted_'.$poll_id, $poll_aid, ($pollip_timestamp + $cookie_expiry), COOKIEPATH);						
 				}
+				$i = 0;
 				foreach($poll_aid_array as $polla_aid) {
-					$wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $polla_aid");
+					$update_polla_votes = $wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $polla_aid");
+					if(!$update_polla_votes) {
+						unset($poll_aid_array[$i]);
+					}
+					$i++;
 				}
 				$vote_q = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+".sizeof($poll_aid_array)."), pollq_totalvoters = (pollq_totalvoters+1) WHERE pollq_id = $poll_id AND pollq_active = 1");
 				if($vote_q) {
