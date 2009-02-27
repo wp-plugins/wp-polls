@@ -427,7 +427,7 @@ function check_voted_username($poll_id) {
 	global $wpdb, $user_ID;
 	// Check IP If User Is Guest
 	if ($user_ID == 0) {
-		return check_voted_ip($poll_id);
+		return 1;
 	}
 	$pollsip_userid = intval($user_ID);
 	$log_expiry = intval(get_option('poll_cookielog_expiry'));
