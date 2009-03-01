@@ -124,10 +124,10 @@ if(!empty($_POST['do'])) {
 	<h2><?php _e('Poll\'s Logs', 'wp-polls'); ?></h2>
 	<h3><?php echo $poll_question; ?></h3>
 	<p>
-		<?php printf(__ngettext('There are a total of <strong>%s</strong> recorded vote for this poll.', 'There are a total of <strong>%s</strong> recorded votes for this poll.', $poll_totalrecorded, 'wp-polls'), number_format_i18n($poll_totalrecorded)); ?><br />
-		<?php printf(__ngettext('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by registered users', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by registered users', $poll_registered, 'wp-polls'), number_format_i18n($poll_registered)); ?><br />
-		<?php printf(__ngettext('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by comment authors', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by comment authors', $poll_comments, 'wp-polls'), number_format_i18n($poll_comments)); ?><br />
-		<?php printf(__ngettext('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by guests', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by guests', $poll_guest, 'wp-polls'), number_format_i18n($poll_guest)); ?>
+		<?php printf(_n('There are a total of <strong>%s</strong> recorded vote for this poll.', 'There are a total of <strong>%s</strong> recorded votes for this poll.', $poll_totalrecorded, 'wp-polls'), number_format_i18n($poll_totalrecorded)); ?><br />
+		<?php printf(_n('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by registered users', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by registered users', $poll_registered, 'wp-polls'), number_format_i18n($poll_registered)); ?><br />
+		<?php printf(_n('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by comment authors', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by comment authors', $poll_comments, 'wp-polls'), number_format_i18n($poll_comments)); ?><br />
+		<?php printf(_n('<strong>&raquo;</strong> <strong>%s</strong> vote is casted by guests', '<strong>&raquo;</strong> <strong>%s</strong> votes are casted by guests', $poll_guest, 'wp-polls'), number_format_i18n($poll_guest)); ?>
 	</p>
 </div>
 <?php if($poll_totalrecorded > 0) { ?>
@@ -197,9 +197,9 @@ if(!empty($_POST['do'])) {
 												echo '<option value="1">'.__('1 Answer', 'wp-polls').'</option>';
 											} else {
 												if($i == $num_choices) {
-													echo '<option value="'.$i.'" selected="selected">'.sprintf(__ngettext('%s Answer', '%s Answers', $i, 'wp-polls'), number_format_i18n($i)).'</option>';
+													echo '<option value="'.$i.'" selected="selected">'.sprintf(_n('%s Answer', '%s Answers', $i, 'wp-polls'), number_format_i18n($i)).'</option>';
 												} else {
-													echo '<option value="'.$i.'">'.sprintf(__ngettext('%s Answer', '%s Answers', $i, 'wp-polls'), number_format_i18n($i)).'</option>';
+													echo '<option value="'.$i.'">'.sprintf(_n('%s Answer', '%s Answers', $i, 'wp-polls'), number_format_i18n($i)).'</option>';
 												}
 											}
 										}

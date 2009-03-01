@@ -1352,9 +1352,9 @@ function polls_page_general_stats($content) {
 	if($stats_display['polls'] == 1) {
 		$content .= '<p><strong>'.__('WP-Polls', 'wp-polls').'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
-		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> poll was created.', '<strong>%s</strong> polls were created.', get_pollquestions(false), 'wp-polls'), number_format_i18n(get_pollquestions(false))).'</li>'."\n";
-		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> polls\' answer was given.', '<strong>%s</strong> polls\' answers were given.', get_pollanswers(false), 'wp-polls'), number_format_i18n(get_pollanswers(false))).'</li>'."\n";
-		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> vote was casted.', '<strong>%s</strong> votes were casted.', get_pollvotes(false), 'wp-polls'), number_format_i18n(get_pollvotes(false))).'</li>'."\n";
+		$content .= '<li>'.sprintf(_n('<strong>%s</strong> poll was created.', '<strong>%s</strong> polls were created.', get_pollquestions(false), 'wp-polls'), number_format_i18n(get_pollquestions(false))).'</li>'."\n";
+		$content .= '<li>'.sprintf(_n('<strong>%s</strong> polls\' answer was given.', '<strong>%s</strong> polls\' answers were given.', get_pollanswers(false), 'wp-polls'), number_format_i18n(get_pollanswers(false))).'</li>'."\n";
+		$content .= '<li>'.sprintf(_n('<strong>%s</strong> vote was casted.', '<strong>%s</strong> votes were casted.', get_pollvotes(false), 'wp-polls'), number_format_i18n(get_pollvotes(false))).'</li>'."\n";
 		$content .= '</ul>'."\n";
 	}
 	return $content;

@@ -105,7 +105,7 @@ $poll_noquestion = 2;
 $count = 0;
 ?>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } ?>
-<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo plugin_basename(__FILE__); ?>">
 <div class="wrap">
 	<div id="icon-wp-polls" class="icon32"><br /></div>
 	<h2><?php _e('Add Poll', 'wp-polls'); ?></h2>

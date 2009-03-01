@@ -174,7 +174,7 @@ switch($mode) {
 		<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
 
 		<!-- Edit Poll -->
-		<form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="post">
+		<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo plugin_basename(__FILE__); ?>&amp;mode=edit&amp;id=<?php echo $poll_id; ?>">
 		<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
 		<input type="hidden" name="pollq_active" value="<?php echo $poll_active; ?>" />
 		<div class="wrap">
