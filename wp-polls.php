@@ -1363,8 +1363,8 @@ function polls_page_general_stats($content) {
  class WP_Widget_Polls extends WP_Widget {
 	// Constructor
 	function WP_Widget_Polls() {
-		$widget_ops = array('description' => __('Put a poll that you have added in WP-Polls on your sidebar', 'wp-polls'));
-		$this->WP_Widget('polls', __('Polls'), $widget_ops);
+		$widget_ops = array('description' => __('WP-Polls polls', 'wp-polls'));
+		$this->WP_Widget('polls', __('Polls', 'wp-polls'), $widget_ops);
 	}
 
 	// Display Widget

@@ -56,7 +56,7 @@ if(!empty($_POST['do'])) {
 						echo '</font><br />';
 					} else {
 						echo '<font color="red">';
-						printf(__('Error deleting Setting Key \'%s\'.', 'wp-polls'), "<strong><em>{$setting}</em></strong>");
+						printf(__('Error deleting Setting Key \'%s\' or Setting Key \'%s\' does not exist.', 'wp-polls'), "<strong><em>{$setting}</em></strong>");
 						echo '</font><br />';
 					}
 				}
