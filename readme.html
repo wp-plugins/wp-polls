@@ -302,6 +302,8 @@
 						<li>NEW: Minified editor_plugin.js And Added Non-Minified editor_plugin.dev.js</li>
 						<li>NEW: Able To Remove Individual Answers When Adding Or Editing A Poll</li>
 						<li>NEW: Use _n() Instead Of __ngettext() And _n_noop() Instead Of __ngettext_noop()</li>
+						<li>NEW: Uses New Widget Class From WordPress</li>
+						<li>NEW: Merge Widget Code To wp-polls.php And Remove wp-polls-widget.php</li>
 						<li>FIXED: Uses $_SERVER['PHP_SELF'] With plugin_basename(__FILE__) Instead Of Just $_SERVER['REQUEST_URI']</li>
 						<li>FIXED: Ensure That Percentage Always Add Up To 100%</li>
 						<li>FIXED: More Efficient WP-Polls Archive</li>
@@ -579,6 +581,9 @@
 					<strong>Deactivate</strong> WP-Polls Plugin
 				</li>
 				<li>
+					<strong>Deactivate</strong> WP-Polls Widget Plugin
+				</li>
+				<li>
 					Open <strong>wp-content/plugins</strong> Folder
 				</li>
 				<li>
@@ -586,9 +591,10 @@
 					<blockquote>Folder: wp-polls</blockquote>
 				</li>
 				<li>
-					Delete this folder if exists:
+					Delete this folder/file if exists:
 					<blockquote>
-						Folder: polls
+						Folder: polls<br />
+						File: wp-polls-widget.php
 					</blockquote>
 				</li>
 				<li>
@@ -596,6 +602,9 @@
 				</li>
 				<li>
 					Go to '<strong>WP-Admin -> Polls -> Polls Templates</strong>' and restore all the template variables to <strong>Default</strong>
+				</li>
+				<li>
+					Go to '<strong>WP-Admin -> Appearance -> Widgets</strong>' and re-add the Poll Widget
 				</li>
 				<li>
 					Refer To <strong>Usage</strong> For Further Instructions
@@ -636,9 +645,6 @@
 			</ol>
 			<div class="SubSubTitle">General Usage (With Widget)</div>
 			<ol>
-				<li>
-					<strong>Activate</strong> WP-Polls Widget Plugin.
-				</li>
 				<li>
 					Go to '<strong>WP-Admin -> Appearance -> Widgets</strong>'.
 				</li>

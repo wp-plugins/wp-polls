@@ -343,9 +343,6 @@ if($_POST['Submit']) {
 					<option value="-1"<?php selected(-1, get_option('poll_currentpoll')); ?>><?php _e('Do NOT Display Poll (Disable)', 'wp-polls'); ?></option>
 					<option value="-2"<?php selected(-2, get_option('poll_currentpoll')); ?>><?php _e('Display Random Poll', 'wp-polls'); ?></option>
 					<option value="0"<?php selected(0, get_option('poll_currentpoll')); ?>><?php _e('Display Latest Poll', 'wp-polls'); ?></option>
-					<?php if(function_exists('dynamic_sidebar')) { ?>
-					<option value="-3"<?php selected(-3, get_option('poll_currentpoll')); ?>><?php _e('Display Multiple Polls', 'wp-polls'); ?></option>
-					<?php } ?>
 					<optgroup>&nbsp;</optgroup>
 					<?php
 						$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");

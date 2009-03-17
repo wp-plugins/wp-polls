@@ -839,14 +839,12 @@ function polls_archive_link($page) {
 
 ### Function: Displays Polls Archive Link
 function display_polls_archive_link($display = true) {
-	if(intval(get_option('poll_archive_show')) == 1) {
-		$template_pollarchivelink = stripslashes(get_option('poll_template_pollarchivelink'));
-		$template_pollarchivelink = str_replace("%POLL_ARCHIVE_URL%", get_option('poll_archive_url'), $template_pollarchivelink);
-		if($display) {
-			echo $template_pollarchivelink;
-		} else{
-			return $template_pollarchivelink;
-		}
+	$template_pollarchivelink = stripslashes(get_option('poll_template_pollarchivelink'));
+	$template_pollarchivelink = str_replace("%POLL_ARCHIVE_URL%", get_option('poll_archive_url'), $template_pollarchivelink);
+	if($display) {
+		echo $template_pollarchivelink;
+	} else{
+		return $template_pollarchivelink;
 	}
 }
 
@@ -1361,11 +1359,101 @@ function polls_page_general_stats($content) {
 }
 
 
+### Class: WP-Polls Widget
+ class WP_Widget_Polls extends WP_Widget {
+	// Constructor
+	function WP_Widget_Polls() {
+		$widget_ops = array('description' => __('Put a poll that you have added in WP-Polls on your sidebar', 'wp-polls'));
+		$this->WP_Widget('polls', __('Polls'), $widget_ops);
+	}
+
+	// Display Widget
+	function widget($args, $instance) {
+		extract($args);
+		$title = attribute_escape($instance['title']);
+		$poll_id = intval($instance['poll_id']);
+		$display_pollarchive = intval($instance['display_pollarchive']);
+		echo $before_widget.$before_title.$title.$after_title;
+		get_poll($poll_id);	
+		if($display_pollarchive) {
+			display_polls_archive_link();
+		}
+		echo $after_widget;
+	}
+
+	// When Widget Control Form Is Posted
+	function update($new_instance, $old_instance) {
+		if (!isset($new_instance['submit'])) {
+			return false;
+		}
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['poll_id'] = intval($new_instance['poll_id']);
+		$instance['display_pollarchive'] = intval($new_instance['display_pollarchive']);
+		return $instance;
+	}
+
+	// DIsplay Widget Control Form
+	function form($instance) {
+		global $wpdb;
+		$instance = wp_parse_args((array) $instance, array('title' => __('Polls', 'wp-polls'), 'poll_id' => 0, 'display_pollarchive' => 1));
+		$title = attribute_escape($instance['title']);
+		$poll_id = intval($instance['poll_id']);
+		$display_pollarchive = intval($instance['display_pollarchive']);
+?>
+		<p>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'wp-polls'); ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('display_pollarchive'); ?>"><?php _e('Display Polls Archive Link Below Poll?', 'wp-polls'); ?>
+				<select name="<?php echo $this->get_field_name('display_pollarchive'); ?>" id="<?php echo $this->get_field_id('display_pollarchive'); ?>" class="widefat">
+					<option value="0"<?php selected(0, $display_pollarchive); ?>><?php _e('No', 'wp-polls'); ?></option>
+					<option value="1"<?php selected(1, $display_pollarchive); ?>><?php _e('Yes', 'wp-polls'); ?></option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('poll_id'); ?>"><?php _e('Poll To Display:', 'wp-polls'); ?>
+				<select name="<?php echo $this->get_field_name('poll_id'); ?>" id="<?php echo $this->get_field_id('poll_id'); ?>" class="widefat">
+					<option value="-1"<?php selected(-1, $poll_id); ?>><?php _e('Do NOT Display Poll (Disable)', 'wp-polls'); ?></option>
+					<option value="-2"<?php selected(-2, $poll_id); ?>><?php _e('Display Random Poll', 'wp-polls'); ?></option>
+					<option value="0"<?php selected(0, $poll_id); ?>><?php _e('Display Latest Poll', 'wp-polls'); ?></option>
+					<optgroup>&nbsp;</optgroup>
+					<?php
+					$polls = $wpdb->get_results("SELECT pollq_id, pollq_question FROM $wpdb->pollsq ORDER BY pollq_id DESC");
+					if($polls) {
+						foreach($polls as $poll) {
+							$pollq_question = stripslashes($poll->pollq_question);
+							$pollq_id = intval($poll->pollq_id);
+							if($pollq_id == $poll_id) {
+								echo "<option value=\"$pollq_id\" selected=\"selected\">$pollq_question</option>\n";
+							} else {
+								echo "<option value=\"$pollq_id\">$pollq_question</option>\n";
+							}
+						}
+					}
+					?>
+				</select>
+			</label>
+		</p>
+		<input type="hidden" id="<?php echo $this->get_field_id('submit'); ?>" name="<?php echo $this->get_field_name('submit'); ?>" value="1" />
+<?php
+	}
+}
+
+
+### Function: Init WP-Polls Widget
+add_action('widgets_init', 'widget_polls_init', 5);
+function widget_polls_init() {
+	new WP_Widget_Polls();
+}
+
+
 ### Function: Create Poll Tables
 add_action('activate_wp-polls/wp-polls.php', 'create_poll_table');
 function create_poll_table() {
 	global $wpdb;
-  polls_textdomain();
+	polls_textdomain();
 	if(@is_file(ABSPATH.'/wp-admin/upgrade-functions.php')) {
 		include_once(ABSPATH.'/wp-admin/upgrade-functions.php');
 	} elseif(@is_file(ABSPATH.'/wp-admin/includes/upgrade.php')) {
@@ -1465,7 +1553,6 @@ function create_poll_table() {
 	// Database Upgrade For WP-Polls 2.12
 	maybe_add_column($wpdb->pollsip, 'pollip_userid', "ALTER TABLE $wpdb->pollsip ADD pollip_userid INT( 10 ) NOT NULL DEFAULT '0';");
 	add_option('poll_archive_url', site_url('pollsarchive'), 'Polls Archive URL');
-	add_option('poll_archive_show', 1, 'Show Polls Archive?');
 	// Database Upgrade For WP-Polls 2.13
 	add_option('poll_bar', array('style' => 'default', 'background' => 'd8e1eb', 'border' => 'c8c8c8', 'height' => 8), 'Poll Bar Style');
 	// Database Upgrade For WP-Polls 2.14
@@ -1491,6 +1578,9 @@ function create_poll_table() {
 	add_option('poll_cookielog_expiry', 0, 'Cookie And Log Expiry Time');
 	add_option('poll_template_pollarchivepagingheader', '', 'Displayed Before Paging In The Poll Archive');
 	add_option('poll_template_pollarchivepagingfooter', '', 'Displayed After Paging In The Poll Archive');
+	// Database Upgrade For WP-Polls 2.50
+	delete_option('poll_archive_show');
+	delete_option('widget_polls');
 	// Set 'manage_polls' Capabilities To Administrator	
 	$role = get_role('administrator');
 	if(!$role->has_cap('manage_polls')) {
