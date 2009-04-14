@@ -1443,9 +1443,9 @@ function polls_page_general_stats($content) {
 
 
 ### Function: Init WP-Polls Widget
-add_action('widgets_init', 'widget_polls_init', 5);
+add_action('widgets_init', 'widget_polls_init');
 function widget_polls_init() {
-	new WP_Widget_Polls();
+	register_widget('WP_Widget_Polls');
 }
 
 
