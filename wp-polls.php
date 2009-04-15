@@ -1580,7 +1580,6 @@ function create_poll_table() {
 	add_option('poll_template_pollarchivepagingfooter', '', 'Displayed After Paging In The Poll Archive');
 	// Database Upgrade For WP-Polls 2.50
 	delete_option('poll_archive_show');
-	delete_option('widget_polls');
 	// Set 'manage_polls' Capabilities To Administrator	
 	$role = get_role('administrator');
 	if(!$role->has_cap('manage_polls')) {
