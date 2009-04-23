@@ -426,7 +426,7 @@ function check_voted_ip($poll_id) {
 function check_voted_username($poll_id) {
 	global $wpdb, $user_ID;
 	// Check IP If User Is Guest
-	if ($user_ID == 0) {
+	if (!is_user_logged_in()) {
 		return 1;
 	}
 	$pollsip_userid = intval($user_ID);
