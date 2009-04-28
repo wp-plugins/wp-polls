@@ -1370,7 +1370,7 @@ function polls_page_general_stats($content) {
 	// Display Widget
 	function widget($args, $instance) {
 		extract($args);
-		$title = attribute_escape($instance['title']);
+		$title = attr($instance['title']);
 		$poll_id = intval($instance['poll_id']);
 		$display_pollarchive = intval($instance['display_pollarchive']);
 		echo $before_widget.$before_title.$title.$after_title;
@@ -1397,7 +1397,7 @@ function polls_page_general_stats($content) {
 	function form($instance) {
 		global $wpdb;
 		$instance = wp_parse_args((array) $instance, array('title' => __('Polls', 'wp-polls'), 'poll_id' => 0, 'display_pollarchive' => 1));
-		$title = attribute_escape($instance['title']);
+		$title = attr($instance['title']);
 		$poll_id = intval($instance['poll_id']);
 		$display_pollarchive = intval($instance['display_pollarchive']);
 ?>
