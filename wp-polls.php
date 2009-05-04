@@ -1205,7 +1205,7 @@ function poll_timestamp($poll_timestamp, $fieldname = 'pollq_timestamp', $displa
 function cron_polls_place() {
 	wp_clear_scheduled_hook('polls_cron');
 	if (!wp_next_scheduled('polls_cron')) {
-		wp_schedule_event(time(), 'daily', 'polls_cron');
+		wp_schedule_event(time(), 'twicedaily', 'polls_cron');
 	}
 }
 

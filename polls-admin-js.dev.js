@@ -189,8 +189,8 @@ function check_polltimestamp() {
 // Show/Hide  Poll's Expiry Date
 function check_pollexpiry() {
 	if(jQuery('#pollq_expiry_no').is(':checked')) {
-		jQuery('#pollq_expiry_timestamp').hide();
+		jQuery('#pollq_expiry').hide();
 	} else {
-		jQuery('#pollq_expiry_timestamp').show();
+		jQuery('#pollq_expiry').show();
 	}
 }
