@@ -151,7 +151,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 				return display_pollresult($poll_id, $check_voted);
 			}
 		} elseif(!check_allowtovote() || ($poll_active == 0 && $poll_close == 3)) {
-			$disable_poll_js = '<script type="text/javascript">jQuery("#polls_form_'.$poll_id.' :input").each(function (i){jQuery(this).attr("disabled","disabled")});</script>';
+			$disable_poll_js = '<script type="text/javascript">jQuery("#polls_form_'.$poll_id.' :input").each(function (i){jQuery(this).esc_attr("disabled","disabled")});</script>';
 			if($display) {
 				echo display_pollvote($poll_id).$disable_poll_js;
 				return;
@@ -1370,7 +1370,7 @@ function polls_page_general_stats($content) {
 	// Display Widget
 	function widget($args, $instance) {
 		extract($args);
-		$title = attr($instance['title']);
+		$title = esc_attr($instance['title']);
 		$poll_id = intval($instance['poll_id']);
 		$display_pollarchive = intval($instance['display_pollarchive']);
 		echo $before_widget.$before_title.$title.$after_title;
@@ -1397,7 +1397,7 @@ function polls_page_general_stats($content) {
 	function form($instance) {
 		global $wpdb;
 		$instance = wp_parse_args((array) $instance, array('title' => __('Polls', 'wp-polls'), 'poll_id' => 0, 'display_pollarchive' => 1));
-		$title = attr($instance['title']);
+		$title = esc_attr($instance['title']);
 		$poll_id = intval($instance['poll_id']);
 		$display_pollarchive = intval($instance['display_pollarchive']);
 ?>
