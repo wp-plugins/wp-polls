@@ -138,7 +138,7 @@ if($_POST['Submit']) {
 					$pollbar_path = WP_PLUGIN_DIR.'/wp-polls/images';
 					if($handle = @opendir($pollbar_path)) {     
 						while (false !== ($filename = readdir($handle))) {  
-							if ($filename != '.' && $filename != '..') {
+							if (substr($filename, 0, 1) != '.' && substr($filename, 0, 2) != '..') {
 								if(is_dir($pollbar_path.'/'.$filename)) {
 									echo '<p>'."\n";
 									$pollbar_info = getimagesize($pollbar_path.'/'.$filename.'/pollbg.gif');
