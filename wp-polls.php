@@ -1370,7 +1370,7 @@ function polls_page_general_stats($content) {
 	// Display Widget
 	function widget($args, $instance) {
 		extract($args);
-		$title = esc_attr($instance['title']);
+		$title = apply_filters('widget_title', esc_attr($instance['title']));
 		$poll_id = intval($instance['poll_id']);
 		$display_pollarchive = intval($instance['display_pollarchive']);
 		echo $before_widget.$before_title.$title.$after_title;
