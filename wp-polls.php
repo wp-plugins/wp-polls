@@ -1373,7 +1373,9 @@ function polls_page_general_stats($content) {
 		$title = apply_filters('widget_title', esc_attr($instance['title']));
 		$poll_id = intval($instance['poll_id']);
 		$display_pollarchive = intval($instance['display_pollarchive']);
-		echo $before_widget.$before_title.$title.$after_title;
+		if(!empty($title)) {
+			echo $before_widget.$before_title.$title.$after_title;
+		}
 		get_poll($poll_id);	
 		if($display_pollarchive) {
 			display_polls_archive_link();
