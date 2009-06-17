@@ -629,10 +629,12 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 				$poll_answer_imagewidth = 1;
 			}
 			// Make Sure That Total Percentage Is 100% By Adding A Buffer To The Last Poll Answer
-			$poll_answer_percentage_array[] = $poll_answer_percentage;
-			if(sizeof($poll_answer_percentage_array) == sizeof($poll_answers)) {
-				$percentage_error_buffer = 100 - array_sum($poll_answer_percentage_array);
-				$poll_answer_percentage = $poll_answer_percentage + $percentage_error_buffer;
+			if($poll_multiple_ans == 0) {
+				$poll_answer_percentage_array[] = $poll_answer_percentage;
+				if(sizeof($poll_answer_percentage_array) == sizeof($poll_answers)) {
+					$percentage_error_buffer = 100 - array_sum($poll_answer_percentage_array);
+					$poll_answer_percentage = $poll_answer_percentage + $percentage_error_buffer;
+				}
 			}
 			// Let User See What Options They Voted
 			if(in_array($poll_answer_id, $user_voted)) {
