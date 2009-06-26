@@ -88,7 +88,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 		// Hardcoded Poll ID Is Not Specified
 		switch($temp_poll_id) {
 			// Random Poll
-			case -1:
+			case -2:
 				$poll_id = $wpdb->get_var("SELECT pollq_id FROM $wpdb->pollsq WHERE pollq_active = 1 ORDER BY RAND() LIMIT 1");
 				break;
 			// Latest Poll
