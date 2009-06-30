@@ -1002,10 +1002,12 @@ function polls_archive() {
 				$poll_answer_imagewidth = 1;
 			}
 			// Make Sure That Total Percentage Is 100% By Adding A Buffer To The Last Poll Answer
-			$poll_answer_percentage_array[] = $poll_answer_percentage;
-			if(sizeof($poll_answer_percentage_array) == sizeof($polls_answers[$polls_question['id']])) {
-				$percentage_error_buffer = 100 - array_sum($poll_answer_percentage_array);
-				$poll_answer_percentage = $poll_answer_percentage + $percentage_error_buffer;
+			if($polls_question['multiple'] == 0) {
+				$poll_answer_percentage_array[] = $poll_answer_percentage;
+				if(sizeof($poll_answer_percentage_array) == sizeof($polls_answers[$polls_question['id']])) {
+					$percentage_error_buffer = 100 - array_sum($poll_answer_percentage_array);
+					$poll_answer_percentage = $poll_answer_percentage + $percentage_error_buffer;
+				}
 			}
 			// Let User See What Options They Voted
 			if(in_array($polls_answer['aid'], check_voted_multiple($polls_question['id'], $polls_ips[$polls_question['id']]))) {				
@@ -1527,8 +1529,8 @@ function create_poll_table() {
 	'<ul class="wp-polls-ul">', 'Template For Poll\'s Question');
 	add_option('poll_template_votebody',  '<li><input type="%POLL_CHECKBOX_RADIO%" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" /> <label for="poll-answer-%POLL_ANSWER_ID%">%POLL_ANSWER%</label></li>', 'Template For Poll\'s Answers');
 	add_option('poll_template_votefooter', '</ul>'.
-	'<p style="text-align: center;"><input type="button" name="vote" value="   '.__('Vote', 'wp-polls').'   " class="Buttons" onclick="poll_vote(%POLL_ID%);" onkeypress="poll_result(%POLL_ID%);" /></p>'.
-	'<p style="text-align: center;"><a href="#ViewPollResults" onclick="poll_result(%POLL_ID%); return false;" onkeypress="poll_result(%POLL_ID%); return false;" title="'.__('View Results Of This Poll', 'wp-polls').'">'.__('View Results', 'wp-polls').'</a></p>'.
+	'<p style="text-align: center;"><input type="button" name="vote" value="   '.__('Vote', 'wp-polls').'   " class="Buttons" onclick="poll_vote(%POLL_ID%);" /></p>'.
+	'<p style="text-align: center;"><a href="#ViewPollResults" onclick="poll_result(%POLL_ID%); return false;" title="'.__('View Results Of This Poll', 'wp-polls').'">'.__('View Results', 'wp-polls').'</a></p>'.
 	'</div>', 'Template For Poll\'s Voting Footer');
 	add_option('poll_template_resultheader', '<p style="text-align: center;"><strong>%POLL_QUESTION%</strong></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="wp-polls-ans">'.
@@ -1540,7 +1542,7 @@ function create_poll_table() {
 	'</div>', 'Template For Poll Result Footer');
 	add_option('poll_template_resultfooter2', '</ul>'.
 	'<p style="text-align: center;">'.__('Total Voters', 'wp-polls').': <strong>%POLL_TOTALVOTERS%</strong></p>'.
-	'<p style="text-align: center;"><a href="#VotePoll" onclick="poll_booth(%POLL_ID%); return false;" onkeypress="poll_booth(%POLL_ID%); return false;" title="'.__('Vote For This Poll', 'wp-polls').'">'.__('Vote', 'wp-polls').'</a></p>'.
+	'<p style="text-align: center;"><a href="#VotePoll" onclick="poll_booth(%POLL_ID%); return false;" title="'.__('Vote For This Poll', 'wp-polls').'">'.__('Vote', 'wp-polls').'</a></p>'.
 	'</div>', 'Template For Poll Result Footer');
 	add_option('poll_template_disable', __('Sorry, there are no polls available at the moment.', 'wp-polls'), 'Template For Poll When It Is Disabled');
 	add_option('poll_template_error', __('An error has occurred when processing your poll.', 'wp-polls'), 'Template For Poll When An Error Has Occured');
