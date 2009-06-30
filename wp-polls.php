@@ -1368,7 +1368,7 @@ function polls_page_general_stats($content) {
 	// Constructor
 	function WP_Widget_Polls() {
 		$widget_ops = array('description' => __('WP-Polls polls', 'wp-polls'));
-		$this->WP_Widget('polls', __('Polls', 'wp-polls'), $widget_ops);
+		$this->WP_Widget('polls-widget', __('Polls', 'wp-polls'), $widget_ops);
 	}
 
 	// Display Widget
