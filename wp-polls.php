@@ -151,7 +151,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 				return display_pollresult($poll_id, $check_voted);
 			}
 		} elseif(!check_allowtovote() || ($poll_active == 0 && $poll_close == 3)) {
-			$disable_poll_js = '<script type="text/javascript">jQuery("#polls_form_'.$poll_id.' :input").each(function (i){jQuery(this).esc_attr("disabled","disabled")});</script>';
+			$disable_poll_js = '<script type="text/javascript">jQuery("#polls_form_'.$poll_id.' :input").each(function (i){jQuery(this).attr("disabled","disabled")});</script>';
 			if($display) {
 				echo display_pollvote($poll_id).$disable_poll_js;
 				return;
@@ -1269,9 +1269,9 @@ function vote_poll() {
 			$check_voted = check_voted($poll_id);
 			if($check_voted == 0) {
 				if(!empty($user_identity)) {
-					$pollip_user = addslashes($user_identity);
+					$pollip_user = htmlspecialchars(addslashes($user_identity));
 				} elseif(!empty($_COOKIE['comment_author_'.COOKIEHASH])) {
-					$pollip_user = addslashes($_COOKIE['comment_author_'.COOKIEHASH]);
+					$pollip_user = htmlspecialchars(addslashes($_COOKIE['comment_author_'.COOKIEHASH]));
 				} else {
 					$pollip_user = __('Guest', 'wp-polls');
 				}
