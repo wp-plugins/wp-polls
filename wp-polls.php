@@ -1264,7 +1264,7 @@ function vote_poll() {
 		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
 		$poll_id = intval($_POST['poll_id']);
 		$poll_aid = $_POST["poll_$poll_id"];
-		$poll_aid_array = explode(',', $poll_aid);
+		$poll_aid_array = array_map('intval', explode(',', $poll_aid));
 		if($poll_id > 0 && !empty($poll_aid_array) && check_allowtovote()) {
 			$check_voted = check_voted($poll_id);
 			if($check_voted == 0) {
