@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.8 Plugin: WP-Polls 2.50										|
+|	WordPress 2.8 Plugin: WP-Polls 2.60										|
 |	Copyright (c) 2009 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -41,6 +41,7 @@ if(!empty($_POST['do'])) {
 	switch($_POST['do']) {
 		// Delete Polls Logs
 		case __('Delete All Logs', 'wp-polls'):
+			check_ajax_referer('wp-polls_delete-polls-logs');
 			if(trim($_POST['delete_logs_yes']) == 'yes') {
 				$delete_logs = $wpdb->query("DELETE FROM $wpdb->pollsip");
 				if($delete_logs) {
@@ -52,6 +53,7 @@ if(!empty($_POST['do'])) {
 			break;
 		// Delete Poll Logs For Individual Poll
 		case __('Delete Logs For This Poll Only', 'wp-polls'):
+			check_ajax_referer('wp-polls_delete-poll-logs');
 			$pollq_id  = intval($_POST['pollq_id']);
 			$pollq_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
 			if(trim($_POST['delete_logs_yes']) == 'yes') {
@@ -65,6 +67,7 @@ if(!empty($_POST['do'])) {
 			break;
 		// Delete Poll's Answer
 		case __('Delete Poll Answer', 'wp-polls'):
+			check_ajax_referer('wp-polls_delete-poll-answer');
 			$pollq_id  = intval($_POST['pollq_id']);
 			$polla_aid = intval($_POST['polla_aid']);
 			$poll_answers = $wpdb->get_row("SELECT polla_votes, polla_answers FROM $wpdb->pollsa WHERE polla_aid = $polla_aid AND polla_qid = $pollq_id");
@@ -81,6 +84,7 @@ if(!empty($_POST['do'])) {
 			break;
 		// Open Poll
 		case __('Open Poll', 'wp-polls'):
+			check_ajax_referer('wp-polls_open-poll');
 			$pollq_id  = intval($_POST['pollq_id']);
 			$pollq_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
 			$open_poll = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 1 WHERE pollq_id = $pollq_id;");
@@ -92,6 +96,7 @@ if(!empty($_POST['do'])) {
 			break;
 		// Close Poll
 		case __('Close Poll', 'wp-polls'):
+			check_ajax_referer('wp-polls_close-poll');
 			$pollq_id  = intval($_POST['pollq_id']);
 			$pollq_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
 			$close_poll = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 0 WHERE pollq_id = $pollq_id;");
@@ -103,6 +108,7 @@ if(!empty($_POST['do'])) {
 			break;
 		// Delete Poll
 		case __('Delete Poll', 'wp-polls'):
+			check_ajax_referer('wp-polls_delete-poll');
 			$pollq_id  = intval($_POST['pollq_id']);
 			$pollq_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
 			$delete_poll_question = $wpdb->query("DELETE FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");

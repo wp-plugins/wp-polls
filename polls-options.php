@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.8 Plugin: WP-Polls 2.50										|
+|	WordPress 2.8 Plugin: WP-Polls 2.60										|
 |	Copyright (c) 2009 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -31,6 +31,7 @@ $id = intval($_GET['id']);
 
 ### If Form Is Submitted
 if($_POST['Submit']) {
+	check_admin_referer('wp-polls_options');
 	$poll_bar_style = strip_tags(trim($_POST['poll_bar_style']));
 	$poll_bar_background = strip_tags(trim($_POST['poll_bar_bg']));
 	$poll_bar_border = strip_tags(trim($_POST['poll_bar_border']));
@@ -122,7 +123,8 @@ if($_POST['Submit']) {
 /* ]]> */
 </script>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
-<form id="poll_options_form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo plugin_basename(__FILE__); ?>">
+<form id="poll_options_form" method="post" action="<?php echo admin_url('admin.php?page='.plugin_basename(__FILE__)); ?>">
+<?php wp_nonce_field('wp-polls_options'); ?>
 <div class="wrap">
 	<div id="icon-wp-polls" class="icon32"><br /></div>
 	<h2><?php _e('Poll Options', 'wp-polls'); ?></h2>
@@ -381,7 +383,7 @@ if($_POST['Submit']) {
 	
 	<!-- Submit Button -->
 	<p class="submit">
-		<input type="submit" name="Submit" class="button" value="<?php _e('Save Changes', 'wp-polls'); ?>" />
+		<input type="submit" name="Submit" class="button-primary" value="<?php _e('Save Changes', 'wp-polls'); ?>" />
 	</p>
 </div> 
 </form> 

@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.8 Plugin: WP-Polls 2.50										|
+|	WordPress 2.8 Plugin: WP-Polls 2.60										|
 |	Copyright (c) 2009 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -37,6 +37,7 @@ if(!empty($_POST['do'])) {
 	switch($_POST['do']) {
 		//  Uninstall WP-Polls (By: Philippe Corbes)
 		case __('UNINSTALL WP-Polls', 'wp-polls') :
+			check_admin_referer('wp-polls_uninstall');
 			if(trim($_POST['uninstall_poll_yes']) == 'yes') {
 				echo '<div id="message" class="updated fade">';
 				echo '<p>';
@@ -54,10 +55,6 @@ if(!empty($_POST['do'])) {
 						echo '<font color="green">';
 						printf(__('Setting Key \'%s\' has been deleted.', 'wp-polls'), "<strong><em>{$setting}</em></strong>");
 						echo '</font><br />';
-					} else {
-						echo '<font color="red">';
-						printf(__('Error deleting Setting Key \'%s\' or Setting Key \'%s\' does not exist.', 'wp-polls'), "<strong><em>{$setting}</em></strong>");
-						echo '</font><br />';
 					}
 				}
 				echo '</p>';
@@ -73,10 +70,7 @@ if(!empty($_POST['do'])) {
 switch($mode) {
 		//  Deactivating WP-Polls (By: Philippe Corbes)
 		case 'end-UNINSTALL':
-			$deactivate_url = 'plugins.php?action=deactivate&amp;plugin=wp-polls/wp-polls.php';
-			if(function_exists('wp_nonce_url')) { 
-				$deactivate_url = wp_nonce_url($deactivate_url, 'deactivate-plugin_wp-polls/wp-polls.php');
-			}
+			$deactivate_url = wp_nonce_url('plugins.php?action=deactivate&amp;plugin=wp-polls/wp-polls.php', 'deactivate-plugin_wp-polls/wp-polls.php');
 			echo '<div class="wrap">';
 			echo '<div id="icon-wp-polls" class="icon32"><br /></div>';
 			echo '<h2>'.__('Uninstall WP-Polls', 'wp-polls').'</h2>';
@@ -87,7 +81,8 @@ switch($mode) {
 	default:
 ?>
 <!-- Uninstall WP-Polls (By: Philippe Corbes) -->
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo plugin_basename(__FILE__); ?>">
+<form method="post" action="<?php echo admin_url('admin.php?page='.plugin_basename(__FILE__)); ?>">
+<?php wp_nonce_field('wp-polls_uninstall'); ?>
 <div class="wrap">
 	<div id="icon-wp-polls" class="icon32"><br /></div>
 	<h2><?php _e('Uninstall WP-Polls', 'wp-polls'); ?></h2>
@@ -132,7 +127,7 @@ switch($mode) {
 	<p style="text-align: center;">
 		<?php _e('Do you really want to uninstall WP-Polls?', 'wp-polls'); ?><br /><br />
 		<input type="checkbox" name="uninstall_poll_yes" value="yes" />&nbsp;<?php _e('Yes', 'wp-polls'); ?><br /><br />
-		<input type="submit" name="do" value="<?php _e('UNINSTALL WP-Polls', 'wp-polls'); ?>" class="button" onclick="return confirm('<?php _e('You Are About To Uninstall WP-Polls From WordPress.\nThis Action Is Not Reversible.\n\n Choose [Cancel] To Stop, [OK] To Uninstall.', 'wp-polls'); ?>')" />
+		<input type="submit" name="do" value="<?php _e('UNINSTALL WP-Polls', 'wp-polls'); ?>" class="button-primary" onclick="return confirm('<?php _e('You Are About To Uninstall WP-Polls From WordPress.\nThis Action Is Not Reversible.\n\n Choose [Cancel] To Stop, [OK] To Uninstall.', 'wp-polls'); ?>')" />
 	</p>
 </div>
 </form>

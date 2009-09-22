@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.8 Plugin: WP-Polls 2.50										|
+|	WordPress 2.8 Plugin: WP-Polls 2.60										|
 |	Copyright (c) 2009 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -24,6 +24,7 @@ if(!current_user_can('manage_polls')) {
 
 
 ### Variables
+$max_records = 2000;
 $pollip_answers = array();
 $poll_question_data = $wpdb->get_row("SELECT pollq_multiple, pollq_question, pollq_totalvoters FROM $wpdb->pollsq WHERE pollq_id = $poll_id");
 $poll_question = stripslashes($poll_question_data->pollq_question);
@@ -40,6 +41,7 @@ $poll_logs_count = $wpdb->get_var("SELECT COUNT(pollip_id) FROM $wpdb->pollsip W
 
 ### Process Filters
 if(!empty($_POST['do'])) {
+	check_admin_referer('wp-polls_logs');
 	$registered_sql = '';
 	$comment_sql = '';
 	$guest_sql = '';
@@ -115,7 +117,7 @@ if(!empty($_POST['do'])) {
 	}
 	$poll_ips = $wpdb->get_results("SELECT $wpdb->pollsip.* FROM $wpdb->pollsip WHERE pollip_qid = $poll_id $users_voted_for_sql $registered_sql $comment_sql $guest_sql $what_user_voted_sql $num_choices_sql ORDER BY $order_by");
 } else {
-	$poll_ips = $wpdb->get_results("SELECT pollip_aid, pollip_ip, pollip_host, pollip_timestamp, pollip_user FROM $wpdb->pollsip WHERE pollip_qid = $poll_id ORDER BY pollip_aid ASC, pollip_user ASC LIMIT 100");
+	$poll_ips = $wpdb->get_results("SELECT pollip_aid, pollip_ip, pollip_host, pollip_timestamp, pollip_user FROM $wpdb->pollsip WHERE pollip_qid = $poll_id ORDER BY pollip_aid ASC, pollip_user ASC LIMIT $max_records");
 }
 ?>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
@@ -136,7 +138,8 @@ if(!empty($_POST['do'])) {
 	<table width="100%"  border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td width="50%">
-				<form method="post" action="<?php echo htmlspecialchars($base_page); ?>&amp;mode=logs&amp;id=<?php echo $poll_id; ?>">
+				<form method="post" action="<?php echo admin_url('admin.php?page='.$base_name.'&amp;mode=logs&amp;id='.$poll_id); ?>">
+				<?php wp_nonce_field('wp-polls_logs'); ?>
 				<p style="display: none;"><input type="hidden" name="filter" value="1" /></p>
 				<table class="form-table">
 					<tr>
@@ -176,7 +179,8 @@ if(!empty($_POST['do'])) {
 			</td>
 			<td width="50%">
 				<?php if($poll_multiple > 0) { ?>
-					<form method="post" action="<?php echo htmlspecialchars($base_page); ?>&amp;mode=logs&amp;id=<?php echo $poll_id; ?>">
+					<form method="post" action="<?php echo admin_url('admin.php?page='.$base_name.'&amp;mode=logs&amp;id='.$poll_id); ?>">
+					<?php wp_nonce_field('wp-polls_logs'); ?>
 					<p style="display: none;"><input type="hidden" name="filter" value="2" /></p>
 					<table class="form-table">
 						<tr>
@@ -228,7 +232,8 @@ if(!empty($_POST['do'])) {
 		<tr>
 			<td>
 				<?php if($poll_voters) { ?>
-				<form method="post" action="<?php echo htmlspecialchars($base_page); ?>&amp;mode=logs&amp;id=<?php echo $poll_id; ?>">
+				<form method="post" action="<?php echo admin_url('admin.php?page='.$base_name.'&amp;mode=logs&amp;id='.$poll_id); ?>">
+				<?php wp_nonce_field('wp-polls_logs'); ?>
 				<p style="display: none;"><input type="hidden" name="filter" value="3" /></p>
 				<table class="form-table">
 					<tr>
@@ -270,7 +275,7 @@ if(!empty($_POST['do'])) {
 		<?php
 			if($poll_ips) {
 				if(empty($_POST['do'])) {
-					echo '<p>'.__('This default filter is limited to display only <strong>100</strong> records.', 'wp-polls').'</p>';
+					echo '<p>'.sprintf(__('This default filter is limited to display only <strong>%s</strong> records.', 'wp-polls'), number_format_i18n($max_records)).'</p>';
 				}
 				echo '<table class="widefat">'."\n";
 				$k = 1;
@@ -371,7 +376,7 @@ if(!empty($_POST['do'])) {
 		<?php if($poll_logs_count) { ?>
 			<strong><?php _e('Are You Sure You Want To Delete Logs For This Poll Only?', 'wp-polls'); ?></strong><br /><br />
 			<input type="checkbox" id="delete_logs_yes" name="delete_logs_yes" value="yes" />&nbsp;<label for="delete_logs_yes"><?php _e('Yes', 'wp-polls'); ?></label><br /><br />
-			<input type="button" name="do" value="<?php _e('Delete Logs For This Poll Only', 'wp-polls'); ?>" class="button" onclick="delete_this_poll_logs(<?php echo $poll_id; ?>, '<?php printf(js_escape(__('You are about to delete poll logs for this poll \'%s\' ONLY. This action is not reversible.', 'wp-polls')), htmlspecialchars($poll_question)); ?>');" />
+			<input type="button" name="do" value="<?php _e('Delete Logs For This Poll Only', 'wp-polls'); ?>" class="button" onclick="delete_this_poll_logs(<?php echo $poll_id; ?>, '<?php printf(js_escape(__('You are about to delete poll logs for this poll \'%s\' ONLY. This action is not reversible.', 'wp-polls')), htmlspecialchars($poll_question)); ?>', '<?php echo wp_create_nonce('wp-polls_delete-poll-logs'); ?>');" />
 		<?php 
 			} else {
 				_e('No poll logs available for this poll.', 'wp-polls');

@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.8 Plugin: WP-Polls 2.50										|
+|	WordPress 2.8 Plugin: WP-Polls 2.60										|
 |	Copyright (c) 2009 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -34,6 +34,7 @@ if(!empty($_POST['do'])) {
 	switch($_POST['do']) {
 		// Add Poll
 		case __('Add Poll', 'wp-polls'):
+			check_admin_referer('wp-polls_add-poll');
 			// Poll Question
 			$pollq_question = addslashes(trim($_POST['pollq_question']));
 			// Poll Start Date
@@ -105,7 +106,8 @@ $poll_noquestion = 2;
 $count = 0;
 ?>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } ?>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo plugin_basename(__FILE__); ?>">
+<form method="post" action="<?php echo admin_url('admin.php?page='.plugin_basename(__FILE__)); ?>">
+<?php wp_nonce_field('wp-polls_add-poll'); ?>
 <div class="wrap">
 	<div id="icon-wp-polls" class="icon32"><br /></div>
 	<h2><?php _e('Add Poll', 'wp-polls'); ?></h2>
@@ -175,6 +177,6 @@ $count = 0;
 			<td width="80%"><input type="checkbox" name="pollq_expiry_no" id="pollq_expiry_no" value="1" checked="checked" onclick="check_pollexpiry();" />&nbsp;&nbsp;<label for="pollq_expiry_no"><?php _e('Do NOT Expire This Poll', 'wp-polls'); ?></label><?php poll_timestamp(current_time('timestamp'), 'pollq_expiry', 'none'); ?></td>
 		</tr>
 	</table>
-	<p style="text-align: center;"><input type="submit" name="do" value="<?php _e('Add Poll', 'wp-polls'); ?>"  class="button" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /></p>
+	<p style="text-align: center;"><input type="submit" name="do" value="<?php _e('Add Poll', 'wp-polls'); ?>"  class="button-primary" />&nbsp;&nbsp;<input type="button" name="cancel" value="<?php _e('Cancel', 'wp-polls'); ?>" class="button" onclick="javascript:history.go(-1)" /></p>
 </div>
 </form>

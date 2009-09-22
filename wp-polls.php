@@ -3,7 +3,7 @@
 Plugin Name: WP-Polls
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Adds an AJAX poll system to your WordPress blog. You can easily include a poll into your WordPress's blog post/page. WP-Polls is extremely customizable via templates and css styles and there are tons of options for you to choose to ensure that WP-Polls runs the way you wanted. It now supports multiple selection of answers.
-Version: 2.50
+Version: 2.60
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 */
@@ -1504,7 +1504,10 @@ function create_poll_table() {
 									"pollip_timestamp varchar(20) NOT NULL default '0000-00-00 00:00:00',".
 									"pollip_user tinytext NOT NULL,".
 									"pollip_userid int(10) NOT NULL default '0',".
-									"PRIMARY KEY (pollip_id)) $charset_collate;";
+									"PRIMARY KEY (pollip_id),".
+									"KEY pollip_ip (pollip_id),".
+									"KEY pollip_qid (pollip_qid)".
+									") $charset_collate;";
 	maybe_create_table($wpdb->pollsq, $create_table['pollsq']);
 	maybe_create_table($wpdb->pollsa, $create_table['pollsa']);
 	maybe_create_table($wpdb->pollsip, $create_table['pollsip']);
@@ -1587,6 +1590,9 @@ function create_poll_table() {
 	add_option('poll_template_pollarchivepagingfooter', '', 'Displayed After Paging In The Poll Archive');
 	// Database Upgrade For WP-Polls 2.50
 	delete_option('poll_archive_show');
+	// Database Upgrade For WP-Polls 2.60
+	$wpdb->query("ALTER TABLE $wpdb->pollsip ADD INDEX pollip_ip (pollip_id);");
+	$wpdb->query("ALTER TABLE $wpdb->pollsip ADD INDEX pollip_qid (pollip_qid);");
 	// Set 'manage_polls' Capabilities To Administrator	
 	$role = get_role('administrator');
 	if(!$role->has_cap('manage_polls')) {
