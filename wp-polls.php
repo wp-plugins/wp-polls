@@ -73,7 +73,11 @@ function poll_menu() {
 function get_poll($temp_poll_id = 0, $display = true) {
 	global $wpdb, $polls_loaded;
 	// Poll Result Link
-	$pollresult_id = intval($_GET['pollresult']);
+	if(isset($_GET['pollresult'])) {
+		$pollresult_id = intval($_GET['pollresult']);
+	} else {
+		$pollresult_id = 0;
+	}
 	$temp_poll_id = intval($temp_poll_id);
 	// Check Whether Poll Is Disabled
 	if(intval(get_option('poll_currentpoll')) == -1) {
@@ -511,7 +515,7 @@ function display_pollvote($poll_id, $display_loading = true) {
 		// Determine Poll Result URL
 		$poll_result_url = $_SERVER['REQUEST_URI'];
 		$poll_result_url = preg_replace('/pollresult=(\d+)/i', 'pollresult='.$poll_question_id, $poll_result_url);
-		if(intval($_GET['pollresult']) == 0) {
+		if(isset($_GET['pollresult']) && intval($_GET['pollresult']) == 0) {
 			if(strpos($poll_result_url, '?') !== false) {
 				$poll_result_url = "$poll_result_url&amp;pollresult=$poll_question_id";
 			} else {
