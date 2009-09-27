@@ -644,6 +644,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 			if(in_array($poll_answer_id, $user_voted)) {
 				// Results Body Variables
 				$template_answer = stripslashes(get_option('poll_template_resultbody2'));
+				$template_answer = str_replace("%POLL_ID%", $poll_question_id, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_ID%", $poll_answer_id, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER%", $poll_answer_text, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($poll_answer_text)), $template_answer);
@@ -655,6 +656,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 			} else {
 				// Results Body Variables
 				$template_answer = stripslashes(get_option('poll_template_resultbody'));
+				$template_answer = str_replace("%POLL_ID%", $poll_question_id, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_ID%", $poll_answer_id, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER%", $poll_answer_text, $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($poll_answer_text)), $template_answer);

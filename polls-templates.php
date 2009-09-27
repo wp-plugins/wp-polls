@@ -343,6 +343,7 @@ if($_POST['Submit']) {
 			<td width="30%" valign="top">
 				<strong><?php _e('Result Body:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS NOT Voted', 'wp-polls'); ?><br /><br />
 				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				<p style="margin: 2px 0">- %POLL_ID%</p>
 				<p style="margin: 2px 0">- %POLL_ANSWER_ID%</p>
 				<p style="margin: 2px 0">- %POLL_ANSWER%</p>
 				<p style="margin: 2px 0">- %POLL_ANSWER_TEXT%</p>
@@ -357,6 +358,7 @@ if($_POST['Submit']) {
 			<td width="30%" valign="top">
 				<strong><?php _e('Result Body:', 'wp-polls'); ?></strong><br /><?php _e('Displayed When The User HAS Voted', 'wp-polls'); ?><br /><br />
 				<?php _e('Allowed Variables:', 'wp-polls'); ?><br />
+				<p style="margin: 2px 0">- %POLL_ID%</p>
 				<p style="margin: 2px 0">- %POLL_ANSWER_ID%</p>
 				<p style="margin: 2px 0">- %POLL_ANSWER%</p>
 				<p style="margin: 2px 0">- %POLL_ANSWER_TEXT%</p>
