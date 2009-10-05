@@ -133,7 +133,7 @@ function poll_booth(current_poll_id) {
 
 // Poll Process Successfully
 function poll_process_success(data) {
-	jQuery('#polls-' + poll_id).html(data);
+	jQuery('#polls-' + poll_id).replaceWith(data);
 	if(pollsL10n.show_loading) {
 		jQuery('#polls-' + poll_id + '-loading').hide();
 	}
