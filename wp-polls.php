@@ -1019,6 +1019,7 @@ function polls_archive() {
 			if(in_array($polls_answer['aid'], check_voted_multiple($polls_question['id'], $polls_ips[$polls_question['id']]))) {				
 				// Results Body Variables
 				$template_answer = stripslashes(get_option('poll_template_resultbody2'));
+				$template_answer = str_replace("%POLL_ID%", $polls_question['id'], $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
@@ -1030,6 +1031,7 @@ function polls_archive() {
 			} else {
 				// Results Body Variables
 				$template_answer = stripslashes(get_option('poll_template_resultbody'));
+				$template_answer = str_replace("%POLL_ID%", $polls_question['id'], $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_ID%", $polls_answer['aid'], $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER%", $polls_answer['answers'], $template_answer);
 				$template_answer = str_replace("%POLL_ANSWER_TEXT%", htmlspecialchars(strip_tags($polls_answer['answers'])), $template_answer);
@@ -1057,6 +1059,7 @@ function polls_archive() {
 		}
 		// Results Footer Variables
 		$template_footer = stripslashes(get_option('poll_template_resultfooter'));
+		$template_footer = str_replace("%POLL_ID%", $polls_question['id'], $template_footer);
 		$template_footer = str_replace("%POLL_START_DATE%", $poll_start_date, $template_footer);
 		$template_footer = str_replace("%POLL_END_DATE%", $poll_end_date, $template_footer);
 		$template_footer = str_replace("%POLL_TOTALVOTES%", number_format_i18n($polls_question['totalvotes']), $template_footer);
