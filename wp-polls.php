@@ -273,7 +273,7 @@ function poll_footer_admin() {
 	echo "\t\t".'enter_poll_id: "'.js_escape(__('Enter Poll ID', 'wp-polls')).'",'."\n";
 	echo "\t\t".'enter_poll_id_again: "'.js_escape(__('Error: Poll ID must be numeric', 'wp-polls')).'\n\n'.js_escape(__('Please enter Poll ID again', 'wp-polls')).'",'."\n";
 	echo "\t\t".'poll: "'.js_escape(__('Poll', 'wp-polls')).'",'."\n";
-	echo "\t\t".'insert_poll: "'.js_escape(__('Insert_Poll', 'wp-polls')).'",'."\n";
+	echo "\t\t".'insert_poll: "'.js_escape(__('Insert_Poll', 'wp-polls')).'"'."\n";
 	echo "\t".'};'."\n";
 	echo "\t".'function insertPoll(where, myField) {'."\n";
 	echo "\t\t".'var poll_id = jQuery.trim(prompt(pollsEdL10n.enter_poll_id));'."\n";
