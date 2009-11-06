@@ -1325,11 +1325,13 @@ function vote_poll() {
 			exit();
 		} // End if($poll_id > 0 && $poll_aid > 0)
 	} elseif (intval($_GET['pollresult']) > 0) {
+		polls_textdomain();
 		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
 		$poll_id = intval($_GET['pollresult']);
 		echo display_pollresult($poll_id, 0, false);
 		exit();
 	} elseif (intval($_GET['pollbooth']) > 0) {
+		polls_textdomain();
 		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
 		$poll_id = intval($_GET['pollbooth']);
 		echo display_pollvote($poll_id, false);
