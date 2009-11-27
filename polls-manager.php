@@ -287,15 +287,15 @@ switch($mode) {
 						<br />
 						<input type="checkbox" name="pollq_expiry_no" id="pollq_expiry_no" value="1" onclick="check_pollexpiry();" <?php if(empty($poll_expiry)) { echo 'checked="checked"'; } ?> />
 						<label for="pollq_expiry_no"><?php _e('Do NOT Expire This Poll', 'wp-polls'); ?></label><br />
-						<div id="pollq_expiry_timestamp" style="display: <?php if(empty($poll_expiry)) { echo 'none'; } else { echo 'block'; } ?>;">
+						
 						<?php 
 							if(empty($poll_expiry)) {
-								poll_timestamp(current_time('timestamp'), 'pollq_expiry');
+								poll_timestamp(current_time('timestamp'), 'pollq_expiry', 'none');
 							} else {
 								poll_timestamp($poll_expiry, 'pollq_expiry');
 							}
 						?>
-						</div>
+						
 					</td>
 				</tr>
 			</table>
