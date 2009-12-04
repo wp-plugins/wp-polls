@@ -638,6 +638,9 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 				if(sizeof($poll_answer_percentage_array) == sizeof($poll_answers)) {
 					$percentage_error_buffer = 100 - array_sum($poll_answer_percentage_array);
 					$poll_answer_percentage = $poll_answer_percentage + $percentage_error_buffer;
+					if($poll_answer_percentage < 0) {
+						$poll_answer_percentage = 0;
+					}
 				}
 			}
 			// Let User See What Options They Voted
@@ -1177,7 +1180,7 @@ function poll_timestamp($poll_timestamp, $fieldname = 'pollq_timestamp', $displa
 		}
 	}
 	echo '</select>&nbsp;@'."\n";
-  echo '<span dir="ltr">'."\n";
+	echo '<span dir="ltr">'."\n";
 	$hour = gmdate('H', $poll_timestamp);
 	echo '<select name="'.$fieldname.'_hour" size="1">'."\n";
 	for($i = 0; $i < 24; $i++) {
@@ -1208,8 +1211,8 @@ function poll_timestamp($poll_timestamp, $fieldname = 'pollq_timestamp', $displa
 			echo "<option value=\"$i\">$i</option>\n";	
 		}
 	}
-  echo '</span>'."\n";
 	echo '</select>'."\n";
+	echo '</span>'."\n";
 	echo '</div>'."\n";
 }
 
