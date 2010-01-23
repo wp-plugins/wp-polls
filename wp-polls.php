@@ -147,7 +147,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 		} else {
 			$poll_close = 0;
 		}
-		if(sizeof($check_voted) > 0 || intval($check_voted) > 0 || ($poll_active == 0 && $poll_close == 1)) {
+		if(intval($check_voted) > 0 || (is_array($check_voted) && sizeof($check_voted) > 0) || ($poll_active == 0 && $poll_close == 1)) {
 			if($display) {
 				echo display_pollresult($poll_id, $check_voted);
 				return;
