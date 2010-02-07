@@ -1016,6 +1016,9 @@ function polls_archive() {
 				if(sizeof($poll_answer_percentage_array) == sizeof($polls_answers[$polls_question['id']])) {
 					$percentage_error_buffer = 100 - array_sum($poll_answer_percentage_array);
 					$poll_answer_percentage = $poll_answer_percentage + $percentage_error_buffer;
+					if($poll_answer_percentage < 0) {
+						$poll_answer_percentage = 0;
+					}
 				}
 			}
 			// Let User See What Options They Voted
