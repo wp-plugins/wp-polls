@@ -3,7 +3,7 @@
 Plugin Name: WP-Polls
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Adds an AJAX poll system to your WordPress blog. You can easily include a poll into your WordPress's blog post/page. WP-Polls is extremely customizable via templates and css styles and there are tons of options for you to choose to ensure that WP-Polls runs the way you wanted. It now supports multiple selection of answers.
-Version: 2.60
+Version: 2.61
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 */
@@ -1351,8 +1351,6 @@ if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['
 	add_filter('wp_stats_page_admin_plugins', 'polls_page_admin_general_stats');
 	add_filter('wp_stats_page_plugins', 'polls_page_general_stats');
 }
-if ($_SERVER['PHP_SELF'] == @links_add_base_url("/", $_SERVER['HTTP_REFERER']))
-        return;
 
 
 ### Function: Add WP-Polls General Stats To WP-Stats Page Options
@@ -1609,7 +1607,7 @@ function create_poll_table() {
 	add_option('poll_template_pollarchivepagingfooter', '', 'Displayed After Paging In The Poll Archive');
 	// Database Upgrade For WP-Polls 2.50
 	delete_option('poll_archive_show');
-	// Database Upgrade For WP-Polls 2.60
+	// Database Upgrade For WP-Polls 2.61
 	$wpdb->query("ALTER TABLE $wpdb->pollsip ADD INDEX pollip_ip (pollip_id);");
 	$wpdb->query("ALTER TABLE $wpdb->pollsip ADD INDEX pollip_qid (pollip_qid);");
 	// Set 'manage_polls' Capabilities To Administrator	
