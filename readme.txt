@@ -38,7 +38,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 == Changelog ==
 
 = Version 2.61 (14-02-2011) =
-* FIXED: XSS Vulnerability. Thanks Dion Hulse aka dd32
+* FIXED: XSS Vulnerability. Thanks to Swiftwill, Inc for the reort!
 
 = Version 2.60 (01-12-2009) =
 * NEW: Uses WordPress nonce Throughout
