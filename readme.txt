@@ -26,7 +26,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * [http://dev.wp-plugins.org/browser/wp-polls/i18n/](http://dev.wp-plugins.org/browser/wp-polls/i18n/ "http://dev.wp-plugins.org/browser/wp-polls/i18n/")
 
 = Support Forums =
-* [http://forums.lesterchan.net/index.php?board=15.0](http://forums.lesterchan.net/index.php?board=25.0 "http://forums.lesterchan.net/index.php?board=15.0")
+* [http://forums.lesterchan.net/index.php?board=15.0](http://forums.lesterchan.net/index.php?board=15.0 "http://forums.lesterchan.net/index.php?board=15.0")
 
 = Credits =
 * __ngetext() by [Anna Ozeritskaya](http://hweia.ru/ "Anna Ozeritskaya")
