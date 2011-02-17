@@ -228,7 +228,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 
 = Version 2.01 (25-10-2005) =
 * FIXED: Upgrade Script To Insert Lastest Poll ID Of User's Current Polls, Instead Of Poll ID 1
-* FIXED: Replace All &lt;?= With &lt;?php
+* FIXED: Replace All <?= With <?php
 * FIXED: Added addalshes() To $pollip_user
 * FIXED: Better Localization Support (80% Done, Will Leave It In The Mean Time)
 
@@ -249,6 +249,33 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 2. Put: `Folder: wp-polls`
 3. Activate `WP-Polls` Plugin
 4. Go to `WP-Admin -> WP-Polls`
+
+= General Usage (Without Widget) =
+1. Open `wp-content/themes/<YOUR THEME NAME>/sidebar.php`
+2. Add:
+<code>
+<?php if (function_exists('vote_poll') &amp;&amp; !in_pollarchive()): ?>
+	<li>
+		<h2>Polls</h2>
+		<ul>
+			<li><?php get_poll();?></li>
+		</ul>
+		<?php display_polls_archive_link(); ?>
+	</li>
+<?php endif; ?>
+</code>
+* To show specific poll, use `<?php get_poll(2); ?>` where 2 is your poll id.
+* To show random poll, use `<?php get_poll(-2); ?>`
+* To embed a specific poll in your post, use `[poll id="2"]` where 2 is your poll id.
+* To embed a random poll in your post, use `[poll id="-2"]`
+* To embed a specific poll's result in your post, use `[poll id="2" type="result"]` where 2 is your poll id.
+
+= General Usage (With Widget)= 
+1. Go to `WP-Admin -> Appearance -> Widgets`.
+2. You can add the Polls Widget by clicking on the 'Add' link besides it.
+3. After adding, you can configure the Polls Widget by clicking on the 'Edit' link besides it.
+4. Click 'Save Changes'.
+5. Scroll down for instructions on how to create a Polls Archive.
 
 == Upgrading ==
 
@@ -278,4 +305,57 @@ N/A
 
 == Frequently Asked Questions ==
 
-[WP-Polls Support Forums](http://forums.lesterchan.net/index.php?board=15.0 "WP-Polls Support Forums")
+
+= How To Add A Polls Archive? =
+1. Go to `WP-Admin -> Pages -> Add New`.
+2. Type any title you like in the post's title area.
+3. If you ARE  using nice permalinks,  after typing the title, WordPress will generate the permalink to the page. You will see an 'Edit' link just beside the permalink.
+4. Click 'Edit' and type in 'pollsarchive' in the text field (without the quotes) and click 'Save'.
+5. Type `[page_polls]` in the post's content area (without the quotes).
+6. Click 'Publish'.
+
+* If you ARE NOT using nice permalinks, you need to go to `WP-Admin -> Polls -> Poll Options` and under `Poll Archive -> Polls Archive URL`, you need to fill in the URL to the Polls Archive Page you created above.
+
+= How Does WP-Polls Load CSS? = 
+* WP-Polls will load 'polls-css.css' from your theme's directory if it exists.
+* If it doesn't exists, it will just load the default 'polls-css.css' that comes with WP-Polls.</li>
+* This will allow you to upgrade WP-Polls without worrying about overwriting your polls styles that you have created.</li>
+
+= Why In Internet Explorer (IE) The poll's Text Appear Jagged? = 
+* To solve this issue, Open poll-css.css
+* Find: `/* background-color: #ffffff; */`
+* Replace: `background-color: #ffffff;` (where #ffffff should be your background color for the poll.)
+
+= Polls Stats (Outside WP Loop) =
+
+= To Display Total Polls =
+* Use:
+<code>
+<?php if (function_exists('get_pollquestions')): ?>
+	<?php get_pollquestions(); ?>
+<?php endif; ?>
+</code>
+
+= To Display Total Poll Answers =
+* Use:
+<code>
+<?php if (function_exists('get_pollanswers')): ?>
+	<?php get_pollanswers(); ?>
+<?php endif; ?>
+</code>
+
+= To Display Total Poll Votes =
+* Use:
+<code>
+<?php if (function_exists('get_pollvotes')): ?>
+	<?php get_pollvotes(); ?>
+<?php endif; ?>
+</code>
+
+= To Display Total Poll Voters =
+* Use:
+<code>
+<?php if (function_exists('get_pollvoters')): ?>
+	<?php get_pollvoters(); ?>
+<?php endif; ?>
+</code>
