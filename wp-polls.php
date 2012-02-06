@@ -758,6 +758,17 @@ function poll_shortcode($atts) {
 }
 
 
+### Function: Get Poll Question Based On Poll ID
+if(!function_exists('get_poll_question')) {
+	function get_poll_question($poll_id) {
+		global $wpdb;
+		$poll_id = intval($poll_id);
+		$poll_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $poll_id LIMIT 1");
+		return stripslashes($poll_question);
+	}
+}
+
+
 ### Function: Get Poll Total Questions
 if(!function_exists('get_pollquestions')) {
 	function get_pollquestions($display = true) {
