@@ -330,6 +330,27 @@ N/A
 * Find: `/* background-color: #ffffff; */`
 * Replace: `background-color: #ffffff;` (where #ffffff should be your background color for the poll.)
 
+= How Do I Have Individual Colors For Each Poll's Bar? =
+* Courtesy Of [TreedBox.com](http://treedbox.com "TreedBox.com")
+* Open poll-css.css
+* Add to the end of the file:
+<code>
+/* css3 for coloring each pollbars */
+.wp-polls-ul li:nth-child(01) .pollbar{ background:#8FA0C5}
+.wp-polls-ul li:nth-child(02) .pollbar{ background:#FF8}
+.wp-polls-ul li:nth-child(03) .pollbar{ background:#ff8a3b}
+.wp-polls-ul li:nth-child(04) .pollbar{ background:#a61e2a}
+.wp-polls-ul li:nth-child(05) .pollbar{ background:#4ebbff}
+.wp-polls-ul li:nth-child(06) .pollbar{ background:#fbca54}
+.wp-polls-ul li:nth-child(07) .pollbar{ background:#aad34f}
+.wp-polls-ul li:nth-child(08) .pollbar{ background:#66cc9a}
+.wp-polls-ul li:nth-child(09) .pollbar{ background:#98CBCB}
+.wp-polls-ul li:nth-child(10) .pollbar{ background:#a67c52}
+/* little transition */
+.wp-polls-ul li .pollbar{-webkit-transition: background 0.7s ease-in-out}
+.wp-polls-ul li .pollbar:hover{background:#F00}
+</code>
+
 = Polls Stats (Outside WP Loop) =
 
 = To Display Total Polls =
