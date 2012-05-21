@@ -37,6 +37,10 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 
 == Changelog ==
 
+= Version 2.63 (21-05-2012) =
+* Move AJAX Request to wp-admin/admin-ajax.php
+* Added nonce To AJAX Calls
+
 = Version 2.62 (31-08-2011) =
 * FIXED: Escaped Hostname. Thanks to Renaud Feil ([Renaud Feil](http://www.stratsec.net "Renaud Feil"))
 * FIXED: Ensure Poll ID In Shortcode Is An Integer. Thanks to Renaud Feil ([Renaud Feil](http://www.stratsec.net "Renaud Feil"))

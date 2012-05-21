@@ -3,14 +3,14 @@
 Plugin Name: WP-Polls
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Adds an AJAX poll system to your WordPress blog. You can easily include a poll into your WordPress's blog post/page. WP-Polls is extremely customizable via templates and css styles and there are tons of options for you to choose to ensure that WP-Polls runs the way you wanted. It now supports multiple selection of answers.
-Version: 2.62
+Version: 2.63
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 */
 
 
 /*  
-	Copyright 2009  Lester Chan  (email : lesterchan@gmail.com)
+	Copyright 2012  Lester Chan  (email : lesterchan@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,17 +26,6 @@ Author URI: http://lesterchan.net
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
-
-### Load WP-Config File If This File Is Called Directly
-if (!function_exists('add_action')) {
-	$wp_root = '../../..';
-	if (file_exists($wp_root.'/wp-load.php')) {
-		require_once($wp_root.'/wp-load.php');
-	} else {
-		require_once($wp_root.'/wp-config.php');
-	}
-}
 
 
 ### Create Text Domain For Translations
@@ -208,22 +197,22 @@ add_action('wp_enqueue_scripts', 'poll_scripts');
 function poll_scripts() {
 	global $text_direction;
 	if(@file_exists(TEMPLATEPATH.'/polls-css.css')) {
-		wp_enqueue_style('wp-polls', get_stylesheet_directory_uri().'/polls-css.css', false, '2.50', 'all');
+		wp_enqueue_style('wp-polls', get_stylesheet_directory_uri().'/polls-css.css', false, '2.63', 'all');
 	} else {
-		wp_enqueue_style('wp-polls', plugins_url('wp-polls/polls-css.css'), false, '2.50', 'all');
+		wp_enqueue_style('wp-polls', plugins_url('wp-polls/polls-css.css'), false, '2.63', 'all');
 	}
 	if('rtl' == $text_direction) {
 		if(@file_exists(TEMPLATEPATH.'/polls-css-rtl.css')) {
-			wp_enqueue_style('wp-polls-rtl', get_stylesheet_directory_uri().'/polls-css-rtl.css', false, '2.50', 'all');
+			wp_enqueue_style('wp-polls-rtl', get_stylesheet_directory_uri().'/polls-css-rtl.css', false, '2.63', 'all');
 		} else {
-			wp_enqueue_style('wp-polls-rtl', plugins_url('wp-polls/polls-css-rtl.css'), false, '2.50', 'all');
+			wp_enqueue_style('wp-polls-rtl', plugins_url('wp-polls/polls-css-rtl.css'), false, '2.63', 'all');
 		}
 	}
 	$poll_ajax_style = get_option('poll_ajax_style');
 	$pollbar = get_option('poll_bar');
-	wp_enqueue_script('wp-polls', plugins_url('wp-polls/polls-js.js'), array('jquery'), '2.50', true);
+	wp_enqueue_script('wp-polls', plugins_url('wp-polls/polls-js.js'), array('jquery'), '2.63', true);
 	wp_localize_script('wp-polls', 'pollsL10n', array(
-		'ajax_url' => plugins_url('wp-polls/wp-polls.php'),
+		'ajax_url' => admin_url('admin-ajax.php'),
 		'text_wait' => __('Your last request is still being processed. Please wait a while ...', 'wp-polls'),
 		'text_valid' => __('Please choose a valid poll answer.', 'wp-polls'),
 		'text_multiple' => __('Maximum number of choices allowed: ', 'wp-polls'),
@@ -239,10 +228,10 @@ function poll_scripts_admin($hook_suffix) {
 	global $text_direction;
 	$poll_admin_pages = array('wp-polls/polls-manager.php', 'wp-polls/polls-add.php', 'wp-polls/polls-options.php', 'wp-polls/polls-templates.php', 'wp-polls/polls-uninstall.php');
 	if(in_array($hook_suffix, $poll_admin_pages)) {
-		wp_enqueue_style('wp-polls-admin', plugins_url('wp-polls/polls-admin-css.css'), false, '2.50', 'all');
-		wp_enqueue_script('wp-polls-admin', plugins_url('wp-polls/polls-admin-js.js'), array('jquery'), '2.50', true);
+		wp_enqueue_style('wp-polls-admin', plugins_url('wp-polls/polls-admin-css.css'), false, '2.63', 'all');
+		wp_enqueue_script('wp-polls-admin', plugins_url('wp-polls/polls-admin-js.js'), array('jquery'), '2.63', true);
 		wp_localize_script('wp-polls-admin', 'pollsAdminL10n', array(
-			'admin_ajax_url' => plugins_url('wp-polls/polls-admin-ajax.php'),
+			'admin_ajax_url' => admin_url('admin-ajax.php'),
 			'text_direction' => ('rtl' == $text_direction) ? 'left' : 'right',
 			'text_delete_poll' => __('Delete Poll', 'wp-polls'),
 			'text_no_poll_logs' => __('No poll logs available.', 'wp-polls'),
@@ -480,6 +469,7 @@ function display_pollvote($poll_id, $display_loading = true) {
 		// Display Poll Voting Form
 		$temp_pollvote .= "<div id=\"polls-$poll_question_id\" class=\"wp-polls\">\n";
 		$temp_pollvote .= "\t<form id=\"polls_form_$poll_question_id\" class=\"wp-polls-form\" action=\"".htmlspecialchars($_SERVER['REQUEST_URI'])."\" method=\"post\">\n";
+		$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" id=\"poll_{$poll_question_id}_nonce\" name=\"wp-polls-nonce\" value=\"".wp_create_nonce('poll_'.$poll_question_id.'-nonce')."\" /></p>\n";
 		$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" name=\"poll_id\" value=\"$poll_question_id\" /></p>\n";
 		if($poll_multiple_ans > 0) {
 			$temp_pollvote .= "\t\t<p style=\"display: none;\"><input type=\"hidden\" id=\"poll_multiple_ans_$poll_question_id\" name=\"poll_multiple_ans_$poll_question_id\" value=\"$poll_multiple_ans\" /></p>\n";
@@ -702,6 +692,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 		}
 		// Print Out Results Footer Template
 		$temp_pollresult .= "\t\t$template_footer\n";
+		$temp_pollresult .= "\t\t<input type=\"hidden\" id=\"poll_{$poll_question_id}_nonce\" name=\"wp-polls-nonce\" value=\"".wp_create_nonce('poll_'.$poll_question_id.'-nonce')."\" />\n";
 		$temp_pollresult .= "</div>\n";
 		if($display_loading) {
 			$poll_ajax_style = get_option('poll_ajax_style');
@@ -1276,78 +1267,205 @@ function in_pollarchive() {
 
 
 ### Function: Vote Poll
-vote_poll();
+add_action('wp_ajax_polls', 'vote_poll');
+add_action('wp_ajax_nopriv_polls', 'vote_poll');
 function vote_poll() {
 	global $wpdb, $user_identity, $user_ID;
-	if(!empty($_POST['vote'])) {
+	
+	if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'polls')
+	{
+		// Load Headers
 		polls_textdomain();
-		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
-		$poll_id = intval($_POST['poll_id']);
-		$poll_aid = $_POST["poll_$poll_id"];
-		$poll_aid_array = array_unique(array_map('intval', explode(',', $poll_aid)));
-		if($poll_id > 0 && !empty($poll_aid_array) && check_allowtovote()) {
-			$check_voted = check_voted($poll_id);
-			if($check_voted == 0) {
-				if(!empty($user_identity)) {
-					$pollip_user = htmlspecialchars(addslashes($user_identity));
-				} elseif(!empty($_COOKIE['comment_author_'.COOKIEHASH])) {
-					$pollip_user = htmlspecialchars(addslashes($_COOKIE['comment_author_'.COOKIEHASH]));
-				} else {
-					$pollip_user = __('Guest', 'wp-polls');
-				}
-				$pollip_userid = intval($user_ID);
-				$pollip_ip = get_ipaddress();
-				$pollip_host = esc_attr(@gethostbyaddr($pollip_ip));
-				$pollip_timestamp = current_time('timestamp');
-				// Only Create Cookie If User Choose Logging Method 1 Or 2
-				$poll_logging_method = intval(get_option('poll_logging_method'));
-				if($poll_logging_method == 1 || $poll_logging_method == 3) {
-					$cookie_expiry = intval(get_option('poll_cookielog_expiry'));
-					if($cookie_expiry == 0) {
-						$cookie_expiry = 30000000;
-					}
-					$vote_cookie = setcookie('voted_'.$poll_id, $poll_aid, ($pollip_timestamp + $cookie_expiry), COOKIEPATH);						
-				}
-				$i = 0;
-				foreach($poll_aid_array as $polla_aid) {
-					$update_polla_votes = $wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $polla_aid");
-					if(!$update_polla_votes) {
-						unset($poll_aid_array[$i]);
-					}
-					$i++;
-				}
-				$vote_q = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+".sizeof($poll_aid_array)."), pollq_totalvoters = (pollq_totalvoters+1) WHERE pollq_id = $poll_id AND pollq_active = 1");
-				if($vote_q) {
-					foreach($poll_aid_array as $polla_aid) {
-						$wpdb->query("INSERT INTO $wpdb->pollsip VALUES (0, $poll_id, $polla_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user', $pollip_userid)");
-					}
-					echo display_pollresult($poll_id,$poll_aid_array, false);
-					exit();
-				} else {
-					printf(__('Unable To Update Poll Total Votes And Poll Total Voters. Poll ID #%s', 'wp-polls'), $poll_id);
-					exit();	
-				} // End if($vote_a)
-			} else {
-				printf(__('You Had Already Voted For This Poll. Poll ID #%s', 'wp-polls'), $poll_id);
-				exit();
-			}// End if($check_voted)
-		} else {
-			printf(__('Invalid Poll ID. Poll ID #%s', 'wp-polls'), $poll_id);
+		header('Content-Type: text/html; charset='.get_option('blog_charset').'');		
+		
+		// Get Poll ID
+		$poll_id = (isset($_REQUEST['poll_id']) ? intval($_REQUEST['poll_id']) : 0);
+		
+		// Ensure Poll ID Is Valid
+		if($poll_id == 0)
+		{
+			_e('Invalid Poll ID', 'wp-polls');
 			exit();
-		} // End if($poll_id > 0 && $poll_aid > 0)
-	} elseif (isset($_GET['pollresult']) && intval($_GET['pollresult']) > 0) {
-		polls_textdomain();
-		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
-		$poll_id = intval($_GET['pollresult']);
-		echo display_pollresult($poll_id, 0, false);
-		exit();
-	} elseif (isset($_GET['pollbooth']) && intval($_GET['pollbooth']) > 0) {
-		polls_textdomain();
-		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
-		$poll_id = intval($_GET['pollbooth']);
-		echo display_pollvote($poll_id, false);
-		exit();
-	} // End if(!empty($_POST['vote']))
+		}
+		
+		// Verify Referer
+		if(!check_ajax_referer('poll_'.$poll_id.'-nonce', 'poll_'.$poll_id.'_nonce', false))
+		{
+			_e('Failed To Verify Referer', 'wp-polls');
+			exit();
+		}
+		
+		// Which View
+		switch($_REQUEST['view'])
+		{
+			// Poll Vote
+			case 'process':				
+				$poll_aid = $_POST["poll_$poll_id"];
+				$poll_aid_array = array_unique(array_map('intval', explode(',', $poll_aid)));
+				if($poll_id > 0 && !empty($poll_aid_array) && check_allowtovote()) {
+					$check_voted = check_voted($poll_id);
+					if($check_voted == 0) {
+						if(!empty($user_identity)) {
+							$pollip_user = htmlspecialchars(addslashes($user_identity));
+						} elseif(!empty($_COOKIE['comment_author_'.COOKIEHASH])) {
+							$pollip_user = htmlspecialchars(addslashes($_COOKIE['comment_author_'.COOKIEHASH]));
+						} else {
+							$pollip_user = __('Guest', 'wp-polls');
+						}
+						$pollip_userid = intval($user_ID);
+						$pollip_ip = get_ipaddress();
+						$pollip_host = esc_attr(@gethostbyaddr($pollip_ip));
+						$pollip_timestamp = current_time('timestamp');
+						// Only Create Cookie If User Choose Logging Method 1 Or 2
+						$poll_logging_method = intval(get_option('poll_logging_method'));
+						if($poll_logging_method == 1 || $poll_logging_method == 3) {
+							$cookie_expiry = intval(get_option('poll_cookielog_expiry'));
+							if($cookie_expiry == 0) {
+								$cookie_expiry = 30000000;
+							}
+							$vote_cookie = setcookie('voted_'.$poll_id, $poll_aid, ($pollip_timestamp + $cookie_expiry), COOKIEPATH);						
+						}
+						$i = 0;
+						foreach($poll_aid_array as $polla_aid) {
+							$update_polla_votes = $wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $polla_aid");
+							if(!$update_polla_votes) {
+								unset($poll_aid_array[$i]);
+							}
+							$i++;
+						}
+						$vote_q = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+".sizeof($poll_aid_array)."), pollq_totalvoters = (pollq_totalvoters+1) WHERE pollq_id = $poll_id AND pollq_active = 1");
+						if($vote_q) {
+							foreach($poll_aid_array as $polla_aid) {
+								$wpdb->query("INSERT INTO $wpdb->pollsip VALUES (0, $poll_id, $polla_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user', $pollip_userid)");
+							}
+							echo display_pollresult($poll_id,$poll_aid_array, false);
+						} else {
+							printf(__('Unable To Update Poll Total Votes And Poll Total Voters. Poll ID #%s', 'wp-polls'), $poll_id);
+						} // End if($vote_a)
+					} else {
+						printf(__('You Had Already Voted For This Poll. Poll ID #%s', 'wp-polls'), $poll_id);
+					}// End if($check_voted)
+				} else {
+					printf(__('Invalid Poll ID. Poll ID #%s', 'wp-polls'), $poll_id);
+				} // End if($poll_id > 0 && !empty($poll_aid_array) && check_allowtovote())
+				break;
+			// Poll Result
+			case 'result':
+				echo display_pollresult($poll_id, 0, false);
+				break;
+			// Poll Booth Aka Poll Voting Form
+			case 'booth':
+				echo display_pollvote($poll_id, false);
+				break;
+		} // End switch($_REQUEST['view'])
+	} // End if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'polls')
+	exit();
+}
+
+
+### Function: Manage Polls
+add_action('wp_ajax_polls-admin', 'manage_poll');
+function manage_poll() {
+	global $wpdb;
+	### Form Processing
+	if(isset($_POST['action']) && $_POST['action'] == 'polls-admin')
+	{
+		if(!empty($_POST['do'])) {
+			// Set Header
+			header('Content-Type: text/html; charset='.get_option('blog_charset').'');
+		
+			// Decide What To Do
+			switch($_POST['do']) {
+				// Delete Polls Logs
+				case __('Delete All Logs', 'wp-polls'):
+					check_ajax_referer('wp-polls_delete-polls-logs');
+					if(trim($_POST['delete_logs_yes']) == 'yes') {
+						$delete_logs = $wpdb->query("DELETE FROM $wpdb->pollsip");
+						if($delete_logs) {
+							echo '<p style="color: green;">'.__('All Polls Logs Have Been Deleted.', 'wp-polls').'</p>';
+						} else {
+							echo '<p style="color: red;">'.__('An Error Has Occurred While Deleting All Polls Logs.', 'wp-polls').'</p>';
+						}
+					}
+					break;
+				// Delete Poll Logs For Individual Poll
+				case __('Delete Logs For This Poll Only', 'wp-polls'):
+					check_ajax_referer('wp-polls_delete-poll-logs');
+					$pollq_id  = intval($_POST['pollq_id']);
+					$pollq_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
+					if(trim($_POST['delete_logs_yes']) == 'yes') {
+						$delete_logs = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $pollq_id");
+						if($delete_logs) {
+							echo '<p style="color: green;">'.sprintf(__('All Logs For \'%s\' Has Been Deleted.', 'wp-polls'), stripslashes($pollq_question)).'</p>';
+						} else {
+							echo '<p style="color: red;">'.sprintf(__('An Error Has Occurred While Deleting All Logs For \'%s\'', 'wp-polls'), stripslashes($pollq_question)).'</p>';
+						}
+					}
+					break;
+				// Delete Poll's Answer
+				case __('Delete Poll Answer', 'wp-polls'):
+					check_ajax_referer('wp-polls_delete-poll-answer');
+					$pollq_id  = intval($_POST['pollq_id']);
+					$polla_aid = intval($_POST['polla_aid']);
+					$poll_answers = $wpdb->get_row("SELECT polla_votes, polla_answers FROM $wpdb->pollsa WHERE polla_aid = $polla_aid AND polla_qid = $pollq_id");
+					$polla_votes = intval($poll_answers->polla_votes);
+					$polla_answers = stripslashes(trim($poll_answers->polla_answers));
+					$delete_polla_answers = $wpdb->query("DELETE FROM $wpdb->pollsa WHERE polla_aid = $polla_aid AND polla_qid = $pollq_id");
+					$delete_pollip = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $pollq_id AND pollip_aid = $polla_aid");
+					$update_pollq_totalvotes = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes-$polla_votes) WHERE pollq_id = $pollq_id");
+					if($delete_polla_answers) {
+						echo '<p style="color: green;">'.sprintf(__('Poll Answer \'%s\' Deleted Successfully.', 'wp-polls'), $polla_answers).'</p>';
+					} else {
+						echo '<p style="color: red;">'.sprintf(__('Error In Deleting Poll Answer \'%s\'.', 'wp-polls'), $polla_answers).'</p>';
+					}
+					break;
+				// Open Poll
+				case __('Open Poll', 'wp-polls'):
+					check_ajax_referer('wp-polls_open-poll');
+					$pollq_id  = intval($_POST['pollq_id']);
+					$pollq_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
+					$open_poll = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 1 WHERE pollq_id = $pollq_id;");
+					if($open_poll) {
+						echo '<p style="color: green;">'.sprintf(__('Poll \'%s\' Is Now Opened', 'wp-polls'), stripslashes($pollq_question)).'</p>';
+					} else {
+						echo '<p style="color: red;">'.sprintf(__('Error Opening Poll \'%s\'', 'wp-polls'), stripslashes($pollq_question)).'</p>';
+					}
+					break;
+				// Close Poll
+				case __('Close Poll', 'wp-polls'):
+					check_ajax_referer('wp-polls_close-poll');
+					$pollq_id  = intval($_POST['pollq_id']);
+					$pollq_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
+					$close_poll = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_active = 0 WHERE pollq_id = $pollq_id;");
+					if($close_poll) {
+						echo '<p style="color: green;">'.sprintf(__('Poll \'%s\' Is Now Closed', 'wp-polls'), stripslashes($pollq_question)).'</p>';
+					} else {
+						echo '<p style="color: red;">'.sprintf(__('Error Closing Poll \'%s\'', 'wp-polls'), stripslashes($pollq_question)).'</p>';
+					}
+					break;
+				// Delete Poll
+				case __('Delete Poll', 'wp-polls'):
+					check_ajax_referer('wp-polls_delete-poll');
+					$pollq_id  = intval($_POST['pollq_id']);
+					$pollq_question = $wpdb->get_var("SELECT pollq_question FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
+					$delete_poll_question = $wpdb->query("DELETE FROM $wpdb->pollsq WHERE pollq_id = $pollq_id");
+					$delete_poll_answers =  $wpdb->query("DELETE FROM $wpdb->pollsa WHERE polla_qid = $pollq_id");
+					$delete_poll_ip = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $pollq_id");
+					$poll_option_lastestpoll = $wpdb->get_var("SELECT option_value FROM $wpdb->options WHERE option_name = 'poll_latestpoll'");
+					if(!$delete_poll_question) {
+						echo '<p style="color: red;">'.sprintf(__('Error In Deleting Poll \'%s\' Question', 'wp-polls'), stripslashes($pollq_question)).'</p>';
+					} 
+					if(empty($text)) {
+						echo '<p style="color: green;">'.sprintf(__('Poll \'%s\' Deleted Successfully', 'wp-polls'), stripslashes($pollq_question)).'</p>';
+					}
+					// Update Lastest Poll ID To Poll Options
+					$latest_pollid = polls_latest_id();
+					$update_latestpoll = update_option('poll_latestpoll', $latest_pollid);
+					break;
+			}
+			exit();
+		}
+	}
 }
 
 
