@@ -1291,7 +1291,7 @@ function vote_poll() {
 		// Verify Referer
 		if(!check_ajax_referer('poll_'.$poll_id.'-nonce', 'poll_'.$poll_id.'_nonce', false))
 		{
-			_e('Failed To Verify Referer', 'wp-polls');
+			_e('Failed To Verify Referrer', 'wp-polls');
 			exit();
 		}
 		
