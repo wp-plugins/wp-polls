@@ -152,9 +152,6 @@ switch($mode) {
 	case 'logs':
 		require('polls-logs.php');
 		break;
-?>
-	<?php
-		break;
 	// Edit A Poll
 	case 'edit':
 		$last_col_align = ('rtl' == $text_direction) ? 'left' : 'right';
