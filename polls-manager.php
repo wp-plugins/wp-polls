@@ -1,18 +1,18 @@
 <?php
 /*
 +----------------------------------------------------------------+
-|																							|
-|	WordPress Plugin: WP-Polls										|
-|	Copyright (c) 2012 Lester "GaMerZ" Chan									|
-|																							|
-|	File Written By:																	|
-|	- Lester "GaMerZ" Chan															|
-|	- http://lesterchan.net															|
-|																							|
-|	File Information:																	|
-|	- Manage Your Polls																|
-|	- wp-content/plugins/wp-polls/polls-manager.php						|
-|																							|
+|																|
+|	WordPress Plugin: WP-Polls									|
+|	Copyright (c) 2012 Lester "GaMerZ" Chan						|
+|																|
+|	File Written By:											|
+|	- Lester "GaMerZ" Chan										|
+|	- http://lesterchan.net										|
+|																|
+|	File Information:											|
+|	- Manage Your Polls											|
+|	- wp-content/plugins/wp-polls/polls-manager.php				|
+|																|
 +----------------------------------------------------------------+
 */
 
@@ -22,14 +22,12 @@ if(!current_user_can('manage_polls')) {
 	die('Access Denied');
 }
 
-
 ### Variables Variables Variables
 $base_name = plugin_basename('wp-polls/polls-manager.php');
 $base_page = 'admin.php?page='.$base_name;
-$mode = trim($_GET['mode']);
-$poll_id = intval($_GET['id']);
-$poll_aid = intval($_GET['aid']);
-
+$mode = (isset($_GET['mode']) ? trim($_GET['mode']) : 0);
+$poll_id = (isset($_GET['id']) ? intval($_GET['id']) : 0);
+$poll_aid = (isset($_GET['aid']) ? intval($_GET['aid']) : 0);
 
 ### Form Processing 
 if(!empty($_POST['do'])) {
@@ -147,7 +145,6 @@ if(!empty($_POST['do'])) {
 			break;
 	}
 }
-
 
 ### Determines Which Mode It Is
 switch($mode) {
@@ -479,4 +476,3 @@ switch($mode) {
 		</div>
 <?php
 } // End switch($mode)
-?>

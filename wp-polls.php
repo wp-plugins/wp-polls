@@ -1606,7 +1606,9 @@ add_action('activate_wp-polls/wp-polls.php', 'create_poll_table');
 function create_poll_table() {
 	global $wpdb;
 	polls_textdomain();
-	if(@is_file(ABSPATH.'/wp-admin/upgrade-functions.php')) {
+	if(@is_file(ABSPATH.'/wp-admin/includes/upgrade.php')) {
+		include_once(ABSPATH.'/wp-admin/includes/upgrade.php');
+	}elseif(@is_file(ABSPATH.'/wp-admin/upgrade-functions.php')) {
 		include_once(ABSPATH.'/wp-admin/upgrade-functions.php');
 	} elseif(@is_file(ABSPATH.'/wp-admin/includes/upgrade.php')) {
 		include_once(ABSPATH.'/wp-admin/includes/upgrade.php');
@@ -1674,53 +1676,53 @@ function create_poll_table() {
 	// Add In Options (16 Records)
 	add_option('poll_template_voteheader', '<p style="text-align: center;"><strong>%POLL_QUESTION%</strong></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="wp-polls-ans">'.
-	'<ul class="wp-polls-ul">', 'Template For Poll\'s Question');
-	add_option('poll_template_votebody',  '<li><input type="%POLL_CHECKBOX_RADIO%" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" /> <label for="poll-answer-%POLL_ANSWER_ID%">%POLL_ANSWER%</label></li>', 'Template For Poll\'s Answers');
+	'<ul class="wp-polls-ul">');
+	add_option('poll_template_votebody', '<li><input type="%POLL_CHECKBOX_RADIO%" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" /> <label for="poll-answer-%POLL_ANSWER_ID%">%POLL_ANSWER%</label></li>');
 	add_option('poll_template_votefooter', '</ul>'.
 	'<p style="text-align: center;"><input type="button" name="vote" value="   '.__('Vote', 'wp-polls').'   " class="Buttons" onclick="poll_vote(%POLL_ID%);" /></p>'.
 	'<p style="text-align: center;"><a href="#ViewPollResults" onclick="poll_result(%POLL_ID%); return false;" title="'.__('View Results Of This Poll', 'wp-polls').'">'.__('View Results', 'wp-polls').'</a></p>'.
-	'</div>', 'Template For Poll\'s Voting Footer');
+	'</div>');
 	add_option('poll_template_resultheader', '<p style="text-align: center;"><strong>%POLL_QUESTION%</strong></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="wp-polls-ans">'.
-	'<ul class="wp-polls-ul">', 'Template For Poll Header');
-	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%'.__(',', 'wp-polls').' %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')</small><div class="pollbar" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')"></div></li>', 'Template For Poll Results');
-	add_option('poll_template_resultbody2', '<li><strong><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%'.__(',', 'wp-polls').' %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')</small></i></strong><div class="pollbar" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="'.__('You Have Voted For This Choice', 'wp-polls').' - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')"></div></li>', 'Template For Poll Results (User Voted)');
+	'<ul class="wp-polls-ul">');
+	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%'.__(',', 'wp-polls').' %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')</small><div class="pollbar" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')"></div></li>');
+	add_option('poll_template_resultbody2', '<li><strong><i>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%'.__(',', 'wp-polls').' %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')</small></i></strong><div class="pollbar" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="'.__('You Have Voted For This Choice', 'wp-polls').' - %POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'wp-polls').')"></div></li>');
 	add_option('poll_template_resultfooter', '</ul>'.
 	'<p style="text-align: center;">'.__('Total Voters', 'wp-polls').': <strong>%POLL_TOTALVOTERS%</strong></p>'.
-	'</div>', 'Template For Poll Result Footer');
+	'</div>');
 	add_option('poll_template_resultfooter2', '</ul>'.
 	'<p style="text-align: center;">'.__('Total Voters', 'wp-polls').': <strong>%POLL_TOTALVOTERS%</strong></p>'.
 	'<p style="text-align: center;"><a href="#VotePoll" onclick="poll_booth(%POLL_ID%); return false;" title="'.__('Vote For This Poll', 'wp-polls').'">'.__('Vote', 'wp-polls').'</a></p>'.
-	'</div>', 'Template For Poll Result Footer');
-	add_option('poll_template_disable', __('Sorry, there are no polls available at the moment.', 'wp-polls'), 'Template For Poll When It Is Disabled');
-	add_option('poll_template_error', __('An error has occurred when processing your poll.', 'wp-polls'), 'Template For Poll When An Error Has Occured');
-	add_option('poll_currentpoll', 0, 'Current Displayed Poll');
-	add_option('poll_latestpoll', 1, 'The Latest Poll');
-	add_option('poll_archive_perpage', 5, 'Number Of Polls To Display Per Page On The Poll\'s Archive', 'no');
-	add_option('poll_ans_sortby', 'polla_aid', 'Sorting Of Poll\'s Answers');
-	add_option('poll_ans_sortorder', 'asc', 'Sort Order Of Poll\'s Answers');
-	add_option('poll_ans_result_sortby', 'polla_votes', 'Sorting Of Poll\'s Answers Result');
-	add_option('poll_ans_result_sortorder', 'desc', 'Sorting Order Of Poll\'s Answers Result');
+	'</div>');
+	add_option('poll_template_disable', __('Sorry, there are no polls available at the moment.', 'wp-polls'));
+	add_option('poll_template_error', __('An error has occurred when processing your poll.', 'wp-polls'));
+	add_option('poll_currentpoll', 0);
+	add_option('poll_latestpoll', 1);
+	add_option('poll_archive_perpage', 5);
+	add_option('poll_ans_sortby', 'polla_aid');
+	add_option('poll_ans_sortorder', 'asc');
+	add_option('poll_ans_result_sortby', 'polla_votes');
+	add_option('poll_ans_result_sortorder', 'desc');
 	// Database Upgrade For WP-Polls 2.1
-	add_option('poll_logging_method', '3', 'Logging Method Of User Poll\'s Answer');
-	add_option('poll_allowtovote', '2', 'Who Is Allowed To Vote');
+	add_option('poll_logging_method', '3');
+	add_option('poll_allowtovote', '2');
 	maybe_add_column($wpdb->pollsq, 'pollq_active', "ALTER TABLE $wpdb->pollsq ADD pollq_active TINYINT( 1 ) NOT NULL DEFAULT '1';");
 	// Database Upgrade For WP-Polls 2.12
 	maybe_add_column($wpdb->pollsip, 'pollip_userid', "ALTER TABLE $wpdb->pollsip ADD pollip_userid INT( 10 ) NOT NULL DEFAULT '0';");
-	add_option('poll_archive_url', site_url('pollsarchive'), 'Polls Archive URL');
+	add_option('poll_archive_url', site_url('pollsarchive'));
 	// Database Upgrade For WP-Polls 2.13
-	add_option('poll_bar', array('style' => 'default', 'background' => 'd8e1eb', 'border' => 'c8c8c8', 'height' => 8), 'Poll Bar Style');
+	add_option('poll_bar', array('style' => 'default', 'background' => 'd8e1eb', 'border' => 'c8c8c8', 'height' => 8));
 	// Database Upgrade For WP-Polls 2.14
 	maybe_add_column($wpdb->pollsq, 'pollq_expiry', "ALTER TABLE $wpdb->pollsq ADD pollq_expiry varchar(20) NOT NULL default '';");
-	add_option('poll_close', 1, 'Poll Close');
+	add_option('poll_close', 1);
 	// Database Upgrade For WP-Polls 2.20
-	add_option('poll_ajax_style', array('loading' => 1, 'fading' => 1), 'Poll AJAX Style');
+	add_option('poll_ajax_style', array('loading' => 1, 'fading' => 1));
 	add_option('poll_template_pollarchivelink', '<ul>'.
 	'<li><a href="%POLL_ARCHIVE_URL%">'.__('Polls Archive', 'wp-polls').'</a></li>'.
-	'</ul>', 'Template For Poll Archive Link');
-	add_option('poll_archive_displaypoll', 2, 'Type Of Polls To Display In Polls Archive');
-	add_option('poll_template_pollarchiveheader', '', 'Displayed Before Each Poll In The Poll Archive');
-	add_option('poll_template_pollarchivefooter', '<p>'.__('Start Date:', 'wp-polls').' %POLL_START_DATE%<br />'.__('End Date:', 'wp-polls').' %POLL_END_DATE%</p>', 'Displayed After Each Poll In The Poll Archive');
+	'</ul>');
+	add_option('poll_archive_displaypoll', 2);
+	add_option('poll_template_pollarchiveheader', '');
+	add_option('poll_template_pollarchivefooter', '<p>'.__('Start Date:', 'wp-polls').' %POLL_START_DATE%<br />'.__('End Date:', 'wp-polls').' %POLL_END_DATE%</p>');
 	maybe_add_column($wpdb->pollsq, 'pollq_multiple', "ALTER TABLE $wpdb->pollsq ADD pollq_multiple TINYINT( 3 ) NOT NULL DEFAULT '0';");
 	$pollq_totalvoters = maybe_add_column($wpdb->pollsq, 'pollq_totalvoters', "ALTER TABLE $wpdb->pollsq ADD pollq_totalvoters INT( 10 ) NOT NULL DEFAULT '0';");
 	if($pollq_totalvoters) {
@@ -1730,9 +1732,9 @@ function create_poll_table() {
 		}
 	}
 	// Database Upgrade For WP-Polls 2.30
-	add_option('poll_cookielog_expiry', 0, 'Cookie And Log Expiry Time');
-	add_option('poll_template_pollarchivepagingheader', '', 'Displayed Before Paging In The Poll Archive');
-	add_option('poll_template_pollarchivepagingfooter', '', 'Displayed After Paging In The Poll Archive');
+	add_option('poll_cookielog_expiry', 0);
+	add_option('poll_template_pollarchivepagingheader', '');
+	add_option('poll_template_pollarchivepagingfooter', '');
 	// Database Upgrade For WP-Polls 2.50
 	delete_option('poll_archive_show');
 	// Database Upgrade For WP-Polls 2.61
@@ -1745,4 +1747,3 @@ function create_poll_table() {
 	}
 	cron_polls_place();
 }
-?>
