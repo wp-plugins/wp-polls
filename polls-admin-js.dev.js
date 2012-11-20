@@ -1,3 +1,8 @@
+// ==ClosureCompiler==
+// @output_file_name default.js
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// ==/ClosureCompiler==
+
 /*
 +----------------------------------------------------------------+
 |																							|
@@ -120,10 +125,14 @@ function closing_poll(poll_id, poll_confirm, nonce) {
 
 // Reoder Answer Answer
 function reorder_answer_num() {
+	var selected = jQuery('#pollq_multiple').val();
 	jQuery('#pollq_multiple').empty();
 	jQuery('#poll_answers tr > th').each(function (i) {
 		jQuery(this).text(pollsAdminL10n.text_answer + ' ' + (i+1));
-		jQuery('#pollq_multiple').append('<option value="' + (i+1) + '">' + (i+1) + '</option>');
+		if(selected == (i+1))
+			jQuery('#pollq_multiple').append('<option value="' + (i+1) + '" selected="selected">' + (i+1) + '</option>');
+		else
+			jQuery('#pollq_multiple').append('<option value="' + (i+1) + '">' + (i+1) + '</option>');
 	});
 }
 
