@@ -3,7 +3,7 @@ Contributors: GamerZ
 Donate link: http://lesterchan.net/site/donation/
 Tags: poll, polls, polling, vote, booth, democracy, ajax, survey, post, widget
 Requires at least: 2.8
-Tested up to: 3.3.1
+Tested up to: 3.5.1
 Stable tag: trunk
 
 Adds an AJAX poll system to your WordPress blog. You can also easily add a poll into your WordPress's blog post/page.
@@ -279,7 +279,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * To embed a random poll in your post, use `[poll id="-2"]`
 * To embed a specific poll's result in your post, use `[poll id="2" type="result"]` where 2 is your poll id.
 
-= General Usage (With Widget)= 
+= General Usage (With Widget)=
 1. Go to `WP-Admin -> Appearance -> Widgets`.
 2. You can add the Polls Widget by clicking on the 'Add' link besides it.
 3. After adding, you can configure the Polls Widget by clicking on the 'Edit' link besides it.
@@ -294,7 +294,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 4. Activate `WP-Polls` Plugin
 5. Go to `WP-Admin -> Polls -> Polls Templates` and restore all the template variables to `Default`
 6. Go to `WP-Admin -> Appearance -> Widgets` and re-add the Poll Widget
-	
+
 == Upgrade Notice ==
 
 N/A
@@ -319,18 +319,18 @@ N/A
 1. Go to `WP-Admin -> Pages -> Add New`.
 2. Type any title you like in the post's title area.
 3. If you ARE  using nice permalinks,  after typing the title, WordPress will generate the permalink to the page. You will see an 'Edit' link just beside the permalink.
-4. Click 'Edit' and type in 'pollsarchive' in the text field (without the quotes) and click 'Save'.
-5. Type `[page_polls]` in the post's content area (without the quotes).
+4. Click 'Edit' and type in `pollsarchive` in the text field and click 'Save'.
+5. Type `[page_polls]` in the post's content area.
 6. Click 'Publish'.
 
 * If you ARE NOT using nice permalinks, you need to go to `WP-Admin -> Polls -> Poll Options` and under `Poll Archive -> Polls Archive URL`, you need to fill in the URL to the Polls Archive Page you created above.
 
-= How Does WP-Polls Load CSS? = 
+= How Does WP-Polls Load CSS? =
 * WP-Polls will load 'polls-css.css' from your theme's directory if it exists.
-* If it doesn't exists, it will just load the default 'polls-css.css' that comes with WP-Polls.</li>
-* This will allow you to upgrade WP-Polls without worrying about overwriting your polls styles that you have created.</li>
+* If it doesn't exists, it will just load the default 'polls-css.css' that comes with WP-Polls.
+* This will allow you to upgrade WP-Polls without worrying about overwriting your polls styles that you have created.
 
-= Why In Internet Explorer (IE) The poll's Text Appear Jagged? = 
+= Why In Internet Explorer (IE) The poll's Text Appear Jagged? =
 * To solve this issue, Open poll-css.css
 * Find: `/* background-color: #ffffff; */`
 * Replace: `background-color: #ffffff;` (where #ffffff should be your background color for the poll.)
