@@ -6,6 +6,7 @@ Description: Adds an AJAX poll system to your WordPress blog. You can easily inc
 Version: 2.63
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
+Text Domain: wp-polls
 */
 
 
