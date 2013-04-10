@@ -10,7 +10,7 @@ Author URI: http://lesterchan.net
 
 
 /*
-	Copyright 2012  Lester Chan  (email : lesterchan@gmail.com)
+	Copyright 2013  Lester Chan  (email : lesterchan@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1597,6 +1597,7 @@ function polls_page_general_stats($content) {
 ### Function: Init WP-Polls Widget
 add_action('widgets_init', 'widget_polls_init');
 function widget_polls_init() {
+	polls_textdomain();
 	register_widget('WP_Widget_Polls');
 }
 
