@@ -1,4 +1,4 @@
-=== WP-Polls ===
+=== WP-Polls ===
 Contributors: GamerZ
 Donate link: http://lesterchan.net/site/donation/
 Tags: poll, polls, polling, vote, booth, democracy, ajax, survey, post, widget
@@ -8,52 +8,52 @@ Stable tag: trunk
 
 Adds an AJAX poll system to your WordPress blog. You can also easily add a poll into your WordPress's blog post/page.
 
-== Description ==
+== Description ==
 
 WP-Polls is extremely customizable via templates and css styles and there are tons of options for you to choose to ensure that WP-Polls runs the way you wanted. It now supports multiple selection of answers.
 
-= Previous Versions =
+= Previous Versions =
 * [WP-Polls 2.40 For WordPress 2.7.x](http://downloads.wordpress.org/plugin/wp-polls.2.40.zip "WP-Polls 2.40 For WordPress 2.7.x")
 * [WP-Polls 2.31 For WordPress 2.5.x And 2.6.x](http://downloads.wordpress.org/plugin/wp-polls.2.31.zip "WP-Polls 2.31 For WordPress 2.5.x And 2.6.x")
 * [WP-Polls 2.20 For WordPress 2.1.x, 2.2.x And 2.3.x](http://downloads.wordpress.org/plugin/wp-polls.2.20.zip "WP-Polls 2.20 For WordPress 2.1.x, 2.2.x And 2.3.x")
 * [WP-Polls 2.13 For WordPress 2.0.x](http://downloads.wordpress.org/plugin/wp-polls.2.13.zip "WP-Polls 2.13 For WordPress 2.0.x")
 * [WP-Polls 2.02a For WordPress 1.5.2](http://downloads.wordpress.org/plugin/wp-polls.2.02a.zip "WP-Polls 2.02a For WordPress 1.5.2")
 
-= Development =
+= Development =
 * [http://dev.wp-plugins.org/browser/wp-polls/](http://dev.wp-plugins.org/browser/wp-polls/ "http://dev.wp-plugins.org/browser/wp-polls/")
 
-= Translations =
+= Translations =
 * [http://dev.wp-plugins.org/browser/wp-polls/i18n/](http://dev.wp-plugins.org/browser/wp-polls/i18n/ "http://dev.wp-plugins.org/browser/wp-polls/i18n/")
 
-= Support Forums =
+= Support Forums =
 * [http://forums.lesterchan.net/index.php?board=15.0](http://forums.lesterchan.net/index.php?board=15.0 "http://forums.lesterchan.net/index.php?board=15.0")
 
-= Credits =
+= Credits =
 * __ngetext() by [Anna Ozeritskaya](http://hweia.ru/ "Anna Ozeritskaya")
 * Right To Left Language Support by [Kambiz R. Khojasteh](http://persian-programming.com/ "Kambiz R. Khojasteh")
 
-= Donations =
+= Donations =
 * I spent most of my free time creating, updating, maintaining and supporting these plugins, if you really love my plugins and could spare me a couple of bucks, I will really appericiate it. If not feel free to use it without any obligations.
 
-== Changelog ==
+== Changelog ==
 
-= Version 2.63 (21-05-2012) =
+= Version 2.63 (21-05-2012) =
 * Move AJAX Request to wp-admin/admin-ajax.php
 * Added nonce To AJAX Calls
 * FIXED: PHP Notices/add_options() Deprecated Arguments ([Dewey Bushaw](http://www.parapxl.com/ "Dewey Bushaw"))
 
-= Version 2.62 (31-08-2011) =
+= Version 2.62 (31-08-2011) =
 * FIXED: Escaped Hostname. Thanks to Renaud Feil ([Renaud Feil](http://www.stratsec.net "Renaud Feil"))
 * FIXED: Ensure Poll ID In Shortcode Is An Integer. Thanks to Renaud Feil ([Renaud Feil](http://www.stratsec.net "Renaud Feil"))
 
-= Version 2.61 (14-02-2011) =
+= Version 2.61 (14-02-2011) =
 * FIXED: XSS Vulnerability. Thanks to Dweeks, Leon Juranic and Chad Lavoie of the Swiftwill Security Team Inc ([www.swiftwill.com](http://www.swiftwill.com "www.swiftwill.com"))
 
-= Version 2.60 (01-12-2009) =
+= Version 2.60 (01-12-2009) =
 * NEW: Uses WordPress nonce Throughout
 * NEW: Display 2,000 Records In Poll Logs Instead Of 100
 
-= Version 2.50 (01-06-2009) =
+= Version 2.50 (01-06-2009) =
 * NEW: Works For WordPress 2.8 Only
 * NEW: Javascript Now Placed At The Footer
 * NEW: Uses jQuery Instead Of tw-sack
@@ -74,7 +74,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * FIXED: More Efficient WP-Polls Archive
 * FIXED: Logged By Username Now Shows Poll Results To Users Who Did Not Login
 
-= Version 2.40 (12-12-2008) =
+= Version 2.40 (12-12-2008) =
 * NEW: Works For WordPress 2.7 Only
 * NEW: Load Admin JS And CSS Only In WP-Polls Admin Pages
 * NEW: Added polls-admin-css.css For WP-Polls Admin CSS Styles
@@ -87,12 +87,12 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * FIXED: SSL Support
 * FIXED: Moved Call To update_pollbar() From onblur To onclick Event. It Was Showing The Last Selection Instead Of Current One by Kambiz R. Khojasteh
 
-= Version 2.31 (16-07-2008) =
+= Version 2.31 (16-07-2008) =
 * NEW: Works For WordPress 2.6
 * NEW: Better Translation Using __ngetext() by Anna Ozeritskaya
 * FIXED: MYSQL Charset Issue Should Be Solved
 
-= Version 2.30 (01-06-2008) =
+= Version 2.30 (01-06-2008) =
 * NEW: Works For WordPress 2.5 Only
 * NEW: Added Paging Header And Footer Template For Polls Archive Page
 * NEW: Uses WP-PageNavi Style Paging For Polls Archive Page
@@ -118,7 +118,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * FIXED: TinyMCE Tool Tip For Insert Poll Not Translated
 * FIXED: Content-Type Not Being Sent Back When AJAX Return Results
 
-= Version 2.21 (01-10-2007) =
+= Version 2.21 (01-10-2007) =
 * NEW: Works For WordPress 2.3 Only
 * NEW: Added Quick Tag For Poll To Visual (TinyMCE) / Code Editor
 * NEW: New CSS Style For WP-Polls Archive (.wp-polls-archive)
@@ -130,7 +130,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * FIXED: 2 Wrong Options Name In Polls Uninstall
 * FIXED: Some Translation Bug in polls-usage.php
 
-= Version 2.20 (01-06-2007) =
+= Version 2.20 (01-06-2007) =
 * NEW: Poll Archive Link, Individual Poll Header And Footer In Poll Archive Template
 * NEW: Poll Templates Has Now Its Own Page 'WP-Admin -> Polls -> Poll Templates'
 * NEW: Poll Widget Can Now Display Multiple Polls
@@ -145,7 +145,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * NEW: Filtering Of Individual Poll Logs
 * FIXED: Poll Archive Will Now Show Only Polls Results
 
-= Version 2.14 (01-02-2007) =
+= Version 2.14 (01-02-2007) =
 * NEW: Works For WordPress 2.1 Only
 * NEW: Renamed polls-js.js to polls-js.php To Enable PHP Parsing
 * NEW: Ability To Make A Poll Expire
@@ -155,7 +155,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * NEW: Ablity To Choose What To Do When The Poll Is Closed (Display Result, Remove Poll From Sidebar)
 * FIXED: Future Dated Polls Will Not Appear In The Post/Sidebar/Polls Archive
 
-= Version 2.13 (02-01-2007) =
+= Version 2.13 (02-01-2007) =
 * NEW: polls.php Now Handles The AJAX Processing Instead Of index.php
 * NEW: Able To Modify The Style Of Poll Results Bar in 'Polls -> Poll Option'
 * NEW: Usage Instructions Is Also Included Within The Plugin Itself
@@ -168,7 +168,7 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * FIXED: Poll IP Logs Of Deleted Poll's Answer Did Not Get Deleted
 * FIXED: There Is An Error In Voting If There Is Only 1 Poll's Answer
 
-= Version 2.12 (01-10-2006) =
+= Version 2.12 (01-10-2006) =
 * NEW: Polls Archive Is Now Embedded Into A Page, And Hence No More Integrating Of Polls Archive
 * NEW: WP-Polls Is Now Using DIV To Display The Poll's Results Instead Of The Image Bar
 * NEW: Added Widget Title Option To WP-Polls Widget
@@ -176,13 +176,13 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * NEW: Added CSS Class 'wp-polls-image' To All IMG Tags
 * FIXED: If Site URL Doesn't Match WP Option's Site URL, WP-Polls Will Not Work
 
-= Version 2.11 (08-06-2006) =
+= Version 2.11 (08-06-2006) =
 * NEW: You Can Now Place The Poll On The Sidebar As A Widget
 * NEW: Moved wp-polls.php To wp-content/plugins/polls/ Folder
 * FIXED: AJAX Not Working In Opera Browser
 * FIXED: Poll Not Working On Physical Pages That Is Integrated Into WordPress
 
-= Version 2.1 (01-06-2006) =
+= Version 2.1 (01-06-2006) =
 * NEW: Poll Is Now Using AJAX
 * NEW: Ability To Close/Open Poll
 * NEW: Added Poll Option For Logging Method
@@ -191,26 +191,26 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * NEW: Added The Ability To Delete All Poll Logs Or Logs From A Specific Poll
 * NEW: Poll Administration Panel And The Code That WP-Polls Generated Is XHTML 1.0 Transitional
 
-= Version 2.06b (26-04-2006) =
+= Version 2.06b (26-04-2006) =
 * FIXED: Bug In vote_poll();
 
-= Version 2.06a (02-04-2006) =
+= Version 2.06a (02-04-2006) =
 * FIXED: Random Poll Not Working Correctly
 
-= Version 2.06 (01-04-2006) =
+= Version 2.06 (01-04-2006) =
 * NEW: Poll Bar Is Slightly Nicer
 * NEW: Got Rid Of Tables, Now Using List
 * NEW: Added In Most Voted And Least Voted Answer/Votes/Percentage For Individual Poll As Template Variables
 * NEW: Display Random Poll Option Under Poll -> Poll Options -> Current Poll
 * FIXED: Totally Removed Tables In wp-polls.php
 
-= Version 2.05 (01-03-2006) =
+= Version 2.05 (01-03-2006) =
 * NEW: Improved On 'manage_polls' Capabilities
 * NEW: Neater Structure
 * NEW: No More Install/Upgrade File, It Will Install/Upgrade When You Activate The Plugin
 * NEW: Added Poll Stats Function
 
-= Version 2.04 (01-02-2006) =
+= Version 2.04 (01-02-2006) =
 * NEW: Added 'manage_polls' Capabilities To Administrator Role
 * NEW: [poll=POLL_ID] Tag To Insert Poll Into A Post
 * NEW: Ability To Edit Poll's Timestamp
@@ -218,30 +218,30 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * NEW: %POLL_RESULT_URL% To Display Poll's Result URL
 * FIXED: Cannot Sent Header Error
 
-= Version 2.03 (01-01-2006) =
+= Version 2.03 (01-01-2006) =
 * NEW: Compatible With WordPress 2.0 Only
 * NEW: Poll Administration Menu Added Automatically Upon Activating The Plugin
 * NEW: Removed Add Poll Link From The Administration Menu
 * NEW: GPL License Added
 * NEW: Page Title Added To wp-polls.php
 
-= Version 2.02a (17-11-2005) =
+= Version 2.02a (17-11-2005) =
 * FIXED: poll-install.php And poll-upgrade.php will Now Be Installed/Upgraded To 2.02 Instead Of 2.01
 
-= Version 2.02 (05-11-2005) =
+= Version 2.02 (05-11-2005) =
 * FIXED: Showing 0 Vote On Poll Edit Page
 * FIXED: Null Vote Being Counted As A Vote
 * FIXED: Auto Loading Of Poll Option: Polls Per Page In Poll Archive Page Is Now "No"
 * NEW: Host Column In Poll IP Table To Prevent Network Lagging When Resolving IP
 * NEW: New Poll Error Template
 
-= Version 2.01 (25-10-2005) =
+= Version 2.01 (25-10-2005) =
 * FIXED: Upgrade Script To Insert Lastest Poll ID Of User's Current Polls, Instead Of Poll ID 1
-* FIXED: Replace All <?= With <?php
+* FIXED: Replace All <?### With <?php
 * FIXED: Added addalshes() To $pollip_user
 * FIXED: Better Localization Support (80% Done, Will Leave It In The Mean Time)
 
-= Version 2.0 (20-10-2005) =
+= Version 2.0 (20-10-2005) =
 * NEW: IP Logging
 * NEW: Poll Options: Sorting Of Answers In Voting Form
 * NEW: Poll Options: Sorting Of Answers In Results View
@@ -252,14 +252,14 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * NEW: Display User's Voted Choice
 * FIXED: Better Install/Upgrade Script
 
-== Installation ==
+== Installation ==
 
 1. Open `wp-content/plugins` Folder
 2. Put: `Folder: wp-polls`
 3. Activate `WP-Polls` Plugin
 4. Go to `WP-Admin -> WP-Polls`
 
-= General Usage (Without Widget) =
+= General Usage (Without Widget) =
 1. Open `wp-content/themes/<YOUR THEME NAME>/sidebar.php`
 2. Add:
 <code>
@@ -279,14 +279,14 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 * To embed a random poll in your post, use `[poll id="-2"]`
 * To embed a specific poll's result in your post, use `[poll id="2" type="result"]` where 2 is your poll id.
 
-= General Usage (With Widget)=
+= General Usage (With Widget)= =
 1. Go to `WP-Admin -> Appearance -> Widgets`.
 2. You can add the Polls Widget by clicking on the 'Add' link besides it.
 3. After adding, you can configure the Polls Widget by clicking on the 'Edit' link besides it.
 4. Click 'Save Changes'.
 5. Scroll down for instructions on how to create a Polls Archive.
 
-== Upgrading ==
+== Upgrading ==
 
 1. Deactivate `WP-Polls` Plugin
 2. Open `wp-content/plugins` Folder
@@ -295,11 +295,11 @@ WP-Polls is extremely customizable via templates and css styles and there are to
 5. Go to `WP-Admin -> Polls -> Polls Templates` and restore all the template variables to `Default`
 6. Go to `WP-Admin -> Appearance -> Widgets` and re-add the Poll Widget
 
-== Upgrade Notice ==
+== Upgrade Notice ==
 
 N/A
 
-== Screenshots ==
+== Screenshots ==
 
 1. Admin - All Poll
 2. Admin - Manage Polls
@@ -312,10 +312,10 @@ N/A
 9. Poll - Results
 10. Poll - Archive
 
-== Frequently Asked Questions ==
+== Frequently Asked Questions ==
 
 
-= How To Add A Polls Archive? =
+= How To Add A Polls Archive? =
 1. Go to `WP-Admin -> Pages -> Add New`.
 2. Type any title you like in the post's title area.
 3. If you ARE  using nice permalinks,  after typing the title, WordPress will generate the permalink to the page. You will see an 'Edit' link just beside the permalink.
@@ -325,17 +325,17 @@ N/A
 
 * If you ARE NOT using nice permalinks, you need to go to `WP-Admin -> Polls -> Poll Options` and under `Poll Archive -> Polls Archive URL`, you need to fill in the URL to the Polls Archive Page you created above.
 
-= How Does WP-Polls Load CSS? =
+= How Does WP-Polls Load CSS? =
 * WP-Polls will load 'polls-css.css' from your theme's directory if it exists.
 * If it doesn't exists, it will just load the default 'polls-css.css' that comes with WP-Polls.
 * This will allow you to upgrade WP-Polls without worrying about overwriting your polls styles that you have created.
 
-= Why In Internet Explorer (IE) The poll's Text Appear Jagged? =
+= Why In Internet Explorer (IE) The poll's Text Appear Jagged? =
 * To solve this issue, Open poll-css.css
 * Find: `/* background-color: #ffffff; */`
 * Replace: `background-color: #ffffff;` (where #ffffff should be your background color for the poll.)
 
-= How Do I Have Individual Colors For Each Poll's Bar? =
+= How Do I Have Individual Colors For Each Poll's Bar? =
 * Courtesy Of [TreedBox.com](http://treedbox.com "TreedBox.com")
 * Open poll-css.css
 * Add to the end of the file:
@@ -356,9 +356,9 @@ N/A
 .wp-polls-ul li .pollbar:hover{background:#F00}
 </code>
 
-= Polls Stats (Outside WP Loop) =
+= Polls Stats (Outside WP Loop) =
 
-= To Display Total Polls =
+= To Display Total Polls =
 * Use:
 <code>
 <?php if (function_exists('get_pollquestions')): ?>
@@ -366,7 +366,7 @@ N/A
 <?php endif; ?>
 </code>
 
-= To Display Total Poll Answers =
+= To Display Total Poll Answers =
 * Use:
 <code>
 <?php if (function_exists('get_pollanswers')): ?>
@@ -374,7 +374,7 @@ N/A
 <?php endif; ?>
 </code>
 
-= To Display Total Poll Votes =
+= To Display Total Poll Votes =
 * Use:
 <code>
 <?php if (function_exists('get_pollvotes')): ?>
@@ -382,7 +382,7 @@ N/A
 <?php endif; ?>
 </code>
 
-= To Display Total Poll Voters =
+= To Display Total Poll Voters =
 * Use:
 <code>
 <?php if (function_exists('get_pollvoters')): ?>
