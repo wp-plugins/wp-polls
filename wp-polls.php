@@ -3,7 +3,7 @@
 Plugin Name: WP-Polls
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Adds an AJAX poll system to your WordPress blog. You can easily include a poll into your WordPress's blog post/page. WP-Polls is extremely customizable via templates and css styles and there are tons of options for you to choose to ensure that WP-Polls runs the way you wanted. It now supports multiple selection of answers.
-Version: 2.65
+Version: 2.66
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 Text Domain: wp-polls
@@ -255,20 +255,13 @@ add_action('admin_footer-page.php', 'poll_footer_admin');
 function poll_footer_admin() {
 ?>
 	<script type="text/javascript">
-		var pollsEdL10n = {
-			  enter_poll_id: "<?php echo esc_js(__('Enter Poll ID', 'wp-polls')); ?>"
-			, error_poll_id_numeric: "<?php echo esc_js(__('Error: Poll ID must be numeric', 'wp-polls')); ?>"
-			, enter_poll_id_again: "<?php echo esc_js(__('Please enter Poll ID again', 'wp-polls')); ?>"
-			, poll: "<?php echo esc_js(__('Poll', 'wp-polls')); ?>"
-			, insert_poll: "<?php echo esc_js(__('Insert Poll', 'wp-polls')) ; ?>"
-		};
-		QTags.addButton('ed_wp_polls', pollsEdL10n.poll, function() {
-			var poll_id = jQuery.trim(prompt(pollsEdL10n.enter_poll_id));
+		QTags.addButton('ed_wp_polls', '<?php echo esc_js(__('Poll', 'wp-polls')); ?>', function() {
+			var poll_id = jQuery.trim(prompt('<?php echo esc_js(__('Enter Poll ID', 'wp-polls')); ?>'));
 			while(isNaN(poll_id)) {
-				poll_id = jQuery.trim(prompt(pollsEdL10n.error_poll_id_numeric + "\n\n" + pollsEdL10n.enter_poll_id_again));
+				poll_id = jQuery.trim(prompt("<?php echo esc_js(__('Error: Poll ID must be numeric', 'wp-polls')); ?>\n\n<?php echo esc_js(__('Please enter Poll ID again', 'wp-polls')); ?>"));
 			}
 			if (poll_id >= -1 && poll_id != null && poll_id != "") {
-				QTags.insertContent('[poll="' + poll_id + '"]');
+				QTags.insertContent('[poll id="' + poll_id + '"]');
 			}
 		});
 	</script>
@@ -282,8 +275,9 @@ function poll_tinymce_addbuttons() {
 		return;
 	}
 	if(get_user_option('rich_editing') == 'true') {
-		add_filter("mce_external_plugins", "poll_tinymce_addplugin");
+		add_filter('mce_external_plugins', 'poll_tinymce_addplugin');
 		add_filter('mce_buttons', 'poll_tinymce_registerbutton');
+		add_filter('wp_mce_translation', 'poll_tinymce_translation');
 	}
 }
 function poll_tinymce_registerbutton($buttons) {
@@ -297,6 +291,13 @@ function poll_tinymce_addplugin($plugin_array) {
 		$plugin_array['polls'] = plugins_url('wp-polls/tinymce/plugins/polls/plugin.min.js');
 	}
 	return $plugin_array;
+}
+function poll_tinymce_translation($mce_translation) {
+	$mce_translation['Enter Poll ID'] = esc_js(__('Enter Poll ID', 'wp-polls'));
+	$mce_translation['Error: Poll ID must be numeric'] = esc_js(__('Error: Poll ID must be numeric', 'wp-polls'));
+	$mce_translation['Please enter Poll ID again'] = esc_js(__('Please enter Poll ID again', 'wp-polls'));
+	$mce_translation['Insert Poll'] = esc_js(__('Insert Poll', 'wp-polls'));
+	return $mce_translation;
 }
 
 
@@ -859,10 +860,10 @@ function polls_archive() {
 	global $wpdb, $in_pollsarchive;
 	// Polls Variables
 	$in_pollsarchive = true;
-	$page = intval($_GET['poll_page']);
+	$page = isset($_GET['poll_page']) ? intval($_GET['poll_page']) : 0;
 	$polls_questions = array();
 	$polls_answers = array();
-	$polls_ip = array();
+	$polls_ips = array();
 	$polls_perpage = intval(get_option('poll_archive_perpage'));
 	$poll_questions_ids = '0';
 	$poll_voted = false;
@@ -1016,7 +1017,7 @@ function polls_archive() {
 				}
 			}
 			// Let User See What Options They Voted
-			if(in_array($polls_answer['aid'], check_voted_multiple($polls_question['id'], $polls_ips[$polls_question['id']]))) {
+			if(isset($polls_ips[$polls_question['id']]) && in_array($polls_answer['aid'], check_voted_multiple($polls_question['id'], $polls_ips[$polls_question['id']]))) {
 				// Results Body Variables
 				$template_answer = stripslashes(get_option('poll_template_resultbody2'));
 				$template_answer = str_replace("%POLL_ID%", $polls_question['id'], $template_answer);
